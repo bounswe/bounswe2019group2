@@ -9,15 +9,15 @@ For detailed information, click [here](https://github.com/bounswe/bounswe2019gro
 ![group-photo](https://github.com/bounswe/bounswe2019group2/blob/master/WhatsApp%20Image%202019-02-28%20at%2017.23.32%20(1).jpeg)
 
 
-### Group Members
-* Murat Can Bayraktar 
+### Group Members (from top left to right)
 * Mert Yüksekgönül
-* Adil Numan Çelik
-* Buse Giledereli
-* Yunus Emre İnci
-* Çağrı Atahan Canbeyler
-* Fatih İver
-* Muhammet Furkan Gök
-* Rukiye Dilruba Köse
 * Özgür Solak
+* Muhammet Furkan Gök
 * Yunus Kardaş
+* Çağrı Atahan Canbeyler
+* Adil Numan Çelik
+* Fatih İver
+* Murat Can Bayraktar 
+* Yunus Emre İnci
+* Buse Giledereli
+* Rukiye Dilruba Köse
