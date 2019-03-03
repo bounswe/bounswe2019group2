@@ -6,8 +6,7 @@ This project is being maintained by Group 2. You can view our [Wiki Page](https:
 We will be interested in traders social platform throughout this semester. This project aims to create a social platform for people who can be considered as a trader. Traders platform lets people follow and trade indices, stocks, ETFs, commodities, currencies, funds, bonds, and cryptocurrencies.
 For detailed information, click [here](https://github.com/bounswe/bounswe2019group2/blob/master/CMPE352_Spring20182019_TradersPlatform.pdf). 
 
-![group-photo](https://github.com/bounswe/bounswe2019group2/blob/master/WhatsApp%20Image%202019-02-28%20at%2017.23.32%20(1).jpeg)
-
+![whatsapp image 2019-02-28 at 17 23 32 1](https://user-images.githubusercontent.com/25434779/53701631-b42c3500-3e07-11e9-9eac-639c7ceca92f.jpeg)
 
 ### Group Members (from top left to right)
 * Mert Yüksekgönül
