@@ -1,0 +1,9 @@
+title Make Manual Investment
+actor RegisteredUser
+RegisteredUser->User:makeManualInvestment(equipment1,equipment2,amount1, amount2)
+activate User
+alt valid manual investment
+User-->RegisteredUser:success, redirect to my investments page
+else invalid manual investment
+User-->RegisteredUser:fail, display error
+end

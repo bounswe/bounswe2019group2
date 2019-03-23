@@ -1,0 +1,10 @@
+title Sign In 
+actor RegisteredUser
+RegisteredUser->User:logIn(email, password)
+activate User
+
+alt successfully signed
+User-->RegisteredUser:redirect to landing page
+else failed to sign
+User-->RegisteredUser:display invalid credentials error
+end

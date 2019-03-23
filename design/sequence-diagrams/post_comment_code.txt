@@ -1,0 +1,14 @@
+title Post Comment to an Article
+actor RegisteredUser
+RegisteredUser->User:makeComment(comment,article)
+activate User
+activate Article
+User->Article:addComment(comment)
+alt comment created
+Article-->User:success
+User-->RegisteredUser:success message
+else comment not created
+Article-->User:failed
+User-->RegisteredUser:display error message
+deactivate Article
+end
