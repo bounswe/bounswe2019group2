@@ -1,0 +1,8 @@
+title Sign In 
+actor RegisteredUser
+activate User
+
+alt successfully signed
+RegisteredUser->User:followEvent(id,name)
+User-->RegisteredUser:success
+end

@@ -1,0 +1,10 @@
+
+title Predict Equipment
+activate User
+activate Predicton
+User->Predicton:makePrediction(id,date,parity,direction)
+User<--Predicton:success
+
+User->Predicton:calculatePredictionRates(id,date,parity,direction)
+
+User<--Predicton:Show prediction rates
