@@ -1,0 +1,9 @@
+title Sharing An Article
+
+actor RegisteredUser
+RegisteredUser->User:shareArticle(article_id)
+alt successfully shared
+User-->RegisteredUser:display success
+else could not be shared
+User-->RegisteredUser:display error
+end
