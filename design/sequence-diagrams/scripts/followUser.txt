@@ -1,0 +1,20 @@
+title Follow User
+
+actor RegisteredUser
+RegisteredUser->User:followUser(id)
+activate User
+alt user is public
+User-->RegisteredUser:display success
+else user is private
+User->User2:addFollowRequest(id2)
+activate User2
+actor UserToFollow
+activate UserToFollow
+alt if request is accepted
+UserToFollow->User2:acceptRequest(id2)
+User2-->RegisteredUser:success notification
+else if request is not accepted
+UserToFollow->User2:denyRequest(id2)
+User2-->RegisteredUser:error notification
+end 
+end

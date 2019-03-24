@@ -1,0 +1,10 @@
+title Track Event
+
+actor RegisteredUser
+RegisteredUser->User:followEvent(id)
+activate User
+alt successfully followed
+User-->RegisteredUser:display success
+else could not follow
+User-->RegisteredUser:display error message
+end 

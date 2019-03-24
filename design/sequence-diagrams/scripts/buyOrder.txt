@@ -1,0 +1,9 @@
+title Buy Order
+actor TraderUser
+activate User
+TraderUser->User:giveOrder(id, desiredRatio)
+alt successfully bought
+User-->TraderUser:success, redirect to investment page
+else failed to buy
+User-->TraderUser:display error message
+end 

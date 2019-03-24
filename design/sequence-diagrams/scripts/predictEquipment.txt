@@ -1,0 +1,9 @@
+title Predict Equipment
+actor RegisteredUser
+RegisteredUser->User:makePrediction(id, date, parity, direction)
+activate User
+alt prediction completed
+User-->RegisteredUser:success message
+else prediction could not be completed
+User-->RegisteredUser:display error message
+end 
