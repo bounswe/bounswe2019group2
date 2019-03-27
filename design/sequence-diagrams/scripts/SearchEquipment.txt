@@ -1,0 +1,11 @@
+title Search Equipment
+actor SignedUpUser
+activate User
+SignedUpUser->User: SearchEquipment(equipmentName)
+
+alt success
+User-->SignedUpUser:success
+
+else fail
+User-->SignedUpUser:fail
+end

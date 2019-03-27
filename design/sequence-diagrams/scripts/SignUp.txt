@@ -1,0 +1,10 @@
+title Sign up
+actor UserToBeRegistered
+activate User
+UserToBeRegistered->User: SignUp(email,password,fullname,birthdate)
+User->User: Verify format(email,password,fullname,birthdate)
+alt success
+User-->UserToBeRegistered:success
+else fail
+User-->UserToBeRegistered:fail
+end
