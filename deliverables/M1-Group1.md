@@ -110,7 +110,7 @@ Before getting into user requirements it is necessary to define different user t
 
 In this section, the word "user" will refer to any user of types **Basic User**, **Trader** or **Admin**. The words "guest", "trader" or "admin" will be used when a requirement is specific to only one type of user.
 
-The reader is highly encouraged to read the [glossary](#glossary) before reading the requirements as the meanings of terms used in this document might differ from the common knowledge. The reader may also visit [[User Types]] to see a summary of "who can do what".
+The reader is highly encouraged to read the [glossary](#glossary) before reading the requirements as the meanings of terms used in this document might differ from the common knowledge. The reader may also visit [User Types](https://github.com/bounswe/bounswe2019group2/wiki/User-Types) to see a summary of "who can do what".
 
 #### 1.1.1. Sign Up
   * **1.1.1.1.** Guests shall be able to sign up by providing their e-mail address, name, surname, location and choosing a [password](#glossary). If the guests wants to register as a trading user, they shall also provide [IBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) of their bank account. Location information shall be given using Google Maps. 
