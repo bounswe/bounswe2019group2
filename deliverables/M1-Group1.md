@@ -1,18 +1,16 @@
-# Milestone 1
+# Executive Summary
 
-## Executive Summary
-
-### Project Description
+## Project Description
 Our project is a traders platform for traders and enthusiasts of finance to easily keep track of everything related to finance. The easy to use interface, availability in Android and web, location based news search make this platform perfect for anyone, anywhere. The functionality of the platform differs for different client types. A guest user can view economic events, different aspects of trading equipments, articles and profiles of public users. This way they have a chance to improve themselves in trading by following other experienced users. Basic users can do everything a guest does and much more. They can keep track of their profit/loss by manually entering their investments, they can write articles, rate and comment articles, they can set alarms for economic events and price levels of trading equipment, they can create portfolios and they can make predictions about the price levels estimating whether the prices will drop or rise. Our privileged trader users can use the platform to buy and sell any trading equipment they want by integrating their private bank accounts to the platform. This makes it much easier to track their profits. What makes this platform unique is that it is also a social platform, where you can follow many inspiring users who will give tips on financial matters. You can comment and start discussions about finance and you can learn a lot from others.
 
-### Project Status
+## Project Status
 At the beginning when we were assigned as a group, most of us didn’t even know each other. But even from the first meeting we felt comfortable around each other and this made a huge positive effect in our group work. We were a group of hardworking students and we all took almost equal workloads in the project, which we believe is rare in a group project where team members are chosen randomly. As a hardworking group, we accomplished each task given by the client. Starting with the search about Git & GitHub onto our last task of preparing the UML design, we have completed every task, never flexing the deadline for more than 1-2 days. Even if we received tons of feedback, we never gave up on our project and tried to make upgrades on our work as soon as possible. So at this point of our project we can proudly say that we have fulfilled every task that was assigned and our project is going completely as planned without any drawback.
 
-### Moving Forward
+## Moving Forward
 We plan to continue with our project design and implementation, without losing our enthusiasm. We have worked hard and coherently thus far and we have seen the great results of this. We will continue to meet and evaluate our work together in our meetings and give feedback to each other to perfect our work. We believe the hard part was the design and implementation will be much easier since we are all accustomed to coding. We aim to implement the platform: backend, frontend and Android parts. Some of us already have experience in some of these parts so we will learn from each other and the project will be very informative for us. At the end we believe that a great product will surface and every team member will feel proud about their contribution in such a great project.
 
 
-## Deliverables
+# Deliverables
 
 | Deliverable: | Status: | Update Frequency | Description |
 |--------------|---------|------------------|-------------|
@@ -43,7 +41,7 @@ We plan to continue with our project design and implementation, without losing o
 
 **10- Project Plan:** We have started to prepare project plans to put in use. We are not done with this yet and this is in progress, but we started to think in terms of the time it’s going to take, and the effort it’s going to cause need for. Hence, although we haven’t delivered yet, we think we gained a lot and starting to use this measures during the meetings.
 
-## Evaluation of Tools and Processes Used
+# Evaluation of Tools and Processes Used
 **figma.com:** We have used Figma to design our mockups. The reason we have chosen this platform was that one of our team members already had some experience in it. He gave us a hands-on tutorial, then each assignee was able to design their part quickly. After seeing other teams’ designs, we realized that this platform was a bit too complicated and detailed for designing mockups. Still, we think that the know-how we gained will be useful in UI/UX design which we are going to do next semester. On the other hand, the free version of the Figma platform only supports 2 users to edit a design at the same time, which is very limiting considering there are 11 members in our team.
 
 **UMLet, UMLetino:** We prepared the first version of our use case diagrams with UMLet. Besides its simplicity, it had no support for online collaboration and looked old fashioned. Therefore, we gave it up and redesigned our use case diagrams with Lucidchart after the feedback.
@@ -52,7 +50,7 @@ We plan to continue with our project design and implementation, without losing o
 
 **sequencediagram.org:** We used this website to design our sequence diagrams. It features a simple programming language to create sequence diagrams with no mouse clicks. We shared sequence diagrams between several assignees, and this feature provided consistency between the diagrams that are designed by different members. 
 
-## Communication Plan
+# Communication Plan
 
 ***
 
@@ -65,7 +63,7 @@ Who | Where | When | Purpose
 **5- All Members** | Phone Call | When necessary | Discussing immediate situations
 **6- Communicator** | Piazza | When necessary | • Getting customer's demand <br> • Explaining group's actions
 
-### Group Members
+## Group Members
 * [[Murat Can Bayraktar(Communicator)]] 
 * [[Mert Yüksekgönül]]
 * [[Adil Numan Çelik]]
@@ -78,13 +76,13 @@ Who | Where | When | Purpose
 * [[Özgür Solak]]
 * [[Yunus Kardaş]]
 
-### Customers
+## Customers
 * Suzan Üsküdarlı
 * Meriç Turan
 
-## Requirements
+# Requirements
 
-### Glossary
+## Glossary
 Note: Aliases for terms are given in parentheses.
 
 * **Annotation:** A note or comment typically used to convey information about a resource or associations between resources. For example a comment or a tag on a single web page or image. 
@@ -104,9 +102,9 @@ Note: Aliases for terms are given in parentheses.
 
 
 
-### 1. Functional Requirements
+## 1. Functional Requirements
 
-#### 1.1. User Requirements
+### 1.1. User Requirements
 
 Before getting into user requirements it is necessary to define different user types of the system. The system has 4 types of users: **Guest**, **Basic User**, **Trading User (Trader)** and **Admin**. The roles of these user types are briefly explained in the [glossary](#glossary) and will be defined explicitly throughout the following requirements.
 
@@ -114,16 +112,16 @@ In this section, the word "user" will refer to any user of types **Basic User**,
 
 The reader is highly encouraged to read the [glossary](#glossary) before reading the requirements as the meanings of terms used in this document might differ from the common knowledge. The reader may also visit [[User Types]] to see a summary of "who can do what".
 
-##### 1.1.1. Sign Up
+#### 1.1.1. Sign Up
   * **1.1.1.1.** Guests shall be able to sign up by providing their e-mail address, name, surname, location and choosing a [password](#glossary). If the guests wants to register as a trading user, they shall also provide [IBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) of their bank account. Location information shall be given using Google Maps. 
 
   * **1.1.1.2.** Guests should be able to sign up with their Google account. 
 
-##### 1.1.2. Sign In
+#### 1.1.2. Sign In
   * **1.1.2.1.** Users shall be able to sign in with their e-mail and password.
   * **1.1.2.2.** Users should be able to sign in with their Google account.
 
-##### 1.1.3. Profile
+#### 1.1.3. Profile
   * **1.1.3.1.** Each user shall have a profile page.
   * **1.1.3.2.** Users' prediction success rate for each parity shall be visible on their profile page. There should be a lower limit to the number of predictions for the success rate to be visible on the profile page.
   * **1.1.3.3.** Users' public portfolios shall be shown on their profile page.
@@ -132,7 +130,7 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
   * **1.1.3.6.** If a user profile is private, then the content produced by that user shall only be visible to its followers.
   * **1.1.3.7.** Prediction success rate shall be visible to all users and guests even if a user's profile is private.
 
-##### 1.1.4. Social Interactions and Communication
+#### 1.1.4. Social Interactions and Communication
   * **1.1.4.1.** Users shall be able to follow each other. To follow a user who set his profile to be private, a follow request shall be sent first.
   * **1.1.4.2.** Users shall be able to deny the following requests came from other users. 
   * **1.1.4.3.** Users shall be able to share their ideas as an article.
@@ -140,25 +138,25 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
   * **1.1.4.5.** Users shall be able to rate articles of other users by clicking the "like" button.
   * **1.1.4.6.** Users shall be able to write comments about trading equipment. 
 
-##### 1.1.5. Economic Events
+#### 1.1.5. Economic Events
   * **1.1.5.1.** Users and guests shall have an “Events” section. In this section, users and guests shall be able to view economic events as a table with columns: 'time', 'importance level', 'country base', 'actual', 'previous' and 'forecast'. [See example](https://www.investing.com/economic-calendar/).
   * **1.1.5.2.** Users and guests should be able to filter economic events by their importance level and country base.
   * **1.1.5.3.** Users and guests should be able to search for economic events.
   * **1.1.5.4.** Users shall be able to follow economic events. A user who is following an event should be notified after the event happened.
 
-##### 1.1.6. Portfolios
+#### 1.1.6. Portfolios
   * **1.1.6.1.** Users shall have one or more portfolios. Empty portfolios may exist.
   * **1.1.6.2.** Users shall be able to rename their portfolios.
   * **1.1.6.3.** Users shall be able to add or remove parities from their portfolios.
   * **1.1.6.4.** Users shall be able to follow each other's portfolios. Followed portfolios shall be shown in user's portfolios section.
 
-##### 1.1.7. Trading Equipment and Parities
+#### 1.1.7. Trading Equipment and Parities
   * **1.1.7.1.** Users and guests shall be able to view conversion ratio, previous close, percentage and amount change according to the previous close, day's range and moving averages for a parity.
   * **1.1.7.2.** Users and guests shall be able to read user comments about trading equipment.
   * **1.1.7.3.** Users shall be able to make predictions about the parities for the day. A prediction shall be either "will increase" or "will decrease". The result of the prediction is determined by comparing the last close and today's close of the ratio. 
   * **1.1.7.4.** Users shall be able to set alerts for certain ratios of parities. Users shall be notified when the target ratio is met.
 
-##### 1.1.8. Investments
+#### 1.1.8. Investments
   * **1.1.8.1.** Users shall have a "My Investments" section which contains information about their assets that are physically held in the platform and also manual investments which they made outside of the platform. 
   * **1.1.8.2.** Users shall be able to enter manual investments.
   * **1.1.8.3.** Traders shall have to verify their e-mail address before making an investment.
@@ -167,27 +165,27 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
   * **1.1.8.6.** Traders shall be able to give buy orders for a desired ratio. When the current price goes below the desired ratio, the system shall make the buy automatically.
   * **1.1.8.7.** Traders shall be able to give stop/loss orders by specifying a maximum loss. The system shall automatically reverse the investment when the amount of lost goes above the maximum loss.
 
-##### 1.1.9. Profit/Loss
+#### 1.1.9. Profit/Loss
   * **1.1.9.1.** Users shall have a profit/loss section. They shall be able to see their profit/loss amount in the currency of their choice. Users' manual investments and assets shall be both accounted when calculating their profit/loss.
   * **1.1.9.2.** Users and guests shall not be able to see the profit/loss of other users.
 
-##### 1.1.10. Search
+#### 1.1.10. Search
   * **1.1.10.1.** Users and guests shall be able to search for trading equipment, parities and other users. The search algorithm shall consider all information available in user profiles (such as portfolios) and shall retrieve semantically similar results to the query.
   * **1.1.10.2.** Users and guests shall be able to filter users around a location when searching.
 
-##### 1.1.11. Recommendations
+#### 1.1.11. Recommendations
   * **1.1.11.1.** Users shall receive article and trading equipment recommendations based on their investments, users and events they follow.
 
-##### 1.1.12. Admin Panel
+#### 1.1.12. Admin Panel
    * **1.1.12.1.** Admins shall have an admin panel to administrate the platform.
    * **1.1.12.2.** Admins shall be able to add new trading equipment and parities.
    * **1.1.12.3.** Admins shall be able to ban or delete users. Banned users shall not be able to sign in.
    * **1.1.12.4.** Admins shall be able to delete articles and comments.
    * **1.1.12.5.** Admins shall be able to add or delete events.
 
-#### 1.2. System Requirements
+### 1.2. System Requirements
 
-##### 1.2.1. Interactions
+#### 1.2.1. Interactions
    * **1.2.1.1.** The system shall support sharing ideas as an article.
    * **1.2.1.2.** The system shall support commenting and rating ideas of other users.
    * **1.2.1.3.** The system shall support commenting about trading equipment.
@@ -195,17 +193,17 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
    * **1.2.1.5.** The system shall provide an alert mechanism which lets traders to get notified about certain levels of trading equipment.
    * **1.2.1.6.** The system shall provide an alert mechanism which lets users to get notified about other users activities, when they follow another user.
 
-##### 1.2.2. Recommendation
+#### 1.2.2. Recommendation
    * **1.2.2.1.** The system shall provide a recommendation mechanism recommending articles, portfolio or trading equipment to the users based on their histories.
    * **1.2.2.2.** The system shall let users to make predictions about trading equipment.
 
-##### 1.2.3. Searching
+#### 1.2.3. Searching
    * **1.2.3.1.** The system shall contain a searching mechanism that lets users to search users, trading equipment and economic events.
    * **1.2.3.2.** The searching mechanism shall consider all the information available in user profiles and trading equipment.
    * **1.2.3.3.** The system shall allow the semantic search which enables users to make a search by using user defined tags in order to make more specific search.
    * **1.2.3.4.** The system shall support location-based search.
 
-##### 1.2.4. Trading Equipments and Parities
+#### 1.2.4. Trading Equipments and Parities
 The system shall support following equipments and possible conversions between them:
   * **1.2.4.1.** Trade indices such as S&P 500, Dow 30, DAX...
   * **1.2.4.2.** Stocks such as Apple, Alibaba, IBM...
@@ -217,20 +215,20 @@ The system shall support following equipments and possible conversions between t
   * **1.2.4.8.** Cryptocurrencies such as Bitcoin, Ethereum, XRP...
 
 
-### 2. Non-Functional Requirements 
+## 2. Non-Functional Requirements 
 
-#### 2.1. Security
+### 2.1. Security
   * **2.1.1.** The website and the mobile application shall use secure HTTP ([HTTPS](https://en.wikipedia.org/wiki/HTTPS)) for all transfers.
   * **2.1.2.** The website shall be secure against [SQL injection](https://en.wikipedia.org/wiki/SQL_injection), [cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting), and [cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks.
   * **2.1.3.** User passwords shall be stored in the database using a secure hashing algorithm.
   * **2.1.4.** The system should backup periodically.
 
-#### 2.2. Performance
+### 2.2. Performance
    * **2.2.1.** The system shall be able to handle 1000 HTTP requests per second.
    * **2.2.2.** The system shall be capable of serving 1000 users at the same time.
    * **2.2.3.** The system shall respond to search queries in less than 3 seconds.
 
-#### 2.3. Availability and Accessibility
+### 2.3. Availability and Accessibility
    * **2.3.1.** The website and the mobile application shall be available in English.
    * **2.3.2.** The project should work on any web browser.
    * **2.3.3.** The application shall work on Android 4.4 and later.
@@ -239,12 +237,12 @@ The system shall support following equipments and possible conversions between t
    * **2.3.6.** The project should contain auxiliary features for disabled people.
    * **2.3.7.** The system shall use [UTF-8](https://en.wikipedia.org/wiki/UTF-8) character encoding for all texts.
 
-#### 2.4. Annotations
+### 2.4. Annotations
    * **2.4.1.** The [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/) and [W3C Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/) shall be used for annotations.
 
-## Mockups 
+# Mockups 
 
-### Scenario 1: Searching in articles and Looking for a parity 
+## Scenario 1: Searching in articles and Looking for a parity 
 ***
 * **User:** Emre Tur <br>
 * **Platform:** Web <br>
@@ -275,7 +273,7 @@ The system shall support following equipments and possible conversions between t
 <br>
 <br>
 
-### Scenario 2: Looking at profiles of other users
+## Scenario 2: Looking at profiles of other users
 ***
 
 * **User:** Özge Bozkurt <br>
@@ -308,7 +306,7 @@ The system shall support following equipments and possible conversions between t
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/12.png]]
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/12_2.png]]
 
-### Scenario 3: Making an investment & Setting an alarm
+## Scenario 3: Making an investment & Setting an alarm
 ***
 * **User:** Muazzes Çolak <br>
 * **Platform:** Mobile <br>
@@ -336,38 +334,38 @@ The system shall support following equipments and possible conversions between t
 <br><br>**7-After she gets notified, she goes to the investment tab to see her new investment.**<br>
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/7.png]]
 
-## Use Case Diagrams
+# Use Case Diagrams
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/Traders Platform Use Case Diagram (1).png]]
 
-## Class Diagram
+# Class Diagram
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/class-diagram.png]]
 
-## Sequence Diagrams
-### Sign In
+# Sequence Diagrams
+## Sign In
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/signIn.png]]
-### Follow a User
+## Follow a User
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/followUser.png]]
 
-### Sharing an Article
+## Sharing an Article
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/shareArticle.png]]
-### Post Comment to Article
+## Post Comment to Article
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/postComment.png]]
-### Make Manual Investment
+## Make Manual Investment
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/manualInvestment.png]]
-### Creating a Portfolio
+## Creating a Portfolio
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/createPortfolio.png]]
 
-### Buy Order
+## Buy Order
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/buyOrder.png]]
 
-### Sign Up
+## Sign Up
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/signUp.png]]
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/searchEquipment.png]]
 
-### Track Event
+## Track Event
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/trackEvent.png]]
 
-### Predict Equipment 
+## Predict Equipment 
 [[https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/predictEquipment.png]]
  
 
