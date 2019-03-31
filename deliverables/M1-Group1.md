@@ -21,6 +21,9 @@ We plan to continue with our project design and implementation, without losing o
 | 5- Communication Plan | Complete | As improvement needed | Publishing communication plan |
 | 6- Requirements | Complete  | As improvement needed | Sharing the requirements analysis related to the project. |
 | 7- User Stories and Persona | Complete | As improvement needed | Posting the example user stories to be used in Mockups. |
+| 8- Mockups | Complete | Per feedback for now | Posting Mockups to be shared with the Customer. | 
+| 9- Design Diagrams | Complete | Per feedback for now | Posting design diagrams to wiki page | 
+| 10- Project Plan | In progress | - | Preparing the project plan
 
 
 **1- GitHub Wiki:** Generally we are in a good shape. We try to keep each other and the instructors updated, using the GitHub wiki page to document all of the effort and work done. Good activity in reading out the wiki, updating in terms of both design and content weekly. Also we got a feedback about not using temporary links of files/images, but to keep it in the related folder of the repository. Considered and took action right away. Overall, the group is good at maintaining the wiki page and utilizing it to keep everyone involved. 
