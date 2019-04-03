@@ -355,7 +355,7 @@ The system shall support following equipments and possible conversions between t
 ![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/7.png)
 
 # Use Case Diagrams
-![](https://github.com/bounswe/bounswe2019group2/blob/master/design/Traders Platform Use Case Diagram (1).png)
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/use-case-diagram.png)
 
 # Class Diagram
 ![](https://github.com/bounswe/bounswe2019group2/blob/master/design/class-diagram.png)
