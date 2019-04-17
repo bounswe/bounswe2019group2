@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+
+# Pycharm
+.idea/
+
+# Django
+db.sqlite3
