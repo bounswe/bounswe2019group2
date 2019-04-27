@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 
 # Pycharm
-./.idea/
+**.idea
 
 # Django
 db.sqlite3
