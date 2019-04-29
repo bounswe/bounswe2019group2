@@ -1,4 +1,5 @@
 import requests
+import sys
 from django_cron import CronJobBase, Schedule
 from django.utils import timezone
 from api.models import Equipment, Parity
@@ -39,8 +40,14 @@ class GetExchangeRates(CronJobBase):
         for base_symbol in GetExchangeRates.symbols:
             for target_symbol in GetExchangeRates.symbols:
                 if base_symbol != target_symbol:
-                    response = requests.get(
-                        "https://api.exchangeratesapi.io/latest?symbols={},{}".format(base_symbol, target_symbol))
+
+                    try:
+                        response = requests.get(
+                            "https://api.exchangeratesapi.io/latest?symbols={},{}".format(base_symbol, target_symbol))
+                    except requests.exceptions.RequestException as e:
+                        print(e)
+                        sys.exit(1)
+
                     response_as_json = response.json()
 
                     base_equipment = Equipment.objects.get(symbol=base_symbol)
