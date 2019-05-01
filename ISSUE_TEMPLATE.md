@@ -4,7 +4,8 @@
 
 * **I'm submitting a ... (remove the irrelevant one)**
   - [ ] bug report
-  - [ ] feature/test request
+  - [ ] feature request
+  - [ ] test request
   - [ ] documentation request
 
 * **Briefly describe the nature of the issue. If test request, please provide the functionality. If feature request, please provide related requirement.**
