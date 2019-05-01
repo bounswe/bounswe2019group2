@@ -2,7 +2,8 @@ import sys
 import requests
 from api.models import Equipment, Parity
 from django_cron import CronJobBase, Schedule
-from django.utils import timezone
+from django.utils.timezone import make_aware
+from datetime import datetime
 
 
 class GetExchangeRates(CronJobBase):
@@ -29,9 +30,10 @@ class GetExchangeRates(CronJobBase):
             print("-----------", base_symbol, "-----------")
 
             try:
-                response = requests.get(
-                    "https://api.exchangeratesapi.io/latest?base={}&symbols={}".format(base_symbol,
-                                                                                       symbols_as_joined if base_symbol != "EUR" else symbols_as_joined_without_eur))
+                response = requests.get("https://api.exchangeratesapi.io/latest?base={}&symbols={}".format(
+                    base_symbol,
+                    symbols_as_joined if base_symbol != "EUR" else symbols_as_joined_without_eur)
+                )
             except requests.exceptions.RequestException as e:
                 print(e)
                 sys.exit(1)
@@ -45,11 +47,11 @@ class GetExchangeRates(CronJobBase):
             for target_symbol in symbols:
                 target_equipment = Equipment.objects.get(symbol=target_symbol)
                 ratio = rates[target_symbol]
-                date = timezone.now()
+                date = make_aware(datetime.strptime(response_as_json['date'], '%Y-%m-%d'))
 
                 print(base_symbol, target_symbol, ratio, date)
                 if not Parity.objects.filter(base_equipment=base_equipment, target_equipment=target_equipment,
-                                             ratio=ratio, date=date).exists():
+                                             date=date).exists():
                     print("Saving to database")
                     Parity(base_equipment=base_equipment, target_equipment=target_equipment, ratio=ratio,
                            date=date).save()
