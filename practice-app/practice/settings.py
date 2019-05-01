@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'django_cron',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
 
 

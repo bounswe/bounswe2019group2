@@ -1,0 +1,15 @@
+dist: xenial
+language: python
+python:
+  - "3.6"
+services: 
+  - mysql
+install:
+  - pip install -r ./practice-app/requirements.txt
+before_script: 
+  echo before_script
+script:
+  - cd practice-app
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - python manage.py test

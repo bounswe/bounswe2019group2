@@ -2,6 +2,7 @@
 
 This is our practice application for CMPE352/451 project. 
 We are going to implement the manual investment feature of our project for this app. 
+Here are the [requirements.](https://github.com/bounswe/bounswe2019group2/wiki/API-System-Requirements)
 
 ## How to Install & Run
 
