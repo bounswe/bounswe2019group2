@@ -29,14 +29,9 @@ class GetExchangeRates(CronJobBase):
             print("-----------", base_symbol, "-----------")
 
             try:
-                if base_symbol != "EUR":
-                    response = requests.get(
-                        "https://api.exchangeratesapi.io/latest?base={}&symbols={}".format(base_symbol,
-                                                                                           symbols_as_joined))
-                else:
-                    response = requests.get(
-                        "https://api.exchangeratesapi.io/latest?base={}&symbols={}".format(base_symbol,
-                                                                                           symbols_as_joined_without_eur))
+                response = requests.get(
+                    "https://api.exchangeratesapi.io/latest?base={}&symbols={}".format(base_symbol,
+                                                                                       symbols_as_joined if base_symbol != "EUR" else symbols_as_joined_without_eur))
             except requests.exceptions.RequestException as e:
                 print(e)
                 sys.exit(1)
