@@ -1,7 +1,9 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from django.contrib.auth.models import User
+from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
+
+from . import serializers as ls
 
 
 class HelloWorldView(APIView):
@@ -17,10 +19,9 @@ class HelloWorldView(APIView):
             'message': f'Hello, {name}.'
         })
 
-
+      
 class RegisterView(APIView):
     def put(self, request):
-
         try:
             username = request.data['username']
             password = request.data['password']
@@ -36,3 +37,11 @@ class RegisterView(APIView):
         except:
             return Response({
                 'message': 'Email or username is invalid'}, status=status.HTTP_400_BAD_REQUEST)
+
+          
+  class LoginAPIView(APIView):
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        serializer = ls.LoginSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
