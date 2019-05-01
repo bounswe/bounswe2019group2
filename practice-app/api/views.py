@@ -1,8 +1,12 @@
-from rest_framework.views import APIView
+
 from rest_framework.response import Response
 from django.utils import timezone
 from api.models import Equipment, Parity
 from datetime import datetime
+from rest_framework.views import APIView
+from rest_framework import status as st
+
+from . import serializers as ls
 
 class HelloWorldView(APIView):
     def get(self, request):
@@ -34,3 +38,10 @@ class UptodateParityView(APIView):
 			'Target Equipment': filtered[0].target_equipment.symbol,
 			'Ratio': filtered[0].ratio
 		})
+
+  class LoginAPIView(APIView):
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        serializer = ls.LoginSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=st.HTTP_200_OK)
