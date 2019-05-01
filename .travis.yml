@@ -11,3 +11,5 @@ before_script:
 script:
   - cd practice-app
   - python manage.py test
+  - python manage.py makemigrations
+  - python manage.py migrate
