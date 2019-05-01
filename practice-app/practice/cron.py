@@ -5,6 +5,7 @@ from api.models import Equipment, Parity
 from django_cron import CronJobBase, Schedule
 from django.utils import timezone
 import pytz
+from django.utils.timezone import make_aware
 
 
 class GetExchangeRates(CronJobBase):
@@ -15,41 +16,49 @@ class GetExchangeRates(CronJobBase):
 
     def do(self):
 
-        names = []
-        symbols = []
-
         equipments = Equipment.objects.all()
 
-        for equipment in equipments:
-            names.append(equipment.name)
-            symbols.append(equipment.symbol)
+        symbols = [equipment.symbol for equipment in equipments]
+
+        if "EUR" in symbols:
+            symbols.remove("EUR")
+            symbols_as_joined_without_eur = ",".join(symbols)
+            symbols.append("EUR")
+
+        symbols_as_joined = ",".join(symbols)
 
         for base_symbol in symbols:
+
+            print("-----------", base_symbol, "-----------")
+
+            try:
+                if base_symbol != "EUR":
+                    response = requests.get(
+                        "https://api.exchangeratesapi.io/latest?base={}&symbols={}".format(base_symbol,
+                                                                                           symbols_as_joined))
+                else:
+                    response = requests.get(
+                        "https://api.exchangeratesapi.io/latest?base={}&symbols={}".format(base_symbol,
+                                                                                           symbols_as_joined_without_eur))
+            except requests.exceptions.RequestException as e:
+                print(e)
+                sys.exit(1)
+
+            response_as_json = response.json()
+
+            rates = response_as_json['rates']
+
+            base_equipment = Equipment.objects.get(symbol=base_symbol)
+
             for target_symbol in symbols:
-                if base_symbol != 'EUR' and target_symbol != 'EUR':
-                    if base_symbol != target_symbol:
+                target_equipment = Equipment.objects.get(symbol=target_symbol)
+                ratio = rates[target_symbol]
+                date = timezone.now()
+                # date = make_aware(datetime.strptime(response_as_json['date'], '%Y-%m-%d'))
 
-                        try:
-                            response = requests.get(
-                                "https://api.exchangeratesapi.io/latest?symbols={},{}".format(base_symbol,
-                                                                                              target_symbol))
-                        except requests.exceptions.RequestException as e:
-                            print(e)
-                            sys.exit(1)
-
-                        response_as_json = response.json()
-
-                        base_equipment = Equipment.objects.get(symbol=base_symbol)
-                        target_equipment = Equipment.objects.get(symbol=target_symbol)
-                        ratio = response_as_json['rates'][target_symbol] / response_as_json['rates'][base_symbol]
-                        date = timezone.now()
-
-                        ##################################
-                        date_unaware = datetime.strptime(response_as_json['date'], '%Y-%m-%d')
-                        date_aware = pytz.utc.localize(date_unaware)
-                        ##################################
-
-                        if not Parity.objects.filter(base_equipment=base_equipment, target_equipment=target_equipment,
-                                                     ratio=ratio, date=date).exists():
-                            Parity(base_equipment=base_equipment, target_equipment=target_equipment, ratio=ratio,
-                                   date=date).save()
+                print(base_symbol, target_symbol, ratio, date)
+                if not Parity.objects.filter(base_equipment=base_equipment, target_equipment=target_equipment,
+                                             ratio=ratio, date=date).exists():
+                    print("Saving to database")
+                    Parity(base_equipment=base_equipment, target_equipment=target_equipment, ratio=ratio,
+                           date=date).save()
