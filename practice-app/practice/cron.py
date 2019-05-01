@@ -1,11 +1,8 @@
 import sys
 import requests
-from datetime import datetime
 from api.models import Equipment, Parity
 from django_cron import CronJobBase, Schedule
 from django.utils import timezone
-import pytz
-from django.utils.timezone import make_aware
 
 
 class GetExchangeRates(CronJobBase):
@@ -54,7 +51,6 @@ class GetExchangeRates(CronJobBase):
                 target_equipment = Equipment.objects.get(symbol=target_symbol)
                 ratio = rates[target_symbol]
                 date = timezone.now()
-                # date = make_aware(datetime.strptime(response_as_json['date'], '%Y-%m-%d'))
 
                 print(base_symbol, target_symbol, ratio, date)
                 if not Parity.objects.filter(base_equipment=base_equipment, target_equipment=target_equipment,
