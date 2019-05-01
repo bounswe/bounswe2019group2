@@ -39,7 +39,7 @@ class RegisterView(APIView):
                 'message': 'Email or username is invalid'}, status=status.HTTP_400_BAD_REQUEST)
 
           
-  class LoginAPIView(APIView):
+class LoginAPIView(APIView):
     def post(self, *args, **kwargs):
         data = self.request.data
         serializer = ls.LoginSerializer(data=data)
