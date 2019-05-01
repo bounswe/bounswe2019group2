@@ -39,7 +39,7 @@ class UptodateParityView(APIView):
 			'Ratio': filtered[0].ratio
 		})
 
-  class LoginAPIView(APIView):
+class LoginAPIView(APIView):
     def post(self, *args, **kwargs):
         data = self.request.data
         serializer = ls.LoginSerializer(data=data)
