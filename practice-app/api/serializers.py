@@ -1,7 +1,6 @@
-from django.db.models import Q
 from rest_framework import serializers
-from login.models import *
 from rest_framework_jwt.settings import api_settings
+from django.contrib.auth.models import User
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
@@ -9,13 +8,12 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RegisteredUser
+        model = User
         fields = [
             "id",
             "username",
             "first_name",
             "last_name",
-            "balance"
         ]
 
 
@@ -24,7 +22,7 @@ class LoginSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
     class Meta:
-        model = RegisteredUser
+        model = User
         fields = [
             'token',
             'user',
@@ -38,7 +36,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         email = data.get("email")
-        user = RegisteredUser.objects.filter(email=email)
+        user = User.objects.filter(email=email)
         if user.exists():
             password = data['password']
             user = user.first()
