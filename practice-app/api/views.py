@@ -29,7 +29,6 @@ class LoginAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=st.HTTP_200_OK)
 
-
 class TotalProfitAPIView(APIView):
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -90,5 +89,3 @@ class TotalProfitAPIView(APIView):
         return Response({
             'total_profit': profit
         })
-
-
