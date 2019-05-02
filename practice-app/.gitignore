@@ -4,8 +4,3 @@ __pycache__/
 
 # Pycharm
 **.idea
-
-# Django
-db.sqlite3
-api/migrations/
-
