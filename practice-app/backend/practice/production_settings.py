@@ -3,6 +3,9 @@ from .settings import *
 # Override development settings
 DEBUG = False
 
+with open('/secret.txt', 'r') as secret:
+    SECRET_KEY = secret.read().strip()
+
 # Use postgres in production
 DATABASES = {
     'default': {
