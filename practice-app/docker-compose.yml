@@ -9,6 +9,7 @@ services:
     volumes:
       - static:/static
       - ~/secret.txt:/secret.txt
+      - migrations:/app/api/migrations
 
   db:
     image: postgres:11
@@ -29,4 +30,5 @@ services:
 volumes:
   static:
   dbdata:
+  migrations:
 
