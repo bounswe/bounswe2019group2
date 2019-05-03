@@ -25,15 +25,13 @@ class HelloWorldView(APIView):
 class ParityListView(APIView):
     def get(self, request):
         parities = Parity.objects.all()
-        parity_names = []
+        parity_names = set()
 
         for parity in parities:
-            parity_names.append((parity.base_equipment.symbol, parity.target_equipment.symbol))
-        parity_names = set(parity_names)
-        parity_names.sort()
+            parity_names.add((parity.base_equipment.symbol, parity.target_equipment.symbol))
         json_formatted = []
 
-        for parity_name in parity_names:
+        for parity_name in sorted(parity_names):
             json_formatted.append({
                 "base": parity_name[0],
                 "target": parity_name[1]})
