@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.models import Parity
-import json
 
 
 class HelloWorldView(APIView):
@@ -17,6 +16,7 @@ class HelloWorldView(APIView):
             'message': f'Hello, {name}.'
         })
 
+
 class ParityListView(APIView):
     def get(self, request):
         parities = Parity.objects.all()
@@ -25,6 +25,7 @@ class ParityListView(APIView):
         for parity in parities:
             parity_names.append((parity.base_equipment.symbol, parity.target_equipment.symbol))
         parity_names = set(parity_names)
+        parity_names.sort()
         json_formatted = []
 
         for parity_name in parity_names:
@@ -35,4 +36,3 @@ class ParityListView(APIView):
         return Response({
             'parity_list': json_formatted
         })
-
