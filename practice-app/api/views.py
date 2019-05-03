@@ -1,6 +1,6 @@
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework import status as st
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -22,12 +22,31 @@ class HelloWorldView(APIView):
         })
 
 
+class RegisterView(APIView):
+    def put(self, request):
+        try:
+            username = request.data['username']
+            password = request.data['password']
+            email = request.data['email']
+            if User.objects.filter(email=email).exists():
+                raise Exception
+            user = User(username=username, email=email)
+            user.set_password(password)
+            user.save()
+            return Response({
+                'message': f'User {username} is registered'
+            })
+        except:
+            return Response({
+                'message': 'Email or username is invalid'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class LoginAPIView(APIView):
     def post(self, *args, **kwargs):
         data = self.request.data
         serializer = ls.LoginSerializer(data=data)
         serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=st.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TotalProfitAPIView(APIView):
@@ -53,15 +72,15 @@ class TotalProfitAPIView(APIView):
             base_amount = investment.base_amount
             target_amount = investment.target_amount
 
-            # If the sold equipment is the same as default eqipment, ratio is 1.
+            # If the sold equipment is the same as default equipment, ratio is 1.
             if base_eq.symbol == default_eq.symbol:
                 base_default = 1
 
             else:
                 base_default = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
-                                                                          target_equipment=default_eq)[0].ratio
+                                                                       target_equipment=default_eq)[0].ratio
 
-            # If the bought equipment is the same as default eqipment, ratio is 1.
+            # If the bought equipment is the same as default equipment, ratio is 1.
             if target_eq.symbol == default_eq.symbol:
                 target_default = 1
             else:
