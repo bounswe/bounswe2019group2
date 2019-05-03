@@ -9,4 +9,8 @@ install:
 before_script: 
   echo before_script
 script:
-  - python ./practice-app/manage.py test
+  - cd practice-app
+  - python manage.py makemigrations
+  - python manage.py makemigrations api
+  - python manage.py migrate
+  - python manage.py test
