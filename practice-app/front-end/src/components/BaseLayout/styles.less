@@ -1,0 +1,102 @@
+@import "../../utils/styles/layout.less";
+
+@header-bg: #01303e;
+@content-bg: #fffffff;
+
+.container {
+  .flex-row();
+  height: 100% !important;
+}
+
+.sider-container {
+  background: white !important;
+  background-size: cover !important;
+
+  -webkit-box-shadow: 4px 0px 12px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 4px 0px 12px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.sider-curtain {
+  .absolute-fill();
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.logo-container {
+  .flex-column();
+  .position-center();
+  padding-top: @spacing-unit * 4;
+  padding-bottom: @spacing-unit * 4;
+  background-color: @header-bg;
+  -webkit-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+  min-height: 179px;
+}
+
+.sider-links-container {
+  flex-grow: 1;
+  overflow-x: none;
+  background-color: @header-bg !important;
+}
+
+.header-container {
+  .flex-row();
+  background-color: @header-bg !important;
+
+  -webkit-box-shadow: 4px 0px 12px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 4px 0px 12px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 0px 12px 0px rgba(0, 0, 0, 0.5);
+}
+
+.user-popover-menu {
+  min-width: 125px;
+}
+
+#header-left {
+  flex-grow: 1;
+}
+
+#header-help-icon {
+  .flex-column();
+  .position-center();
+  margin-right: @spacing-unit;
+  color: @light;
+}
+
+#header-username {
+  margin-left: @spacing-unit;
+  color: @light;
+  margin-bottom: 0px;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: @light;
+  display: inline-block;
+}
+
+.content-container {
+  padding: @spacing-unit * 2;
+  overflow-x: none;
+  background-color: @content-bg;
+  height: 100%;
+  width: 100%;
+}
+
+.main-menu {
+  background: none;
+}
+
+.ant-menu-dark > ant-menu-inline.ant > menu-sub {
+  background: #000c1700;
+}
+a {
+  color: white;
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #000c1700 !important;
+  box-shadow: none;
+}

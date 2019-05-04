@@ -1,0 +1,12 @@
+[
+  {
+    "key": "register",
+    "text": "Register",
+    "url": "register"
+  },
+  {
+    "key": "login",
+    "text": "Login",
+    "url": "login"
+  }
+]
