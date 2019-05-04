@@ -1,12 +1,7 @@
-from datetime import datetime
-
 from rest_framework.response import Response
 from rest_framework import status
-from django.utils import timezone
-from api.models import Equipment, Parity
 from datetime import datetime
 from rest_framework.views import APIView
-from django.shortcuts import get_object_or_404
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
