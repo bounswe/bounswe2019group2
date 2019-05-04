@@ -6,22 +6,6 @@ from django.utils.timezone import datetime, make_aware
 from .models import Parity, Equipment
 
 
-class HelloWorldTestCase(APITestCase):
-    def test_get(self):
-        response = self.client.get('/helloworld/')
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        self.assertEqual(response.data, {'message': 'Hello, stranger.'})
-
-    def test_post(self):
-        response = self.client.post('/helloworld/', data={'name': 'John Doe'})
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        self.assertEqual(response.data, {'message': 'Hello, John Doe.'})
-
-
 class RegisterTestCase(APITestCase):
 
     def test_user_create(self):

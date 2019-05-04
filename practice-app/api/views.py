@@ -2,9 +2,6 @@ from datetime import datetime
 
 from rest_framework.response import Response
 from rest_framework import status
-from django.utils import timezone
-from api.models import Equipment, Parity
-from datetime import datetime
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -13,20 +10,6 @@ from django.shortcuts import get_object_or_404
 from . import serializers as ls
 from .models import ManualInvestment, Parity, Equipment, User
 from .serializers import ParitySerializer
-
-
-class HelloWorldView(APIView):
-    def get(self, request):
-        return Response({
-            'message': 'Hello, stranger.'
-        })
-
-    def post(self, request):
-        name = request.data['name']
-
-        return Response({
-            'message': f'Hello, {name}.'
-        })
 
 
 class RegisterView(APIView):
