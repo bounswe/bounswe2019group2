@@ -78,7 +78,7 @@ class InvestmentsAPIView(APIView):
         user = User.objects.get(id=user_id)
         investment_id = request.data['id']
         if not ManualInvestment.objects.filter(id=investment_id, made_by=user).exists():
-            Response({
+            return Response({
                 'message': 'User does not have investment with id: ' + str(investment_id)},
                 status=status.HTTP_404_NOT_FOUND)
 
