@@ -2,8 +2,33 @@ from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
 
+from .models import Parity, Equipment
+
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+
+class EquipmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipment
+        fields = [
+            'symbol'
+        ]
+
+
+class ParitySerializer(serializers.ModelSerializer):
+    base_equipment = EquipmentSerializer()
+    target_equipment = EquipmentSerializer()
+
+    class Meta:
+        model = Parity
+        fields = [
+            'base_equipment',
+            'target_equipment',
+            'date',
+            'ratio'
+        ]
+        depth = 1
 
 
 class UserSerializer(serializers.ModelSerializer):
