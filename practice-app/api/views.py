@@ -1,11 +1,15 @@
+from datetime import datetime
+
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
 
 from . import serializers as ls
 from .models import ManualInvestment, Parity, Equipment, User
+from .serializers import ParitySerializer
 
 
 class HelloWorldView(APIView):
@@ -109,3 +113,41 @@ class TotalProfitAPIView(APIView):
         return Response({
             'total_profit': profit
         })
+
+
+class ParityView(APIView):
+    def get(self, request, date):
+        parities = Parity.objects
+
+        # apply filters for 'base' and 'target' query params if given
+        for base_or_target, symbol in request.query_params.items():
+            if base_or_target in ['base', 'target']:
+                eq = get_object_or_404(Equipment, symbol=symbol)
+                parities = parities.filter(**{f'{base_or_target}_equipment': eq})
+
+        # apply filters for date. we need to filter by year, month and day
+        # because we store parity times in datetime fields.
+        date = datetime.strptime(date, '%Y-%m-%d')
+        parities = parities.filter(date__year=date.year,
+                                   date__month=date.month,
+                                   date__day=date.day)
+
+        # sort parities to get the latest record in the given day
+        parities = parities.order_by('base_equipment', 'target_equipment', '-date')
+        parities = list(parities)
+
+        # get latest parity record for each equipment pair
+        # this part is useless at the moment, since we have only one parity record for a day.
+        # but if we begin to consume a more frequent API in the future,
+        # we choose the latest record from the records that have the same date
+
+        latest_in_day = []
+
+        for parity in parities:
+            if (not latest_in_day or
+                    latest_in_day[-1].base_equipment != parity.base_equipment or
+                    latest_in_day[-1].target_equipment != parity.target_equipment):
+                latest_in_day.append(parity)
+
+        return Response(ParitySerializer(latest_in_day, many=True).data)
+
