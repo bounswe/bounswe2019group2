@@ -7,6 +7,5 @@ urlpatterns = [
     path('login/', views.LoginAPIView.as_view(), name='login'),
     path('investments/total_profit', views.TotalProfitAPIView.as_view(), name='total profit'),
     path('investments/profit', views.InvestmentProfitAPIView.as_view(), name='profit'),
-    path('investments/create', views.CreateInvestmentAPIView.as_view(), name='create investment'),
-    path('investments/delete', views.DeleteInvestmentAPIView.as_view(), name='delete investment')
+    path('investments/', views.DeleteCreateInvestmentAPIView.as_view(), name='create/delete investment')
 ]
