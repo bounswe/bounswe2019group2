@@ -98,7 +98,7 @@ class InvestmentProfitAPIView(APIView):
             if not Equipment.objects.filter(symbol=symbol).exists():
                 return Response({
                     'message': 'There is no such currency with symbol ' + str(symbol)},
-                    status=status.HTTP_400_BAD_REQUEST)
+                    status=status.HTTP_404_NOT_FOUND)
 
         investment_id = request.POST.get('id')
 
@@ -109,7 +109,7 @@ class InvestmentProfitAPIView(APIView):
         except:
             return Response({
                 'message': 'User does not have investment with id: ' + str(investment_id)},
-                status=status.HTTP_400_BAD_REQUEST)
+                status=status.HTTP_404_NOT_FOUND)
 
         profit = self._get_profit(investment=investment,
                                   symbol=symbol)
@@ -156,7 +156,7 @@ class TotalProfitAPIView(APIView):
         if not Equipment.objects.filter(symbol=symbol).exists():
             return Response({
                 'message': 'There is no such currency with symbol ' + str(symbol)},
-                status=status.HTTP_400_BAD_REQUEST)
+                status=status.HTTP_404_NOT_FOUND)
 
         profit = self._get_total_profit(user_id=user_id,
                                         symbol=symbol)
