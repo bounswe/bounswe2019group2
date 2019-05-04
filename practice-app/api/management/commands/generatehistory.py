@@ -5,10 +5,16 @@ import datetime
 import requests
 import json
 from decimal import *
+
 YEAR_BEGIN = 2017
+
 
 class Command(BaseCommand):
     help = 'Generates historic data related to parities'
+
+    def add_arguments(self, parser):
+        parser.add_argument('--demo', nargs='+', type=str,
+                            help="Equipments to run the demo mode on")
 
     def _generate_parities(self):
         utc = timezone.utc
@@ -28,21 +34,23 @@ class Command(BaseCommand):
             if not Equipment.objects.filter(symbol=symbol).exists():
                 Equipment(name=maps[symbol]["name"], category="Currency", symbol=symbol).save()
 
-    def _write_currency_history(self, symbol):
+    def _write_currency_history(self, symbol, target_symbols=None):
         utc = timezone.utc
         today = datetime.datetime.utcnow().replace(tzinfo=utc).strftime('%Y-%m-%d')
         YEAR_END = int(today[:4])
 
-        print(symbol)
         base_equipment = Equipment.objects.get(symbol=symbol)
 
-        for year in range(YEAR_BEGIN, YEAR_END+1):
+        if target_symbols is None:
+            target_symbols = Equipment.objects.values("symbol")
+
+        for year in range(YEAR_BEGIN, YEAR_END + 1):
 
             begins = "%d-01-01" % year
             if year == YEAR_END:
                 ends = today
             else:
-                ends = "%d-01-01" % (year+1)
+                ends = "%d-01-01" % (year + 1)
             url = "https://api.exchangeratesapi.io/history?\
                                     start_at=%s&end_at=%s&base=%s" % (begins, ends, symbol)
             result = requests.get("https://api.exchangeratesapi.io/history?start_at=%s&end_at=%s&base=%s" %
@@ -51,10 +59,13 @@ class Command(BaseCommand):
             for date, rates in result["rates"].items():
                 for target_symbol, rate in rates.items():
 
+                    if target_symbol not in target_symbols:
+                        continue
+
                     try:
                         target_equipment = Equipment.objects.get(symbol=target_symbol)
                     except _ as e:
-                        print(e, target_symbol)
+                        self.stdout.write(e, target_symbol)
 
                     rate = Decimal(rate)
 
@@ -65,7 +76,7 @@ class Command(BaseCommand):
                             Parity(base_equipment=base_equipment, target_equipment=target_equipment,
                                    ratio=rate, date=date).save()
                         except DecimalException as e:
-                            pass
+                            self.stdout.write(str(e))
 
     def _generate_history(self):
         symbols = Equipment.objects.values("symbol")
@@ -73,7 +84,13 @@ class Command(BaseCommand):
             self._write_currency_history(symbol["symbol"])
 
     def handle(self, *args, **options):
-        self._generate_parities()
-        self._generate_history()
+        if not options["demo"]:
+            self._generate_parities()
+            self._generate_history()
+
+        else:
+            self._generate_parities()
+            for symbol in options["demo"]:
+                self._write_currency_history(symbol)
 
         self.stdout.write('Generating historic data is done.')

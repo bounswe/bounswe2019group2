@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from django.shortcuts import get_object_or_404
 from . import serializers as ls
 from .models import ManualInvestment, Parity, Equipment, User
 
@@ -49,6 +49,43 @@ class LoginAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class CreateInvestmentAPIView(APIView):
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+        base_symbol = request.query_params['base']
+        target_symbol = request.query_params['target']
+
+        base_equipment = get_object_or_404(Equipment, symbol=base_symbol)
+        target_equipment = get_object_or_404(Equipment, symbol=target_symbol)
+        base_amount = request.query_params['base_amount']
+        target_amount = request.query_params['target_amount']
+        ManualInvestment(base_equipment=base_equipment, target_equipment=target_equipment,
+                         base_amount=base_amount, target_amount=target_amount, made_by=user).save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class DeleteInvestmentAPIView(APIView):
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        user_id = request.user.id
+        user = User.objects.get(id=user_id)
+        investment_id = request.query_params['id']
+        if not ManualInvestment.objects.filter(id=investment_id).exists():
+            Response({
+                'message': 'User does not have investment with id: ' + str(investment_id)},
+                status=status.HTTP_404_NOT_FOUND)
+
+        ManualInvestment.objects.filter(id=investment_id).delete()
+        return Response(status=status.HTTP_200_OK)
+
+
 class InvestmentProfitAPIView(APIView):
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -85,7 +122,7 @@ class InvestmentProfitAPIView(APIView):
     def post(self, request):
         user_id = request.user.id
         user = User.objects.get(id=user_id)
-        symbol = request.POST.get('symbol')
+        symbol = request.query_params['symbol']
 
         # If no symbol is given, use TRY as default.
 
@@ -100,7 +137,7 @@ class InvestmentProfitAPIView(APIView):
                     'message': 'There is no such currency with symbol ' + str(symbol)},
                     status=status.HTTP_404_NOT_FOUND)
 
-        investment_id = request.POST.get('id')
+        investment_id = request.query_params["investment_id"]
 
         # If no such investment exists in the DB, returning 400.
         try:
@@ -116,7 +153,7 @@ class InvestmentProfitAPIView(APIView):
         return Response({
             'id': investment_id,
             'profit': profit
-        })
+        }, status=status.HTTP_200_OK)
 
 
 class TotalProfitAPIView(APIView):
@@ -145,7 +182,7 @@ class TotalProfitAPIView(APIView):
                                         symbol="TRY")
         return Response({
             'total_profit': profit
-        })
+        }, status=status.HTTP_200_OK)
 
     def post(self, request):
         user_id = request.user.id
@@ -162,4 +199,4 @@ class TotalProfitAPIView(APIView):
                                         symbol=symbol)
         return Response({
             'total_profit': profit
-        })
+        }, status=status.HTTP_200_OK)
