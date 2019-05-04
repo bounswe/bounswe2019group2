@@ -35,6 +35,8 @@ class Command(BaseCommand):
                 Equipment(name=maps[symbol]["name"], category="Currency", symbol=symbol).save()
 
     def _write_currency_history(self, symbol, target_symbols=None):
+
+        self.stdout.write("Getting %s data" % symbol)
         utc = timezone.utc
         today = datetime.datetime.utcnow().replace(tzinfo=utc).strftime('%Y-%m-%d')
         YEAR_END = int(today[:4])
@@ -91,6 +93,6 @@ class Command(BaseCommand):
         else:
             self._generate_parities()
             for symbol in options["demo"]:
-                self._write_currency_history(symbol)
+                self._write_currency_history(symbol, target_symbols=options["demo"])
 
         self.stdout.write('Generating historic data is done.')
