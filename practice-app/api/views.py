@@ -1,9 +1,9 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
 from . import serializers as ls
 from .models import ManualInvestment, Parity, Equipment, User
 
@@ -49,9 +49,27 @@ class LoginAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class DeleteCreateInvestmentAPIView(APIView):
+class InvestmentsAPIView(APIView):
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        investments = request.user.manualinvestment_set.all()
+
+        response = {
+            'investments': []
+        }
+
+        for investment in investments:
+            response['investments'].append({
+                'base_symbol': investment.base_equipment.symbol,
+                'target_symbol': investment.target_equipment.symbol,
+                'base_amount': investment.base_amount,
+                'target_amount': investment.target_amount,
+                'date': investment.date
+            })
+
+        return Response(response)
 
     def delete(self, request):
         user_id = request.user.id
