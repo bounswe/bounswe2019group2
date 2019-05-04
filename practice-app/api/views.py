@@ -53,6 +53,9 @@ class InvestmentProfitAPIView(APIView):
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    # Helper function for calculating profit of an investment with respect to given currency.
+    # Default is Turkish Liras.
+
     @staticmethod
     def _get_profit(investment, symbol="TRY"):
         default_eq = Equipment.objects.get(symbol=symbol)
@@ -65,8 +68,8 @@ class InvestmentProfitAPIView(APIView):
         if base_eq.symbol == default_eq.symbol:
             base_default = 1
         else:
-                base_default = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
-                                                                       target_equipment=default_eq)[0].ratio
+            base_default = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
+                                                                   target_equipment=default_eq)[0].ratio
         # If the bought equipment is the same as default equipment, ratio is 1.
         if target_eq.symbol == default_eq.symbol:
             target_default = 1
@@ -79,17 +82,17 @@ class InvestmentProfitAPIView(APIView):
 
         return profit
 
-    # Helper function for calculating profit of an investment with respect to given currency.
-    # Default is Turkish Liras.
-
     def post(self, request):
         user_id = request.user.id
         user = User.objects.get(id=user_id)
         symbol = request.POST.get('symbol')
 
+        # If no symbol is given, use TRY as default.
+
         if symbol is None:
             symbol = "TRY"
 
+        # If no such investment exists in the DB, returning 400.
         else:
             symbols = Equipment.objects.values("symbol")
             symbols = [obj["symbol"] for obj in symbols]
@@ -101,12 +104,14 @@ class InvestmentProfitAPIView(APIView):
 
         investment_id = request.POST.get('id')
 
+        # If no such investment exists in the DB, returning 400.
         try:
             investment = ManualInvestment.objects.get(id=investment_id,
                                                       made_by=user)
         except:
             return Response({
-                'message': 'User does not have investment with id: '+str(investment_id)}, status=status.HTTP_400_BAD_REQUEST)
+                'message': 'User does not have investment with id: ' + str(investment_id)},
+                status=status.HTTP_400_BAD_REQUEST)
 
         profit = self._get_profit(investment=investment,
                                   symbol=symbol)
@@ -150,6 +155,8 @@ class TotalProfitAPIView(APIView):
 
         symbols = Equipment.objects.values("symbol")
         symbols = [obj["symbol"] for obj in symbols]
+
+        # If a non-existent symbol is given, return 400 status code.
 
         if symbol not in symbols:
             return Response({
