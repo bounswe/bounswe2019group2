@@ -107,3 +107,14 @@ class ParityViewTestCase(APITestCase):
         response = self.client.get('/parity/1969-01-12/?target=FOO')
 
         self.assertTrue(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_latest(self):
+        response = self.client.get('/parity/latest/?base=SYM1&target=SYM2')
+
+        self.assertTrue(response.status_code, status.HTTP_200_OK)
+
+        data = response.data
+
+        self.assertEqual(data['base_equipment'], {'symbol': 'SYM1'})
+        self.assertEqual(data['target_equipment'], {'symbol': 'SYM2'})
+        self.assertAlmostEqual(float(data['ratio']), 1.50)

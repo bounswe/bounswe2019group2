@@ -2,6 +2,9 @@ from datetime import datetime
 
 from rest_framework.response import Response
 from rest_framework import status
+from django.utils import timezone
+from api.models import Equipment, Parity
+from datetime import datetime
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -116,7 +119,18 @@ class TotalProfitAPIView(APIView):
 
 
 class ParityView(APIView):
-    def get(self, request, date):
+    def get_latest(self, request):
+        base_symbol = request.query_params['base']
+        target_symbol = request.query_params['target']
+        base_equipment = Equipment.objects.get(symbol=base_symbol)
+        target_equipment = Equipment.objects.get(symbol=target_symbol)
+
+        filtered = Parity.objects.order_by('-date').filter(base_equipment=base_equipment,
+                                                           target_equipment=target_equipment)[0]
+
+        return Response(ParitySerializer(filtered).data)
+
+    def get_historic(self, request, date):
         parities = Parity.objects
 
         # apply filters for 'base' and 'target' query params if given
@@ -151,3 +165,8 @@ class ParityView(APIView):
 
         return Response(ParitySerializer(latest_in_day, many=True).data)
 
+    def get(self, request, date):
+        if date == 'latest':
+            return self.get_latest(request)
+        else:
+            return self.get_historic(request, date)
