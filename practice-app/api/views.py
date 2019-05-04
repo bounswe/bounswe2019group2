@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from . import serializers as ls
 from .models import ManualInvestment, Parity, Equipment, User
 
+
 class HelloWorldView(APIView):
     def get(self, request):
         return Response({
