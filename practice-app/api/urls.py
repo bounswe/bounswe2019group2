@@ -7,4 +7,5 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.LoginAPIView.as_view(), name='login'),
     path('investments/total_profit', views.TotalProfitAPIView.as_view(), name='total profit'),
+    path('investments/profit', views.InvestmentProfitAPIView.as_view(), name='profit')
 ]
