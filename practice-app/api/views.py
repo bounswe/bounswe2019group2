@@ -94,10 +94,8 @@ class InvestmentProfitAPIView(APIView):
 
         # If no such investment exists in the DB, returning 400.
         else:
-            symbols = Equipment.objects.values("symbol")
-            symbols = [obj["symbol"] for obj in symbols]
 
-            if symbol not in symbols:
+            if not Equipment.objects.filter(symbol=symbol).exists():
                 return Response({
                     'message': 'There is no such currency with symbol ' + str(symbol)},
                     status=status.HTTP_400_BAD_REQUEST)
@@ -153,12 +151,9 @@ class TotalProfitAPIView(APIView):
         user_id = request.user.id
         symbol = request.POST.get('symbol')
 
-        symbols = Equipment.objects.values("symbol")
-        symbols = [obj["symbol"] for obj in symbols]
-
         # If a non-existent symbol is given, return 400 status code.
 
-        if symbol not in symbols:
+        if not Equipment.objects.filter(symbol=symbol).exists():
             return Response({
                 'message': 'There is no such currency with symbol ' + str(symbol)},
                 status=status.HTTP_400_BAD_REQUEST)
