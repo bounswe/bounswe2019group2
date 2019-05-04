@@ -31,6 +31,23 @@ class RegisterView(APIView):
                 'message': 'Email or username is invalid'}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ParityListView(APIView):
+    def get(self, request):
+        parities = Parity.objects.all()
+        parity_names = set()
+
+        for parity in parities:
+            parity_names.add((parity.base_equipment.symbol, parity.target_equipment.symbol))
+        json_formatted = []
+
+        for parity_name in sorted(parity_names):
+            json_formatted.append({
+                "base": parity_name[0],
+                "target": parity_name[1]})
+
+        return Response(json_formatted)
+
+
 class LoginAPIView(APIView):
     def post(self, *args, **kwargs):
         data = self.request.data
@@ -76,9 +93,9 @@ class TotalProfitAPIView(APIView):
             else:
                 target_default = Parity.objects.order_by('-date').filter(base_equipment=target_eq,
                                                                          target_equipment=default_eq)[0].ratio
-            current = target_amount*target_default
-            would_be = base_amount*base_default
-            profit += float(current-would_be)
+            current = target_amount * target_default
+            would_be = base_amount * base_default
+            profit += float(current - would_be)
 
         return profit
 

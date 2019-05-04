@@ -144,3 +144,33 @@ class ParityViewTestCase(APITestCase):
         self.assertEqual(data['base_equipment'], {'symbol': 'SYM1'})
         self.assertEqual(data['target_equipment'], {'symbol': 'SYM2'})
         self.assertAlmostEqual(float(data['ratio']), 1.50)
+
+
+class ParityListTestCase(APITestCase):
+    def setUp(self):
+        e1 = Equipment(symbol='SYM1', name='curr 1', category='currency')
+        e2 = Equipment(symbol='SYM2', name='curr 2', category='currency')
+        e3 = Equipment(symbol='SYM3', name='curr 3', category='currency')
+
+        e1.save()
+        e2.save()
+        e3.save()
+
+        Parity(base_equipment=e1, target_equipment=e2, ratio=1.23).save()
+        Parity(base_equipment=e1, target_equipment=e2, ratio=1.24).save()
+        Parity(base_equipment=e1, target_equipment=e2, ratio=1.50).save()
+
+        Parity(base_equipment=e2, target_equipment=e3, ratio=2.44).save()
+        Parity(base_equipment=e2, target_equipment=e3, ratio=2.50).save()
+
+    def test(self):
+        response = self.client.get('/parity/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.data
+
+        self.assertEqual(len(data), 2)
+
+        self.assertTrue({'base': 'SYM1', 'target': 'SYM2'} in data)
+        self.assertTrue({'base': 'SYM2', 'target': 'SYM3'} in data)
