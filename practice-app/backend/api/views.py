@@ -12,7 +12,7 @@ from django.utils import timezone
 
 
 class RegisterView(APIView):
-    def put(self, request):
+    def post(self, request):
         try:
             username = request.data['username']
             password = request.data['password']
