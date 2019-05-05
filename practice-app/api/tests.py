@@ -1,9 +1,10 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime, make_aware
+import random
 
-from .models import Parity, Equipment
+from .models import Parity, Equipment, ManualInvestment
 
 
 class RegisterTestCase(APITestCase):
@@ -25,7 +26,7 @@ class InvalidRegisterTestCase(APITestCase):
 
     def test_user_same(self):
         response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
-                                                        'email': 'yeni@email.com'})
+                                                       'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -33,7 +34,7 @@ class InvalidRegisterTestCase(APITestCase):
 
     def test_same_email(self):
         response = self.client.put('/register/', data={'username': 'invester', 'password': '1234qazx',
-                                                        'email': 'yeni@email.com'})
+                                                       'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -41,13 +42,13 @@ class InvalidRegisterTestCase(APITestCase):
 
     def test_same_username(self):
         response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
-                                                        'email': 'yenibiri@email.com'})
+                                                       'email': 'yenibiri@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         self.assertEqual(response.data, {'message': 'Email or username is invalid'})
 
-        
+
 class AuthApiTestCase(APITestCase):
     def setUp(self):
         user = User(username="john", email="john@gmail.com")
@@ -70,7 +71,7 @@ class AuthApiTestCase(APITestCase):
         self.assertFalse("user" in response.data)
 
     def test_invalid_login2(self):
-        response = self.client.post('/login/', data={'email':'', 'password': '1234'})
+        response = self.client.post('/login/', data={'email': '', 'password': '1234'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertFalse("token" in response.data)
@@ -174,3 +175,37 @@ class ParityListTestCase(APITestCase):
 
         self.assertTrue({'base': 'SYM1', 'target': 'SYM2'} in data)
         self.assertTrue({'base': 'SYM2', 'target': 'SYM3'} in data)
+
+
+class ManualInvestmentCreateTestCase(APITestCase):
+    def setUp(self):
+
+        # create a test user
+        User.objects.create_user(username='testuser', email='user@test.test', password='secret')
+
+        # create a session
+        client = APIClient()
+
+        # let test user to log in
+        client.login(username='testuser', password='secret')
+
+        n = 5
+        # create symbolic symbols, base amounts and target amounts
+        symbols = [f"SYM{index}" for index in range(n)]
+        base_amounts = [14, 7293, 543, 21895]
+        target_amounts =  [83, 470, 10647, 3274]
+
+        data = {}
+        # mock post request to create investment
+        for index in range(n - 1):
+            data['base_symbol'] = symbols[index]
+            data['base_amount'] = base_amounts[index]
+            data['target_symbol'] = symbols[index + 1]
+            data['target_amount'] = target_amounts[index]
+
+            self.client.post('investments', data)
+
+    def test(self):
+        pass
+
+
