@@ -16,17 +16,18 @@ class Command(BaseCommand):
         parser.add_argument('--demo', nargs='+', type=str,
                             help="Equipments to run the demo mode on")
 
-    def _generate_parities(self):
+    def _generate_parities(self, symbols=None):
         utc = timezone.utc
         today = datetime.datetime.utcnow().replace(tzinfo=utc).strftime('%Y-%m-%d')
 
-        result = requests.get("https://api.exchangeratesapi.io/%s" % today).json()
-
-        symbols = list()
-        symbols.append(result["base"])
-        for key, _ in result["rates"].items():
-            symbols.append(key)
-
+        if symbols is None:
+            result = requests.get("https://api.exchangeratesapi.io/%s" % today).json()
+    
+            symbols = list()
+            symbols.append(result["base"])
+            for key, _ in result["rates"].items():
+                symbols.append(key)
+    
         with open("./api/management/equipment.json") as f:
             maps = json.load(f)
 
@@ -91,7 +92,7 @@ class Command(BaseCommand):
             self._generate_history()
 
         else:
-            self._generate_parities()
+            self._generate_parities(options["demo"])
             for symbol in options["demo"]:
                 self._write_currency_history(symbol, target_symbols=options["demo"])
 
