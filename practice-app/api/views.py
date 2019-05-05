@@ -10,20 +10,6 @@ from .models import ManualInvestment, Parity, Equipment, User
 from .serializers import ParitySerializer
 
 
-class HelloWorldView(APIView):
-    def get(self, request):
-        return Response({
-            'message': 'Hello, stranger.'
-        })
-
-    def post(self, request):
-        name = request.data['name']
-
-        return Response({
-            'message': f'Hello, {name}.'
-        })
-
-
 class RegisterView(APIView):
     def put(self, request):
         try:
@@ -41,6 +27,23 @@ class RegisterView(APIView):
         except:
             return Response({
                 'message': 'Email or username is invalid'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ParityListView(APIView):
+    def get(self, request):
+        parities = Parity.objects.all()
+        parity_names = set()
+
+        for parity in parities:
+            parity_names.add((parity.base_equipment.symbol, parity.target_equipment.symbol))
+        json_formatted = []
+
+        for parity_name in sorted(parity_names):
+            json_formatted.append({
+                "base": parity_name[0],
+                "target": parity_name[1]})
+
+        return Response(json_formatted)
 
 
 class LoginAPIView(APIView):
@@ -187,6 +190,29 @@ class TotalProfitAPIView(APIView):
         for investment in investments:
             # Using the profit calculation of individual profit API.
             profit += InvestmentProfitAPIView._get_profit(investment, symbol)
+
+            base_eq = investment.base_equipment
+            target_eq = investment.target_equipment
+            base_amount = investment.base_amount
+            target_amount = investment.target_amount
+
+            # If the sold equipment is the same as default equipment, ratio is 1.
+            if base_eq.symbol == default_eq.symbol:
+                base_default = 1
+
+            else:
+                base_default = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
+                                                                       target_equipment=default_eq)[0].ratio
+
+            # If the bought equipment is the same as default equipment, ratio is 1.
+            if target_eq.symbol == default_eq.symbol:
+                target_default = 1
+            else:
+                target_default = Parity.objects.order_by('-date').filter(base_equipment=target_eq,
+                                                                         target_equipment=default_eq)[0].ratio
+            current = target_amount * target_default
+            would_be = base_amount * base_default
+            profit += float(current - would_be)
 
         return profit
 
