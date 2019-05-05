@@ -217,16 +217,60 @@ class TotalProfitAPIView(APIView):
 
 
 class ParityView(APIView):
-    def get_latest(self, request):
-        base_symbol = request.query_params['base']
-        target_symbol = request.query_params['target']
+    def _get_all(self):
+        parities = []
+        for base in Equipment.objects.all():
+            for target in Equipment.objects.all():
+                parity = Parity.objects.order_by('-date').filter(base_equipment=base,
+                                                                 target_equipment=target)[0]
+                parities.append(parity)
+        return ParitySerializer(parities, many=True).data
+
+    def _get_base(self, base_symbol):
         base_equipment = Equipment.objects.get(symbol=base_symbol)
+        parities = []
+        for target in Equipment.objects.all():
+            parity = Parity.objects.order_by('-date').filter(base_equipment=base_equipment,
+                                                             target_equipment=target)[0]
+            parities.append(parity)
+        return ParitySerializer(parities, many=True).data
+
+    def _get_targets(self, target_symbol):
         target_equipment = Equipment.objects.get(symbol=target_symbol)
+        parities = []
+        for base in Equipment.objects.all():
+            parity = Parity.objects.order_by('-date').filter(base_equipment=base,
+                                                             target_equipment=target_equipment)[0]
+            parities.append(parity)
+        return ParitySerializer(parities, many=True).data
 
-        filtered = Parity.objects.order_by('-date').filter(base_equipment=base_equipment,
-                                                           target_equipment=target_equipment)[0]
+    def get_latest(self, request):
+        try:
+            base_symbol = request.query_params['base']
+        except:
+            base_symbol = None
 
-        return Response(ParitySerializer(filtered).data)
+        try:
+            target_symbol = request.query_params['target']
+        except:
+            target_symbol = None
+        if base_symbol is None:
+            if target_symbol is None:
+                response = self._get_all()
+            else:
+                response = self._get_targets(target_symbol)
+        elif target_symbol is None:
+            response = self._get_base(base_symbol)
+
+        else:
+            base_equipment = Equipment.objects.get(symbol=base_symbol)
+            target_equipment = Equipment.objects.get(symbol=target_symbol)
+
+            filtered = Parity.objects.order_by('-date').filter(base_equipment=base_equipment,
+                                                               target_equipment=target_equipment)[0]
+            response = ParitySerializer(filtered).data
+
+        return Response(response)
 
     def get_historic(self, request, date):
         parities = Parity.objects

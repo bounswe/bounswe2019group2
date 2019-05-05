@@ -230,28 +230,30 @@
         }
 
         async function updateParities() {
-            let response = await fetch(url+'/parity/', {
+            let response = await fetch(url+'/parity/latest/', {
                 method: 'GET'
             });
 
-            $('#parities tbody').empty();
+            let parities = await response.json();
+            let table_elements = [];
 
             if (response.status === 200) {
-                let parities = await response.json();
-
                 for (let i = 0; i < parities.length; i++) {
-                    let base = parities[i].base;
-                    let target = parities[i].target;
+                    let base = parities[i].base_equipment.symbol;
+                    let target = parities[i].target_equipment.symbol;
+                    let ratio = parities[i].ratio;
 
-                    let response = await fetch(url+'/parity/latest/?base='+base+'&target='+target, {
-                        method: 'GET'
-                    });
+                    if (base === target) {
+                        continue;
+                    }
 
-                    let ratio = (await response.json()).ratio;
-
-                    $('#parities tbody').append('<tr> <td>' + base +  ' / ' + target + '</td> <td>' + ratio + '</td> </tr>');
+                    table_elements.push('<tr> <td>' + base +  ' / ' + target + '</td> <td>' + ratio + '</td> </tr>');
                 }
+
+                $('#parities tbody').empty();
+                $('#parities tbody').append(table_elements.join(''));
             }
+
         }
 
         async function updateInvestments() {
