@@ -5,7 +5,7 @@ python:
 services: 
   - mysql
 install:
-  - pip install -r ./practice-app/requirements.txt
+  - pip install -r ./practice-app/backend/requirements.txt
 before_script: 
   echo before_script
 script:
