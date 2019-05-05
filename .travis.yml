@@ -9,7 +9,7 @@ install:
 before_script: 
   echo before_script
 script:
-  - cd practice-app
+  - cd practice-app/backend
   - python manage.py makemigrations
   - python manage.py makemigrations api
   - python manage.py migrate
