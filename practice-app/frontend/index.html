@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>Practice App</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- <div class="sidebar" data-color="gray">
+
+    	<div class="sidebar-wrapper">
+            <div class="logo">
+                <span class="simple-text">
+                    PRACTICE-APP
+                </span>
+            </div>
+
+            <ul class="nav">
+                <li class="active">
+                    <a>
+                        <p>Parities</p>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <p>My Investments</p>
+                    </a>
+                </li>
+            </ul>
+    	</div>
+    </div> -->
+
+    <div>
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="container-fluid">
+                
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <a>
+                                <p><b>PRACTICE APP</b></p>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            Preferred Currency
+                            <select type="text" class="form-control" onchange="preferEquipment();">
+                                <option value="TRY">TRY</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select>
+                        </li>
+
+                        <li>
+                            <a>
+                                <p id="username"></p>
+                            </a>
+                        </li>
+						<li class="separator hidden-lg"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="content" >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Latest Rates</h4>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped" id="parities">
+                                    <thead>
+                                        <th>Parity</th>
+                                        <th>Rate</th>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="card" hidden="hidden" id="login-card">
+                            <div class="content">
+                                <div class="row"> 
+                                    <div class="col-md-4"> </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <h3>Login to Make Investments</h3>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Email address</label>
+                                                    <input name="email" type="email" class="form-control" placeholder="Email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Password</label>
+                                                    <input name="password" type="password" class="form-control" >
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button name="submit" type="submit" class="btn btn-info btn-fill pull-right">Login</button>
+                                        <!-- <div class="clearfix"></div> -->
+
+                                    </div>
+                                    <div class="col-md-4"> </div>
+
+                                </div> 
+
+                            </div>
+                        </div>
+
+
+                        <div class="card" hidden="hidden" id="investments-card">
+                            <div class="header">
+                                <h4 class="title">My Investments</h4>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Date</th>
+                                        <th>Profit</th>
+                                        <th>Create / Delete</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="create-form">
+                                            <td>
+                                                <input class="form-control base-amount" type="number" placeholder="0"> 
+                                                <select type="text" class="form-control base-equipment">
+                                                    <option value="USD">USD</option>
+                                                    <option value="TRY">TRY</option>
+                                                    <option value="EUR">EUR</option>
+                                                    <option value="GBP">GBP</option>
+                                                </select>
+                                            </td> 
+                                            <td> 
+                                                <input class="form-control target-amount" type="number" placeholder="0"> 
+                                                <select type="text" class="form-control target-equipment">
+                                                    <option value="USD">USD</option>
+                                                    <option value="TRY">TRY</option>
+                                                    <option value="EUR">EUR</option>
+                                                    <option value="GBP">GBP</option>
+                                                </select>
+                                            </td> 
+                                            <td>
+                                                <input type=date class="form-control date"> 
+                                            </td> 
+                                            <td> 
+                                            </td> 
+                                            <td> 
+                                                <button onclick="createClicked();" name="create" type="submit" class="btn btn-info btn-fill">Add Investment</button>
+                                            </td> 
+                                        </tr>
+
+                                       <!--  <tr >
+                                        <td> <span> </span> <span>'+investments[i].base_symbol+'</span> </td>' +
+                        '<td> <span>' + investments[i].target_amount + '</span> <span>'+investments[i].target_symbol+'</span> </td>' +
+                        '<td> ' + investments[i].date + ' </td>' +
+                        '<td> <span>' + profit + ' TRY</span> </td>' +
+                        '<td> <i class="pe-7s-trash" onclick="delClicked(' + investments[i].id + ')"> </i> </td>' +
+                        '</tr>' -->
+                                    
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+
+        </div>
+
+
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                               Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                </p>
+            </div>
+        </footer> -->
+
+    </div>
+</div>
+
+
+</body>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+	<script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+
+    <!-- fetch js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.0.0/fetch.min.js"></script>
+
+
+	<script type="text/javascript">
+        let url = 'http://api.traiders-practice.tk';
+
+        async function preferEquipment() {
+            localStorage.setItem("preferred-equipment", $("nav select").children("option:selected").val());
+            updateInvestments();
+        }
+
+        async function createClicked() {
+            data = {
+                base: $("#create-form .base-equipment").val(),
+                target: $("#create-form .target-equipment").val(),
+                base_amount: $("#create-form .base-amount").val(),
+                target_amount: $("#create-form .target-amount").val(),
+                date: $("#create-form .date").val()
+            }
+
+            let response = await fetch(url+'/investments/', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'JWT ' + localStorage.getItem('token')
+                },
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+
+            if (response.status === 200) {
+                updateInvestments();
+            }
+        }
+
+        async function updateParities() {
+            let response = await fetch(url+'/parity/', {
+                method: 'GET'
+            });
+
+            $('#parities tbody').empty();
+
+            if (response.status === 200) {
+                let parities = await response.json();
+
+                for (let i = 0; i < parities.length; i++) {
+                    let base = parities[i].base;
+                    let target = parities[i].target;
+
+                    let response = await fetch(url+'/parity/latest/?base='+base+'&target='+target, {
+                        method: 'GET'
+                    });
+
+                    let ratio = (await response.json()).ratio;
+
+                    $('#parities tbody').append('<tr> <td>' + base +  ' / ' + target + '</td> <td>' + ratio + '</td> </tr>');
+                }
+            }
+        }
+
+        async function updateInvestments() {
+            let response = await fetch(url+'/investments/', {
+                headers: {
+                    'Authorization': 'JWT ' + localStorage.getItem('token')
+                },
+                method: 'GET'
+            });
+
+            let preferredEquipment = localStorage.getItem('preferred-equipment') || 'TRY';
+
+            if (response.status === 200) {
+                let investments = (await response.json()).investments;
+
+                $('#investments-card tbody tr').not(':last').remove();
+
+                for (let i = 0; i < investments.length; i++) {
+                    let response = await fetch(url+'/investments/profit', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'JWT ' + localStorage.getItem('token')
+                        },
+                        method: 'POST',
+                        body: JSON.stringify({
+                            'investment_id': investments[i].id,
+                            'symbol': preferredEquipment
+                        })
+                    });
+
+                    let profit = (await response.json()).profit;
+
+                    let color = '#ffdbdb'; 
+                    if (profit > 0) {
+                        color = '#d5ffc1';
+                    }
+
+                    $('#investments-card tbody tr:last').before(
+                        '<tr style="background-color: ' + color + ';">' + 
+                        '<td> <span>' + investments[i].base_amount + '</span> <span>'+investments[i].base_symbol+'</span> </td>' +
+                        '<td> <span>' + investments[i].target_amount + '</span> <span>'+investments[i].target_symbol+'</span> </td>' +
+                        '<td> ' + investments[i].date + ' </td>' +
+                        '<td> <span>' + profit + ' ' + preferredEquipment + '</span> </td>' +
+                        '<td> <i class="pe-7s-trash" onclick="delClicked(' + investments[i].id + ')"> </i> </td>' +
+                        '</tr>'
+                    );
+                }
+
+                
+            }
+        }
+
+        function refresh() {
+            if (!localStorage.getItem('token')) {
+                $('#login-card').show();
+            }
+            else {
+                $('#username').text(localStorage.getItem('username'))
+                $('#investments-card').show();
+                updateInvestments();
+            }
+
+            updateParities();
+        }
+
+        async function delClicked(id) {
+            let response = await fetch(url+'/investments/', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'JWT ' + localStorage.getItem('token')
+                },
+                method: 'DELETE',
+                body: JSON.stringify({
+                    'id': id
+                })
+            });
+
+            if (response.status === 200) {
+                updateInvestments();
+            }
+        }
+
+    	$(document).ready(function(){
+            $("#login-card [name='submit']").click(async function() {
+                console.log("hello");
+                let email = $("#login-card [name='email']").val();
+                let password = $("#login-card [name='password']").val();
+
+                let response = await fetch(url+'/login/',{
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        email, password
+                    })
+                });
+
+                if (response.status === 200) {
+                    let data = await response.json();
+
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', data.user.username);
+
+                    $("#login-card").hide();
+                    refresh();
+                }
+            });
+
+           refresh();
+    	});
+	</script>
+
+</html>

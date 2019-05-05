@@ -5,15 +5,15 @@ from django.utils.timezone import now
 
 class Equipment(models.Model):
     name = models.CharField("Equipment Name",
-                            max_length=16,
+                            max_length=64,
                             blank=False)
 
     category = models.CharField("Equipment Category",
-                                max_length=8,
+                                max_length=16,
                                 blank=False)
 
     symbol = models.CharField("Equipment Symbol",
-                              max_length=3,
+                              max_length=8,
                               blank=False,
                               unique=True)
 
