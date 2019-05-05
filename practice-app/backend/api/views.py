@@ -218,34 +218,31 @@ class TotalProfitAPIView(APIView):
 
 class ParityView(APIView):
     def _get_all(self):
-        parities = {"Results": []}
+        parities = []
         for base in Equipment.objects.all():
             for target in Equipment.objects.all():
                 parity = Parity.objects.order_by('-date').filter(base_equipment=base,
                                                                  target_equipment=target)[0]
-                parity = ParitySerializer(parity).data
-                parities["Results"].append(parity)
-        return parities
+                parities.append(parity)
+        return ParitySerializer(parities, many=True).data
 
     def _get_base(self, base_symbol):
         base_equipment = Equipment.objects.get(symbol=base_symbol)
-        parities = {"Results": []}
+        parities = []
         for target in Equipment.objects.all():
             parity = Parity.objects.order_by('-date').filter(base_equipment=base_equipment,
                                                              target_equipment=target)[0]
-            parity = ParitySerializer(parity).data
-            parities["Results"].append(parity)
-        return parities
+            parities.append(parity)
+        return ParitySerializer(parities, many=True).data
 
     def _get_targets(self, target_symbol):
         target_equipment = Equipment.objects.get(symbol=target_symbol)
-        parities = {"Results": []}
+        parities = []
         for base in Equipment.objects.all():
             parity = Parity.objects.order_by('-date').filter(base_equipment=base,
                                                              target_equipment=target_equipment)[0]
-            parity = ParitySerializer(parity).data
-            parities["Results"].append(parity)
-        return parities
+            parities.append(parity)
+        return ParitySerializer(parities, many=True).data
 
     def get_latest(self, request):
         try:
