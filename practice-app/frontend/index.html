@@ -94,7 +94,8 @@
                                     <div class="col-md-4">
                                         <div class="row">
                                             <h3>Login to Make Investments</h3>
-                                        </div> 
+                                            <p align="center" id="login-info" style=""></p>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -112,7 +113,8 @@
                                             </div>
                                         </div>
 
-                                        <button name="submit" type="submit" class="btn btn-info btn-fill pull-right">Login</button>
+                                        <button name="register" type="submit" class="btn btn-info btn-fill pull-left">Register</button>
+                                        <button name="login" type="submit" class="btn btn-info btn-fill pull-right">Login</button>
                                         <!-- <div class="clearfix"></div> -->
 
                                     </div>
@@ -333,30 +335,44 @@
         }
 
     	$(document).ready(function(){
-            $("#login-card [name='submit']").click(async function() {
-                console.log("hello");
+            $("#login-card button").click(async function() {
+                let register_or_login = $(this).attr('name');
+
+
                 let email = $("#login-card [name='email']").val();
                 let password = $("#login-card [name='password']").val();
+                let username = email;
 
-                let response = await fetch(url+'/login/',{
+                let response = await fetch(url+'/'+register_or_login+'/',{
                     headers: {
                       'Content-Type': 'application/json'
                     },
                     method: "POST",
                     body: JSON.stringify({
-                        email, password
+                        email, password, username
                     })
                 });
 
-                if (response.status === 200) {
-                    let data = await response.json();
+                let data = await response.json();
 
+                if (response.status !== 200) {
+                    $("#login-info").css("color", "red");
+                    $("#login-info").text(data.message || data.detail);
+                    return;
+                }
+
+                if (register_or_login === 'login') {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('username', data.user.username);
 
                     $("#login-card").hide();
                     refresh();
                 }
+                else {
+                    $("#login-info").css("color", "green");
+                    $("#login-info").text(data.message || data.detail);
+                }
+
             });
 
            refresh();
