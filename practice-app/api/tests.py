@@ -210,6 +210,24 @@ class ManualInvestmentCreateTestCase(APITestCase):
             self.client.post('investments', data)
 
     def test(self):
-        pass
 
+        n = 5
+
+        self.assertEqual(len(ManualInvestment.objects.all()), n)
+
+        symbols = [f"SYM{index}" for index in range(n)]
+
+        base_amounts = [14, 7293, 543, 21895]
+        target_amounts = [83, 470, 10647, 3274]
+
+        for index in range(n-1):
+            base_equipment = Equipment.objects.filter(symbol=symbols[index])
+            target_equipment = Equipment.objects.filter(symbol=symbols[index+1])
+
+            self.assertTrue(ManualInvestment.objects.filter(base_equipment=base_equipment, target_equipment=target_equipment)).exists()
+
+            investment = ManualInvestment.objects.filter(base_equipment=base_equipment, target_equipment=target_equipment)
+
+            self.assertTrue(investment.base_amount == base_amounts[index])
+            self.assertTrue(investment.target_amount == target_amounts[index])
 
