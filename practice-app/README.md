@@ -8,8 +8,6 @@ Here are the [requirements.](https://github.com/bounswe/bounswe2019group2/wiki/A
 API Documentation: http://api.traiders-practice.tk/doc/ <br>
 Frontend: http://traiders-practice.tk <br>
 
-Frontend doesn't support registration yet, you can use `test@traiders-practice.tk:jkk5vwj5` combination to login.
-
 ## How to Install & Run
 
 1 - Make sure you have Python 3.6 or higher and pip installed.
