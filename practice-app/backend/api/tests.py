@@ -3,7 +3,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime, make_aware
 
-from .models import Parity, Equipment
+from .models import Parity, Equipment, ManualInvestment
 
 
 class RegisterTestCase(APITestCase):
@@ -174,3 +174,47 @@ class ParityListTestCase(APITestCase):
 
         self.assertTrue({'base': 'SYM1', 'target': 'SYM2'} in data)
         self.assertTrue({'base': 'SYM2', 'target': 'SYM3'} in data)
+
+
+class InvestmentProfitTestCase(APITestCase):
+    def setUp(self):
+        user = User(username="sam", email="sam@gmail.com")
+        user.set_password("1234")
+        user.save()
+        e1 = Equipment(symbol='SYM1', name='curr 1', category='currency')
+        e2 = Equipment(symbol='SYM2', name='curr 2', category='currency')
+        e3 = Equipment(symbol='SYM3', name='curr 3', category='currency')
+        e1.save(), e2.save(), e3.save()
+        Parity(base_equipment=e1, target_equipment=e2, ratio=1.50).save()
+        Parity(base_equipment=e2, target_equipment=e1, ratio=1/1.50).save()
+        Parity(base_equipment=e1, target_equipment=e3, ratio=2.50).save()
+        Parity(base_equipment=e3, target_equipment=e1, ratio=1 / 2.50).save()
+        Parity(base_equipment=e2, target_equipment=e3, ratio=5).save()
+        Parity(base_equipment=e3, target_equipment=e2, ratio=1 / 5).save()
+        ManualInvestment(base_equipment=e1, target_equipment=e2,
+                         base_amount=200, target_amount=100, made_by=user).save()
+
+    def test_single_investment(self):
+        response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt "+token
+
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+        response = self.client.get('/investments/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        investment_id = response.json()["investments"][0]["id"]
+        response = self.client.post('/investments/profit',
+                                    data={"investment_id": investment_id, "symbol": "SYM1"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        profit = response.data["profit"]
+        self.assertEqual(profit, -133.33)
+        response = self.client.post('/investments/total_profit',
+                                    data={"investment_id": investment_id, "symbol": "SYM1"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["total_profit"], -133.33)
+
+
