@@ -31,19 +31,12 @@ class RegisterView(APIView):
 
 class ParityListView(APIView):
     def get(self, request):
-        parities = Parity.objects.all()
-        parity_names = set()
+        parities = Parity.objects.values('base_equipment__symbol', 'target_equipment__symbol').distinct()
 
-        for parity in parities:
-            parity_names.add((parity.base_equipment.symbol, parity.target_equipment.symbol))
-        json_formatted = []
-
-        for parity_name in sorted(parity_names):
-            json_formatted.append({
-                "base": parity_name[0],
-                "target": parity_name[1]})
-
-        return Response(json_formatted)
+        return Response([{
+            'base': p['base_equipment__symbol'],
+            'target': p['target_equipment__symbol']} for p in parities]
+        )
 
 
 class LoginAPIView(APIView):
