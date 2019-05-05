@@ -192,6 +192,10 @@ class ManualInvestmentCreateTestCase(APITestCase):
         n = 5
         # create symbolic symbols, base amounts and target amounts
         symbols = [f"SYM{index}" for index in range(n)]
+
+        for index in range:
+            Equipment(symbol=symbols[index], name=f"curr{index}", category="currency").save()
+
         base_amounts = [14, 7293, 543, 21895]
         target_amounts =  [83, 470, 10647, 3274]
 
