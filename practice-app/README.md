@@ -4,6 +4,12 @@ This is our practice application for CMPE352/451 project.
 We are going to implement the manual investment feature of our project for this app. 
 Here are the [requirements.](https://github.com/bounswe/bounswe2019group2/wiki/API-System-Requirements)
 
+## Live Instance
+API Documentation: http://api.traiders-practice.tk/doc/
+Frontend: http://traiders-practice.tk
+
+Frontend doesn't support registration yet, you can use `test@traiders-practice.tk:jkk5vwj5` combination to login.
+
 ## How to Install & Run
 
 1 - Make sure you have Python 3.6 or higher and pip installed.
