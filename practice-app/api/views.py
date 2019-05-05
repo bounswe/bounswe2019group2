@@ -67,6 +67,7 @@ class InvestmentsAPIView(APIView):
 
         for investment in investments:
             response['investments'].append({
+                'id': investment.id,
                 'base_symbol': investment.base_equipment.symbol,
                 'target_symbol': investment.target_equipment.symbol,
                 'base_amount': investment.base_amount,
