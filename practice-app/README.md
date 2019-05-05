@@ -5,8 +5,8 @@ We are going to implement the manual investment feature of our project for this 
 Here are the [requirements.](https://github.com/bounswe/bounswe2019group2/wiki/API-System-Requirements)
 
 ## Live Instance
-API Documentation: http://api.traiders-practice.tk/doc/
-Frontend: http://traiders-practice.tk
+API Documentation: http://api.traiders-practice.tk/doc/ <br>
+Frontend: http://traiders-practice.tk <br>
 
 Frontend doesn't support registration yet, you can use `test@traiders-practice.tk:jkk5vwj5` combination to login.
 
