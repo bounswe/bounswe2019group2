@@ -9,7 +9,7 @@ from .models import Parity, Equipment, ManualInvestment
 class RegisterTestCase(APITestCase):
 
     def test_user_create(self):
-        response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
+        response = self.client.post('/register/', data={'username': 'newuser', 'password': '1234qazx',
                                                        'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -24,7 +24,7 @@ class InvalidRegisterTestCase(APITestCase):
         user.save()
 
     def test_user_same(self):
-        response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
+        response = self.client.post('/register/', data={'username': 'newuser', 'password': '1234qazx',
                                                        'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -32,7 +32,7 @@ class InvalidRegisterTestCase(APITestCase):
         self.assertEqual(response.data, {'message': 'Email or username is invalid'})
 
     def test_same_email(self):
-        response = self.client.put('/register/', data={'username': 'invester', 'password': '1234qazx',
+        response = self.client.post('/register/', data={'username': 'invester', 'password': '1234qazx',
                                                        'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -40,7 +40,7 @@ class InvalidRegisterTestCase(APITestCase):
         self.assertEqual(response.data, {'message': 'Email or username is invalid'})
 
     def test_same_username(self):
-        response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
+        response = self.client.post('/register/', data={'username': 'newuser', 'password': '1234qazx',
                                                        'email': 'yenibiri@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
