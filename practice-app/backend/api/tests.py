@@ -213,7 +213,7 @@ class InvestmentProfitTestCase(APITestCase):
         profit = response.data["profit"]
         self.assertEqual(profit, -133.33)
         response = self.client.post('/investments/total_profit',
-                                    data={"investment_id": investment_id, "symbol": "SYM1"})
+                                    data={"symbol": "SYM1"})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["total_profit"], -133.33)
 
