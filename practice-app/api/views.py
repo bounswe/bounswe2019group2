@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from . import serializers as ls
 from .models import ManualInvestment, Parity, Equipment, User
 from .serializers import ParitySerializer
+from django.utils import timezone
 
 
 class RegisterView(APIView):
@@ -87,13 +88,18 @@ class InvestmentsAPIView(APIView):
         user = User.objects.get(id=user_id)
         base_symbol = request.data['base']
         target_symbol = request.data['target']
+        date = request.data['date']
+
+        if date is None:
+            utc = timezone.utc
+            date = datetime.utcnow().replace(tzinfo=utc).strftime('%Y-%m-%d')
 
         base_equipment = get_object_or_404(Equipment, symbol=base_symbol)
         target_equipment = get_object_or_404(Equipment, symbol=target_symbol)
         base_amount = request.data['base_amount']
         target_amount = request.data['target_amount']
         ManualInvestment(base_equipment=base_equipment, target_equipment=target_equipment,
-                         base_amount=base_amount, target_amount=target_amount, made_by=user).save()
+                         base_amount=base_amount, target_amount=target_amount, made_by=user, date=date).save()
 
         return Response(status=status.HTTP_200_OK)
 
