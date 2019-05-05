@@ -140,16 +140,14 @@ class InvestmentProfitAPIView(APIView):
     def post(self, request):
         user_id = request.user.id
         user = User.objects.get(id=user_id)
-        symbol = request.data['symbol']
 
         # If no symbol is given, use TRY as default.
 
-        if symbol is None:
+        if request.data['symbol'] is None:
             symbol = "TRY"
-
         # If no such investment exists in the DB, returning 400.
         else:
-
+            symbol = request.data['symbol']
             if not Equipment.objects.filter(symbol=symbol).exists():
                 return Response({
                     'message': 'There is no such currency with symbol ' + str(symbol)},
@@ -188,32 +186,7 @@ class TotalProfitAPIView(APIView):
         investments = ManualInvestment.objects.filter(made_by=user)
         profit = 0
         for investment in investments:
-            # Using the profit calculation of individual profit API.
             profit += InvestmentProfitAPIView._get_profit(investment, symbol)
-
-            base_eq = investment.base_equipment
-            target_eq = investment.target_equipment
-            base_amount = investment.base_amount
-            target_amount = investment.target_amount
-
-            # If the sold equipment is the same as default equipment, ratio is 1.
-            if base_eq.symbol == default_eq.symbol:
-                base_default = 1
-
-            else:
-                base_default = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
-                                                                       target_equipment=default_eq)[0].ratio
-
-            # If the bought equipment is the same as default equipment, ratio is 1.
-            if target_eq.symbol == default_eq.symbol:
-                target_default = 1
-            else:
-                target_default = Parity.objects.order_by('-date').filter(base_equipment=target_eq,
-                                                                         target_equipment=default_eq)[0].ratio
-            current = target_amount * target_default
-            would_be = base_amount * base_default
-            profit += float(current - would_be)
-
         return profit
 
     def get(self, request):
