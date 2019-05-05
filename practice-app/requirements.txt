@@ -1,4 +1,6 @@
 Django==2.2
+requests==2.21.0
+django-cron==0.5.1
 django-cors-headers==2.5.3
 djangorestframework==3.9.3
 djangorestframework-jwt==1.11.0
