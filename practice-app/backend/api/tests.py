@@ -25,7 +25,7 @@ class InvalidRegisterTestCase(APITestCase):
 
     def test_user_same(self):
         response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
-                                                        'email': 'yeni@email.com'})
+                                                       'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -33,7 +33,7 @@ class InvalidRegisterTestCase(APITestCase):
 
     def test_same_email(self):
         response = self.client.put('/register/', data={'username': 'invester', 'password': '1234qazx',
-                                                        'email': 'yeni@email.com'})
+                                                       'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -41,13 +41,13 @@ class InvalidRegisterTestCase(APITestCase):
 
     def test_same_username(self):
         response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
-                                                        'email': 'yenibiri@email.com'})
+                                                       'email': 'yenibiri@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         self.assertEqual(response.data, {'message': 'Email or username is invalid'})
 
-        
+
 class AuthApiTestCase(APITestCase):
     def setUp(self):
         user = User(username="john", email="john@gmail.com")
@@ -70,7 +70,7 @@ class AuthApiTestCase(APITestCase):
         self.assertFalse("user" in response.data)
 
     def test_invalid_login2(self):
-        response = self.client.post('/login/', data={'email':'', 'password': '1234'})
+        response = self.client.post('/login/', data={'email': '', 'password': '1234'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertFalse("token" in response.data)
@@ -186,7 +186,7 @@ class InvestmentProfitTestCase(APITestCase):
         e3 = Equipment(symbol='SYM3', name='curr 3', category='currency')
         e1.save(), e2.save(), e3.save()
         Parity(base_equipment=e1, target_equipment=e2, ratio=1.50).save()
-        Parity(base_equipment=e2, target_equipment=e1, ratio=1/1.50).save()
+        Parity(base_equipment=e2, target_equipment=e1, ratio=1 / 1.50).save()
         Parity(base_equipment=e1, target_equipment=e3, ratio=2.50).save()
         Parity(base_equipment=e3, target_equipment=e1, ratio=1 / 2.50).save()
         Parity(base_equipment=e2, target_equipment=e3, ratio=5).save()
@@ -194,12 +194,13 @@ class InvestmentProfitTestCase(APITestCase):
         ManualInvestment(base_equipment=e1, target_equipment=e2,
                          base_amount=200, target_amount=100, made_by=user).save()
 
+
     def test_single_investment(self):
         response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue("token" in response.data)
         token = response.data["token"]
-        token = "jwt "+token
+        token = "jwt " + token
 
         self.client.credentials(HTTP_AUTHORIZATION=token)
         response = self.client.get('/investments/')
@@ -217,4 +218,67 @@ class InvestmentProfitTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["total_profit"], -133.33)
 
+    def test_invalid_symbol(self):
+        response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt " + token
 
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+        response = self.client.get('/investments/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        investment_id = response.json()["investments"][0]["id"]
+        response = self.client.post('/investments/profit',
+                                    data={"investment_id": investment_id, "symbol": "SYM5"})
+        self.assertTrue(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class TotalProfitTestCase(APITestCase):
+    def setUp(self):
+        user = User(username="sam", email="sam@gmail.com")
+        user.set_password("1234")
+        user.save()
+        e1 = Equipment(symbol='SYM1', name='curr 1', category='currency')
+        e2 = Equipment(symbol='SYM2', name='curr 2', category='currency')
+        e3 = Equipment(symbol='SYM3', name='curr 3', category='currency')
+        e1.save(), e2.save(), e3.save()
+        Parity(base_equipment=e1, target_equipment=e2, ratio=1.50).save()
+        Parity(base_equipment=e2, target_equipment=e1, ratio=1 / 1.50).save()
+        Parity(base_equipment=e1, target_equipment=e3, ratio=2.50).save()
+        Parity(base_equipment=e3, target_equipment=e1, ratio=1 / 2.50).save()
+        Parity(base_equipment=e2, target_equipment=e3, ratio=5).save()
+        Parity(base_equipment=e3, target_equipment=e2, ratio=1 / 5).save()
+        ManualInvestment(base_equipment=e1, target_equipment=e2,
+                         base_amount=200, target_amount=100, made_by=user).save()
+        ManualInvestment(base_equipment=e1, target_equipment=e3,
+                        base_amount=300, target_amount=100, made_by=user).save()
+
+
+    def test_multiple_investment(self):
+        response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt " + token
+
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+
+        response = self.client.post('/investments/total_profit',
+                                    data={"symbol": "SYM2"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["total_profit"], -630)
+
+    def test_invalid_symbol(self):
+        response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt " + token
+
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+
+        response = self.client.post('/investments/total_profit',
+                                    data={"symbol": "SYM6"})
+        self.assertTrue(response.status_code, status.HTTP_404_NOT_FOUND)
