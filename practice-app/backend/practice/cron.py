@@ -1,6 +1,6 @@
 import sys
 import requests
-from api.models import Equipment, Parity
+from backend.api.models import Equipment, Parity
 from django_cron import CronJobBase, Schedule
 from django.utils.timezone import make_aware
 from datetime import datetime
