@@ -23,7 +23,7 @@ class RegisterView(APIView):
             user.set_password(password)
             user.save()
             return Response({
-                'message': f'User {username} is registered'
+                'message': f'User {username} is registeret'
             })
         except:
             return Response({
