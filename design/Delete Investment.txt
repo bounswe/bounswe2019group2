@@ -1,0 +1,10 @@
+title Delete Investment
+actor RegisteredUser
+RegisteredUser->User:deleteInvestment(investment_id)
+activate User
+
+alt successfully delete
+User-->RegisteredUser:success
+else failed to delete
+User-->RegisteredUser:display invalid request error
+end
