@@ -282,3 +282,68 @@ class TotalProfitTestCase(APITestCase):
         response = self.client.post('/investments/total_profit',
                                     data={"symbol": "SYM6"})
         self.assertTrue(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class InvestmentDeleteTestCase(APITestCase):
+    def setUp(self):
+        user1 = User(username="jack", email="jack@gmail.com")
+        user1.set_password("12345")
+        user1.save()
+        user2 = User(username="sam", email="sam@gmail.com")
+        user2.set_password("1234")
+        user2.save()
+        e1 = Equipment(symbol='SYM1', name='curr 1', category='currency')
+        e2 = Equipment(symbol='SYM2', name='curr 2', category='currency')
+        e3 = Equipment(symbol='SYM3', name='curr 3', category='currency')
+        e1.save(), e2.save(), e3.save()
+        Parity(base_equipment=e1, target_equipment=e2, ratio=1.50).save()
+        Parity(base_equipment=e2, target_equipment=e1, ratio=1 / 1.50).save()
+        Parity(base_equipment=e1, target_equipment=e3, ratio=2.50).save()
+        Parity(base_equipment=e3, target_equipment=e1, ratio=1 / 2.50).save()
+        Parity(base_equipment=e2, target_equipment=e3, ratio=5).save()
+        Parity(base_equipment=e3, target_equipment=e2, ratio=1 / 5).save()
+        ManualInvestment(base_equipment=e1, target_equipment=e2,
+                         base_amount=200, target_amount=100, made_by=user2).save()
+
+    def test_delete_investment(self):
+        response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt " + token
+
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+        response = self.client.get('/investments/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        investment_id = str(response.json()["investments"][0]["id"])
+
+        response = self.client.delete('/investments/', data={'id': investment_id})
+  
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+    def test_invalid_delete_investment(self):
+        response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt " + token
+
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+        response = self.client.get('/investments/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        investment_id = str(response.json()["investments"][0]["id"])
+        
+        response = self.client.post('/login/', data={'email': 'jack@gmail.com', 'password': '12345'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt " + token
+
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+        response = self.client.delete('/investments/', data={'id': investment_id})
+  
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data, {'message': 'User does not have investment with id: ' + str(investment_id)})
