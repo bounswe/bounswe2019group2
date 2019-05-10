@@ -45,10 +45,33 @@ In addition to this, we have used Travis and the autotesting to make our workflo
 
 **9- API Code:** We used Django to implement the backend of the app, and used javascript jquery to implement the frontend. We have basically 2 family of functionalities, one is investments and the other family is parity. We provide creating, deleting, listing investments and profit calculation. We also provide listing history of parities, latest parity values. We also have register and login functionalities, secured by JWT Authentication. One thing we did good is the cron job of our backend, the job basically sends request to the API we have used(https://exchangeratesapi.io/) and updates the database accordingly. When the system is initialized, we query the API using our own-written django command to fetch the history of selected parities, then cronjob constantly updates the database with new values. Hence, the parity latest and historic endpoints can provide the information fast and robust, instead of querying another API when the request sent to us. We may even directly use these systems once we start next term, since these parts are working and solid right now.
 
-**10- Deployed API:** TODO: yemreinci
+**10- Deployed API:** When deploying our application, we tried to apply modern software development practices as much as we could afford. We currently use an AWS EC2 t3.micro instance as our production server. To enable each team member to remotely access to the server, we have collected SSH public keys and authorized them. 
 
+We containerized each individual part of our system as Docker containers and combined them using Docker Compose. Containerization helped us continuously deploy our application as we developed and led us to version server-side configurations and software dependencies in our project repository. It also provides portability in terms of simply downloading and running application with no concern about the software environment or configurations.
+
+We registered traiders-practice.tk domain name for our website with freenom.com. We added three subdomains (traiders-practice.tk, www.traiders-practice.tk, api.traiders-practice.tk) to resolve to the IP address of our production server. 
+
+We also enabled HTTPs on our website by getting an SSL certificate from https://letsencrypt.org to secure the communications between clients and the server. The web server (Nginx) is configured to redirect every request coming from HTTP to HTTPs. 
+
+In the future, we plan to enable continuous deployment so that the master branch gets deployed automatically whenever we merge a pull request. We will also develop a backup strategy for our database to be able to recover from disasters.
 
 # Evaluation of Tools and Processes Used
+* **Amazon Web Services:** 
+We used an AWS EC2 t3.micro instance to deploy our application. As the server is located in the U.S., there is a bit of latency when connecting to the website. We are going to choose a region in Europe in the next semester. 
+- **Django and Django REST Framework:** 
+...
+- **Docker and Docker Compose**
+- **exchangeratesapi.io**
+- **Git**
+- **Github (PRs and Issues)**
+- **jQuery**
+- **JWT**
+- **Nginx**
+- **PyCharm**
+- **Python**
+- **Travis**
+- **PostgresSQL**
+
 
 
 # Work Done by Each Member
