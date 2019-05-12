@@ -61,19 +61,16 @@ In the future, we plan to enable continuous deployment so that the master branch
 # Evaluation of Tools and Processes Used
 * **Amazon Web Services:** 
 We used an AWS EC2 t3.micro instance to deploy our application. As the server is located in the U.S., there is a bit of latency when connecting to the website. We are going to choose a region in Europe in the next semester. 
-- **Django and Django REST Framework:** 
-...
-- **Docker and Docker Compose**
-- **exchangeratesapi.io**
-- **Git**
-- **Github (PRs and Issues)**
-- **jQuery**
-- **JWT**
-- **Nginx**
-- **PyCharm**
-- **Python**
-- **Travis**
-- **PostgresSQL**
+- **Django and Django REST Framework:** We loved Django and DRF as they provide so many builtin features for API development. 
+- **Docker and Docker Compose** Docker with Docker Compose helped us easily configure our production environment.
+- **exchangeratesapi.io:** The API that we used was very straightforward to work with. But it only provides data for foreign exchange rates and the data is updated daily. We will use a more advanced API next semester.
+- **Github (PRs and Issues)**: We think we utilized Github pull requests and issues very well throughout the development process of the project. We tried to use Github's features for all our reviews and comments. We have created issue and pull request templates to better define our cycle of development. We have opened a new branch for each feature implemented and created a pull request.
+- **jQuery**: We developed our frontend using jquery. Though a bit old, jQuery is still a very powerful library for making user interfaces. But we think we should use a more sophisticated javascript framework next semester such as React or Vue.js.
+- **JWT**: JSON Web Tokens makes it easy to create secure web tokens without worrying about storing the tokens in your database. We used JWT to authorize users on our system when they create or delete manual investments.
+- **Nginx**: We use nginx both as a proxy and a static content server. It stands as a proxy between the backend and clients to decipher SSL encrypted requests. It serves the static content of the frontend. 
+- **PyCharm**: Pycharm made our lifes easy with its builtin features. We used it for PEP8 format checking for Python code. It is also very helpful for resolving merge conflicts.
+- **Travis**: We utilized Travis to automatically test the pull requests. It helped us maintain a smooth codebase by avoiding broken branches to get merged into master. We also plan to use it for continious integration next semester. 
+- **PostgresSQL**: PostgresSQL is a well documented and widely used open source DBMS. It works well with Django.
 
 
 
