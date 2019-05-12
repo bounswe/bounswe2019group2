@@ -116,7 +116,7 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 
 
 # API URL
-https://api.traiders-practice.tk/doc/
-https://traiders-practice.tk/
+API Documentation: https://api.traiders-practice.tk/doc/ <br>
+Frontend: https://traiders-practice.tk/
 
 
