@@ -13,6 +13,35 @@ from django.utils import timezone
 
 class RegisterView(APIView):
     def post(self, request):
+        """
+        Registers a new user.
+        Returns a message saying whether registration was successful or not.
+
+        ### Parameters
+        * `username`: chosen username
+        * `password`: chosen password
+        * `email`: email address
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/register/ HTTP/1.1
+
+        {
+            "username": "johndoe",
+            "email": "johndoe@example.com",
+            "password": "verysecretpassword"
+        }
+        ```
+        Response
+        ```json
+        {
+            "message": "User johndoe is registered"
+        }
+        ```
+
+
+        """
         try:
             username = request.data['username']
             password = request.data['password']
@@ -31,7 +60,40 @@ class RegisterView(APIView):
 
 
 class ParityListView(APIView):
+
     def get(self, request):
+        """
+        Returns list of parities avaliable in the system.
+
+        ### Example
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/parity/ HTTP/1.1
+        ```
+
+        Response
+        ```json
+        [
+            {
+                "base": "TRY",
+                "target": "USD"
+            },
+            {
+                "base": "TRY",
+                "target": "TRY"
+            },
+            {
+                "base": "USD",
+                "target": "TRY"
+            },
+            {
+                "base": "USD",
+                "target": "USD"
+            }
+        ]
+        ```
+
+        """
         # get distinct (base, target) pairs
         parities = Parity.objects.values('base_equipment__symbol', 'target_equipment__symbol').distinct()
 
@@ -43,6 +105,37 @@ class ParityListView(APIView):
 
 class LoginAPIView(APIView):
     def post(self, *args, **kwargs):
+        """
+        Returns a JWT token if the user provided is registered.
+
+        ### Parameters
+        * `email`: email address
+        * `password`: password
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/login/ HTTP/1.1
+
+        {
+            "email": "johndoe@example.com",
+            "password": "verysecretpassword"
+        }
+        ```
+        Response
+        ```json
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMCwidXNlcm5hbWUiOiJqb2huZG9lMSIsImV4cCI6MTU1ODMwMDk1NCwiZW1haWwiOiJqb2huZG9lMUBleGFtcGxlLmNvbSJ9.CW0FCyg44oCFeWy7OCm3Aixy-Eu8bMOXOoJEdxwWPR4",
+            "user": {
+                "id": 30,
+                "username": "johndoe",
+                "first_name": "",
+                "last_name": ""
+            }
+        }
+        ```
+
+        """
         data = self.request.data
         serializer = ls.LoginSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -54,6 +147,40 @@ class InvestmentsAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
+        """
+        Returns all investments of given user.
+
+        Requires a JWT `token` to be sent as http header.
+
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/investments/ HTTP/1.1
+        Authorization : JWT {token}
+        ```
+        Response
+        ```json
+        {
+          "investments":[
+            {
+              "id":33,
+              "base_symbol":"USD",
+              "target_symbol":"TRY",
+              "base_amount":100.0,
+              "target_amount":500.0,
+              "date":"2019-03-07"
+            },
+            {
+              "id":34,
+              "base_symbol":"TRY",
+              "target_symbol":"USD",
+              "base_amount":500.0,
+              "target_amount":99.0,
+              "date":"2019-02-01"
+            }
+          ]
+        }
+        ```
+        """
         investments = request.user.manualinvestment_set.all()
 
         response = {
@@ -73,6 +200,19 @@ class InvestmentsAPIView(APIView):
         return Response(response)
 
     def delete(self, request):
+        """
+        Deletes the investment with the given `id`.
+
+        ## Example
+        Request
+        ```http
+        DELETE https://api.traiders-practice.tk/investments/ HTTP/1.1
+
+        {
+          "id": 34
+        }
+        ```
+        """
         user_id = request.user.id
         user = User.objects.get(id=user_id)
         investment_id = request.data['id']
@@ -85,6 +225,31 @@ class InvestmentsAPIView(APIView):
         return Response(status=status.HTTP_200_OK)
 
     def post(self, request):
+        """
+        Adds a given investment to investments of the user.
+
+        ### Parameters
+        * `base`: base symbol the investment made from
+        * `target`: target symbol the investment made to
+        * `date`: date of the investment, in YYYY-MM-DD format
+        * `base_amount`: amount sold from base equipment
+        * `target_amount`: amount bought from target equipment
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/investments/ HTTP/1.1
+
+        {
+          "base": "TRY",
+          "target": "USD",
+          "base_amount": "500",
+          "target_amount": "99",
+          "date": "2019-02-01"
+        }
+        ```
+
+        """
         user_id = request.user.id
         user = User.objects.get(id=user_id)
         base_symbol = request.data['base']
@@ -139,6 +304,32 @@ class InvestmentProfitAPIView(APIView):
         return profit
 
     def post(self, request):
+        """
+        Returns profit of the investment with the given id in terms of given `symbol`.
+
+        ### Parameters
+        * `symbol`: the currency in which the profit will be calculated. if not given, defaults to TRY.
+        * `investment_id`: id of the investment to calculate profit.
+
+        ###
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/investments/profit HTTP/1.1
+
+        {
+          "symbol": "TRY",
+          "investment_id": 33,
+        }
+        ```
+        Response
+        ```json
+        {
+          "id": 33,
+          "profit": -122.93
+        }
+        ```
+
+        """
         user_id = request.user.id
         user = User.objects.get(id=user_id)
 
@@ -191,6 +382,10 @@ class TotalProfitAPIView(APIView):
         return profit
 
     def get(self, request):
+        """
+        Returns total profit in terms of TRY. Similar to next one.
+
+        """
         # If get request, the endpoint will return profit in terms of TRY.
         user_id = request.user.id
         profit = self._get_total_profit(user_id=user_id,
@@ -200,6 +395,30 @@ class TotalProfitAPIView(APIView):
         }, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """
+        Returns total profit in terms of given symbol.
+
+        ### Parameters
+        * `symbol`: the currency in which the profit will be calculated.
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/investments/profit HTTP/1.1
+
+        {
+          "symbol": "TRY"
+        }
+        ```
+        Response
+        ```json
+        {
+          "profit": 3433.07
+        }
+        ```
+
+
+        """
         user_id = request.user.id
         symbol = request.POST.get('symbol')
 
