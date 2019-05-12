@@ -114,7 +114,7 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 
 
 # Project Plan
-
+![](https://raw.githubusercontent.com/bounswe/bounswe2019group2/milestone2/design/Project%20Plan.jpg)
 
 # API URL
 API Documentation: https://api.traiders-practice.tk/doc/ <br>
