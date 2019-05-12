@@ -148,8 +148,38 @@ class InvestmentsAPIView(APIView):
 
     def get(self, request):
         """
-            Returns all investments of given user.
+        Returns all investments of given user.
 
+        Requires a JWT `token` to be sent as http header.
+
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/investments/ HTTP/1.1
+        Authorization : JWT {token}
+        ```
+        Response
+        ```json
+        {
+          "investments":[
+            {
+              "id":33,
+              "base_symbol":"USD",
+              "target_symbol":"TRY",
+              "base_amount":100.0,
+              "target_amount":500.0,
+              "date":"2019-03-07"
+            },
+            {
+              "id":34,
+              "base_symbol":"TRY",
+              "target_symbol":"USD",
+              "base_amount":500.0,
+              "target_amount":99.0,
+              "date":"2019-02-01"
+            }
+          ]
+        }
+        ```
         """
         investments = request.user.manualinvestment_set.all()
 
@@ -171,10 +201,17 @@ class InvestmentsAPIView(APIView):
 
     def delete(self, request):
         """
-            Deletes the given investment from the database.
+        Deletes the investment with the given `id`.
 
-            'id' should exist in the database.
+        ## Example
+        Request
+        ```http
+        DELETE https://api.traiders-practice.tk/investments/ HTTP/1.1
 
+        {
+          "id": 34
+        }
+        ```
         """
         user_id = request.user.id
         user = User.objects.get(id=user_id)
@@ -189,9 +226,28 @@ class InvestmentsAPIView(APIView):
 
     def post(self, request):
         """
-            Adds a given investment to investments of the user.
+        Adds a given investment to investments of the user.
 
-            Parameters for investment: 'base', 'target', 'date', 'base_amount', 'target_amount'
+        ### Parameters
+        * `base`: base symbol the investment made from
+        * `target`: target symbol the investment made to
+        * `date`: date of the investment, in YYYY-MM-DD format
+        * `base_amount`: amount sold from base equipment
+        * `target_amount`: amount bought from target equipment
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/investments/ HTTP/1.1
+
+        {
+          "base": "TRY",
+          "target": "USD",
+          "base_amount": "500",
+          "target_amount": "99",
+          "date": "2019-02-01"
+        }
+        ```
 
         """
         user_id = request.user.id
@@ -249,10 +305,29 @@ class InvestmentProfitAPIView(APIView):
 
     def post(self, request):
         """
-            Returns profit of the given investment in terms of given symbol.
+        Returns profit of the investment with the given id in terms of given `symbol`.
 
-            `symbol` should be a symbol that exists in the database.
-            'investment_id' should exist in the database.
+        ### Parameters
+        * `symbol`: the currency in which the profit will be calculated. if not given, defaults to TRY.
+        * `investment_id`: id of the investment to calculate profit.
+
+        ###
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/investments/profit HTTP/1.1
+
+        {
+          "symbol": "TRY",
+          "investment_id": 33,
+        }
+        ```
+        Response
+        ```json
+        {
+          "id": 33,
+          "profit": -122.93
+        }
+        ```
 
         """
         user_id = request.user.id
@@ -308,7 +383,7 @@ class TotalProfitAPIView(APIView):
 
     def get(self, request):
         """
-            Returns total profit in terms of TRY.
+        Returns total profit in terms of TRY. Similar to next one.
 
         """
         # If get request, the endpoint will return profit in terms of TRY.
@@ -321,9 +396,27 @@ class TotalProfitAPIView(APIView):
 
     def post(self, request):
         """
-            Returns total profit in terms of given symbol.
+        Returns total profit in terms of given symbol.
 
-            `symbol` should be a symbol that exists in the database.
+        ### Parameters
+        * `symbol`: the currency in which the profit will be calculated.
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/investments/profit HTTP/1.1
+
+        {
+          "symbol": "TRY"
+        }
+        ```
+        Response
+        ```json
+        {
+          "profit": 3433.07
+        }
+        ```
+
 
         """
         user_id = request.user.id
