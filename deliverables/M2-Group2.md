@@ -83,7 +83,8 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 | Mert Yüksekgönül | • I have created pull request template and issue template for the workflow. <br> • I have created the travis configuration for autotesting and to be used in CI in the future.<br> • Yunus Emre and I wrote down the system requirements. <br> • I have implemented models(database) for the API. <br> • I have implemented create investment endpoint. <br> •  I have implemented delete investment endpoint. <br> •  I have implemented the endpoint for calculating an investment's profit. <br> •  I have implemented the endpoint for calculating total profit for a user. <br> •  I have reimplemented the parity/latest endpoint for enhancing its use, letting handling multiple cases. <br> • I have implemented a unit test for profit calculation. <br> • I have implemented the history generation command, which we run when initializing the db and fetching historical data. <br> • I was the reviewer for 12 PRs. |
 | Muhammet Furkan Gök | • I was responsible for implementing login API with Ozgur Solak.<br> • I implemented some invalid test cases for login API. <br> • I implemented some front-end codes which is not in use for now, will be used later.<br> • I reviewed some parts of the codes of the login API which was written by my partner. <br>|
 | Ozgur Solak | • I implemented the login API with my partner Furkan Gok.<br> •I implemented different test cases for login API. |
-| Yunus Emre İnci | • I implemented the historic parity data API. <br> • I wrote unittests for all of the /parity endpoint. <br> • I improved the speed of the parity list endpoint. <br> • I developed the frontend code. <br> • I implemented a Django management command to generate fake parity data for development. <br> • I deployed the project in the production server by making necessary configurations and settings. <br> • I reviewed all of the code that has been written. <br> • I merged several pull requests by resolving conflicts.
+| Yunus Emre İnci | • I implemented the historic parity data API. <br> • I wrote unittests for all of the /parity endpoint. <br> • I improved the speed of the parity list endpoint. <br> • I developed the frontend code. <br> • I implemented a Django management command to generate fake parity data for development. <br> • I deployed the project in the production server by making necessary configurations and settings. <br> • I reviewed all of the code that has been written. <br> • I merged several pull requests by resolving conflicts.|
+| Dilruba Köse | • I implemented the register API. <br> •I wrote different unit tests -valid and invalid- for register API. <br> • I reviewed the test for create investment code which is written by Fatih. <br> • I created sequence diagrams for API design.
 
 # API Requirements
 ## Table of Contents
@@ -116,7 +117,7 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 
 
 # API URL
-API Documentation: https://api.traiders-practice.tk/doc/ <br>
-Frontend: https://traiders-practice.tk/
+https://api.traiders-practice.tk/doc/
+https://traiders-practice.tk/
 
 
