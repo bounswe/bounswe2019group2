@@ -12,7 +12,7 @@ from django.utils import timezone
 
 
 class RegisterView(APIView):
-    def put(self, request):
+    def post(self, request):
         try:
             username = request.data['username']
             password = request.data['password']
@@ -32,6 +32,7 @@ class RegisterView(APIView):
 
 class ParityListView(APIView):
     def get(self, request):
+        # get distinct (base, target) pairs
         parities = Parity.objects.values('base_equipment__symbol', 'target_equipment__symbol').distinct()
 
         return Response([{
@@ -218,34 +219,31 @@ class TotalProfitAPIView(APIView):
 
 class ParityView(APIView):
     def _get_all(self):
-        parities = {"Results": []}
+        parities = []
         for base in Equipment.objects.all():
             for target in Equipment.objects.all():
                 parity = Parity.objects.order_by('-date').filter(base_equipment=base,
                                                                  target_equipment=target)[0]
-                parity = ParitySerializer(parity).data
-                parities["Results"].append(parity)
-        return parities
+                parities.append(parity)
+        return ParitySerializer(parities, many=True).data
 
     def _get_base(self, base_symbol):
         base_equipment = Equipment.objects.get(symbol=base_symbol)
-        parities = {"Results": []}
+        parities = []
         for target in Equipment.objects.all():
             parity = Parity.objects.order_by('-date').filter(base_equipment=base_equipment,
                                                              target_equipment=target)[0]
-            parity = ParitySerializer(parity).data
-            parities["Results"].append(parity)
-        return parities
+            parities.append(parity)
+        return ParitySerializer(parities, many=True).data
 
     def _get_targets(self, target_symbol):
         target_equipment = Equipment.objects.get(symbol=target_symbol)
-        parities = {"Results": []}
+        parities = []
         for base in Equipment.objects.all():
             parity = Parity.objects.order_by('-date').filter(base_equipment=base,
                                                              target_equipment=target_equipment)[0]
-            parity = ParitySerializer(parity).data
-            parities["Results"].append(parity)
-        return parities
+            parities.append(parity)
+        return ParitySerializer(parities, many=True).data
 
     def get_latest(self, request):
         try:
@@ -276,6 +274,10 @@ class ParityView(APIView):
         return Response(response)
 
     def get_historic(self, request, date):
+        """
+        :param date: date string in form YYYY-MM-DD
+        :return: json list of parities in the given date
+        """
         parities = Parity.objects
 
         # apply filters for 'base' and 'target' query params if given
@@ -311,6 +313,93 @@ class ParityView(APIView):
         return Response(ParitySerializer(latest_in_day, many=True).data)
 
     def get(self, request, date):
+        """
+        Returns historic or latest parity data.
+
+        `date` should be either a date in _YYYY-MM-DD_ format or the string 'latest'.
+        If a date is given, the latest ratios of parities in that date is returned.
+        If 'latest' is given, the last avaliable ratio is returned for each parity.
+
+        ### Filters
+        Filters on base and target equipment fields can be applied with query string parameters `base` and `target`.
+
+        The returned ratio is the ratio `base`/`target`
+
+        ### Historic example
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/parity/2019-05-02/?base=TRY&target=USD HTTP/1.1
+        ```
+        Response
+        ```json
+        [
+            {
+                "base_equipment": {
+                    "symbol": "USD"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "5.9640"
+            }
+        ]
+        ```
+        ### Latest example
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/parity/2019-05-02/?target=TRY HTTP/1.1
+        ```
+        Response
+        ```json
+        [
+            {
+                "base_equipment": {
+                    "symbol": "TRY"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "1.0000"
+            },
+            {
+                "base_equipment": {
+                    "symbol": "USD"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "5.9640"
+            },
+            {
+                "base_equipment": {
+                    "symbol": "EUR"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "6.6870"
+            },
+            {
+                "base_equipment": {
+                    "symbol": "GBP"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "7.7820"
+            }
+        ]
+        ```
+
+
+
+        """
+
         if date == 'latest':
             return self.get_latest(request)
         else:

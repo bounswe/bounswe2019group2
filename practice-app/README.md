@@ -3,12 +3,15 @@
 This is our practice application for CMPE352/451 project. 
 We are going to implement the manual investment feature of our project for this app. 
 Here are the [requirements.](https://github.com/bounswe/bounswe2019group2/wiki/API-System-Requirements)
+For more information checkout wiki pages: 
+- [Description](https://github.com/bounswe/bounswe2019group2/wiki/Brief-Description-of-Software)
+- [User Manual](https://github.com/bounswe/bounswe2019group2/wiki/User-Manual)
+- [Design](https://github.com/bounswe/bounswe2019group2/wiki/Design-for-API)
+- [Deployment notes](https://github.com/bounswe/bounswe2019group2/wiki/Practice-App-Deployment-Notes)
 
 ## Live Instance
 API Documentation: http://api.traiders-practice.tk/doc/ <br>
 Frontend: http://traiders-practice.tk <br>
-
-Frontend doesn't support registration yet, you can use `test@traiders-practice.tk:jkk5vwj5` combination to login.
 
 ## How to Install & Run
 

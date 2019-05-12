@@ -1,4 +1,4 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime, make_aware
@@ -9,8 +9,8 @@ from .models import Parity, Equipment, ManualInvestment
 class RegisterTestCase(APITestCase):
 
     def test_user_create(self):
-        response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
-                                                       'email': 'yeni@email.com'})
+        response = self.client.post('/register/', data={'username': 'newuser', 'password': '1234qazx',
+                                                        'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -24,24 +24,24 @@ class InvalidRegisterTestCase(APITestCase):
         user.save()
 
     def test_user_same(self):
-        response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
-                                                       'email': 'yeni@email.com'})
+        response = self.client.post('/register/', data={'username': 'newuser', 'password': '1234qazx',
+                                                        'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         self.assertEqual(response.data, {'message': 'Email or username is invalid'})
 
     def test_same_email(self):
-        response = self.client.put('/register/', data={'username': 'invester', 'password': '1234qazx',
-                                                       'email': 'yeni@email.com'})
+        response = self.client.post('/register/', data={'username': 'invester', 'password': '1234qazx',
+                                                        'email': 'yeni@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         self.assertEqual(response.data, {'message': 'Email or username is invalid'})
 
     def test_same_username(self):
-        response = self.client.put('/register/', data={'username': 'newuser', 'password': '1234qazx',
-                                                       'email': 'yenibiri@email.com'})
+        response = self.client.post('/register/', data={'username': 'newuser', 'password': '1234qazx',
+                                                        'email': 'yenibiri@email.com'})
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -194,7 +194,6 @@ class InvestmentProfitTestCase(APITestCase):
         ManualInvestment(base_equipment=e1, target_equipment=e2,
                          base_amount=200, target_amount=100, made_by=user).save()
 
-
     def test_single_investment(self):
         response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -253,8 +252,7 @@ class TotalProfitTestCase(APITestCase):
         ManualInvestment(base_equipment=e1, target_equipment=e2,
                          base_amount=200, target_amount=100, made_by=user).save()
         ManualInvestment(base_equipment=e1, target_equipment=e3,
-                        base_amount=300, target_amount=100, made_by=user).save()
-
+                         base_amount=300, target_amount=100, made_by=user).save()
 
     def test_multiple_investment(self):
         response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
@@ -282,3 +280,65 @@ class TotalProfitTestCase(APITestCase):
         response = self.client.post('/investments/total_profit',
                                     data={"symbol": "SYM6"})
         self.assertTrue(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class ManualInvestmentCreateTestCase(APITestCase):
+
+    def setUp(self):
+        # create a user
+        user = User(username="sam", email="sam@gmail.com")
+        user.set_password("1234")
+        user.save()
+
+        n = 5
+        # generate fake symbols
+        symbols = [f"SYM{index}" for index in range(n)]
+
+        # create & save equipment based on fake symbol
+        for index in range(n):
+            Equipment(symbol=symbols[index], name=f"curr{index}", category="currency").save()
+
+    def test_post(self):
+
+        # login & get authentication token
+        response = self.client.post('/login/', data={'email': 'sam@gmail.com', 'password': '1234'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue("token" in response.data)
+        token = response.data["token"]
+        token = "jwt " + token
+
+        # confirm authentication
+        self.client.credentials(HTTP_AUTHORIZATION=token)
+
+        n = 5
+        # generate same fake symbols
+        symbols = [f"SYM{index}" for index in range(n)]
+
+        # generate fake amounts data
+        base_amounts = [14, 7293, 543, 21895]
+        target_amounts = [83, 470, 10647, 3274]
+        dates = ['2017-2-28', '1999-12-31', '2023-01-01', '2019-5-6']
+
+        data = {}
+        # mock post request to create investment
+        for index in range(n - 1):
+            data['base'] = symbols[index]
+            data['base_amount'] = base_amounts[index]
+            data['target'] = symbols[index + 1]
+            data['target_amount'] = target_amounts[index]
+            data['date'] = dates[index]
+
+            response = self.client.post('/investments/', data)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # get all manual investment object written to db via post requests
+        manual_investments = ManualInvestment.objects.all()
+
+        # check whether all the information matches or not
+        self.assertEqual(len(manual_investments), n-1)
+
+        for index, manual_investment in enumerate(manual_investments):
+            self.assertEqual(manual_investment.base_equipment.symbol, symbols[index])
+            self.assertEqual(manual_investment.target_equipment.symbol, symbols[index + 1])
+            self.assertAlmostEqual(manual_investment.base_amount, base_amounts[index])
+            self.assertAlmostEqual(manual_investment.target_amount, target_amounts[index])
