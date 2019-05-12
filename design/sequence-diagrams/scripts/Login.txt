@@ -1,0 +1,9 @@
+title Login
+actor RegisteredUser
+activate User
+RegisteredUser->User: Login(username,email,password)
+alt success
+User-->RegisteredUser:success
+else fail
+User-->RegisteredUser:fail
+end
