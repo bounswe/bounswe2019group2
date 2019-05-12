@@ -14,9 +14,32 @@ from django.utils import timezone
 class RegisterView(APIView):
     def post(self, request):
         """
-            Returns a message saying whether registration was successful or not.
+        Registers a new user.
+        Returns a message saying whether registration was successful or not.
 
-             Parameters: 'username', 'password', 'email'
+        ### Parameters
+        * `username`: chosen username
+        * `password`: chosen password
+        * `email`: email address
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/register/ HTTP/1.1
+
+        {
+            "username": "johndoe",
+            "email": "johndoe@example.com",
+            "password": "verysecretpassword"
+        }
+        ```
+        Response
+        ```json
+        {
+            "message": "User johndoe is registered"
+        }
+        ```
+
 
         """
         try:
