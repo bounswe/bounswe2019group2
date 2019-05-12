@@ -86,6 +86,31 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 
 
 # API Requirements
+## Table of Contents
+ * [Glossary](https://github.com/bounswe/bounswe2019group2/wiki/Requirements#glossary)
+ * [1. System Requirements](#1-system-requirements)
+     * [1.1. Registration and Authorization](#11-registration)
+     * [1.2. Parity](#12-parity)
+     * [1.3. Investment](#13-investment)
+
+## 1. System Requirements
+
+### 1.1 Registration and Authorization
+* **1.1.1.** System shall be able to register a user given a username, an email address and a password.
+* **1.1.2.** System shall be able to provide an endpoint for a user to sign in with their email and password.
+
+### 1.2 Parity
+* **1.2.1.** System shall be able to provide historic parity data.
+* **1.2.2.** System shall be able to provide up-to-date parity data.
+* **1.2.3.** System shall be able to provide the list of all of the existing parities in the system.
+
+### 1.3 Investment
+* **1.3.1.** System shall provide a list of all investments for a user.
+* **1.3.2.** System shall allow a user to create a new investment.
+* **1.3.3.** System shall allow a user to delete an existing investment.
+* **1.3.4.** System shall provide a user current profit/loss for a given investment.
+* **1.3.5.** System shall provide a user total profit/loss for all investments.
+
 
 # Project Plan
 
