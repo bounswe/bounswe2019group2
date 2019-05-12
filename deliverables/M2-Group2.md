@@ -1,13 +1,16 @@
 # Executive Summary
 
-## Project Description
---
+## Introduction
+Our task was designing a software which is a small part of our main project, traders platform. It provides the basic functionality of the traders' platform. The functions can be grouped into three parts mainly: registration, parity, and manual investments. For registration, the software provides basic sign-up and sign-in functionalities. For parities, the software provides functions like listing parities, and listing current and historical exchange rates. For manual investments, there are functions for creating, deleting, listing manual investments and displaying their related profits individually or in the aggregated form. The software has a simple and user-friendly interface to display these functionalities.
 
-## Project Status
---
+## Work Done
+We used Django Framework to work on our API. One of our teammates was experienced on this platform so he sent us some tutorials and helped us when we faced some problems. First the system requirements were determined so we could see our path more clearly. Then the "models.py" was created so we could use it when writing "views.py". We distributed the requirements while coding, so that each of us could contribute. Everyone would either write their own tests or open an issue to test their part of the code. These tests were also shared among team-members. We tried to finish our coding quickly so our friends were able to use our code to shape the frontend. The frontend was created and we deployed our system to an AWS EC2 t3.micro instance with Ubuntu 18.04 installed. We then continued to work on the design of the API with UML diagrams. We wrote a brief description of software, a simple user manual, and deployment notes.
 
 ## Moving Forward
---
+Next semester, when it comes to implementing the project that we developed all semester, we plan to focus on teamwork even more. It is hard when all the burden of the project is carried by a few people so all of us should be more active coding, even though we may not be as experienced as others. We should give constructive feedback to each other so we can all develop and become better and better thus our project will become better as well. Next semester, we will continue to meet weekly and actively follow Github activities. These two have been really useful in our project because this kept us going, seeing our teammates work hard gave us the enthusiasm to work and contribute more to the project. At last, we believe that we will create a great product in the end with great teamwork and each member will be proud to be a part of this group.
+
+## Challenges
+This project was really difficult for us compared to our other tasks so far. We only had one member who was actually experienced with the concepts. He spent a lot of his time teaching us about many subjects from Django Framework to deployment and much more. Our two meetings were mostly the rest of us getting familiarized with the concepts of the project. We spent a full day having a coding meeting in which everyone could ask for help from more experienced teammates. I believe this meeting was immensely helpful for most of us because we easily overcame some problems which would be really time-consuming otherwise. Everyone tried to do their part to contribute to the final form of the project. There were some problems with frontend and it didn't turn out the way we wanted but nonetheless, we were able to provide a working frontend with working functions when the deadline came. 
 
 
 # Deliverables
