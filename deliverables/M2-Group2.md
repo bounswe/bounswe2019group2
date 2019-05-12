@@ -80,6 +80,9 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 # Work Done by Each Member
 | Team Member | Contribution / Work Done | 
 | ---- | ---- | 
+| Buse Giledereli | • I registered to AWS and created an EC2 instance.<br> • I collected SSH keys from team members and added them to the machine.<br> • I implemented the API endpoint for list of parities, it was later reviewed and changed.<br> • I implemented the test for total profit/loss calculation and test for individual profit/loss calculation with invalid symbol.<br> • I designed the use case diagram for the API.<br> • I created a user manual for the API.<br> • I reviewed the test for individual profit/loss calculation and gave feedback.<br> • I reviewed the test for adding and deleting investments and gave feedback.<br> • I reviewed the PR template.<br> |  
+ |  
+
 
 
 # API Requirements
