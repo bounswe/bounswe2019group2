@@ -13,6 +13,12 @@ from django.utils import timezone
 
 class RegisterView(APIView):
     def post(self, request):
+        """
+            Returns a message saying whether registration was successful or not.
+
+             Parameters: 'username', 'password', 'email'
+
+        """
         try:
             username = request.data['username']
             password = request.data['password']
@@ -31,7 +37,12 @@ class RegisterView(APIView):
 
 
 class ParityListView(APIView):
+
     def get(self, request):
+        """
+            Returns list of parities in the database.
+
+        """
         # get distinct (base, target) pairs
         parities = Parity.objects.values('base_equipment__symbol', 'target_equipment__symbol').distinct()
 
@@ -42,6 +53,10 @@ class ParityListView(APIView):
 
 
 class LoginAPIView(APIView):
+    """
+        Returns token if the user provided is already registered.
+
+    """
     def post(self, *args, **kwargs):
         data = self.request.data
         serializer = ls.LoginSerializer(data=data)
@@ -54,6 +69,10 @@ class InvestmentsAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
+        """
+            Returns all investments of given user.
+
+        """
         investments = request.user.manualinvestment_set.all()
 
         response = {
@@ -73,6 +92,12 @@ class InvestmentsAPIView(APIView):
         return Response(response)
 
     def delete(self, request):
+        """
+            Deletes the given investment from the database.
+
+            'id' should exist in the database.
+
+        """
         user_id = request.user.id
         user = User.objects.get(id=user_id)
         investment_id = request.data['id']
@@ -85,6 +110,12 @@ class InvestmentsAPIView(APIView):
         return Response(status=status.HTTP_200_OK)
 
     def post(self, request):
+        """
+            Adds a given investment to investments of the user.
+
+            Parameters for investment: 'base', 'target', 'date', 'base_amount', 'target_amount'
+
+        """
         user_id = request.user.id
         user = User.objects.get(id=user_id)
         base_symbol = request.data['base']
@@ -139,6 +170,13 @@ class InvestmentProfitAPIView(APIView):
         return profit
 
     def post(self, request):
+        """
+            Returns profit of the given investment in terms of given symbol.
+
+            `symbol` should be a symbol that exists in the database.
+            'investment_id' should exist in the database.
+
+        """
         user_id = request.user.id
         user = User.objects.get(id=user_id)
 
@@ -191,6 +229,10 @@ class TotalProfitAPIView(APIView):
         return profit
 
     def get(self, request):
+        """
+            Returns total profit in terms of TRY.
+
+        """
         # If get request, the endpoint will return profit in terms of TRY.
         user_id = request.user.id
         profit = self._get_total_profit(user_id=user_id,
@@ -200,6 +242,12 @@ class TotalProfitAPIView(APIView):
         }, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """
+            Returns total profit in terms of given symbol.
+
+            `symbol` should be a symbol that exists in the database.
+
+        """
         user_id = request.user.id
         symbol = request.POST.get('symbol')
 
