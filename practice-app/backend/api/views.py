@@ -32,6 +32,7 @@ class RegisterView(APIView):
 
 class ParityListView(APIView):
     def get(self, request):
+        # get distinct (base, target) pairs
         parities = Parity.objects.values('base_equipment__symbol', 'target_equipment__symbol').distinct()
 
         return Response([{
@@ -273,6 +274,10 @@ class ParityView(APIView):
         return Response(response)
 
     def get_historic(self, request, date):
+        """
+        :param date: date string in form YYYY-MM-DD
+        :return: json list of parities in the given date
+        """
         parities = Parity.objects
 
         # apply filters for 'base' and 'target' query params if given
@@ -394,6 +399,7 @@ class ParityView(APIView):
 
 
         """
+
         if date == 'latest':
             return self.get_latest(request)
         else:
