@@ -85,6 +85,7 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 | Ozgur Solak | • I implemented the login API with my partner Furkan Gok.<br> •I implemented different test cases for login API. |
 | Mert Yüksekgönül | • I have created pull request template and issue template for the workflow. <br> • I have created the travis configuration for autotesting and to be used in CI in the future.<br> • Yunus Emre and I wrote down the system requirements. <br> • I have implemented models(database) for the API. <br> • I have implemented create investment endpoint. <br> •  I have implemented delete investment endpoint. <br> •  I have implemented the endpoint for calculating an investment's profit. <br> •  I have implemented the endpoint for calculating total profit for a user. <br> •  I have reimplemented the parity/latest endpoint for enhancing its use, letting handling multiple cases. <br> • I have implemented a unit test for profit calculation. <br> • I have implemented the history generation command, which we run when initializing the db and fetching historical data. <br> • I was the reviewer for 12 PRs. |
 | Adil Numan Çelik | • I implemented list investments endpoint. | 
+| Muhammet Furkan Gök | • I was responsible for implementing login API with Ozgur Solak.<br> • I implemented some invalid test cases for login API.  • I implemented some front-end codes which is not in use for now, will be used later.<br> • I reviewed some parts of the codes of the login API which was written by my partner. <br>|
 
 
 # API Requirements
