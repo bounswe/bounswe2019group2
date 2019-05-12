@@ -81,7 +81,7 @@ We used an AWS EC2 t3.micro instance to deploy our application. As the server is
 | Team Member | Contribution / Work Done | 
 | ---- | ---- | 
 | Buse Giledereli | • I registered to AWS and created an EC2 instance.<br> • I collected SSH keys from team members and added them to the machine.<br> • I implemented the API endpoint for list of parities, it was later reviewed and changed.<br> • I implemented the test for total profit/loss calculation and test for individual profit/loss calculation with invalid symbol.<br> • I designed the use case diagram for the API.<br> • I created a user manual for the API.<br> • I reviewed the test for individual profit/loss calculation and gave feedback.<br> • I reviewed the test for adding and deleting investments and gave feedback.<br> • I reviewed the PR template.<br> |  
- |  
+| Mert Yüksekgönül | • I have created pull request template and issue template for the workflow. <br> • I have created the travis configuration for autotesting and to be used in CI in the future.<br> • Yunus Emre and I wrote down the system requirements. <br> • I have implemented models(database) for the API. <br> • I have implemented create investment endpoint. <br> •  I have implemented delete investment endpoint. <br> •  I have implemented the endpoint for calculating an investment's profit. <br> •  I have implemented the endpoint for calculating total profit for a user. <br> •  I have reimplemented the parity/latest endpoint for enhancing its use, letting handling multiple cases. <br> • I have implemented a unit test for profit calculation. <br> • I have implemented the history generation command, which we run when initializing the db and fetching historical data. <br> • I was the reviewer for 12 PRs. |  
 
 
 
