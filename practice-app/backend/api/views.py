@@ -308,6 +308,92 @@ class ParityView(APIView):
         return Response(ParitySerializer(latest_in_day, many=True).data)
 
     def get(self, request, date):
+        """
+        Returns historic or latest parity data.
+
+        `date` should be either a date in _YYYY-MM-DD_ format or the string 'latest'.
+        If a date is given, the latest ratios of parities in that date is returned.
+        If 'latest' is given, the last avaliable ratio is returned for each parity.
+
+        ### Filters
+        Filters on base and target equipment fields can be applied with query string parameters `base` and `target`.
+
+        The returned ratio is the ratio `base`/`target`
+
+        ### Historic example
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/parity/2019-05-02/?base=TRY&target=USD HTTP/1.1
+        ```
+        Response
+        ```json
+        [
+            {
+                "base_equipment": {
+                    "symbol": "USD"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "5.9640"
+            }
+        ]
+        ```
+        ### Latest example
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/parity/2019-05-02/?target=TRY HTTP/1.1
+        ```
+        Response
+        ```json
+        [
+            {
+                "base_equipment": {
+                    "symbol": "TRY"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "1.0000"
+            },
+            {
+                "base_equipment": {
+                    "symbol": "USD"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "5.9640"
+            },
+            {
+                "base_equipment": {
+                    "symbol": "EUR"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "6.6870"
+            },
+            {
+                "base_equipment": {
+                    "symbol": "GBP"
+                },
+                "target_equipment": {
+                    "symbol": "TRY"
+                },
+                "date": "2019-05-02T00:00:00Z",
+                "ratio": "7.7820"
+            }
+        ]
+        ```
+
+
+
+        """
         if date == 'latest':
             return self.get_latest(request)
         else:
