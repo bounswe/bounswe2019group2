@@ -63,7 +63,35 @@ class ParityListView(APIView):
 
     def get(self, request):
         """
-            Returns list of parities in the database.
+        Returns list of parities avaliable in the system.
+
+        ### Example
+        Request
+        ```http
+        GET https://api.traiders-practice.tk/parity/ HTTP/1.1
+        ```
+
+        Response
+        ```json
+        [
+            {
+                "base": "TRY",
+                "target": "USD"
+            },
+            {
+                "base": "TRY",
+                "target": "TRY"
+            },
+            {
+                "base": "USD",
+                "target": "TRY"
+            },
+            {
+                "base": "USD",
+                "target": "USD"
+            }
+        ]
+        ```
 
         """
         # get distinct (base, target) pairs
@@ -76,11 +104,38 @@ class ParityListView(APIView):
 
 
 class LoginAPIView(APIView):
-    """
-        Returns token if the user provided is already registered.
-
-    """
     def post(self, *args, **kwargs):
+        """
+        Returns a JWT token if the user provided is registered.
+
+        ### Parameters
+        * `email`: email address
+        * `password`: password
+
+        ### Example
+        Request
+        ```http
+        POST https://api.traiders-practice.tk/login/ HTTP/1.1
+
+        {
+            "email": "johndoe@example.com",
+            "password": "verysecretpassword"
+        }
+        ```
+        Response
+        ```json
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozMCwidXNlcm5hbWUiOiJqb2huZG9lMSIsImV4cCI6MTU1ODMwMDk1NCwiZW1haWwiOiJqb2huZG9lMUBleGFtcGxlLmNvbSJ9.CW0FCyg44oCFeWy7OCm3Aixy-Eu8bMOXOoJEdxwWPR4",
+            "user": {
+                "id": 30,
+                "username": "johndoe",
+                "first_name": "",
+                "last_name": ""
+            }
+        }
+        ```
+
+        """
         data = self.request.data
         serializer = ls.LoginSerializer(data=data)
         serializer.is_valid(raise_exception=True)
