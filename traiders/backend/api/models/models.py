@@ -2,20 +2,13 @@ from django.utils.timezone import now
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
-from .users import UserManager
 
 
 class User(AbstractUser):
-    ROLES = (
-        (1, 'Basic'),
-        (2, 'Trader'),
-        (3, 'Admin')
-    )
-    user_role = models.PositiveSmallIntegerField(choices=ROLES)
-    objects = UserManager()
-
-    class Meta:
-        app_label = "api"
+    is_trader = models.BooleanField(default=False)
+    iban = models.CharField(validators=[RegexValidator(regex='^.{34}$', message='IBAN length has to be 34', code='nomatch')],
+                            max_length=64, blank=False, unique=True)
+    preferred_currency = models.ForeignKey('Equipment', null=True, blank=True, on_delete=models.SET_NULL)
 
 
 class Equipment(models.Model):
@@ -91,14 +84,3 @@ class Parity(models.Model):
 
     def __str__(self):
         return "/".join([self.base_equipment.symbol, self.target_equipment.symbol, str(self.date)])
-
-
-class BasicUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-
-
-class TraderUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    iban = models.CharField(validators=[RegexValidator(regex='^.{34}$', message='IBAN length has to be 34', code='nomatch')],
-                            max_length=64, blank=False, unique=True)
-    preferred_currency = models.ForeignKey(Equipment, null=True, on_delete=models.SET_NULL)
