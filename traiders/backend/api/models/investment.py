@@ -35,4 +35,3 @@ class ManualInvestment(models.Model):
 
     def __str__(self):
         return "/".join([self.made_by.username, str(self.date), self.base_equipment.symbol, self.target_equipment.symbol])
-
