@@ -19,16 +19,18 @@ class Routes extends Component {
     }
   }
 
-  render = () => (
-    <Suspense>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route render={() => <h1>404 Page not found</h1>} />
-      </Switch>
-    </Suspense>
-  );
+  render() {
+    return (
+      <Suspense>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route render={() => <h1>404 Page not found</h1>} />
+        </Switch>
+      </Suspense>
+    );
+  }
 }
 
 export default Routes;
