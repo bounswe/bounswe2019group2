@@ -5,11 +5,11 @@ python:
 services: 
   - mysql
 install:
-  - pip install -r ./practice-app/backend/requirements.txt
+  - pip install -r ./traiders/backend/requirements.txt
 before_script: 
   echo before_script
 script:
-  - cd practice-app/backend
+  - cd traiders/backend
   - python manage.py makemigrations
   - python manage.py makemigrations api
   - python manage.py migrate
