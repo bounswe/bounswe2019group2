@@ -10,6 +10,7 @@ before_script:
   echo before_script
 script:
   - cd traiders/backend
+  - python -m pycodestyle --ignore=E501 .
   - python manage.py makemigrations
   - python manage.py makemigrations api
   - python manage.py migrate
