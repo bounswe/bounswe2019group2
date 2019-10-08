@@ -4,7 +4,7 @@
   "private": true,
   "author": "Traiders Web Front End Team",
   "dependencies": {
-    "antd": "^3.23.6",
+    "antd": "3.23.6",
     "history": "4.7.2",
     "node-sass": "4.12.0",
     "prop-types": "15.7.1",
