@@ -20,8 +20,10 @@ matrix:
         - cd traiders/frontend
         - npm install
       script:
-        - cd traiders/frontend
         - npm run review
+      cache:
+        directories:
+          - node_modules
 
 #    - language: android
 #      dist: trusty
