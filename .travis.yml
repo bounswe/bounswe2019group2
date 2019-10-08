@@ -17,8 +17,10 @@ matrix:
       node_js:
         - "12"
       install:
+        - cd traiders/frontend
         - npm install
       script:
+        - cd traiders/frontend
         - npm run review
 
 #    - language: android
