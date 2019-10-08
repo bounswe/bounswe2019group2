@@ -2,8 +2,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
 from django.urls import path
 from django.views.generic import TemplateView
-
-from .views import UserViewSet
+from .views.users import UserViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
