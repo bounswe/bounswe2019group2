@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models.user import User
+from .models.users import User
 from .models.equipment import Equipment
 from .models.investment import ManualInvestment
 from .models.parity import Parity

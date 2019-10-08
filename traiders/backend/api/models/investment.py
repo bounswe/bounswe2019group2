@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 from .equipment import Equipment
-from .user import User
+from .users import User
 
 
 class ManualInvestment(models.Model):
