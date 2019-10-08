@@ -1,17 +1,40 @@
 dist: xenial
-language: python
-python:
-  - "3.6"
-services: 
-  - mysql
-install:
-  - pip install -r ./traiders/backend/requirements.txt
-before_script: 
-  echo before_script
-script:
-  - cd traiders/backend
-  - python -m pycodestyle --ignore=E501 .
-  - python manage.py makemigrations
-  - python manage.py makemigrations api
-  - python manage.py migrate
-  - python manage.py test
+matrix:
+  include:
+    - language: python
+      python: 3.7
+      install:
+        - pip install -r ./traiders/backend/requirements.txt
+      script:
+        - cd traiders/backend
+        - python -m pycodestyle --ignore=E501 .
+        - python manage.py makemigrations
+        - python manage.py makemigrations api
+        - python manage.py migrate
+        - python manage.py test
+
+    - language: node_js
+      node_js:
+        - "12"
+      install:
+        - cd traiders/frontend
+        - npm install
+      script:
+        - npm run review
+      cache:
+        directories:
+          - node_modules
+
+#    - language: android
+#      dist: trusty
+#      jdk: oraclejdk8
+#      android:
+#        components:
+#          - tools
+#          - android-25
+#          - build-tools-25.0.3
+#      before_script:
+#        - cd android/AppName
+#      script:
+#        - ./gradlew build connectedCheck
+

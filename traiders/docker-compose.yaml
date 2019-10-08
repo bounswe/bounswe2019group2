@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  backend:
+    depends_on:
+      - db
+    build: ./backend
+    volumes:
+      - static:/static
+
+  db:
+    image: postgres:11
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  frontend:
+    build: ./frontend
+
+  nginx:
+    image: nginx:1.16
+    depends_on:
+      - backend
+    volumes:
+      - static:/static:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+
+volumes:
+  static:
+  dbdata:

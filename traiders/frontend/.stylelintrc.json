@@ -1,3 +1,6 @@
 {
-  "extends": "stylelint-config-airbnb"
+  "extends": "stylelint-config-airbnb",
+  "rules": {
+    "string-quotes": "single"
+  }
 }
