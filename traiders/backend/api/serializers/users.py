@@ -20,7 +20,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active', 'groups', 'user_permissions']
         read_only_fields = ['id', 'date_joined']
         extra_kwargs = {
-            'password': {'write_only': True},  # password is never read
+            'password': {'write_only': True,  # password is never read
+                         'style': {'input_type': 'password'}},
             'email': {'required': True},
             'username': {'required': True},
             'first_name': {'required': True},

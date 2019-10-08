@@ -1,6 +1,7 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 
 from ..models import User
 
@@ -17,6 +18,10 @@ class UserViewSetTests(APITestCase):
         user = User(**data)
         user.set_password('sG2sf032')
         user.save()
+
+        # create a token for the test user
+        token = Token.objects.create(user=user)
+        self.auth_key = token.key
 
     def test_create(self):
         url = reverse('user-list')
@@ -85,6 +90,12 @@ class UserViewSetTests(APITestCase):
             'first_name': 'Marry Ava'
         }
 
+        # try without authentication, expect to get 403
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # try with authentication
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
         response = self.client.patch(url, data, format='json')
 
         # test status code
@@ -98,6 +109,12 @@ class UserViewSetTests(APITestCase):
         url = reverse('user-detail', kwargs={'pk': pk})
         password = 'ghI0dd.s'
 
+        # try without authentication, expect 403
+        response = self.client.patch(url, {'password': password}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # try with authentication
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
         response = self.client.patch(url, {'password': password}, format='json')
 
         # test status code
@@ -113,6 +130,7 @@ class UserViewSetTests(APITestCase):
             'is_trader': True,
         }
 
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
         response = self.client.patch(url, data, format='json')
 
         # test status code
@@ -127,6 +145,12 @@ class UserViewSetTests(APITestCase):
             'iban': '1234567890123456789012345678901234'
         }
 
+        # without authentication
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # with authentication
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
         response = self.client.patch(url, data, format='json')
 
         # test status code
@@ -139,12 +163,9 @@ class UserViewSetTests(APITestCase):
 
         response = self.client.get(url)
 
-        expected_fields = [
+        expected_fields = {
             'url', 'username', 'first_name', 'last_name', 'email',
             'date_joined', 'is_trader', 'iban', 'preferred_currency'
-        ]
+        }
 
-        for expected in expected_fields:
-            self.assertTrue(expected in response.data.keys())
-
-        self.assertEqual(len(expected_fields), len(response.data))
+        self.assertSetEqual(expected_fields, set(response.data.keys()))

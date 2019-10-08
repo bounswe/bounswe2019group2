@@ -13,7 +13,8 @@ class TokenSerializer(serializers.Serializer):
                                      required=True,
                                      style={'input_type': 'password'})
 
-    key = serializers.CharField(label='Token', read_only=True)
+    key = serializers.CharField(read_only=True)
+    user = serializers.HyperlinkedRelatedField(read_only=True, view_name='user-detail')
 
     def validate(self, attrs):
         username = attrs.get('username')
@@ -34,4 +35,3 @@ class TokenSerializer(serializers.Serializer):
     def create(self, validated_data):
         token, _ = Token.objects.get_or_create(**validated_data)
         return token
-

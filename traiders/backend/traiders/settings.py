@@ -122,6 +122,7 @@ USE_TZ = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',  # for browsable API
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
