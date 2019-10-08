@@ -11,7 +11,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate(self, data):
         if data.get('is_trader') and not data.get('iban'):
-            raise serializers.ValidationError('traders should specify IBAN')
+            raise serializers.ValidationError('Trader users should specify their IBAN.')
         return data
 
     class Meta:
