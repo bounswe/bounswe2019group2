@@ -1,4 +1,6 @@
 from .settings import *
+from django.core.management.utils import get_random_secret_key
+
 
 # Override development settings
 DEBUG = False
@@ -7,7 +9,6 @@ ALLOWED_HOSTS = [
     'api.traiders.tk'
 ]
 
-from django.core.management.utils import get_random_secret_key
 SECRET_KEY = get_random_secret_key()
 
 # Use postgres in production
