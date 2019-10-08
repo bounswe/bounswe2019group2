@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
-const Login = props => {
-  const handleSubmit = e => {
+const Login = (props) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {

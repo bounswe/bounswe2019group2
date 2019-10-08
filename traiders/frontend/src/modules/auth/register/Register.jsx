@@ -1,13 +1,13 @@
 import React from 'react';
 import { Form, Input, Button, Select } from 'antd';
 
-const Register = props => {
+const Register = (props) => {
   let confirmDirty = false;
   const { Option } = Select;
   const { form } = props;
   const { getFieldDecorator } = form;
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
@@ -31,7 +31,7 @@ const Register = props => {
     callback();
   };
 
-  const handleConfirmBlur = e => {
+  const handleConfirmBlur = (e) => {
     const { value } = e.target;
     confirmDirty = confirmDirty || !!value;
   };
