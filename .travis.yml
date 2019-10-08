@@ -23,7 +23,7 @@ matrix:
         - npm run review
       cache:
         directories:
-          - node_modules
+          - traiders/frontend/node_modules
 
 #    - language: android
 #      dist: trusty
