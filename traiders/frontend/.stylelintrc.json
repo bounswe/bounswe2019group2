@@ -1,6 +1,12 @@
 {
   "extends": "stylelint-config-airbnb",
   "rules": {
-    "string-quotes": "single"
+    "string-quotes": "single",
+    "rule-empty-line-before": [
+      "always",
+      {
+        "except": ["first-nested"]
+      }
+    ]
   }
 }
