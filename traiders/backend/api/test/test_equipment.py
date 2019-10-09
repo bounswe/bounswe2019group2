@@ -35,4 +35,3 @@ class ParityViewsetTests(APITestCase):
         response = self.client.get(url)
         equipments = response.data
         self.assertEqual(len(equipments), 3)
-

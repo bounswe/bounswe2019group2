@@ -20,4 +20,3 @@ class ParityViewSet(ReadOnlyModelViewSet):
             return Parity.objects.all()
         else:
             return Parity.objects.filter(**filters)
-

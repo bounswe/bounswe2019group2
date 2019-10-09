@@ -78,4 +78,3 @@ class ParityViewsetTests(APITestCase):
         self.assertIn('detail', error)
         self.assertIsInstance(error['detail'], ErrorDetail)
         self.assertEqual(error['detail'].code, 'not_found')
-
