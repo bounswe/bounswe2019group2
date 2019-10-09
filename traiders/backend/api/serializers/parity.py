@@ -1,17 +1,13 @@
 from rest_framework import serializers
 from ..models import Parity
+from .equipment import EquipmentSerializer
 
 
 class ParitySerializer(serializers.HyperlinkedModelSerializer):
-    def validate(self, data):
-        if data.get('base_equipment') and not data.get('target_equipment'):
-            raise serializers.ValidationError('You should either specify Base Equipment or Target Equipment')
-        return data
+
+    base_equipment = EquipmentSerializer(read_only=True)
+    target_equipment = EquipmentSerializer(read_only=True)
 
     class Meta:
         model = Parity
-        fields = ["base_equipment", "target_equipment", "ratio", "date"]
-        extra_kwargs = {
-            'base_equipment': {'required': False},
-            'target_equipment': {'required': False}
-        }
+        fields = ["url", "base_equipment", "target_equipment", "ratio", "date"]

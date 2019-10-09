@@ -5,4 +5,4 @@ from ..models import Equipment
 class EquipmentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Equipment
-        fields = ["name", "category", "symbol"]
+        fields = ["url", "name", "category", "symbol"]
