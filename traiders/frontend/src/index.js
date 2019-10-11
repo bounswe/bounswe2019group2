@@ -12,9 +12,7 @@ import Routes from './routing';
 const rootElement = document.getElementById('root'); // eslint-disable-line no-undef
 
 // eslint-disable-next-line import/prefer-default-export
-export const history = createBrowserHistory({
-  basename: 'traider-frontend'
-});
+export const history = createBrowserHistory({});
 
 ReactDOM.render(
   <Provider store={ReduxStore.store}>
