@@ -104,8 +104,4 @@ class ParityViewsetTests(APITestCase):
 
     def test_get_not_existing(self):
         response = self.client.get('/parity/', data={"base_equipment": "GJF"})
-        error = response.data
-        self.assertEqual(len(error), 1)
-        self.assertIn('detail', error)
-        self.assertIsInstance(error['detail'], ErrorDetail)
-        self.assertEqual(error['detail'].code, 'not_found')
+        self.assertListEqual(response.data, [])
