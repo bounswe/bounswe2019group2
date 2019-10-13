@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_investments">
+
+    <fragment
+        android:id="@+id/navigation_portfolio"
+        android:name="tk.traiders.ui.portfolio.PortfolioFragment"
+        android:label="@string/title_portfolio"
+        tools:layout="@layout/fragment_portfolio" />
+
+    <fragment
+        android:id="@+id/navigation_markets"
+        android:name="tk.traiders.ui.markets.MarketsFragment"
+        android:label="@string/title_markets"
+        tools:layout="@layout/fragment_markets" />
+
+    <fragment
+        android:id="@+id/navigation_investments"
+        android:name="tk.traiders.ui.investments.InvestmentsFragment"
+        android:label="@string/title_investments"
+        tools:layout="@layout/fragment_investments" />
+
+    <fragment
+        android:id="@+id/navigation_social"
+        android:name="tk.traiders.ui.social.SocialFragment"
+        android:label="@string/title_social"
+        tools:layout="@layout/fragment_social" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="tk.traiders.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

@@ -2,12 +2,14 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import UserViewSet, TokenViewSet
+from .views import UserViewSet, TokenViewSet, ParityViewSet, EquipmentViewSet
 
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'token', TokenViewSet, basename='token')
+router.register(r'equipment', EquipmentViewSet, basename='equipment')
+router.register(r'parity', ParityViewSet, basename='parity')
 
 urlpatterns = [
     # documentation view
