@@ -5,6 +5,7 @@ from ..serializers import ParitySerializer
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
+
 class ParityViewSet(ReadOnlyModelViewSet):
     serializer_class = ParitySerializer
 
