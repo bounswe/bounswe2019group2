@@ -102,7 +102,6 @@ class ParityViewsetTests(APITestCase):
         parities = response.data
         self.assertEqual(len(parities), 2)
 
-
     def test_get_not_existing(self):
         response = self.client.get('/parity/', data={"base_equipment": "GJF"})
         error = response.data
