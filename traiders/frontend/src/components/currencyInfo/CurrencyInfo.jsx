@@ -4,6 +4,7 @@ import './currency-info.scss';
 
 const CurrencyInfo = (props) => {
   const { fullName, changeRate, price } = props;
+
   const changeType = changeRate < 0 ? 'fall' : 'rise';
 
   return (
