@@ -1,0 +1,12 @@
+.login-container {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+
+  .tabs {
+    display: flex;
+    justify-content: space-between;
+
+    padding-bottom: 20px;
+  }
+}
