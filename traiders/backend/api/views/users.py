@@ -13,6 +13,9 @@ class UserViewSet(mixins.CreateModelMixin,
                   GenericViewSet):
     """
     View and edit users
+
+    create:
+    Registers a new user.
     """
     serializer_class = UserSerializer
     queryset = User.objects.all()
