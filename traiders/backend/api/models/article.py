@@ -11,4 +11,4 @@ class Article(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     content = models.TextField(blank=False, max_length=10000)
     # TODO how to store images?
-    image_url = models.ImageField(blank=True, null=True, verbose_name="Add an image on your article")
+    # image_url = models.ImageField(blank=True, null=True, verbose_name="Add an image on your article")
