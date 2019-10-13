@@ -1,11 +1,12 @@
 .root-container {
   height: 100%;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .content {
     display: flex;
     justify-content: center;
 
     width: 100%;
-    height: 100%;
   }
 }
