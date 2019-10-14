@@ -1,0 +1,12 @@
+.navbar-container {
+  .ant-layout-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding-right: 100px;
+
+    .ant-menu {
+    }
+  }
+}

@@ -1,12 +1,11 @@
 <resources>
+
     <string name="app_name">Traiders</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+
+    <string name="title_portfolio">Portfolio</string>
+    <string name="title_markets">Markets</string>
+    <string name="title_investments">Investments</string>
+    <string name="title_social">Social</string>
+    <string name="title_profile">Profile</string>
+
 </resources>
