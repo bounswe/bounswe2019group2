@@ -2,6 +2,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework import serializers
 
 from ..models import User
+from .users import UserSerializer
 
 
 class TokenSerializer(serializers.Serializer):
@@ -14,7 +15,7 @@ class TokenSerializer(serializers.Serializer):
                                      style={'input_type': 'password'})
 
     key = serializers.CharField(read_only=True)
-    user = serializers.HyperlinkedRelatedField(read_only=True, view_name='user-detail')
+    user = UserSerializer(read_only=True)
 
     def validate(self, attrs):
         username = attrs.get('username')
