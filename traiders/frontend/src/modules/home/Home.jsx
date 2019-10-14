@@ -5,12 +5,10 @@ import Page from '../../components/page/Page';
 
 const Home = () => {
   return (
-    <div>
-      <Page>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-      </Page>
-    </div>
+    <Page>
+      <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
+    </Page>
   );
 };
 
