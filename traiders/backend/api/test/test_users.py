@@ -195,4 +195,3 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(User.objects.filter(username='marry48',
                                              city=data['city'],
                                              country=data['country']).count(), 1)
-
