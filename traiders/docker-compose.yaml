@@ -7,6 +7,7 @@ services:
     build: ./backend
     volumes:
       - static:/static
+      - media:/media
 
   db:
     image: postgres:11
@@ -23,9 +24,11 @@ services:
     volumes:
       - static:/static:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - media:/media:ro
     ports:
       - "80:80"
 
 volumes:
   static:
   dbdata:
+  media:

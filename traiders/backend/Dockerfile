@@ -11,6 +11,7 @@ ADD . /app
 WORKDIR /app
 
 VOLUME /static
+VOLUME /media
 
 ENV DJANGO_SETTINGS_MODULE traiders.production_settings
 
