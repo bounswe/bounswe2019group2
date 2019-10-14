@@ -10,4 +10,4 @@ class ParitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Parity
-        fields = ["url", "base_equipment", "target_equipment", "ratio", "date"]
+        fields = ["url", "id", "base_equipment", "target_equipment", "ratio", "date"]
