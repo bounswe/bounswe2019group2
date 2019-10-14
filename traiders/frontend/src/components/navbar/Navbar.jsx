@@ -24,7 +24,7 @@ const Navbar = () => {
             {navbarList}
           </Menu>
           <Link to="/login">
-            <Button type="primary">LOG IN</Button>
+            <Button type="primary">LOG IN / REGISTER</Button>
           </Link>
         </Header>
       </Layout>

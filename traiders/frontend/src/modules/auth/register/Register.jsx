@@ -1,6 +1,9 @@
 import React from 'react';
 import { Form, Input, Button, Select } from 'antd';
+import { Link } from 'react-router-dom';
+
 import Page from '../../../components/page/Page';
+import './register.scss';
 
 const Register = (props) => {
   let confirmDirty = false;
@@ -72,62 +75,74 @@ const Register = (props) => {
 
   return (
     <Page>
-      <Form {...formItemLayout} onSubmit={handleSubmit}>
-        <Form.Item label="E-mail">
-          {getFieldDecorator('email', {
-            rules: [
-              {
-                type: 'email',
-                message: 'The input is not valid E-mail!'
-              },
-              {
-                required: true,
-                message: 'Please input your E-mail!'
-              }
-            ]
-          })(<Input />)}
-        </Form.Item>
-        <Form.Item label="Password" hasFeedback>
-          {getFieldDecorator('password', {
-            rules: [
-              {
-                required: true,
-                message: 'Please input your password!'
-              },
-              {
-                validator: validateToNextPassword
-              }
-            ]
-          })(<Input.Password />)}
-        </Form.Item>
-        <Form.Item label="Confirm Password" hasFeedback>
-          {getFieldDecorator('confirm', {
-            rules: [
-              {
-                required: true,
-                message: 'Please confirm your password!'
-              },
-              {
-                validator: compareToFirstPassword
-              }
-            ]
-          })(<Input.Password onBlur={handleConfirmBlur} />)}
-        </Form.Item>
+      <div className="register-container">
+        <div className="tabs">
+          <Link to="/login">
+            <Button>LOG IN</Button>
+          </Link>
+          <Link to="/register">
+            <Button>REGISTER</Button>
+          </Link>
+        </div>
+        <Form {...formItemLayout} onSubmit={handleSubmit}>
+          <Form.Item label="E-mail">
+            {getFieldDecorator('email', {
+              rules: [
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!'
+                },
+                {
+                  required: true,
+                  message: 'Please input your E-mail!'
+                }
+              ]
+            })(<Input />)}
+          </Form.Item>
+          <Form.Item label="Password" hasFeedback>
+            {getFieldDecorator('password', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please input your password!'
+                },
+                {
+                  validator: validateToNextPassword
+                }
+              ]
+            })(<Input.Password />)}
+          </Form.Item>
+          <Form.Item label="Confirm Password" hasFeedback>
+            {getFieldDecorator('confirm', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please confirm your password!'
+                },
+                {
+                  validator: compareToFirstPassword
+                }
+              ]
+            })(<Input.Password onBlur={handleConfirmBlur} />)}
+          </Form.Item>
 
-        <Form.Item label="Phone Number">
-          {getFieldDecorator('phone', {
-            rules: [
-              { required: true, message: 'Please input your phone number!' }
-            ]
-          })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
-        </Form.Item>
+          <Form.Item label="Phone Number">
+            {getFieldDecorator('phone', {
+              rules: [
+                { required: true, message: 'Please input your phone number!' }
+              ]
+            })(
+              <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+            )}
+          </Form.Item>
 
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Register
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              Register
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     </Page>
   );
 };

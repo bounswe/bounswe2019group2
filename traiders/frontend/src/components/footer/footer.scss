@@ -1,0 +1,35 @@
+.footer-container {
+  display: flex;
+  height: 60px;
+  padding: 1rem;
+  background-color: #001529;
+  text-align: center;
+  color: aliceblue;
+  justify-content: space-between;
+  align-items: center;
+
+  .copyright {
+    padding-left: 100px;
+    color: aliceblue;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 280px;
+    padding-right: 100px;
+    font-size: 30px;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+    }
+
+    .anticon {
+      color: aliceblue;
+    }
+  }
+}
