@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # for token authentication
     'corsheaders',  # CORS
-    'api',
+    'django_filters',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',  # for browsable API
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'api.schemas.AutoSchema'  # custom schema generator
 }
 
 # Static files (CSS, JavaScript, Images)
