@@ -27,4 +27,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 
 MEDIA_ROOT = '/media'
-MEDIA_URL = 'media.traiders.tk'
+MEDIA_URL = 'media.traiders.tk/'
