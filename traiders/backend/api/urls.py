@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
 from .views import UserViewSet, TokenViewSet, ParityViewSet, EquipmentViewSet, ArticleViewSet
 
@@ -25,6 +25,9 @@ urlpatterns = [
         title="TrAiders",
         description="TrAiders API Schema",
     ), name='openapi-schema'),
+
+    # Browsable API login logout views
+    path('api-auth/', include('rest_framework.urls')),
 
     # all API ends
     *router.urls
