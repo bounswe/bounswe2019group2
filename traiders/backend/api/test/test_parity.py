@@ -18,18 +18,27 @@ class ParityViewsetTests(APITestCase):
             "name": "Euros",
             "category": "Currency"
         }
+
         equipment3_data = {
             "symbol": "TRY",
             "name": "Turkish Liras",
             "category": "Currency"
         }
 
+        equipment4_data = {
+            "symbol": "BTC",
+            "name": "Bitcoin",
+            "category": "Crypto"
+        }
+
         dollar = Equipment(**equipment1_data)
         euro = Equipment(**equipment2_data)
         turkish_liras = Equipment(**equipment3_data)
+        bitcoin = Equipment(**equipment4_data)
         dollar.save()
         euro.save()
         turkish_liras.save()
+        bitcoin.save()
 
         parity1_data = {
             "base_equipment": euro,
@@ -48,33 +57,51 @@ class ParityViewsetTests(APITestCase):
             "ratio": 0.15
         }
 
+        parity4_data = {
+            "base_equipment": bitcoin,
+            "target_equipment": dollar,
+            "ratio": 8257.79
+        }
+
+        parity5_data = {
+            "base_equipment": turkish_liras,
+            "target_equipment": bitcoin,
+            "ratio": 0.000021
+        }
+
         eur_dollar = Parity(**parity1_data)
         dollar_try = Parity(**parity2_data)
         try_dollar = Parity(**parity3_data)
+        btc_usd = Parity(**parity4_data)
+        try_btc = Parity(**parity5_data)
         eur_dollar.save()
         dollar_try.save()
         try_dollar.save()
+        btc_usd.save()
+        try_btc.save()
 
     def test_list(self):
         url = reverse('parity-list')
         response = self.client.get(url)
         parities = response.data
-        self.assertEqual(len(parities), 3)
+        self.assertEqual(len(parities), 5)
 
     def test_get_by_target(self):
         response = self.client.get('/parity/', data={"target_equipment": "USD"})
         parities = response.data
-        self.assertEqual(len(parities), 2)
+        self.assertEqual(len(parities), 3)
 
     def test_get_by_base(self):
         response = self.client.get('/parity/', data={"base_equipment": "USD"})
         parities = response.data
         self.assertEqual(len(parities), 1)
 
+    def test_get_by_category(self):
+        response = self.client.get('/parity/', data={"category": "Crypto"})
+        self.assertEqual(response.status_code, 200)
+        parities = response.data
+        self.assertEqual(len(parities), 2)
+
     def test_get_not_existing(self):
         response = self.client.get('/parity/', data={"base_equipment": "GJF"})
-        error = response.data
-        self.assertEqual(len(error), 1)
-        self.assertIn('detail', error)
-        self.assertIsInstance(error['detail'], ErrorDetail)
-        self.assertEqual(error['detail'].code, 'not_found')
+        self.assertListEqual(response.data, [])

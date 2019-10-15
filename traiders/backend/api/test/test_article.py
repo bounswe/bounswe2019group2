@@ -133,6 +133,6 @@ class ArticleViewSetTests(APITestCase):
 
         # TODO add image field properly later depending on how to store image
         expected_fields = {
-            'url', 'author', 'title', 'created_at', 'content',
+            'url', 'author', 'title', 'created_at', 'content', 'image',
         }
         self.assertSetEqual(expected_fields, set(response.data.keys()))
