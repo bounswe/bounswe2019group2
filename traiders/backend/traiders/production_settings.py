@@ -9,7 +9,8 @@ ALLOWED_HOSTS = [
     'api.traiders.tk'
 ]
 
-SECRET_KEY = get_random_secret_key()
+with open('/secret.txt', 'r') as file:
+    SECRET_KEY = file.read()
 
 # Use postgres in production
 DATABASES = {
