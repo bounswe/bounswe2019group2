@@ -14,11 +14,16 @@ router.register(r'articles', ArticleViewSet, basename='article')
 
 
 urlpatterns = [
-    # documentation view
+    # documentation views
     path('docs/', TemplateView.as_view(
         template_name='swagger-ui.html',
         extra_context={'schema_url': 'openapi-schema'}
     ), name='docs'),
+
+    path('redocs/', TemplateView.as_view(
+        template_name='redoc.html',
+        extra_context={'schema_url': 'openapi-schema'}
+    ), name='redocs'),
 
     # OpenAPI schema
     path('openapi/', get_schema_view(

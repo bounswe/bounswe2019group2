@@ -1,77 +1,22 @@
 import React from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
-import Page from '../../../components/page/Page';
 import './register.scss';
+import Page from '../../../components/page/Page';
 
 const Register = (props) => {
-  let confirmDirty = false;
-  const { Option } = Select;
-  const { form } = props;
-  const { getFieldDecorator } = form;
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { postUserRegister } = props;
     props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values); // eslint-disable-line no-console
+        postUserRegister(values);
       }
     });
   };
-
-  const compareToFirstPassword = (rule, value, callback) => {
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
-    } else {
-      callback();
-    }
-  };
-
-  const validateToNextPassword = (rule, value, callback) => {
-    if (value && confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
-    }
-    callback();
-  };
-
-  const handleConfirmBlur = (e) => {
-    const { value } = e.target;
-    confirmDirty = confirmDirty || !!value;
-  };
-
-  const prefixSelector = getFieldDecorator('prefix', {
-    initialValue: '86'
-  })(
-    <Select style={{ width: 70 }}>
-      <Option value="86">+86</Option>
-      <Option value="87">+87</Option>
-    </Select>
-  );
-
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 }
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 }
-    }
-  };
-
-  const tailFormItemLayout = {
-    wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 0
-      },
-      sm: {
-        span: 16,
-        offset: 8
-      }
-    }
-  };
+  const { form } = props;
+  const { getFieldDecorator } = form;
 
   return (
     <Page>
@@ -84,62 +29,78 @@ const Register = (props) => {
             <Button>REGISTER</Button>
           </Link>
         </div>
-        <Form {...formItemLayout} onSubmit={handleSubmit}>
-          <Form.Item label="E-mail">
-            {getFieldDecorator('email', {
+        <Form onSubmit={handleSubmit} className="register-form">
+          <Form.Item>
+            {getFieldDecorator('username', {
               rules: [
-                {
-                  type: 'email',
-                  message: 'The input is not valid E-mail!'
-                },
-                {
-                  required: true,
-                  message: 'Please input your E-mail!'
-                }
-              ]
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Password" hasFeedback>
-            {getFieldDecorator('password', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please input your password!'
-                },
-                {
-                  validator: validateToNextPassword
-                }
-              ]
-            })(<Input.Password />)}
-          </Form.Item>
-          <Form.Item label="Confirm Password" hasFeedback>
-            {getFieldDecorator('confirm', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Please confirm your password!'
-                },
-                {
-                  validator: compareToFirstPassword
-                }
-              ]
-            })(<Input.Password onBlur={handleConfirmBlur} />)}
-          </Form.Item>
-
-          <Form.Item label="Phone Number">
-            {getFieldDecorator('phone', {
-              rules: [
-                { required: true, message: 'Please input your phone number!' }
+                { required: true, message: 'Please input your username!' }
               ]
             })(
-              <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+              <Input
+                prefix={
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="Username"
+              />
             )}
           </Form.Item>
-
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item>
+            {getFieldDecorator('password', {
+              rules: [
+                { required: true, message: 'Please input your Password!' }
+              ]
+            })(
+              <Input
+                prefix={
+                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                type="password"
+                placeholder="Password"
+              />
+            )}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('email', {
+              rules: [{ required: true, message: 'Please input your email!' }]
+            })(
+              <Input
+                prefix={
+                  <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                type="text"
+                placeholder="Email"
+              />
+            )}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('firstName', {
+              rules: [{ required: true, message: 'Please input your name!' }]
+            })(<Input type="text" placeholder="First Name" />)}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('lasttName', {
+              rules: [{ required: true, message: 'Please input your surname!' }]
+            })(<Input type="text" placeholder="Surname" />)}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('iban', {
+              rules: [{ required: true, message: 'Please enter your IBAN!' }]
+            })(<Input type="text" placeholder="IBAN" />)}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('prefferedCurrency', {
+              rules: [{ required: true, message: 'Please input your name!' }]
+            })(<Input type="text" placeholder="Preferred Currency" />)}
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
               Register
             </Button>
+            Already have an account?<Link to="/login"> login!</Link>
           </Form.Item>
         </Form>
       </div>
