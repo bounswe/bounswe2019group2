@@ -13,6 +13,8 @@ class UserViewSetTests(APITestCase):
             'first_name': 'Marry',
             'last_name': 'Smith',
             'email': 'me@marrysmith.com',
+            'city': 'New York City',
+            'country': 'United States'
         }
 
         user = User(**data)
@@ -31,7 +33,9 @@ class UserViewSetTests(APITestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'johndoe@example.com',
-            'password': password
+            'password': password,
+            'city': 'Birmingham',
+            'country': 'United Kingdom'
         }
 
         response = self.client.post(url, data, format='json')
@@ -52,7 +56,9 @@ class UserViewSetTests(APITestCase):
             'first_name': 'John',
             'last_name': 'Doe',
             'email': 'johndoe@example.com',
-            'password': password
+            'password': password,
+            'city': 'Birmingham',
+            'country': 'United Kingdom'
         }
 
         # test without a required field
@@ -73,7 +79,9 @@ class UserViewSetTests(APITestCase):
             'last_name': 'Doe',
             'email': 'johndoe@example.com',
             'password': password,
-            'is_trader': True
+            'is_trader': True,
+            'city': 'Birmingham',
+            'country': 'United Kingdom'
         }
 
         response = self.client.post(url, data, format='json')
@@ -164,8 +172,26 @@ class UserViewSetTests(APITestCase):
         response = self.client.get(url)
 
         expected_fields = {
-            'url', 'username', 'first_name', 'last_name', 'email',
-            'date_joined', 'is_trader', 'iban', 'preferred_currency'
+            'url', 'username', 'first_name', 'last_name', 'email', 'date_joined',
+            'is_trader', 'iban', 'preferred_currency', 'city', 'country'
         }
 
         self.assertSetEqual(expected_fields, set(response.data.keys()))
+
+    def test_update_city_country(self):
+        user = User.objects.get(username='marry48')
+
+        url = reverse('user-detail', kwargs={'pk': user.pk})
+        data = {
+            'city': 'Ankara',
+            'country': 'Turkey'
+        }
+
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.patch(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(User.objects.filter(username='marry48',
+                                             city=data['city'],
+                                             country=data['country']).count(), 1)
