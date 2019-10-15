@@ -5,10 +5,11 @@ import java.time.LocalDateTime;
 public class User {
 
     private String url;
+    private String username;
     private String first_name;
     private String last_name;
     private String email;
-    private LocalDateTime date_joined;
+    private String date_joined;
     private boolean is_trader;
     private String iban;
     private String preferred_currency;
@@ -19,6 +20,15 @@ public class User {
 
     public User setUrl(String url) {
         this.url = url;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public User setUsername(String username) {
+        this.username = username;
         return this;
     }
 
@@ -49,11 +59,11 @@ public class User {
         return this;
     }
 
-    public LocalDateTime getDate_joined() {
+    public String getDate_joined() {
         return date_joined;
     }
 
-    public User setDate_joined(LocalDateTime date_joined) {
+    public User setDate_joined(String date_joined) {
         this.date_joined = date_joined;
         return this;
     }
@@ -89,14 +99,14 @@ public class User {
     public String toString() {
         return "User{" +
                 "url='" + url + '\'' +
+                ", username='" + username + '\'' +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
-                ", date_joined=" + date_joined +
+                ", date_joined='" + date_joined + '\'' +
                 ", is_trader=" + is_trader +
                 ", iban='" + iban + '\'' +
                 ", preferred_currency='" + preferred_currency + '\'' +
                 '}';
     }
-
 }
