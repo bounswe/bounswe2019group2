@@ -73,12 +73,12 @@ const Register = (props) => {
             )}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator('firstName', {
+            {getFieldDecorator('first_name', {
               rules: [{ required: true, message: 'Please input your name!' }]
             })(<Input type="text" placeholder="First Name" />)}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator('lasttName', {
+            {getFieldDecorator('last_name', {
               rules: [{ required: true, message: 'Please input your surname!' }]
             })(<Input type="text" placeholder="Surname" />)}
           </Form.Item>
@@ -88,7 +88,7 @@ const Register = (props) => {
             })(<Input type="text" placeholder="IBAN" />)}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator('prefferedCurrency', {
+            {getFieldDecorator('preferred_currency', {
               rules: [{ required: true, message: 'Please input your name!' }]
             })(<Input type="text" placeholder="Preferred Currency" />)}
           </Form.Item>
