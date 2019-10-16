@@ -131,8 +131,23 @@ class ArticleViewSetTests(APITestCase):
         url = reverse('article-detail', kwargs={'pk': pk})
         response = self.client.get(url)
 
-        # TODO add image field properly later depending on how to store image
         expected_fields = {
             'url', 'author', 'title', 'created_at', 'content', 'image',
         }
         self.assertSetEqual(expected_fields, set(response.data.keys()))
+
+    def test_list(self):
+        url = reverse('article-list')
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        articles = response.data
+        self.assertEqual(len(articles), 3)  # check the number of articles returned
+
+        # check the order
+        for i in range(len(articles)-1):
+            self.assertGreater(articles[i].get('created_at'),
+                               articles[i+1].get('created_at'))
+
+

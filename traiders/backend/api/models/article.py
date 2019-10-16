@@ -11,3 +11,6 @@ class Article(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     content = models.TextField(blank=False, max_length=10000)
     image = models.ImageField(blank=True)
+
+    class Meta:
+        ordering = ['-created_at']  # newest article comes first
