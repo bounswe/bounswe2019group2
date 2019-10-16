@@ -7,15 +7,16 @@ class CurrencyTable extends Component {
     const { getParities } = this.props;
     getParities();
   }
+
   render() {
     const { parityList } = this.props;
     const currencyList =
       parityList.length > 0
-        ? parityList.map((parity, index) => {
+        ? parityList.map((parity) => {
             return (
-              <div className="currency-table-row" key={index}>
+              <div className="currency-table-row" key={parity.id}>
                 <div className="parity">
-                  <div classname="parity-names">
+                  <div className="parity-names">
                     {parity.base_equipment.symbol}/
                     {parity.target_equipment.symbol}
                   </div>
@@ -32,7 +33,7 @@ class CurrencyTable extends Component {
           <div className="ratio">Ratio</div>
         </div>
         {currencyList}
-        <div className="currency-table-footer"></div>
+        <div className="currency-table-footer" />
       </div>
     );
   }
