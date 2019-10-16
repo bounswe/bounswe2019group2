@@ -172,8 +172,8 @@ class UserViewSetTests(APITestCase):
         response = self.client.get(url)
 
         expected_fields = {
-            'url', 'username', 'first_name', 'last_name', 'email', 'date_joined',
-            'is_trader', 'iban', 'preferred_currency', 'city', 'country'
+            'url', 'username', 'first_name', 'last_name', 'email',
+            'date_joined', 'is_trader', 'iban', 'city', 'country'
         }
 
         self.assertSetEqual(expected_fields, set(response.data.keys()))
