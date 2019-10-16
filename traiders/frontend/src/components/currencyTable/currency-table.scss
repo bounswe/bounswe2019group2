@@ -1,0 +1,54 @@
+.currency-table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border-radius: 1px;
+  padding: 5px;
+
+  height: auto;
+  font-family: Muli, Helvetica Neue, sans-serif;
+  background-color: white;
+
+  .currency-table-header {
+    display: flex;
+    justify-content: space-between;
+
+    height: 30px;
+    width: 300px;
+
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .currency-table-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: black;
+    border-top: 0.1px solid #eee;
+    border-bottom: 0.1px solid #eee;
+    margin-top: -1px;
+    height: 60px;
+    width: 300px;
+
+    .parity {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .parity-ratio {
+      font-size: 16px;
+    }
+  }
+
+  .currency-table-footer {
+    height: 20px;
+    width: 300px;
+  }
+}
