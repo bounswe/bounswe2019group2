@@ -26,7 +26,7 @@ export const actionCreators = {
 
 export const loginUser = (body) => {
   return (dispatch) => {
-    PostWithUrlBody(`${API}/token`, body)
+    PostWithUrlBody(`${API}/token/`, body)
       .then((response) => {
         if (response.status === 200) {
           dispatch(saveUser(response));
@@ -39,7 +39,7 @@ export const loginUser = (body) => {
 
 export const postUserRegister = (body) => {
   return () => {
-    PostWithUrlBody(`${API}/users`, body)
+    PostWithUrlBody(`${API}/users/`, body)
       .then((response) => {
         if (response.status === 200) {
           // eslint-disable-next-line no-console
