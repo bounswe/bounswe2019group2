@@ -146,8 +146,6 @@ class ArticleViewSetTests(APITestCase):
         self.assertEqual(len(articles), 3)  # check the number of articles returned
 
         # check the order
-        for i in range(len(articles)-1):
+        for i in range(len(articles) - 1):
             self.assertGreater(articles[i].get('created_at'),
-                               articles[i+1].get('created_at'))
-
-
+                               articles[i + 1].get('created_at'))
