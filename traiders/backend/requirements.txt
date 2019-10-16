@@ -3,5 +3,6 @@ djangorestframework==3.10.3
 pycodestyle==2.5.0
 PyYAML==5.1.2
 uritemplate==3.0.0
+Pillow==6.2.0
 django-filter==2.2.0
 django-cors-headers==2.5.3

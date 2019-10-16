@@ -125,8 +125,8 @@ USE_TZ = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',  # for browsable API
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # for browsable API
     ],
     'DEFAULT_SCHEMA_CLASS': 'api.schemas.AutoSchema'  # custom schema generator
 }
@@ -135,6 +135,9 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # CORS settings
 CORS_ORIGIN_ALLOW_ALL = True
