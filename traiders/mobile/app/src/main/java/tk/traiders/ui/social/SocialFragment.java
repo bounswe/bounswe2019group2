@@ -20,16 +20,6 @@ public class SocialFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        socialViewModel =
-                ViewModelProviders.of(this).get(SocialViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_social, container, false);
-        final TextView textView = root.findViewById(R.id.text_social);
-        socialViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+        return null;
     }
 }
