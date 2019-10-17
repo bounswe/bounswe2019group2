@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import Page from '../../components/page/Page';
+import CurrencyTable from '../../components/currencyTable/CurrencyTableContainer';
 
 const Home = () => {
   return (
     <Page>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
+      <CurrencyTable />
     </Page>
   );
 };
