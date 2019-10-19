@@ -1,11 +1,13 @@
 package tk.traiders;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,8 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE = 999;
+
     private EditText editText_username;
     private EditText editText_passowerd;
     private EditText editText_email;
@@ -35,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editText_iban;
     private String city = null;
     private String country = null;
+    private TextView textView_country;
+    private TextView textView_city;
 
     private RequestQueue requestQueue;
     final private static String URL = "https://api.traiders.tk/users/";
@@ -53,6 +59,8 @@ public class SignUpActivity extends AppCompatActivity {
         editText_name = findViewById(R.id.editText_name);
         editText_surname = findViewById(R.id.editText_username);
         editText_iban = findViewById(R.id.editText_iban);
+        textView_country = findViewById(R.id.textView_country);
+        textView_city = findViewById(R.id.textView_city);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -90,6 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
             body.put("iban", iban);
             body.put("city", city);
             body.put("country", country);
+            //body.put("city", city);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -108,6 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(SignUpActivity.this, "Something is wrong!", Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
                     }
                 }
@@ -115,5 +125,20 @@ public class SignUpActivity extends AppCompatActivity {
 
         requestQueue.add(postRequest);
 
+    }
+
+    public void ChooseLocationClick(View view) {
+        startActivityForResult(new Intent(this, LocationActivity.class), REQUEST_CODE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                country = data.getStringExtra("country");
+                city = data.getStringExtra("city");
+                textView_country.setText("Country: " + country);
+                textView_city.setText("City: " + city);
+            }
+        }
     }
 }
