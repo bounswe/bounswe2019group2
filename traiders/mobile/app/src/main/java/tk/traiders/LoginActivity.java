@@ -1,11 +1,13 @@
 package tk.traiders;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -90,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Log.d("Error.Response", error.getMessage());
+                        Toast.makeText(LoginActivity.this, "Username or password is wrong!", Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
@@ -106,5 +108,9 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         requestQueue.add(postRequest);
+    }
+
+    public void SignUpClick(View view) {
+        startActivity(new Intent(this, SignUpActivity.class));
     }
 }
