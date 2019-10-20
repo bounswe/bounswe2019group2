@@ -17,15 +17,17 @@ class ParityViewSet(ReadOnlyModelViewSet):
 
 class ParityLatestViewSet(ReadOnlyModelViewSet):
     serializer_class = ParitySerializer
-    parities = []
-    for base in Equipment.objects.all():
-        for target in Equipment.objects.all():
-            parity = Parity.objects.order_by('-date').filter(base_equipment=base,
-                                                             target_equipment=target)
-
-            if len(parity) != 0:
-                parities.append(parity[0].id)
-    queryset = Parity.objects.filter(id__in=parities)
     filter_backends = [DjangoFilterBackend]
     filterset_class = ParityFilterSet
+
+    def get_queryset(self):
+        parities = []
+        for base in Equipment.objects.all():
+            for target in Equipment.objects.all():
+                parity = Parity.objects.order_by('-date').filter(base_equipment=base,
+                                                                 target_equipment=target)
+
+                if len(parity) != 0:
+                    parities.append(parity[0].id)
+        return Parity.objects.filter(id__in=parities)
 
