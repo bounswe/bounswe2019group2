@@ -30,4 +30,3 @@ class ParityLatestViewSet(ReadOnlyModelViewSet):
                 if len(parity) != 0:
                     parities.append(parity[0].id)
         return Parity.objects.filter(id__in=parities)
-
