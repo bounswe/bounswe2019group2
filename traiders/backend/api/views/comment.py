@@ -13,7 +13,6 @@ class CommentViewSet(mixins.CreateModelMixin,
                      mixins.RetrieveModelMixin,
                      mixins.UpdateModelMixin,
                      mixins.DestroyModelMixin,
-                     mixins.ListModelMixin,
                      GenericViewSet):
     """
     View and edit comments

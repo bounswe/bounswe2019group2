@@ -2,13 +2,13 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
 from django.urls import path, include
 from django.views.generic import TemplateView
-from .views import UserViewSet, TokenViewSet, ParityViewSet, EquipmentViewSet, ArticleViewSet, CommentViewSet
-
+from .views import *
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'token', TokenViewSet, basename='token')
 router.register(r'equipment', EquipmentViewSet, basename='equipment')
+router.register(r'parity/latest', ParityLatestViewSet, basename='parity-latest')
 router.register(r'parity', ParityViewSet, basename='parity')
 router.register(r'articles', ArticleViewSet, basename='article')
 router.register(r'comments', CommentViewSet, basename='comment')
