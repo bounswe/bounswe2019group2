@@ -20,6 +20,8 @@ import tk.traiders.R;
 
 public class ProfileFragment extends Fragment {
 
+    public ViewPager viewPager;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -28,8 +30,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ViewPager viewPager = view.findViewById(R.id.viewPager_profile);
+        viewPager = view.findViewById(R.id.viewPager_profile);
         viewPager.setAdapter(new ProfileViewAdapter(getChildFragmentManager()));
+        viewPager.setCurrentItem(2);
 
         TabLayout tabLayout = view.findViewById(R.id.tabLayout_profile);
         tabLayout.setupWithViewPager(viewPager);
