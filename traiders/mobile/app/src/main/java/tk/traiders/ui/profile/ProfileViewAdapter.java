@@ -21,11 +21,11 @@ public class ProfileViewAdapter  extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new PersonalFragment();
-            case 1:
                 return new PersonalArticlesFragment();
-            case 2:
+            case 1:
                 return new FollowersFragment();
+            case 2:
+                return new PersonalFragment();
             case 3:
                 return new FollowingFragment();
             case 4:
@@ -47,11 +47,11 @@ public class ProfileViewAdapter  extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Profile";
-            case 1:
                 return "Articles";
-            case 2:
+            case 1:
                 return "Followers";
+            case 2:
+                return "Profile";
             case 3:
                 return "Followings";
             case 4:

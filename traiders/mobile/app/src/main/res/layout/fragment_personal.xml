@@ -36,27 +36,27 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/textview_name_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgUser"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15sp"
-            android:text="Ozgur Solak"
+            tools:text="Ozgur Solak"
             android:textSize="32sp"
             android:textColor="@color/white"
             android:layout_margin="15sp" />
 
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/textView_country"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/name"
+            android:layout_below="@+id/textview_name_surname"
             android:layout_centerHorizontal="true"
-            android:text="new york,USA"
+            tools:text="Turkey"
             android:textAllCaps="true"
             android:textSize="14sp"
-            android:textColor="@color/adress"
+            android:textColor="@color/white"
             android:fontFamily="sans-serif"/>
 
 
@@ -89,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="453K"
+                    android:text="0"
                     android:fontFamily="sans-serif-light"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
@@ -128,7 +128,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="873K"
+                    android:text="0"
                     android:fontFamily="sans-serif-light"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
@@ -149,95 +149,135 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_marginBottom="64dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/linlay1">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical"
-            android:layout_centerInParent="true">
-
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
                 android:orientation="vertical">
 
-                <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/headings"
-                    android:textSize="13sp"
-
-                    android:text="Email" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:fontFamily="sans-serif"
-                    android:textColor="#000000"
-                    android:text="ozgursolak24@gmail.com" />
-
-                <View
-
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Username"
+                        android:textColor="@color/headings"
+
+                        android:textSize="13sp" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        tools:text="ozgur.solak"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <View
+
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="@color/grey"
-                    />
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textColor="@color/headings"
+
+                        android:textSize="13sp" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        tools:text="ozgur.solak@gmail.com" />
+
+                    <View
+
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IBAN"
+                        android:textColor="@color/headings"
+
+                        android:textSize="13sp" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        tools:text="TR32 4000 3333 4543 2334 4554 34" />
+
+                    <View
+
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="15dp">
 
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/headings"
-                    android:textSize="13sp"
-
-                    android:text="Phone" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:fontFamily="sans-serif"
-                    android:textColor="#000000"
-                    android:text="05325555555" />
-
-                <View
-
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/grey"
-                    />
-
-            </LinearLayout>
+        </RelativeLayout>
 
 
-
-        </LinearLayout>
-
-
-
-    </RelativeLayout>
-
+    </ScrollView>
 
 </RelativeLayout>

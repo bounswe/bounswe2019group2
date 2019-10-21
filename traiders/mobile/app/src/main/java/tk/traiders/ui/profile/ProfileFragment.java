@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ViewPager viewPager = view.findViewById(R.id.viewPager_profile);
         viewPager.setAdapter(new ProfileViewAdapter(getChildFragmentManager()));
+        viewPager.setCurrentItem(2);
 
         TabLayout tabLayout = view.findViewById(R.id.tabLayout_profile);
         tabLayout.setupWithViewPager(viewPager);

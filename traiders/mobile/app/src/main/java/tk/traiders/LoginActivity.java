@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
+                        error.printStackTrace();
                         Toast.makeText(LoginActivity.this, "Username or password is wrong!", Toast.LENGTH_SHORT).show();
                     }
                 }
