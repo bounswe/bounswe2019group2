@@ -141,6 +141,9 @@ class Map extends React.Component {
     const country = this.getCountry(addressArray);
     const latValue = place.geometry.location.lat();
     const lngValue = place.geometry.location.lng();
+    const { setCity, setCoutnry } = this.props;
+    setCity(city);
+    setCoutnry(country);
     // Set these values in the state.
     this.setState({
       address: address || '',
@@ -173,6 +176,9 @@ class Map extends React.Component {
       const addressArray = response.results[0].address_components;
       const city = this.getCity(addressArray);
       const country = this.getCountry(addressArray);
+      const { setCity, setCountry } = this.props;
+      setCity(city);
+      setCountry(country);
       this.setState({
         address: address || '',
         city: city || '',

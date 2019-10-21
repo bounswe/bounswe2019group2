@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './user-profile.scss';
 import Page from '../page/Page';
 
-const UserProfile = () => {
+const UserProfile = (props) => {
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
@@ -19,49 +19,64 @@ const UserProfile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  const { user } = props;
+
   return (
     <Page>
-      <Form onSubmit={handleSubmit} {...formItemLayout} className="update-form">
-        <Form.Item label="Username">
-          <Input
-            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            defaultValue="Username"
-            readOnly
-          />
-        </Form.Item>
-        <Form.Item label="Email">
-          <Input
-            prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            type="text"
-            defaultValue="email@email.com"
-            readOnly
-          />
-        </Form.Item>
-        <Form.Item label="First Name">
-          <Input type="text" defaultValue="First Name" />
-        </Form.Item>
-        <Form.Item label="Last Name:">
-          <Input type="text" defaultValue="Surname" />
-        </Form.Item>
-        <Form.Item label="IBAN">
-          <Input type="text" defaultValue="IBAN" />
-        </Form.Item>
-        <Form.Item label="Location">
-          <Input readOnly type="text" defaultValue="City / Country" />
-        </Form.Item>
-        <Form.Item>
-          <div className="container">
-            <Link to="/changepassword">Change Password!</Link>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="update-form-button"
-            >
-              Update
-            </Button>
-          </div>
-        </Form.Item>
-      </Form>
+      {user ? (
+        <Form
+          onSubmit={handleSubmit}
+          {...formItemLayout}
+          className="update-form"
+        >
+          <Form.Item label="Username">
+            <Input
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              defaultValue={user.user.username}
+              readOnly
+            />
+          </Form.Item>
+          <Form.Item label="Email">
+            <Input
+              prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="text"
+              defaultValue={user.user.email}
+              readOnly
+            />
+          </Form.Item>
+          <Form.Item label="First Name">
+            <Input type="text" defaultValue={user.user.first_name} />
+          </Form.Item>
+          <Form.Item label="Last Name:">
+            <Input type="text" defaultValue={user.user.last_name} />
+          </Form.Item>
+          <Form.Item label="IBAN">
+            <Input type="text" defaultValue={user.user.iban} />
+          </Form.Item>
+          <Form.Item label="Location">
+            <Input
+              readOnly
+              type="text"
+              defaultValue={`${user.user.city}/${user.user.country}`}
+            />
+          </Form.Item>
+          <Form.Item>
+            <div className="container">
+              <Link to="/changepassword">Change Password!</Link>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="update-form-button"
+              >
+                Update
+              </Button>
+            </div>
+          </Form.Item>
+        </Form>
+      ) : (
+        <div>:)</div>
+      )}
     </Page>
   );
 };
