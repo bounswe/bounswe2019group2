@@ -26,7 +26,7 @@ export const actionCreator = {
 
 export const getParities = () => {
   return (dispatch) => {
-    GetWithUrl(`${API}/parity/`)
+    GetWithUrl(`${API}/parity/latest`)
       .then((response) => response.json())
       .then((response) => dispatch(saveParityList(response)))
       // eslint-disable-next-line no-console

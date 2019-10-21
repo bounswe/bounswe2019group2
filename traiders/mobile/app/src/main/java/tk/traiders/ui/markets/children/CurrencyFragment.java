@@ -47,7 +47,7 @@ public class CurrencyFragment extends Fragment {
 
         RequestQueue queue = Volley.newRequestQueue(getParentFragment().getActivity());
 
-        final String URL = "https://api.traiders.tk/parity/";
+        final String URL = "https://api.traiders.tk/parity/latest";
 
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
 
