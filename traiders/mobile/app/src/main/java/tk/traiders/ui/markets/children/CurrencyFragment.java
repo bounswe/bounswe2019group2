@@ -43,8 +43,7 @@ public class CurrencyFragment extends Fragment {
         final RecyclerView recyclerView = rootView.findViewById(R.id.recylerView_currency);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
-
-        CurrencyAdapter adapter = new CurrencyAdapter(Arrays.asList("USD","TRY","JPN"));
+        recyclerView.setAdapter(new CurrencyAdapter(Arrays.asList("Getting Data!")));
 
         RequestQueue queue = Volley.newRequestQueue(getParentFragment().getActivity());
 
