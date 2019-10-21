@@ -12,7 +12,7 @@ WORKDIR /app
 
 VOLUME /static
 VOLUME /media
-VOLUME /api/migrations
+VOLUME /app/api/migrations
 
 ENV DJANGO_SETTINGS_MODULE traiders.production_settings
 

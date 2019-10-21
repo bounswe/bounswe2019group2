@@ -34,6 +34,9 @@ urlpatterns = [
     # Browsable API login logout views
     path('api-auth/', include('rest_framework.urls')),
 
+    # Link to latest mobile application
+    path('mobile/', latest_mobile_app),
+
     # all API ends
     *router.urls
 ]
