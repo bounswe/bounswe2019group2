@@ -18,6 +18,7 @@
     "react/destructuring-assignment": ["error"],
     "arrow-parens": ["error"],
     "jsx-a11y/label-has-associated-control": "off",
+    "react/jsx-wrap-multilines": "off",
     "quotes": [
       2,
       "single",
