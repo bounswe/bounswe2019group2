@@ -19,7 +19,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavController.OnDestinationChangedListener {
 
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
     protected void onResume() {
         super.onResume();
         if (navController.getCurrentDestination().getId() == R.id.navigation_profile) {
+
              if(isUserLoggedIn(this)) {
                  invalidateOptionsMenu();
              } else {
@@ -72,13 +72,9 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         return sharedPreferences.getString("token", null) != null;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (navController.getCurrentDestination().getId() == R.id.navigation_profile && isUserLoggedIn(this)) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.profile_menu, menu);
-        }
-        return true;
+    public static String getUserURL(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("auth", MODE_PRIVATE);
+        return sharedPreferences.getString("user", null);
     }
 
     @Override
@@ -87,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         MenuInflater inflater = getMenuInflater();
         if(navController.getCurrentDestination().getId() == R.id.navigation_profile){
             if(isUserLoggedIn(this)) {
-                inflater.inflate(R.menu.profile_menu, menu);
+                inflater.inflate(R.menu.profile_menu_authorized, menu);
+            } else {
+                inflater.inflate(R.menu.profile_menu_unauthorized, menu);
             }
         }
         return true;
@@ -105,8 +103,12 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                     editor.remove("token");
                     editor.remove("user");
                     editor.apply();
-                    Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
                     invalidateOptionsMenu();
+                    startActivity(new Intent(this, LoginActivity.class));
+                    return true;
+                case R.id.log_in:
+                    startActivity(new Intent(this, LoginActivity.class));
                     return true;
             }
         }

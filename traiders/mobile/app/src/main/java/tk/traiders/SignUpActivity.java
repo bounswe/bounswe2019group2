@@ -1,9 +1,7 @@
 package tk.traiders;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -17,15 +15,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -59,7 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
         editText_name = findViewById(R.id.editText_name);
         editText_surname = findViewById(R.id.editText_username);
         editText_iban = findViewById(R.id.editText_iban);
-        textView_country = findViewById(R.id.textView_country);
+        textView_country = findViewById(R.id.personal_textView_country);
         textView_city = findViewById(R.id.textView_city);
 
         if (getSupportActionBar() != null) {

@@ -1,5 +1,6 @@
 package tk.traiders.ui.profile;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -60,4 +61,8 @@ public class ProfileViewAdapter  extends FragmentPagerAdapter {
         return super.getPageTitle(position);
     }
 
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
 }
