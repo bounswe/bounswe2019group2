@@ -30,7 +30,7 @@
     "stylelint": "stylelint \"**/*.scss\" --syntax scss",
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint -- --fix && npm run stylelint -- --fix",
-    "prettier": "prettier  \"**/*.{js,jsx,scss,html,json,md}\"",
+    "prettier": "prettier --single-quote  \"**/*.{js,jsx,scss,html,json,md}\"",
     "prettier:check": "npm run prettier -- --check",
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
