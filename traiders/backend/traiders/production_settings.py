@@ -29,3 +29,6 @@ STATIC_ROOT = '/static/'
 
 MEDIA_ROOT = '/media'
 MEDIA_URL = '//media.traiders.tk/'
+
+# make returned urls https
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
