@@ -10,8 +10,8 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: null,
-      country: null
+      city: 'İstanbul',
+      country: 'Turkey'
     };
   }
 
