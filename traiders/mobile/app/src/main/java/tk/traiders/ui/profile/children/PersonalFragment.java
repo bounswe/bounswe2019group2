@@ -184,7 +184,7 @@ public class PersonalFragment extends Fragment {
                     Boolean is_trader = jsonObject.getBoolean("is_trader");
 
                     textView_name_surname.setText(StringUtils.capitalize(first_name) + " " + StringUtils.capitalize(last_name));
-                    textView_country.setText(city + " ," + country);
+                    textView_country.setText(city + ", " + country);
                     textView_username.setText(username);
                     textView_email.setText(email);
                     if (is_trader) {
