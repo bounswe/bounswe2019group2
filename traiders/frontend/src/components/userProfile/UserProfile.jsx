@@ -25,7 +25,7 @@ const UserProfile = () => {
         <Form.Item label="Username">
           <Input
             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            defaultValue="Username cannot change"
+            defaultValue="Username"
             readOnly
           />
         </Form.Item>
