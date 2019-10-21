@@ -11,25 +11,26 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import tk.traiders.R;
 
 public class MarketsFragment extends Fragment {
 
-    private MarketsViewModel marketsViewModel;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.fragment_markets, container, false);
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        marketsViewModel =
-                ViewModelProviders.of(this).get(MarketsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_markets, container, false);
-        final TextView textView = root.findViewById(R.id.text_markets);
-        marketsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ViewPager viewPager = view.findViewById(R.id.viewPager_markets);
+        viewPager.setAdapter(new MarketsViewPagerAdapter(getChildFragmentManager()));
+
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout_markets);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
