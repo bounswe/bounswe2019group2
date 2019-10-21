@@ -71,40 +71,44 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:hint="IBAN (optional)" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editText_country"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:hint="country"  />
+
+                <EditText
+                    android:id="@+id/editText_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:hint="city" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="Choose Location"
+                android:background="#E69138"
                 android:onClick="ChooseLocationClick"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/personal_textView_country"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="19sp"
-                    android:text="Country:" />
-
-                <TextView
-                    android:id="@+id/textView_city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="19sp"
-                    android:text="City:" />
-            </LinearLayout>
 
             <Button
                 android:id="@+id/button2"
@@ -112,6 +116,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="Sign Up"
+                android:background="@color/secondaryColor"
+                android:textColor="@color/white"
                 android:onClick="SignUpClick"/>
 
         </LinearLayout>

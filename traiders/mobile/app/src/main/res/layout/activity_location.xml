@@ -33,10 +33,13 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
+        android:paddingHorizontal="32dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Confirm Location"
         android:onClick="ConfirmLocationClick"
+        android:background="@color/secondaryColor"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"

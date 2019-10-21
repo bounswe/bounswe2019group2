@@ -2,6 +2,7 @@ package tk.traiders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -32,8 +33,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editText_iban;
     private String city = null;
     private String country = null;
-    private TextView textView_country;
-    private TextView textView_city;
+    private EditText editText_country;
+    private EditText editText_city;
 
     private RequestQueue requestQueue;
     final private static String URL = "https://api.traiders.tk/users/";
@@ -50,10 +51,13 @@ public class SignUpActivity extends AppCompatActivity {
         editText_passowerd = findViewById(R.id.editText_password);
         editText_email = findViewById(R.id.editText_email);
         editText_name = findViewById(R.id.editText_name);
-        editText_surname = findViewById(R.id.editText_username);
+        editText_surname = findViewById(R.id.editText_surname);
         editText_iban = findViewById(R.id.editText_iban);
-        textView_country = findViewById(R.id.personal_textView_country);
-        textView_city = findViewById(R.id.textView_city);
+        editText_country = findViewById(R.id.editText_country);
+        editText_city = findViewById(R.id.editText_city);
+
+        editText_country.setEnabled(false);
+        editText_city.setEnabled(false);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -79,6 +83,51 @@ public class SignUpActivity extends AppCompatActivity {
         final String surname = editText_surname.getText().toString();
         final String iban = editText_iban.getText().toString();
 
+        if(username.isEmpty()){
+            editText_username.setError("Username cannot be empty");
+            return;
+        }
+
+        if(password.isEmpty()){
+            editText_passowerd.setError("Password cannot be empty");
+            return;
+        }
+
+        if(password.length() < 8) {
+            editText_passowerd.setError("Password should be at least 8 characters!");
+            return;
+        }
+
+        if(email.isEmpty()) {
+            editText_email.setError("Email cannot be empty!");
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editText_email.setError("Please enter a valid email address!");
+            return;
+        }
+
+        if(name.isEmpty()) {
+            editText_name.setError("Name cannot be empty!");
+            return;
+        }
+
+        if(surname.isEmpty()) {
+            editText_surname.setError("Surname cannot be empty!");
+            return;
+        }
+
+        if(country == null) {
+            editText_country.setError("Please choose a location!");
+            return;
+        }
+
+        if(city == null) {
+            editText_city.setError("Please choose a location!");
+            return;
+        }
+
         JSONObject body = new JSONObject();
 
         try {
@@ -91,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity {
             body.put("iban", iban);
             body.put("city", city);
             body.put("country", country);
-            //body.put("city", city);
+            body.put("city", city);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -129,8 +178,8 @@ public class SignUpActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 country = data.getStringExtra("country");
                 city = data.getStringExtra("city");
-                textView_country.setText("Country: " + country);
-                textView_city.setText("City: " + city);
+                editText_country.setText(country);
+                editText_city.setText(city);
             }
         }
     }
