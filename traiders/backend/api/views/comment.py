@@ -4,26 +4,48 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
 
-from ..models import Comment
-from ..serializers import CommentSerializer
-from ..filters import CommentFilterSet
+from ..models import ArticleComment, EquipmentComment
+from ..serializers import ArticleCommentSerializer, EquipmentCommentSerializer
+from ..filters import ArticleCommentFilterSet, EquipmentCommentFilterSet
 
 
-class CommentViewSet(mixins.CreateModelMixin,
-                     mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     mixins.DestroyModelMixin,
-                     GenericViewSet):
+class ArticleCommentViewSet(mixins.CreateModelMixin,
+                            mixins.RetrieveModelMixin,
+                            mixins.UpdateModelMixin,
+                            mixins.DestroyModelMixin,
+                            mixins.ListModelMixin,
+                            GenericViewSet):
     """
     View and edit comments
     """
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    serializer_class = CommentSerializer
-    queryset = Comment.objects.all()
+    serializer_class = ArticleCommentSerializer
+    queryset = ArticleComment.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_class = CommentFilterSet
+    filterset_class = ArticleCommentFilterSet
 
-    def check_object_permissions(self, request, comment):
+    def check_object_permissions(self, request, article_comment):
         # Another user can only retrieve; cannot update, delete, update or partial_update
-        if self.action != 'retrieve' and request.user != comment.user:
+        if self.action != 'retrieve' and request.user != article_comment.user:
+            raise PermissionDenied
+
+
+class EquipmentCommentViewSet(mixins.CreateModelMixin,
+                              mixins.RetrieveModelMixin,
+                              mixins.UpdateModelMixin,
+                              mixins.DestroyModelMixin,
+                              mixins.ListModelMixin,
+                              GenericViewSet):
+    """
+    View and edit comments
+    """
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    serializer_class = EquipmentCommentSerializer
+    queryset = EquipmentComment.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = EquipmentCommentFilterSet
+
+    def check_object_permissions(self, request, equipment_comment):
+        # Another user can only retrieve; cannot update, delete, update or partial_update
+        if self.action != 'retrieve' and request.user != equipment_comment.user:
             raise PermissionDenied

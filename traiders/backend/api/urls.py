@@ -11,8 +11,8 @@ router.register(r'equipment', EquipmentViewSet, basename='equipment')
 router.register(r'parity/latest', ParityLatestViewSet, basename='parity-latest')
 router.register(r'parity', ParityViewSet, basename='parity')
 router.register(r'articles', ArticleViewSet, basename='article')
-router.register(r'comments', CommentViewSet, basename='comment')
-
+router.register(r'article-comments', ArticleCommentViewSet, basename='articlecomment')
+router.register(r'equipment-comments', EquipmentCommentViewSet, basename='equipmentcomment')
 
 urlpatterns = [
     # documentation views

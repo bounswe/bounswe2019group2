@@ -1,2 +1,2 @@
 from .parity import ParityFilterSet
-from .comment import CommentFilterSet
+from .comment import ArticleCommentFilterSet, EquipmentCommentFilterSet
