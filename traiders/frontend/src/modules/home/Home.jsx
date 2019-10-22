@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import './home.scss';
 import Page from '../../components/page/Page';
+import CurrencyTable from '../../components/currencyTable/CurrencyTableContainer';
+import ArticleList from '../../components/articleList/ArticleListContainer';
 
 const Home = () => {
   return (
     <Page>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
+      <div className="home-container">
+        <CurrencyTable />
+        <ArticleList />
+      </div>
     </Page>
   );
 };

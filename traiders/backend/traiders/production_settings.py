@@ -9,7 +9,8 @@ ALLOWED_HOSTS = [
     'api.traiders.tk'
 ]
 
-SECRET_KEY = get_random_secret_key()
+with open('/secret.txt', 'r') as file:
+    SECRET_KEY = file.read()
 
 # Use postgres in production
 DATABASES = {
@@ -27,4 +28,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 
 MEDIA_ROOT = '/media'
-MEDIA_URL = 'media.traiders.tk/'
+MEDIA_URL = '//media.traiders.tk/'
+
+# make returned urls https
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -9,7 +9,12 @@ function userReducer(state = initialState, action) {
     case actionTypes.SAVE_USER:
       return {
         ...state,
-        user: action.payload
+        currentUser: action.payload
+      };
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        currentUser: null
       };
     default:
       return state;

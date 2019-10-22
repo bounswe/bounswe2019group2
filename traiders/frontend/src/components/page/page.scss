@@ -1,14 +1,18 @@
 .root-container {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  flex-grow: 1;
 
   .content {
     display: flex;
     justify-content: center;
+    flex-grow: 1;
 
-    height: 100%;
+    background-color: #eee;
+
     width: 100%;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }

@@ -8,6 +8,7 @@ services:
     volumes:
       - static:/static
       - media:/media
+      - migrations:/app/api/migrations
 
   db:
     image: postgres:11
@@ -32,3 +33,4 @@ volumes:
   static:
   dbdata:
   media:
+  migrations:

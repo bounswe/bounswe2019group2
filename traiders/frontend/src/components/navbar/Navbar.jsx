@@ -7,7 +7,7 @@ import { navbarOptions } from '../../common/constants/generalConstants';
 
 const { Header } = Layout;
 
-const Navbar = () => {
+const Navbar = (props) => {
   const navbarList = navbarOptions.map((element) => {
     return (
       <Menu.Item key={element.id}>
@@ -16,6 +16,13 @@ const Navbar = () => {
     );
   });
 
+  const Logout = () => {
+    const { logout } = props;
+    logout();
+  };
+
+  const { user } = props;
+
   return (
     <div className="navbar-container">
       <Layout className="layout">
@@ -23,9 +30,22 @@ const Navbar = () => {
           <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
             {navbarList}
           </Menu>
-          <Link to="/login">
-            <Button type="primary">LOG IN / REGISTER</Button>
-          </Link>
+          {user ? (
+            <div>
+              <Link to="/profile">
+                <Button type="primary">Profile</Button>
+              </Link>
+              <Link to="/">
+                <Button type="danger" onClick={Logout}>
+                  Logout
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <Link to="/login">
+              <Button type="primary">LOG IN / REGISTER</Button>
+            </Link>
+          )}
         </Header>
       </Layout>
     </div>

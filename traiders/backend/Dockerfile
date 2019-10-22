@@ -12,8 +12,11 @@ WORKDIR /app
 
 VOLUME /static
 VOLUME /media
+VOLUME /app/api/migrations
 
 ENV DJANGO_SETTINGS_MODULE traiders.production_settings
+
+RUN cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1 > /secret.txt
 
 CMD python manage.py makemigrations api && \
     python manage.py migrate && \
