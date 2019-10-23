@@ -26,5 +26,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'username': {'required': True},
             'first_name': {'required': True},
             'last_name': {'required': True},
-            'is_private': {'required': True}
         }

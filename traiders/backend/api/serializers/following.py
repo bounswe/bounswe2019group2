@@ -1,56 +1,46 @@
 from rest_framework import serializers
+from rest_framework.exceptions import PermissionDenied
 from ..models import Following
 from django.db import models
 
 
-ACCEPTED = 1
-PENDING = 0
-
-
 class FollowingSerializer(serializers.HyperlinkedModelSerializer):
 
-    def validate(self, data):
+    def create(self, validated_data):
         request = self.context['request']
-        following = request.user
-        if getattr(request, 'method', None) == "POST":
-            followed = data.get("user_followed", None)
-            data["user_following"] = following
-            try:
-                obj = Following.objects.get(user_following=following,
-                                            user_followed=followed)
-            except models.ObjectDoesNotExist:
-                obj = None
+        validated_data['user_following'] = request.user
 
-            if obj:
-                raise serializers.ValidationError("The user already follows the requested user.")
+        # if user is not private, status is ACCEPTED
+        if validated_data['user_followed'].is_private:
+            validated_data['status'] = Following.PENDING
+        else:
+            validated_data['status'] = Following.ACCEPTED
 
-            if not followed.is_private:
-                data["status"] = ACCEPTED
+        return super().create(validated_data)
 
-            if (following is not None) and (followed is not None):
-                if following == followed:
-                    raise serializers.ValidationError("Users cannot follow themselves.")
+    def validate_user_followed(self, user_followed):
+        request = self.context['request']
 
-        return data
+        if request.user == user_followed:
+            raise serializers.ValidationError('You cannot follow yourself.')
 
-    def get_fields(self, *args, **kwargs):
-        fields = super(FollowingSerializer, self).get_fields(*args, **kwargs)
-        request = self.context.get('request', None)
+        return user_followed
 
-        req_type = getattr(request, 'method', None)
-        if request and req_type in ["PUT", "POST"]:
-            fields['user_following'].read_only = True
+    def get_fields(self):
+        fields = super().get_fields()
+        view = self.context.get('view', None)
+
+        # user_followed can be written only when creating
+        if view.action != 'create':
+            fields['user_followed'].read_only = True
+
+        # status can be written only when updating (accepting)
+        if view.action not in ('update', 'partial_update'):
             fields['status'].read_only = True
 
-        if request and req_type == "GET":
-            following = request.query_params.get("user_following", None)
-            followed = request.query_params.get("user_followed", None)
-            pk = request.parser_context["kwargs"].get("pk", None)
-            if (following is None) and (followed is None) and (pk is None):
-                raise serializers.ValidationError('Please provide a user to see who is '
-                                                  'following them or who they follow.')
         return fields
 
     class Meta:
         model = Following
-        fields = ["url", "id", "user_following", "user_followed", "status"]
+        fields = ['url', 'id', 'user_following', 'user_followed', 'status']
+        read_only_fields = ['url', 'id', 'user_following']

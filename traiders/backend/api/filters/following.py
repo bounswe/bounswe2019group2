@@ -9,4 +9,4 @@ class FollowingFilterSet(filters.FilterSet):
 
     class Meta:
         model = Following
-        fields = {"user_following": ["exact"], "user_followed": ["exact"]}
+        fields = ['user_following', 'user_followed', 'status']

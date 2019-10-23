@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from ..models import User
+from ..models import User, Following
 
 
 class UserViewSetTests(APITestCase):
@@ -14,7 +14,7 @@ class UserViewSetTests(APITestCase):
             'last_name': 'Smith',
             'email': 'me@marrysmith.com',
             'city': 'New York City',
-            'country': 'United States'
+            'country': 'United States',
         }
 
         user = User(**data)
@@ -24,6 +24,19 @@ class UserViewSetTests(APITestCase):
         # create a token for the test user
         token = Token.objects.create(user=user)
         self.auth_key = token.key
+
+        data = {
+            'username': 'private_ryan',
+            'first_name': 'James',
+            'last_name': 'Ryan',
+            'email': 'ryan@army.com',
+            'city': 'Washington D.C.',
+            'country': 'United States',
+            'is_private': True
+        }
+        user = User(**data)
+        user.set_password('fsfST4rf')
+        user.save()
 
     def test_create(self):
         url = reverse('user-list')
@@ -170,13 +183,45 @@ class UserViewSetTests(APITestCase):
         url = reverse('user-detail', kwargs={'pk': user.pk})
 
         response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         expected_fields = {
             'url', 'username', 'first_name', 'last_name', 'email',
-            'date_joined', 'is_trader', 'iban', 'city', 'country'
+            'date_joined', 'is_trader', 'iban', 'city', 'country', 'is_private'
         }
 
         self.assertSetEqual(expected_fields, set(response.data.keys()))
+
+    def test_retrieve_private_user(self):
+        user = User.objects.get(username='private_ryan')
+
+        url = reverse('user-detail', kwargs={'pk': user.pk})
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_retrieve_private_user_with_following(self):
+        following = Following.objects.create(user_following=User.objects.get(username='marry48'),
+                                             user_followed=User.objects.get(username='private_ryan'),
+                                             status=Following.PENDING)
+
+        user = User.objects.get(username='private_ryan')
+        url = reverse('user-detail', kwargs={'pk': user.pk})
+
+        # should deny without accepting
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # should work after accepting
+        following.status = Following.ACCEPTED
+        following.save()
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_update_city_country(self):
         user = User.objects.get(username='marry48')
