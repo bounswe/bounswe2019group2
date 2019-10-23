@@ -3,17 +3,20 @@ from django.utils import timezone
 from ..models import *
 
 
-class ArticleComment(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, blank=False)
+class CommentBase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
     created_at = models.DateTimeField(default=timezone.now)
     content = models.TextField(blank=True, max_length=400)
     image = models.ImageField(blank=True)
 
+    class Meta:
+        abstract = True  # django wont create any table for this model
+        ordering = ['created_at']
 
-class EquipmentComment(models.Model):
+
+class ArticleComment(CommentBase):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, blank=False)
+
+
+class EquipmentComment(CommentBase):
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, blank=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
-    created_at = models.DateTimeField(default=timezone.now)
-    content = models.TextField(blank=True, max_length=200)
-    image = models.ImageField(blank=True)

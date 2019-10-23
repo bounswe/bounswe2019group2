@@ -8,7 +8,7 @@ class ArticleCommentFilterSet(filters.FilterSet):
 
     class Meta:
         model = ArticleComment
-        fields = {"article": ["exact"]}
+        fields = ['article']
 
 
 class EquipmentCommentFilterSet(filters.FilterSet):
@@ -16,4 +16,4 @@ class EquipmentCommentFilterSet(filters.FilterSet):
 
     class Meta:
         model = EquipmentComment
-        fields = {"equipment": ["exact"]}
+        fields = ['equipment']
