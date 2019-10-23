@@ -30,4 +30,4 @@ class UserViewSet(mixins.CreateModelMixin,
             try:
                 Following.objects.get(user_following=viewer, user_followed=user)
             except models.ObjectDoesNotExist:
-                raise PermissionDenied("User follower is private. Please request to follow")
+                raise PermissionDenied("User profile is private. Please request to follow")

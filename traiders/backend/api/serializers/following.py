@@ -15,7 +15,7 @@ class FollowingSerializer(serializers.HyperlinkedModelSerializer):
         if getattr(request, 'method', None) == "POST":
             followed = data.get("user_followed", None)
             data["user_following"] = following
-            try :
+            try:
                 obj = Following.objects.get(user_following=following,
                                             user_followed=followed)
             except SuspiciousOperation:
