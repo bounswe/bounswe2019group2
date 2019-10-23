@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models import Following
-from django.core.exceptions import SuspiciousOperation
+from django.db import models
 
 
 ACCEPTED = 1
@@ -18,7 +18,7 @@ class FollowingSerializer(serializers.HyperlinkedModelSerializer):
             try:
                 obj = Following.objects.get(user_following=following,
                                             user_followed=followed)
-            except SuspiciousOperation:
+            except models.ObjectDoesNotExist:
                 obj = None
 
             if obj:
