@@ -12,7 +12,6 @@ from ..filters import FollowingFilterSet
 
 class FollowingViewSet(mixins.CreateModelMixin,
                        mixins.RetrieveModelMixin,
-                       mixins.UpdateModelMixin,
                        mixins.DestroyModelMixin,
                        mixins.ListModelMixin,
                        GenericViewSet):

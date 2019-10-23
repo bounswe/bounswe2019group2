@@ -1,8 +1,9 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
+from django.db import models
 from rest_framework.exceptions import PermissionDenied
 
-from ..models.users import User
+from ..models import User, Following
 from ..serializers.users import UserSerializer
 
 
@@ -22,3 +23,11 @@ class UserViewSet(mixins.CreateModelMixin,
         # TODO Add condition for private profiles
         if self.action != 'retrieve' and request.user != user:
             raise PermissionDenied
+        elif self.action == 'retrieve':
+            viewer = request.user
+            if viewer == user:
+                return
+            try:
+                Following.objects.get(user_following=viewer, user_followed=user)
+            except models.ObjectDoesNotExist:
+                raise PermissionDenied("User follower is private. Please request to follow")
