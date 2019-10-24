@@ -5,3 +5,4 @@ from .equipment import EquipmentViewSet
 from .parity import ParityViewSet, ParityLatestViewSet
 from .comment import ArticleCommentViewSet, EquipmentCommentViewSet
 from .mobile_app import latest_mobile_app
+from .following import FollowingViewSet
