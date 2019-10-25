@@ -66,21 +66,28 @@ We still use our previous convention. All can be traced in the repo. Everyone cr
 **3- Meeting Notes:** 
 Meeting notes are still accesible through wiki page.
 We are always utilizing those to refer to action items, remember our agenda and goals.
+
 **4- Requirements:** 
 We have rarely updated our requirements so far, but we always keep reviewing them during the implementation phase.
+
 **5- Mockups:** 
 In addition to our previous mockups, we have a new annotation mockup to stay in the same page with the customer. You can refer to the Mockup section for the annotation mockup.
+
 **6- Design Diagrams:**
 We have updated our class diagram according to our implementation plan so far.
 We believe there will still be updated during the implementation as we figure out better ways of doing things.
+
 **7- Project Plan:** 
 Project plan can also be found below. As mentioned above, we have decided to take a requirement oriented approach.
 Thus in the project plan, the tabs refer to our requirements. Each week we plan to implement couple of those.
+
 **8- API**
 Our API is almost daily updated. As of now we have functionalities for Equipments, Parities, Articles, Comments, Login, Signup, Following. All of those are documented.
 You could check it out at traiders.tk
+
 **9- API Documentation**
 We are using 2 sorts of Documentation pages, which are accesible through api.traiders.tk/docs and api.traiders.tk/redocs . There you can find example calls, the endpoints and more.
+
 **10- Deployment and Security**
 
 **11- Web Project, Frontend**
