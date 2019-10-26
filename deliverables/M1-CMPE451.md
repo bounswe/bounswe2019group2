@@ -311,9 +311,10 @@ The system shall support following equipments and possible conversions between t
 
 ## Scenario 2
 
-## Scenario 3
 
 ## Evaluation of tools and managing the project
- 
+### Backend
+### Frontend
+### Mobile
 
 
