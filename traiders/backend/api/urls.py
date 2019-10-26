@@ -11,6 +11,7 @@ router.register(r'equipment', EquipmentViewSet, basename='equipment')
 router.register(r'parity/latest', ParityLatestViewSet, basename='parity-latest')
 router.register(r'parity', ParityViewSet, basename='parity')
 router.register(r'articles', ArticleViewSet, basename='article')
+router.register(r'likes', LikeViewSet, basename='like')
 
 
 urlpatterns = [
