@@ -314,7 +314,7 @@ The system shall support following equipments and possible conversions between t
 
 ## Evaluation of tools and managing the project
 ### Backend
-* **Amazon Web Services:** We use an AWS EC2 instance to deploy both backend and frontend side of our application. 
+* **Amazon Web Services:** We use an AWS EC2 instance to deploy the backend side of our application. 
 * **Django and Django Rest Framework:** 
 * **Docker and Docker Compose:**
 * **Let's Encrypt:**
@@ -324,6 +324,14 @@ The system shall support following equipments and possible conversions between t
 * **Travis:**
 * **PostgresSQL:**
 ### Frontend
+* **Amazon Web Services:** We use an AWS EC2 instance to deploy the frontend side of our application. 
+* **React Javascript Framework:** The main framework to implement the Frontend side of the project.
+* **Eslint-stylelint**  Eslint a tool which applies the rule for AIRBNB code style. It helps to achieve readability for the team.
+* **Docker and Docker Compose:** Docker is a platform to build, share, and run applications with containers which helps in therms of flexibility, security, portability, scalability.
+* **Travis:**  Travis is used to test the commit in terms of styling, compatibility and checks whether the code commited is working properly or not.
+* **Prettier:** Automatically formats the code which helps developers saving time  and energy.
+* **Redux:** Redux is a module which helps the data storing in React. In other words; it helps to fetch data from the api or post data to api in a more secure, consistent way.
+* **Visual Studio Code:** The IDE used to coding in React.js environment.
 ### Mobile
 
 
