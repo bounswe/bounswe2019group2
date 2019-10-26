@@ -314,6 +314,15 @@ The system shall support following equipments and possible conversions between t
 
 ## Evaluation of tools and managing the project
 ### Backend
+* **Amazon Web Services:** We use an AWS EC2 instance to deploy both backend and frontend side of our application. 
+* **Django and Django Rest Framework:** 
+* **Docker and Docker Compose:**
+* **Let's Encrypt:**
+* **Nginx:**
+* **Pycharm:**
+* **Swagger:**
+* **Travis:**
+* **PostgresSQL:**
 ### Frontend
 ### Mobile
 
