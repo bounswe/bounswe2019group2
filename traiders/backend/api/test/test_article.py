@@ -132,7 +132,7 @@ class ArticleViewSetTests(APITestCase):
         response = self.client.get(url)
 
         expected_fields = {
-            'url', 'author', 'title', 'created_at', 'content', 'image',
+            'url', 'author', 'title', 'created_at', 'content', 'image', 'id'
         }
         self.assertSetEqual(expected_fields, set(response.data.keys()))
 
