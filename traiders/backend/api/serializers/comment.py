@@ -22,7 +22,7 @@ class ArticleCommentSerializer(CommentSerializerBase):
 
     class Meta:
         model = ArticleComment
-        fields = '__all__'
+        fields = ["id", "url", "created_at", "content", "image", "user", "article"]
         read_only_fields = ['id', 'url', 'created_at', 'user']
 
 
@@ -38,5 +38,5 @@ class EquipmentCommentSerializer(CommentSerializerBase):
 
     class Meta:
         model = EquipmentComment
-        fields = '__all__'
+        fields = ["id", "url", "created_at", "content", "image", "user", "equipment"]
         read_only_fields = ['id', 'url', 'created_at', 'user']

@@ -9,5 +9,5 @@ class ArticleSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Article
-        fields = '__all__'
+        fields = ["url", "title", "created_at", "content", "image", "author", "id"]
         read_only_fields = ['id', 'url', 'created_at', 'author']
