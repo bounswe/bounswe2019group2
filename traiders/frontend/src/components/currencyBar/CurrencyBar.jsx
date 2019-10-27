@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './currency-bar.scss';
 import CurrencyInfo from '../currencyInfo/CurrencyInfo';
 
-const CurrencyBar = () => {
-  return (
-    <div className="currency-bar-container">
-      <CurrencyInfo fullName="USD" price="5.85" changeRate="0.21" />
-      <CurrencyInfo fullName="EUR" price="6.52" changeRate="0.44" />
-      <CurrencyInfo fullName="GBP" price="7.43" changeRate="-0.03" />
-      <CurrencyInfo fullName="ONS" price="1493.36" changeRate="0.31" />
-      <CurrencyInfo fullName="EUR/USD" price="1.10" changeRate="-0.11" />
-      <CurrencyInfo fullName="GBP/USD" price="1.25" changeRate="-0.52" />
-    </div>
-  );
-};
+class CurrencyBar extends Component {
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+    this.gettingCurrencies = setInterval(getCurrencies, 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.gettingCurrencies);
+  }
+
+  render() {
+    const { currencyList } = this.props;
+    let currencies = currencyList.slice(0, 7);
+    currencies = currencies.filter((element) => element.code !== 'TRY');
+    currencies = currencies.map((element) => {
+      return (
+        <CurrencyInfo
+          fullName={element.code}
+          price={element.latest}
+          changeRate={element.change_rate}
+        />
+      );
+    });
+
+    return <div className="currency-bar-container">{currencies}</div>;
+  }
+}
 
 export default CurrencyBar;

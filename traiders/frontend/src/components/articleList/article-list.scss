@@ -1,19 +1,38 @@
 .article-list-container {
-  .article-image {
-    width: 200px;
-    height: 200px;
-  }
+  width: 800px;
 
-  .article-title {
-    font-size: 16px;
-    font-weight: 500px;
-  }
+  .single-article {
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
 
-  .article-content {
-    font-size: 11px;
+    .article-image {
+      width: 100px;
+      height: 100px;
 
-    min-width: 600x;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
 
-    max-width: 800px;
+    .article {
+      height: 100px;
+      overflow: hidden;
+
+      .article-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 20px;
+        font-size: 16px;
+        font-weight: 500px;
+      }
+
+      .article-content {
+        display: flex;
+        font-size: 11px;
+        height: 80px;
+      }
+    }
   }
 }
