@@ -125,7 +125,7 @@ We have configured our server to use HTTPs and redirect all HTTP requests to HTT
 Team | Member | Work done    |
 | -------- | ------- | ----------- |
 | *Backend* | **Yunus Emre Inci** | • Implemented user related API endpoints. (register, update, delete, retrieve) <br> • Implemented authentication and permission mechanism. (token creation) <br> • Added location information for users. <br> • Handled DevOps related stuff. Deployment, server and database configurations etc. <br> • Updated class diagram due to changes in design. <br> • Reviewed work done by other team members. |
-| *Backend* | **\<your name\>** | \<your work\>    |
+| *Backend* | **Mert Yuksekgonul** | • Implemented equipment related endpoints (list, retrieve). <br> • Implemented parity, parity/latest related endpoints (list, retrieve). <br> • Implemented comment related (article comments and equipment comments) endpoints (list, retrieve, create, update, delete). <br> • Implemented equipment related endpoints (list, retrieve). <br> • Implemented follower related endpoints and private user relations (list, retrieve, create, delete). <br> • Reviewed code for backend team. <br>      |
 | *Backend* | **\<your name\>** | \<your work\>    |
 | *Frontend* | **\<your name\>** | \<your work\>    |
 | *Frontend* | **\<your name\>** | \<your work\>    |
