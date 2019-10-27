@@ -97,7 +97,7 @@ You could check it out at [api.traiders.tk](//api.traiders.tk)
 We are using 2 sorts of Documentation pages, which are accesible through [api.traiders.tk/docs](//api.traiders.tk/docs) and [api.traiders.tk/redocs](//api.traiders.tk/redocs). There you can find example calls, the endpoints and more.
 
 **10- Deployment and Security:**
-We frequently deployed our application's latest version throughout the development process so that it would always be up to date. We have experienced some errors at first but now we think we came to a stable point where we can deploy the last version with just a simple docker-compose command. We will keep continiously deploying in the future also. 
+We frequently deployed our application's latest version throughout the development process so that it would always be up to date. We have experienced some errors at first but now we think we came to a stable point where we can deploy the last version with just a simple docker-compose command. We will keep continuously deploying in the future also. 
 
 We have configured our server to use HTTPs and redirect all HTTP requests to HTTPs.
 
