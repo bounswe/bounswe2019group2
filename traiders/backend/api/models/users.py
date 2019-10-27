@@ -10,3 +10,4 @@ class User(AbstractUser):
         max_length=64, blank=True)
     city = models.CharField(max_length=64, blank=False)
     country = models.CharField(max_length=64, blank=False)
+    is_private = models.BooleanField(default=False)

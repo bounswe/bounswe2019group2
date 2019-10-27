@@ -1,5 +1,7 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import mixins
+from rest_framework.viewsets import GenericViewSet
 
 from ..models import Parity, Equipment
 from ..serializers import ParitySerializer
@@ -27,4 +29,5 @@ class ParityLatestViewSet(ReadOnlyModelViewSet):
 
                 if parity:
                     parities.append(parity.id)
+
         return Parity.objects.filter(id__in=parities)

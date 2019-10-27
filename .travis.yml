@@ -15,7 +15,7 @@ matrix:
 
     - language: node_js
       node_js:
-        - "12"
+        - "11"
       install:
         - cd traiders/frontend
         - npm install
