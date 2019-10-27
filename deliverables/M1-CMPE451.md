@@ -20,9 +20,9 @@ Our team has 3 subgroups, namely Backend (3 people), Frontend(3 people) and Mobi
 
 So far, we have managed to keep everything implemented in parallel with the help of priority oriented planning.
 We have:
-* Our web project deployed at [traiders.tk](),
-* API deployed at [api.traiders.tk](),
-* Mobile app APK downloadable at [api.traiders.tk/mobile]()
+* Our web project deployed at [traiders.tk](//traiders.tk),
+* API deployed at [api.traiders.tk](//api.traiders.tk),
+* Mobile app APK downloadable at [api.traiders.tk/mobile](//api.traiders.tk/mobile)
 
 Thus everything is accessible.
 
@@ -91,10 +91,10 @@ Thus in the project plan, the tabs refer to our requirements. Each week we plan 
 
 **8- API:**
 Our API is almost daily updated. As of now we have functionalities for Equipments, Parities, Articles, Comments, Login, Signup, Following. All of those are documented.
-You could check it out at [api.traiders.tk]()
+You could check it out at [api.traiders.tk](//api.traiders.tk)
 
 **9- API Documentation:**
-We are using 2 sorts of Documentation pages, which are accesible through [api.traiders.tk/docs]() and [api.traiders.tk/redocs](). There you can find example calls, the endpoints and more.
+We are using 2 sorts of Documentation pages, which are accesible through [api.traiders.tk/docs](//api.traiders.tk/docs) and [api.traiders.tk/redocs](//api.traiders.tk/redocs). There you can find example calls, the endpoints and more.
 
 **10- Deployment and Security:**
 We frequently deployed our application's latest version throughout the development process so that it would always be up to date. We have experienced some errors at first but now we think we came to a stable point where we can deploy the last version with just a simple docker-compose command. We will keep continiously deploying in the future also. 
