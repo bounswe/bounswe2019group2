@@ -353,6 +353,8 @@ The system shall support following equipments and possible conversions between t
 
 # Project plan
 
+![merge_from_ofoct (1)](https://user-images.githubusercontent.com/29541534/67638559-d292f380-f8f6-11e9-995a-423be3f31f4c.jpg)
+
 # User Scenarios
 
 ## Scenario 1 (Web)
