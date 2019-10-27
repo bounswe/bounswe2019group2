@@ -422,8 +422,8 @@ Acceptance Criteria
 - **Visual Studio Code:** The IDE used to coding in React.js environment.
 
 ### Mobile
-- **Android Studio:** We use an Android Studio as our development platform.
+- **Android Studio:** We use an Android Studio as our integrated development environment.
 - **Java:** We implement our requirements via Java programming language.
-- **Nexus:** Nexus is a android emulator which simulates Android devices on our computer so that we can test our application on a variety of devices and Android API levels without needing to have each physical device.
+- **Android Emulator:** Android emulator simulates Android devices on our computer so that we can test our application on a variety of devices and Android API levels without needing to have each physical device.
 - **Gradle:** Gradle is an open-source build-automation system that builds upon the concepts of Apache Ant and Apache Maven and introduces a Groovy-based domain-specific language (DSL) instead of the XML form used by Apache Maven for declaring the project configuration.
-- **Material.io:** This website helps us to design our logos.
+- **Material.io:** This website provides a design system that helps developers build high-quality digital experience. We try to follow the standards on this website. In addition to this, the icons we use in our application are taken from this website - all for free.
