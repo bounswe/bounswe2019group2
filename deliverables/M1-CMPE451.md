@@ -339,6 +339,8 @@ The system shall support following equipments and possible conversions between t
 
 ## Ahmet Yılmaz (Trader)
 
+![Ahmet Yılmaz](https://user-images.githubusercontent.com/25434779/67634031-d22b3600-f8bf-11e9-84e9-34aa3b39219c.png)
+
 **Persona**
 
 * 26 years old
