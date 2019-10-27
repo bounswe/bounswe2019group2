@@ -102,9 +102,13 @@ We frequently deployed our application's latest version throughout the developme
 
 We have configured our server to use HTTPs and redirect all HTTP requests to HTTPs.
 
-**11- Web Project, Frontend**
+**11- Web Project, Frontend:**
+Our web application is up and running at [traiders.tk](//traiders.tk). The website currently supports register, login, 
+list of articles and ratio of parities.
 
-**12- Mobile App**
+**12- Mobile App:**
+The latest version of our mobile application will always be downloadable at [traiders.tk/mobile](//traiders.tk/mobile).
+It currently has register, login and ratio of parities.
 
 # Work Done by Each Member
 
