@@ -13,15 +13,19 @@ class ArticleList extends Component {
 
     return (
       <div className="article-list-container">
-        {articleList.map((article) => (
-          <div>
+        {articleList.map((article, index) => (
+          <div className="single-article">
             <img
               className="article-image"
               src={article.image}
               alt={article.image}
             />
-            <div className="article-title">{article.title}</div>
-            <div className="article-content">{article.content}</div>
+            <div className="article">
+              <div className="article-title">{article.title}</div>
+              <div className={`article-content ${index}`}>
+                {article.content}
+              </div>
+            </div>
           </div>
         ))}
       </div>

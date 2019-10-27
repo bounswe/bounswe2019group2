@@ -8,6 +8,7 @@
         "except": ["first-nested"]
       }
     ],
-    "max-nesting-depth": [10]
+    "max-nesting-depth": [10],
+    "number-leading-zero": ["always"]
   }
 }

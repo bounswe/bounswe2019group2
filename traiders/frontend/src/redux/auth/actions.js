@@ -36,8 +36,12 @@ export const actionCreators = {
 export const loginUser = (body) => {
   return (dispatch) => {
     PostWithUrlBody(`${API}/token/`, body)
-      .then((response) => response.json())
-      .then((response) => dispatch(saveUser(response)))
+      .then((response) => {
+        if (response.status === 201) {
+          response.json().then((res) => dispatch(saveUser(res)));
+        }
+      })
+
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while logging\n', error));
   };
@@ -48,7 +52,10 @@ export const postUserRegister = (body) => {
     PostWithUrlBody(`${API}/users/`, body)
       // eslint-disable-next-line
       .then(alert('Successfully registered'))
-      // eslint-disable-next-line no-console
-      .catch((error) => console.log('Error when fetch register\n', error));
+
+      .catch((error) =>
+        // eslint-disable-next-line no-console
+        console.log('Error when fetch register\n', error)
+      );
   };
 };
