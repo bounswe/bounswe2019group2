@@ -342,6 +342,12 @@ The system shall support following equipments and possible conversions between t
 
 - **2.4.1.** The [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/) and [W3C Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/) shall be used for annotations.
 
+# Annotation Mock-ups
+
+## Mobile
+
+![Mobile Annotation Mockup](https://user-images.githubusercontent.com/29541534/67635820-acac2580-f8db-11e9-8462-7d3a5d862670.png)
+
 # Project plan
 
 # User Scenarios
