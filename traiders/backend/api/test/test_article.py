@@ -1,7 +1,6 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
-from django.utils import timezone
 from rest_framework.authtoken.models import Token
 
 from ..models import Article, User
@@ -132,7 +131,7 @@ class ArticleViewSetTests(APITestCase):
         response = self.client.get(url)
 
         expected_fields = {
-            'url', 'author', 'title', 'created_at', 'content', 'image',
+            'url', 'author', 'title', 'created_at', 'content', 'image', 'num_likes', 'like'
         }
         self.assertSetEqual(expected_fields, set(response.data.keys()))
 

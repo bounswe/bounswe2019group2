@@ -7,15 +7,6 @@ from ..models.likes import Like
 from ..serializers.likes import LikeSerializer
 
 
-# def check_if_liked_already(request, like):
-#     # If the article is already liked, then a new request will delete the like
-#     already_liked = Like.objects.filter(user=like.user, article=like.article).exists()
-#     if already_liked:
-#         Like.objects.filter(user=request.user, article=like.article).delete()
-#     else:
-#         Like.objects.create(user=request.user, article=like.article)
-
-
 class LikeViewSet(mixins.CreateModelMixin,
                   mixins.DestroyModelMixin,
                   mixins.RetrieveModelMixin,
