@@ -22,7 +22,7 @@ So far, we have managed to keep everything implemented in parallel with the help
 We have:
 * Our web project deployed at [traiders.tk](//traiders.tk),
 * API deployed at [api.traiders.tk](//api.traiders.tk),
-* Mobile app APK downloadable at [api.traiders.tk/mobile](//api.traiders.tk/mobile)
+* Mobile app APK downloadable at [traiders.tk/mobile](//traiders.tk/mobile)
 
 Thus everything is accessible.
 
