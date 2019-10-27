@@ -6,7 +6,8 @@ import './login.scss';
 import Page from '../../../components/page/Page';
 
 const Login = (props) => {
-  const { user } = props;
+  const { user, form } = props;
+  const { getFieldDecorator } = form;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,12 +18,10 @@ const Login = (props) => {
       }
     });
   };
-  const { form } = props;
-  const { getFieldDecorator } = form;
 
   return (
     <Page>
-      {!user ? (
+      {!user || !user.user ? (
         <div className="login-container">
           <div className="tabs">
             <Link to="/login">

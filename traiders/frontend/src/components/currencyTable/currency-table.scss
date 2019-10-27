@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
 
-  height: 500px;
+  width: 400px;
 
   border-radius: 1px;
   padding: 5px;
@@ -16,7 +16,7 @@
     justify-content: space-between;
 
     height: 30px;
-    width: 300px;
+    width: 390px;
 
     font-weight: 600;
     font-size: 14px;
@@ -32,15 +32,26 @@
     border-bottom: 1px solid #eee;
     margin-top: -1px;
     height: 60px;
-    width: 300px;
+    width: 390px;
 
     .parity {
       display: flex;
       flex-direction: column;
       justify-content: center;
 
-      font-weight: 700;
-      font-size: 16px;
+      .parity-symbols {
+        font-weight: 500;
+
+        &:hover {
+          color: lightblue;
+        }
+      }
+
+      .parity-names {
+        font-weight: 400;
+        color: #999;
+        font-size: 0.8rem;
+      }
     }
 
     .parity-ratio {

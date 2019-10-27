@@ -2,7 +2,7 @@ import React from 'react';
 
 import './page.scss';
 import Navbar from '../navbar/NavbarContainer';
-import CurrencyBar from '../currencyBar/CurrencyBar';
+import CurrencyBar from '../currencyBar/CurrencyBarContainer';
 import Footer from '../footer/Footer';
 // TODO this component should updated after the implementation of Navbar and Footer components.
 
