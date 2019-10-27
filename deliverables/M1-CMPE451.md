@@ -337,28 +337,30 @@ The system shall support following equipments and possible conversions between t
 
 ## Scenario 1 (Web)
 
-Ahmet Yılmaz (Trader)
+## Ahmet Yılmaz (Trader)
 
-Persona
+**Persona**
 
-26 years old
-Recently graduated
-Works in a bank
-Curious about investing
-Wants to save money for wedding
+* 26 years old
+* Recently graduated
+* Works in a bank
+* Curious about investing
+* Wants to save money for wedding
 
-Story
+**Story**
 
-Ahmet recently graduated from university and found a well paid job. He wants to make some money with his little savings because he wants to marry. For that purpose he starts to look websites to invest then he founds TrAiders. Firstly, he registers the site as a Trader user by giving his iban number. He also chooses his location on Google Map while registering. After registering, he logs in and starts to explore. He looks the currency table and looks changes on parities on the main page. Then he goes to profile page and sees that he can update his information. Finally he logges out because it is enough for him today.
+* Ahmet recently graduated from university and found a well paid job. He wants to make some money with his little savings because he wants to marry. For that purpose he starts to look websites to invest then he founds TrAiders. Firstly, he registers the site as a Trader user by giving his iban number. He also chooses his location on Google Map while registering. After registering, he logs in and starts to explore. He looks the currency table and looks changes on parities on the main page. Then he goes to profile page and sees that he can update his information. Finally he logges out because it is enough for him today.
 
-Preconditions
+**Preconditions**
 
-He uses a web browser and visits our webpage.
+1. He uses a web browser and visits our webpage.
 
-Acceptance Criteria
+**Acceptance Criteria**
 
-1.1.1.1 , 1.1.2.1 , 1.1.3.1 ,
-1.1.7.1 , 2.3.1 , 2.3.2
+1. 1.1.1.1 & 1.1.2.1
+3. 1.1.3.1
+2  1.1.7.1 
+3. 2.3.1 & 2.3.2
 
 ## Scenario 2 (Mobile)
 
