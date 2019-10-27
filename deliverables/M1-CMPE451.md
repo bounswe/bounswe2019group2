@@ -130,7 +130,7 @@ Team | Member | Work done    |
 | *Frontend* | **\<your name\>** | \<your work\>    |
 | *Frontend* | **\<your name\>** | \<your work\>    |
 | *Frontend* | **\<your name\>** | \<your work\>    |
-| *Mobile* | **\<your name\>** | \<your work\>    |
+| *Mobile* | **Fatih İver** | • implemented splash screen <br> • implemented bottom navigation bar <br> • Implemented view pagers with tab layouts for sub screens <br> • implemented log in screen <br> • Implemented log out functionality <br> • Implemented authentication <br> • Implemented currency screen <br> • Implemented articles screen <br> |
 | *Mobile* | **\<your name\>** | \<your work\>    |
 
 
