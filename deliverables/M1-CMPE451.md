@@ -362,7 +362,38 @@ Acceptance Criteria
 
 ## Scenario 2 (Mobile)
 
-\<insert mobile scenario\>
+## Furkan Bora Özsaygın (TRADER)
+
+![Furkan Bora Özsever](https://user-images.githubusercontent.com/29541534/67633563-4961c980-f8c2-11e9-9fde-6a38beb7dad8.png)
+
+**Persona**
+
+* He is interested in finance since his childhood
+* He started trading in his highschool years
+* He is graduated from the faculty of economics
+* He has been working in a bank for the last 5 years
+* His fiancee is also a banker and they are together in this
+* He made quite a lot profit so far and he is looking for more
+
+**Story**
+
+* He uses different platforms to make investments in different categories. For example, he uses TFX Target to make currency-related investment and he uses Binance to make the cryptocurrency-related investment. It is getting hard for him to track his investment since they are on different platforms so he is looking for a tool to make this process easier for him. If everything goes as he planned, he is going to buy his dream car - 718 Porsche Cayman, and he is going to take his fiancee to Cay Island for a great vacation he promised. 
+
+
+**Preconditions**
+
+1. He downloaded our app and signed up as a trader by providing his IBAN then signed in.
+2. He used the app to record his previous investments to track their situation from one place.
+3. His previous investments are in the category of currency, stock & crypto.
+4. He started to follow other economists and economic events to get better insights into the market.
+
+**Acceptance Criteria**
+
+1. 1.1.1.1 & 1.1.2.1
+2. 1.1.4.1 & 1.1.4.3
+3. 1.1.5.1 & 1.1.5.4
+4. 1.1.6.1 & 1.1.6.3
+5. 1.1.8.1 & 1.1.8.2 & 1.1.8.4
 
 ## Evaluation of tools and managing the project
 
