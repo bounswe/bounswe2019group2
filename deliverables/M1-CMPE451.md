@@ -108,8 +108,7 @@ We have configured our server to use HTTPs and redirect all HTTP requests to HTT
 
 # Work Done by Each Member
 
-## Group Members
-
+### Group Members
 - Alperen Kürşat Özkan
 - Fatih İver
 - Harun Eren
@@ -119,10 +118,22 @@ We have configured our server to use HTTPs and redirect all HTTP requests to HTT
 - Rukiye Dilruba Köse
 - Yunus Emre İnci(Communicator)
 
-## Customers
-
+### Customers
 - Suzan Uskudarli
 - Alper Ahmetoğlu
+
+Team | Member | Work done    |
+| -------- | ------- | ----------- |
+| *Backend* | **Yunus Emre Inci** | • Implemented user related API endpoints. (register, update, delete, retrieve) <br> • Implemented authentication and permission mechanism. (token creation) <br> • Added location information for users. <br> • Handled DevOps related stuff. Deployment, server and database configurations etc. <br> • Updated class diagram due to changes in design. <br> • Reviewed work done by other team members. |
+| *Backend* | **\<your name\>** | \<your work\>    |
+| *Backend* | **\<your name\>** | \<your work\>    |
+| *Frontend* | **\<your name\>** | \<your work\>    |
+| *Frontend* | **\<your name\>** | \<your work\>    |
+| *Frontend* | **\<your name\>** | \<your work\>    |
+| *Mobile* | **\<your name\>** | \<your work\>    |
+| *Mobile* | **\<your name\>** | \<your work\>    |
+
+
 
 # Requirements
 
