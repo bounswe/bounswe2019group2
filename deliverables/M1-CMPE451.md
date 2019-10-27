@@ -20,9 +20,10 @@ Our team has 3 subgroups, namely Backend (3 people), Frontend(3 people) and Mobi
 
 So far, we have managed to keep everything implemented in parallel with the help of priority oriented planning.
 We have:
-* Our web project deployed at [traiders.tk](//traiders.tk),
-* API deployed at [api.traiders.tk](//api.traiders.tk),
-* Mobile app APK downloadable at [traiders.tk/mobile](//traiders.tk/mobile)
+
+- Our web project deployed at [traiders.tk](//traiders.tk),
+- API deployed at [api.traiders.tk](//api.traiders.tk),
+- Mobile app APK downloadable at [traiders.tk/mobile](//traiders.tk/mobile)
 
 Thus everything is accessible.
 
@@ -97,7 +98,7 @@ You could check it out at [api.traiders.tk](//api.traiders.tk)
 We are using 2 sorts of Documentation pages, which are accesible through [api.traiders.tk/docs](//api.traiders.tk/docs) and [api.traiders.tk/redocs](//api.traiders.tk/redocs). There you can find example calls, the endpoints and more.
 
 **10- Deployment and Security:**
-We frequently deployed our application's latest version throughout the development process so that it would always be up to date. We have experienced some errors at first but now we think we came to a stable point where we can deploy the last version with just a simple docker-compose command. We will keep continuously deploying in the future also. 
+We frequently deployed our application's latest version throughout the development process so that it would always be up to date. We have experienced some errors at first but now we think we came to a stable point where we can deploy the last version with just a simple docker-compose command. We will keep continuously deploying in the future also.
 
 We have configured our server to use HTTPs and redirect all HTTP requests to HTTPs.
 
@@ -335,25 +336,48 @@ The system shall support following equipments and possible conversions between t
 # User Scenarios
 
 ## Scenario 1 (Web)
+
+Ahmet Yılmaz (Trader)
+
+Persona
+
+26 years old
+Recently graduated
+Works in a bank
+Curious about investing
+Wants to save money for wedding
+
+Story
+
 Ahmet recently graduated from university and found a well paid job. He wants to make some money with his little savings because he wants to marry. For that purpose he starts to look websites to invest then he founds TrAiders. Firstly, he registers the site as a Trader user by giving his iban number. He also chooses his location on Google Map while registering. After registering, he logs in and starts to explore. He looks the currency table and looks changes on parities on the main page. Then he goes to profile page and sees that he can update his information. Finally he logges out because it is enough for him today.
 
+Preconditions
+
+He uses a web browser and visits our webpage.
+
+Acceptance Criteria
+
+1.1.1.1 , 1.1.2.1 , 1.1.3.1 ,
+1.1.7.1 , 2.3.1 , 2.3.2
+
 ## Scenario 2 (Mobile)
+
 \<insert mobile scenario\>
 
 ## Evaluation of tools and managing the project
 
 ### Backend
 
-- **Amazon Web Services:** We use an AWS EC2 instance to deploy the backend side of our application. 
+- **Amazon Web Services:** We use an AWS EC2 instance to deploy the backend side of our application.
 - **Django and Django Rest Framework:** We use Django Rest Framework on top of Django. As opposed to the practice application that we developed in CMPE352, we use DRF's viewsets and serializers more often. Together they enable automatic schema generation which helps to readily produce an extensive API documentation as we develop.
-- **Docker and Docker Compose:** All of our application services (nginx, database, WSGI server for backend, Node.js server for frontend) are containerized and configurable in the source code by using Dockerfiles. This helps us to define the environments in which our services run in the source code and also automate the deployment process. 
+- **Docker and Docker Compose:** All of our application services (nginx, database, WSGI server for backend, Node.js server for frontend) are containerized and configurable in the source code by using Dockerfiles. This helps us to define the environments in which our services run in the source code and also automate the deployment process.
 - **Gunicorn**: Gunicorn is a WSGI server for production. We use it to be able to serve as many clients as possible at the same time by configuring it to use multiple workers.
 - **Let's Encrypt:** We got our SSL certificate from Let's Encrypt. We use HTTPs for all web communications.
 - **Nginx:** We use nginx as a router to direct coming requests to either the backend or the frontend application depending on the subdomain. Nginx also serves the static and media content such as CSS files or images.
 - **Pycharm:** Pycharm is great for both coding and version control. Some features we use often are: automatic code reformatting, navigate to declaration/usage, debugging and GUI support for testing.
 - **Redoc & Swagger:** We provide two different UI options for API documentation. Redoc and Swagger take the OpenAPI schema generated by DRF and turn it into an human-readable interface.
 - **Travis:** We use Travis CI for style checking and testing. It helps us maintain a clean and working codebase.
-- **PostgresSQL:** We think a relational database work better for our project as we will implement many components that tightly relate to each other. 
+- **PostgresSQL:** We think a relational database work better for our project as we will implement many components that tightly relate to each other.
 
 ### Frontend
 
