@@ -14,19 +14,24 @@ For more detailed information and functionalities, refer to Requirements Section
 
 After CMPE352, we already had some standards that we have planned out.
 We had PR Templates, Issue Templates, related workflow and process rules, a procedure for taking over the work and sharing the responsibility.
+
 Through the first few weeks of the semester, things are working well in terms of workflow.
 Our team has 3 subgroups, namely Backend (3 people), Frontend(3 people) and Mobile(2 people).
+
 So far, we have managed to keep everything implemented in parallel with the help of priority oriented planning.
 We have:
-Our web project deployed at traiders.tk,
-API deployed at api.traiders.tk,
-Mobile app APK downloadable at api.traiders.tk/mobile
-Thus everything accessible.
-First few weeks almost always mean struggle, we tried to adapt to a new workload, losing few members from last year,
+* Our web project deployed at traiders.tk,
+* API deployed at api.traiders.tk,
+* Mobile app APK downloadable at api.traiders.tk/mobile
+
+Thus everything is accessible.
+
+First few weeks almost always mean struggle, we tried to adapt to a new workload, losing a few members from last year,
 welcoming our new members, meeting and getting used to each other.
-The thing that mattered most to us is documentation and accesibility for all of the members.
+The thing that mattered most to us is documentation and accessibility for all of the members.
 We have our API Documented, code commented and everything shared in several different features of GitHub (milestones, projects, wiki..).
 Occasionally we have updated our requirements, class diagram and we will continue doing so as needed.
+
 We are still using Travis for unit testing and code style checks.
 
 ## Moving Forward
@@ -34,12 +39,12 @@ We are still using Travis for unit testing and code style checks.
 We noticed that we could do better in terms of few aspects.
 Firstly, we argue that we need a better implementation plan.
 Starting from the October 21 we decided to proceed with the requirement oriented planning.
-Each week, we will focus on the pre-determined set of requirements as the whole group, both backend, frontend and mobile teams.
-For example, in the week of October 22 - October 29, we decided to focus on Requirements 1.1-1.4 .
-Since this is a new thing to us, of course adjusting could take some time but we believe this is important for taking concrete steps.
+Each week, all of the groups will focus on a pre-determined set of requirements. For example, in the week of October 22 - October 29, we decided to focus on Requirements 1.1-1.4. Since this is a new thing to us, of course adjusting could take some time but we believe this is important for taking concrete steps. We also prepared a [spreadsheet](https://docs.google.com/spreadsheets/d/197Z9591lSS0qo-7xH_Fwe_VQu7tZ5TOg/edit#gid=1734224127) to track our progress in terms of requirements. Each team will mark the requirements they have fullfilled.
+
 We will keep using our workflow in issues and pull requests.
 At least 2 reviewer should approve each person's code.
 We will hold group coding sessions for boosting.
+
 In terms of this milestone, we feel like we are in a good place but also we believe we could have done more.
 The requirement oriented implementation schedule will hopefully help us move forward faster.
 
@@ -64,7 +69,7 @@ The requirement oriented implementation schedule will hopefully help us move for
 We are updating our wiki page as needed, pushing meeting notes and keeping everything from requirements to group members updated on there.
 
 **2- GitHub Issues & PRs:**
-We still use our previous convention. All can be traced in the repo. Everyone creates their own issue, people should not be closing their issue without the review of at least 2 other people, preferably from the same time. Issue Templates and PR templates are used during the creation.
+We still use our previous convention. All can be traced in the repo. Everyone creates their own issue, people should not be closing their issue without the review of at least 2 other people, preferably from the same team. Issue Templates and PR templates are used during the creation.
 
 **3- Meeting Notes:**
 Meeting notes are still accesible through wiki page.
@@ -84,20 +89,21 @@ We believe there will still be updated during the implementation as we figure ou
 Project plan can also be found below. As mentioned above, we have decided to take a requirement oriented approach.
 Thus in the project plan, the tabs refer to our requirements. Each week we plan to implement couple of those.
 
-**8- API**
+**8- API:**
 Our API is almost daily updated. As of now we have functionalities for Equipments, Parities, Articles, Comments, Login, Signup, Following. All of those are documented.
-You could check it out at traiders.tk
+You could check it out at api.traiders.tk
 
-**9- API Documentation**
+**9- API Documentation:**
 We are using 2 sorts of Documentation pages, which are accesible through api.traiders.tk/docs and api.traiders.tk/redocs . There you can find example calls, the endpoints and more.
 
-**10- Deployment and Security**
+**10- Deployment and Security:**
+We frequently deployed our application's latest version throughout the development process so that it would always be up to date. We have experienced some errors at first but now we think we came to a stable point where we can deploy the last version with just a simple docker-compose command. We will keep continiously deploying in the future also. 
+
+We have configured our server to use HTTPs and redirect all HTTP requests to HTTPs.
 
 **11- Web Project, Frontend**
 
 **12- Mobile App**
-
-# Evaluation of Tools and Processes Used
 
 # Work Done by Each Member
 
@@ -328,26 +334,26 @@ The system shall support following equipments and possible conversions between t
 
 # User Scenarios
 
-## Scenario 1
+## Scenario 1 (Web)
+Ahmet recently graduated from university and found a well paid job. He wants to make some money with his little savings because he wants to marry. For that purpose he starts to look websites to invest then he founds TrAiders. Firstly, he registers the site as a Trader user by giving his iban number. He also chooses his location on Google Map while registering. After registering, he logs in and starts to explore. He looks the currency table and looks changes on parities on the main page. Then he goes to profile page and sees that he can update his information. Finally he logges out because it is enough for him today.
 
-Web:
-Ahmet recently graduated from university and found a well paid job. He wants to save some money easily with his little saving because he wants to marry. For that purpose he starts to look websites then he founds Tradiers. Firstly, he regsiters the site as a Trader user by giving his iban number. He also chooses his location on Google Map while registering. After registering, he loggs in and starts to explore. He looks the currency table and looks changes on parities on the main page. Then he goes to profile page and sees that he can update his information. Finally he logges out because it is enough for him today.
-
-## Scenario 2
+## Scenario 2 (Mobile)
+\<insert mobile scenario\>
 
 ## Evaluation of tools and managing the project
 
 ### Backend
 
-- **Amazon Web Services:** We use an AWS EC2 instance to deploy the backend side of our application.
-- **Django and Django Rest Framework:**
-- **Docker and Docker Compose:**
-- **Let's Encrypt:**
-- **Nginx:**
-- **Pycharm:**
-- **Swagger:**
-- **Travis:**
-- **PostgresSQL:**
+- **Amazon Web Services:** We use an AWS EC2 instance to deploy the backend side of our application. 
+- **Django and Django Rest Framework:** We use Django Rest Framework on top of Django. As opposed to the practice application that we developed in CMPE352, we use DRF's viewsets and serializers more often. Together they enable automatic schema generation which helps to readily produce an extensive API documentation as we develop.
+- **Docker and Docker Compose:** All of our application services (nginx, database, WSGI server for backend, Node.js server for frontend) are containerized and configurable in the source code by using Dockerfiles. This helps us to define the environments in which our services run in the source code and also automate the deployment process. 
+- **Gunicorn**: Gunicorn is a WSGI server for production. We use it to be able to serve as many clients as possible at the same time by configuring it to use multiple workers.
+- **Let's Encrypt:** We got our SSL certificate from Let's Encrypt. We use HTTPs for all web communications.
+- **Nginx:** We use nginx as a router to direct coming requests to either the backend or the frontend application depending on the subdomain. Nginx also serves the static and media content such as CSS files or images.
+- **Pycharm:** Pycharm is great for both coding and version control. Some features we use often are: automatic code reformatting, navigate to declaration/usage, debugging and GUI support for testing.
+- **Redoc & Swagger:** We provide two different UI options for API documentation. Redoc and Swagger take the OpenAPI schema generated by DRF and turn it into an human-readable interface.
+- **Travis:** We use Travis CI for style checking and testing. It helps us maintain a clean and working codebase.
+- **PostgresSQL:** We think a relational database work better for our project as we will implement many components that tightly relate to each other. 
 
 ### Frontend
 
