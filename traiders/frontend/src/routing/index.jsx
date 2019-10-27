@@ -6,6 +6,7 @@ import Login from '../modules/auth/login/LoginContainer';
 import Register from '../modules/auth/register/RegisterContainer';
 import UserProfile from '../components/userProfile/UserProfileContainer';
 import ChangePassword from '../components/changePassword/ChangePassword';
+import Article from '../modules/articleModule/ArticleModule';
 
 class Routes extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Routes extends Component {
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/articles/:id" component={Article} />
           <Route render={() => <h1>404 Page not found</h1>} />
         </Switch>
       </Suspense>
