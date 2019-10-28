@@ -1,17 +1,18 @@
-import React, { Component, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { Component, Suspense } from "react";
+import { Route, Switch } from "react-router-dom";
 
-import Home from '../modules/home/Home';
-import Login from '../modules/auth/login/LoginContainer';
-import Register from '../modules/auth/register/RegisterContainer';
-import UserProfile from '../components/userProfile/UserProfileContainer';
-import ChangePassword from '../components/changePassword/ChangePassword';
-import Article from '../modules/articleModule/ArticleModule';
-import bomUtil from '../common/utils/bomUtil';
+import Home from "../modules/home/Home";
+import Login from "../modules/auth/login/LoginContainer";
+import Register from "../modules/auth/register/RegisterContainer";
+import UserProfile from "../components/userProfile/UserProfileContainer";
+import ChangePassword from "../components/changePassword/ChangePassword";
+import Article from "../modules/articleModule/ArticleModule";
+import bomUtil from "../common/utils/bomUtil";
+import UserProfileUpdate from "../components/userProfileUpdate/UserProfileUpdate";
 
 const ACTION_TYPE = {
-  PUSH: 'PUSH',
-  POP: 'POP'
+  PUSH: "PUSH",
+  POP: "POP"
 };
 
 class Routes extends Component {
@@ -49,6 +50,7 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/profile" component={UserProfile} />
+          <Route path="/updateprofile" component={UserProfileUpdate} />
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
