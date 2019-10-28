@@ -7,6 +7,12 @@ import Register from '../modules/auth/register/RegisterContainer';
 import UserProfile from '../components/userProfile/UserProfileContainer';
 import ChangePassword from '../components/changePassword/ChangePassword';
 import Article from '../modules/articleModule/ArticleModule';
+import bomUtil from '../common/utils/bomUtil';
+
+const ACTION_TYPE = {
+  PUSH: 'PUSH',
+  POP: 'POP'
+};
 
 class Routes extends Component {
   constructor(props) {
@@ -14,6 +20,7 @@ class Routes extends Component {
 
     const { history } = props;
     this.unsubscribeFromHistory = history.listen(this.handleLocationChange);
+    this.handleLocationChange();
   }
 
   componentWillUnmount() {
@@ -22,7 +29,21 @@ class Routes extends Component {
     }
   }
 
-  render() {
+  handleLocationChange = () => {
+    const { history, location } = this.props;
+    const { action } = history;
+    const { hash } = location;
+
+    /*
+     NOTE: React router does not update scroll position after transitioning to another route.
+     This block scrolls to the beginning of the page after switching to new route.
+     */
+    if (!hash && action === ACTION_TYPE.PUSH) {
+      bomUtil.scrollToTop();
+    }
+  };
+
+  render = () => {
     return (
       <Suspense>
         <Switch>
@@ -36,7 +57,7 @@ class Routes extends Component {
         </Switch>
       </Suspense>
     );
-  }
+  };
 }
 
 export default Routes;
