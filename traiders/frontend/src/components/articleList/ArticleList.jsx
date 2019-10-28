@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './article-list.scss';
+import ArticleRow from './ArticleRow';
 
 class ArticleList extends Component {
   componentDidMount() {
@@ -9,24 +10,12 @@ class ArticleList extends Component {
   }
 
   render() {
-    const { articleList } = this.props;
+    const { articleList, history } = this.props;
 
     return (
       <div className="article-list-container">
-        {articleList.map((article, index) => (
-          <div className="single-article">
-            <img
-              className="article-image"
-              src={article.image}
-              alt={article.image}
-            />
-            <div className="article">
-              <div className="article-title">{article.title}</div>
-              <div className={`article-content ${index}`}>
-                {article.content}
-              </div>
-            </div>
-          </div>
+        {articleList.map((article) => (
+          <ArticleRow article={article} history={history} />
         ))}
       </div>
     );
