@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './article-list.scss';
 import ArticleRow from './ArticleRow';
+import history from '../../common/history';
 
 class ArticleList extends Component {
   componentDidMount() {
@@ -10,7 +11,7 @@ class ArticleList extends Component {
   }
 
   render() {
-    const { articleList, history } = this.props;
+    const { articleList } = this.props;
 
     return (
       <div className="article-list-container">

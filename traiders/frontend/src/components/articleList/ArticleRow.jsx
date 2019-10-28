@@ -29,7 +29,8 @@ class ArticleRow extends Component {
     }
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
+    e.preventDefault();
     const { author } = this.state;
     const { article, history } = this.props;
 
