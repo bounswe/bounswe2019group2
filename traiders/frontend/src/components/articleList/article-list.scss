@@ -1,37 +1,59 @@
 .article-list-container {
-  width: 800px;
+  width: 600px;
 
   .single-article {
     padding-bottom: 20px;
-    display: flex;
-    align-items: center;
 
-    .article-image {
-      width: 100px;
-      height: 100px;
-
-      margin-right: 5px;
-      margin-left: 5px;
+    &:hover {
+      cursor: pointer;
     }
 
-    .article {
-      height: 100px;
-      overflow: hidden;
+    .article-container {
+      display: flex;
 
-      .article-title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      .article-image {
+        width: 120px;
+        height: 120px;
 
-        height: 20px;
-        font-size: 16px;
-        font-weight: 500px;
+        margin-right: 24px;
+        margin-left: 24px;
       }
 
-      .article-content {
-        display: flex;
-        font-size: 11px;
-        height: 80px;
+      .article {
+        height: 120px;
+        overflow: hidden;
+
+        .article-title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 14px;
+
+          font-weight: 600;
+          font-family: medium-content-sans-serif-font, 'Lucida Grande',
+            'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif !important;
+
+          color: rgba(0, 0, 0, 0.84);
+        }
+
+        .article-first-part {
+          align-items: center;
+          font-size: 11px;
+          font-weight: 300;
+
+          font-family: medium-content-sans-serif-font, 'Lucida Grande',
+            'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif !important;
+
+          color: rgba(0, 0, 0, 0.54);
+        }
+
+        .author-related {
+          font-size: 12px;
+          font-weight: 600;
+
+          font-family: medium-content-sans-serif-font, 'Lucida Grande',
+            'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif !important;
+        }
       }
     }
   }

@@ -1,9 +1,12 @@
 from rest_framework import serializers
+
 from ..models import Article, Like
+from . import UserSerializer
 from .likes import LikeSerializer
 
 
 class ArticleSerializer(serializers.HyperlinkedModelSerializer):
+    author = UserSerializer(read_only=True)
     num_likes = serializers.SerializerMethodField()
     like = serializers.SerializerMethodField()
 
@@ -28,5 +31,5 @@ class ArticleSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Article
-        fields = ["url", "title", "created_at", "content", "image", "author", "id", "num_likes", "like"]
-        read_only_fields = ['id', 'url', 'created_at', 'author', 'num_likes', 'like']
+        fields = ["url", "title", "created_at", "content", "image", "author", "id", "like", "num_likes"]
+        read_only_fields = ['id', 'url', 'created_at', 'author', 'like', 'num_likes']
