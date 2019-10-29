@@ -6,3 +6,4 @@ from .article import Article
 from .comment import ArticleComment, EquipmentComment
 from .mobile_app import MobileApp
 from .following import Following
+from .event import Event
