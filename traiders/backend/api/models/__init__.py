@@ -5,4 +5,5 @@ from .users import User
 from .article import Article
 from .comment import ArticleComment, EquipmentComment
 from .mobile_app import MobileApp
+from .likes import Like
 from .following import Following
