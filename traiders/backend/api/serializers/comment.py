@@ -1,8 +1,12 @@
 from rest_framework import serializers
+
 from ..models import ArticleComment, EquipmentComment
+from . import UserSerializer
 
 
 class CommentSerializerBase(serializers.HyperlinkedModelSerializer):
+    user = UserSerializer(read_only=True)
+
     def validate(self, data):
         data['user'] = self.context['request'].user
         if not data.get('image') and not data.get('content'):
