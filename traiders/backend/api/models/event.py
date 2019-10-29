@@ -13,5 +13,3 @@ class Event(models.Model):
     forecast = models.CharField(max_length=16, blank=True, null=True)
     sourceURL = models.URLField(blank=False)
     importance = models.IntegerField(blank=False, choices=[(i, i) for i in range(1, 4)])
-
-
