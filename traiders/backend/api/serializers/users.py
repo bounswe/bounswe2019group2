@@ -3,10 +3,23 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from ..models.users import User
 from django_countries.serializer_fields import CountryField
+from django_countries import Countries
+
+options = Countries()
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     country = CountryField(country_dict=True)
+
+    def validate_country(self, country):
+        if options.by_name(country) != "":
+            return country
+        else:
+            name = options.name(country)
+            if country == "":
+                raise serializers.ValidationError('{} is not a valid country'.format(country))
+            return name
+
     @staticmethod
     def validate_password(password):
         return make_password(password)  # password hashing
