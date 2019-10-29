@@ -1,9 +1,19 @@
-from django.db.models import Q
 from django_filters import rest_framework as filters
 
 from ..models import Event
+from django_countries import Countries
 
 
 class EventFilterSet(filters.FilterSet):
-    pass
-    # TODO implement filterset
+    # Filtering by country and importance level
+    importance = filters.MultipleChoiceFilter(field_name="importance",
+                                              label="filter by importance",
+                                              choices=[(i, i) for i in range(1,4)])
+    country = filters.ChoiceFilter(field_name="country",
+                                   label="filter by country",
+                                   choices=Countries())
+
+    class Meta:
+        model = Event
+        fields = ["importance", "country"]
+
