@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-
+import json
 from ..models import Like, Article, User
 
 
@@ -73,7 +73,6 @@ class LikeViewSetTests(APITestCase):
         response = self.client.post(url, {'article': data}, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Like.objects.filter(article=self.article, user=self.user).count(), 1)
-        self.like = Like.objects.filter(article=self.article, user=self.user)
 
     def test_delete(self):
         pk = self.like.pk
@@ -103,3 +102,33 @@ class LikeViewSetTests(APITestCase):
             'url', 'user', 'article',
         }
         self.assertSetEqual(expected_fields, set(response.data.keys()))
+
+    def test_retrieve_article(self):
+        url = reverse('like-list')
+
+        # create article
+        data = {
+            'author': self.user,
+            'title': 'Economic Crisis',
+            'content': 'Emerging markets become more able to withstand a crisis.',
+        }
+        self.article3 = Article(**data)
+        self.article3.save()
+        article_url = reverse('article-detail', kwargs={'pk': self.article3.pk})
+
+        # user1 and user2 likes the article
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        self.client.post(url, {'article': article_url}, format='json')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
+        self.client.post(url, {'article': article_url}, format='json')
+
+        # check the num_like of article
+        response = self.client.get(article_url)
+        num_likes = response.data['num_likes']
+        self.assertEqual(num_likes, 2)
+
+        # check if article is liked by user2
+        like = response.data['like']
+        user_url = 'http://testserver' + reverse('user-detail', kwargs={'pk': self.user2.pk})
+        is_liked = like['user'] == user_url
+        self.assertEqual(is_liked, True)

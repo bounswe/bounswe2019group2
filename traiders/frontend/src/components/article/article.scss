@@ -1,0 +1,69 @@
+.article-container {
+  min-width: 400px;
+  max-width: 800px;
+
+  padding: 10px 20px;
+
+  .article-title {
+    display: flex;
+    justify-content: center;
+
+    font-family: medium-content-title-font, Georgia, Cambria, 'Times New Roman',
+      Times, serif;
+    font-weight: 25;
+    font-size: 40px;
+    color: black;
+  }
+
+  .article-author {
+    .user-related {
+      display: flex;
+      justify-content: space-between;
+      width: 220px;
+
+      color: rgba(0, 0, 0, 0.84);
+      font-weight: 300;
+      font-size: 16px;
+      font-family: medium-content-sans-serif-font, 'Lucida Grande',
+        'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif;
+    }
+
+    .article-related {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 220px;
+
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.54);
+      font-family: medium-content-sans-serif-font, 'Lucida Grande',
+        'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif;
+
+      .ant-btn {
+        height: 24px;
+      }
+    }
+  }
+
+  .article-image-container {
+    display: flex;
+    justify-content: center;
+
+    padding: 20px 0;
+
+    .article-image {
+      width: 100%;
+    }
+  }
+
+  .article-content {
+    margin-top: 20px;
+
+    font-size: 21px;
+    font-family: medium-content-serif-font, Georgia, Cambria, 'Times New Roman',
+      Times, serif;
+    color: rgba(0, 0, 0, 0.84);
+    font-weight: 400;
+  }
+}

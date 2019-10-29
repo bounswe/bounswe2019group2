@@ -16,9 +16,12 @@ class CurrencyTable extends Component {
             return (
               <div className="currency-table-row" key={parity.id}>
                 <div className="parity">
-                  <div className="parity-names">
+                  <div className="parity-symbols">
                     {parity.base_equipment.symbol}/
                     {parity.target_equipment.symbol}
+                  </div>
+                  <div className="parity-names">
+                    {parity.base_equipment.name}/{parity.target_equipment.name}
                   </div>
                 </div>
                 <div className="parity-ratio">{parity.ratio}</div>
@@ -28,10 +31,6 @@ class CurrencyTable extends Component {
         : null;
     return (
       <div className="currency-table-container">
-        <div className="currency-table-header">
-          <div className="parity">Parity</div>
-          <div className="ratio">Ratio</div>
-        </div>
         {currencyList}
         <div className="currency-table-footer" />
       </div>

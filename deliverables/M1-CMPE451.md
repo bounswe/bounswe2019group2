@@ -102,9 +102,13 @@ We frequently deployed our application's latest version throughout the developme
 
 We have configured our server to use HTTPs and redirect all HTTP requests to HTTPs.
 
-**11- Web Project, Frontend**
+**11- Web Project, Frontend:**
+Our web application is up and running at [traiders.tk](//traiders.tk). The website currently supports register, login, 
+list of articles and ratio of parities.
 
-**12- Mobile App**
+**12- Mobile App:**
+The latest version of our mobile application will always be downloadable at [traiders.tk/mobile](//traiders.tk/mobile).
+It currently has register, login and ratio of parities.
 
 # Work Done by Each Member
 
@@ -126,10 +130,9 @@ Team | Member | Work done    |
 | -------- | ------- | ----------- |
 | *Backend* | **Yunus Emre Inci** | • Implemented user related API endpoints. (register, update, delete, retrieve) <br> • Implemented authentication and permission mechanism. (token creation) <br> • Added location information for users. <br> • Handled DevOps related stuff. Deployment, server and database configurations etc. <br> • Updated class diagram due to changes in design. <br> • Reviewed work done by other team members. |
 | *Backend* | **Mert Yuksekgonul** | • Implemented equipment related endpoints (list, retrieve). <br> • Implemented parity, parity/latest related endpoints (list, retrieve). <br> • Implemented comment related (article comments and equipment comments) endpoints (list, retrieve, create, update, delete). <br> • Implemented equipment related endpoints (list, retrieve). <br> • Implemented follower related endpoints and private user relations (list, retrieve, create, delete). <br> • Reviewed code for backend team. <br>      |
-| *Backend* | **Harun Eren** | • Implemented article related endpoints (create, delete, retrieve, list, update) <br> • Implemented Like endpoints (create, delete, retrieve) <br> • Updated article endpoints for Like <br> • Implemented tests for Article and Like endpoints <br> • Updated project plan according to requirements <br> • Reviewed code for backend team |
-| *Frontend* | **Muhammet Furkan Gök** | • Initialized frontend project (Bootstrapped a react project by npm). <br> • Added Airbnb JavaScript styleguide to the project. <br> • Added redux and router configuration to the project. <br>. Implemented authentication pages.(login-register) made backend connections. <br> • Implement single trading equipment component showing current values (used in currency bar under navbar). <br> • Implemented Navigation Bar component . <br> • Attended front-end team code sessions. <br> • Made reviews for web-front-end team commits.   |
+| *Backend* | **Harun Eren** | • Implemented article related endpoints (create, delete, retrieve, list, update) <br> • Implemented Like endpoints (create, delete, retrieve) <br> • Updated article endpoints for Like <br> • Implemented tests for Article and Like endpoints <br> • Updated project plan according to requirements <br> • Reviewed code for backend team || *Frontend* | **Muhammet Furkan Gök** | • Initialized frontend project (Bootstrapped a react project by npm). <br> • Added Airbnb JavaScript styleguide to the project. <br> • Added redux and router configuration to the project. <br>. Implemented authentication pages.(login-register) made backend connections. <br> • Implement single trading equipment component showing current values (used in currency bar under navbar). <br> • Implemented Navigation Bar component . <br> • Attended front-end team code sessions. <br> • Made reviews for web-front-end team commits.   |
 | *Frontend* | **Dilruba Köse** |  • Implemented footer component <br>   • Implemented user profile page <br> • Attended front-end team code sessions. <br>  • Made reviews for web-front-end team commits.   |
-| *Frontend* | **\<your name\>** | \<your work\>    |
+| *Frontend* | **Alperen Kürşat Özkan** |  • Implemented CommentContainer component <br>   • Implemented Geolocation for Map Component  <br> • Attended front-end team code sessions. <br>  •Implemented Map Component. <br>  • Implemented autolocation search functionality.  <br>  • Made reviews for web-front-end team commits.  |
 | *Mobile* | **Fatih İver** | • implemented splash screen <br> • implemented bottom navigation bar <br> • Implemented view pagers with tab layouts for sub screens <br> • implemented log in screen <br> • Implemented log out functionality <br> • Implemented authentication <br> • Implemented currency screen <br> • Implemented articles screen <br> |
 | *Mobile* | **Ozgur Solak** | • implemented sign up page <br> • added selecting location via google maps feature into signup page <br> • implemented profile page and its subfragments. <br> • Reviewed work done by other team members. |
 
@@ -349,6 +352,8 @@ The system shall support following equipments and possible conversions between t
 ![Mobile Annotation Mockup](https://user-images.githubusercontent.com/29541534/67635820-acac2580-f8db-11e9-8462-7d3a5d862670.png)
 
 # Project plan
+
+![merge_from_ofoct (1)](https://user-images.githubusercontent.com/29541534/67638559-d292f380-f8f6-11e9-995a-423be3f31f4c.jpg)
 
 # User Scenarios
 
