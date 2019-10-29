@@ -6,7 +6,7 @@ from django_countries.serializer_fields import CountryField
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    country = CountryField(country_dict=True, read_only=True)
+    country = CountryField(country_dict=True)
     @staticmethod
     def validate_password(password):
         return make_password(password)  # password hashing
