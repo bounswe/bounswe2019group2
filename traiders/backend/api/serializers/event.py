@@ -9,4 +9,4 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
         fields = ["url", "id", "date", "country", "calendarId", "category",
-                  "actual", "previous", "forecast", "sourceURL", "importance", "followed_by"]
+                  "actual", "previous", "forecast", "sourceURL", "importance"]
