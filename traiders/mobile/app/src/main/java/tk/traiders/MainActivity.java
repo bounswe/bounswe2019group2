@@ -88,6 +88,13 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 inflater.inflate(R.menu.profile_menu_unauthorized, menu);
             }
         }
+        else if(navController.getCurrentDestination().getId() == R.id.navigation_social)
+        {
+
+            //if(isUserLoggedIn(this)) {
+                inflater.inflate(R.menu.writing_article_menu, menu);
+            //}
+        }
         return true;
     }
 
@@ -110,6 +117,19 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 case R.id.log_in:
                     startActivity(new Intent(this, LoginActivity.class));
                     return true;
+
+
+            }
+        }
+        else if(navController.getCurrentDestination().getId() == R.id.navigation_social)
+        {
+            switch (item.getItemId()) {
+
+                case R.id.writing_article:
+                    startActivity(new Intent(this, WritingArticle.class));
+                    return true;
+
+
             }
         }
         return super.onOptionsItemSelected(item);

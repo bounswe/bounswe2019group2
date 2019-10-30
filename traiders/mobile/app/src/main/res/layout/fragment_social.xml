@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout_social"
         android:layout_width="match_parent"
@@ -12,7 +13,10 @@
         app:layout_constraintVertical_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+
+
+        />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager_social"
