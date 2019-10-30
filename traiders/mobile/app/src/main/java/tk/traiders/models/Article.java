@@ -6,17 +6,19 @@ public class Article implements Serializable {
 
     private String url;
     private String title;
-    private String created_at;
+    private String createdAt;
     private String content;
     private String image;
+    private User author;
     private String id;
 
-    public Article(String url, String title, String created_at, String content, String image, String id) {
+    public Article(String url, String title, String createdAt, String content, String image, User author, String id) {
         this.url = url;
         this.title = title;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
         this.content = content;
         this.image = image;
+        this.author = author;
         this.id = id;
     }
 
@@ -38,12 +40,12 @@ public class Article implements Serializable {
         return this;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public Article setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public Article setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 
@@ -65,6 +67,15 @@ public class Article implements Serializable {
         return this;
     }
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public Article setAuthor(User author) {
+        this.author = author;
+        return this;
+    }
+
     public String getId() {
         return id;
     }
@@ -72,5 +83,18 @@ public class Article implements Serializable {
     public Article setId(String id) {
         this.id = id;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", author=" + author +
+                ", id='" + id + '\'' +
+                '}';
     }
 }
