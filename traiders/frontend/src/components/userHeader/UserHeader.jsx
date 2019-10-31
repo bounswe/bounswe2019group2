@@ -47,7 +47,7 @@ const UserHeader = (props) => {
           <Icon type="edit" style={{ fontSize: '26px' }} />
           <Link
             className="update-link"
-            to={{ pathname: '/updateprofile', state: { user: user } }}
+            to={{ pathname: '/updateprofile', state: { user } }}
           >
             Edit
           </Link>

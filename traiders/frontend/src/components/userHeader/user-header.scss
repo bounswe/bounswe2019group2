@@ -6,11 +6,13 @@
   background-color: rgb(119, 124, 119);
   padding: 12px;
 }
+
 .left {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 12px;
+
   .left-up {
     display: flex;
     flex-direction: row;
@@ -19,11 +21,13 @@
     padding-left: 20px;
     width: 120%;
   }
+
   .left-down {
     display: flex;
     flex-direction: row;
   }
 }
+
 .right {
   display: flex;
   align-items: center;

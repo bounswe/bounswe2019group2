@@ -6,6 +6,7 @@ import './user-profile-update.scss';
 import Page from '../page/Page';
 
 const UserProfileUpdate = (props) => {
+  const { datas } = props;
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
@@ -20,7 +21,7 @@ const UserProfileUpdate = (props) => {
     e.preventDefault();
   };
 
-  const { user } = props.location.state;
+  const { user } = datas.location.state;
 
   return (
     <Page>
