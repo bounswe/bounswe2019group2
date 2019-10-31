@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         {
 
             //if(isUserLoggedIn(this)) {
-                inflater.inflate(R.menu.writing_article_menu, menu);
+                inflater.inflate(R.menu.social_menu, menu);
             //}
         }
         return true;
@@ -125,10 +125,14 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         {
             switch (item.getItemId()) {
 
-                case R.id.writing_article:
-                    startActivity(new Intent(this, WritingArticle.class));
+                case R.id.write_article:
+                    if(isUserLoggedIn(this)) {
+                        startActivity(new Intent(this, WriteArticleActivity.class));
+                    } else {
+                        Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(this, LoginActivity.class));
+                    }
                     return true;
-
 
             }
         }
