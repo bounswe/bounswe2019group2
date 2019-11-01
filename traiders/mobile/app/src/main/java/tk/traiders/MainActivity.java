@@ -67,9 +67,13 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         }
     }
 
-    public static boolean isUserLoggedIn(Context context){
+    public static String getAuthorizationToken(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("auth", MODE_PRIVATE);
-        return sharedPreferences.getString("token", null) != null;
+        return sharedPreferences.getString("token", null);
+    }
+
+    public static boolean isUserLoggedIn(Context context){
+        return getAuthorizationToken(context) != null;
     }
 
     public static String getUserURL(Context context) {
