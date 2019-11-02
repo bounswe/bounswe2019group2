@@ -13,7 +13,6 @@ class Article extends Component {
 
   render() {
     const { article, comments } = this.props;
-
     return (
       <div>
         {(article && (
