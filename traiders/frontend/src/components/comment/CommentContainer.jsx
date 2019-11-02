@@ -56,28 +56,30 @@ class CommentContainer extends React.Component {
     ];
 
     return (
-      <Comment
-        actions={actions}
-        author={<p>Mark Gibson</p>}
-        avatar={
-          <Avatar
-            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            alt="Mark Gibson"
-          />
-        }
-        content={
-          <p>
-            It&apos;s been a long time to see the current USD/TL ratio stopped
-            increasing.I am not a fortuneteller but I think this article suggest
-            to invest TL which will result in humongous profit.
-          </p>
-        }
-        datetime={
-          <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-            <span>{moment().fromNow()}</span>
-          </Tooltip>
-        }
-      />
+      <div>
+        <Comment
+          actions={actions}
+          author={<p>Mark Gibson</p>}
+          avatar={
+            <Avatar
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              alt="Mark Gibson"
+            />
+          }
+          content={
+            <p>
+              It&apos;s been a long time to see the current USD/TL ratio stopped
+              increasing.I am not a fortuneteller but I think this article
+              suggest to invest TL which will result in humongous profit.
+            </p>
+          }
+          datetime={
+            <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+              <span>{moment().fromNow()}</span>
+            </Tooltip>
+          }
+        />
+      </div>
     );
   }
 }

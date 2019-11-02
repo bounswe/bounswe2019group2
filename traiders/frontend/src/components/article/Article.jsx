@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import './article.scss';
 
+import Comment from '../comment/Comment';
+
 class Article extends Component {
   componentDidMount() {
-    const { id, getArticle } = this.props;
+    const { id, getArticle, getArticleComments } = this.props;
     getArticle(id);
+    getArticleComments(id);
   }
 
   getAuthor = (url) => {
@@ -14,10 +17,11 @@ class Article extends Component {
   };
 
   render() {
-    const { article, author } = this.props;
+    const { article, author, comments } = this.props;
     if (article && (!author || article.author !== author.url)) {
       this.getAuthor(article.author);
     }
+
     return (
       <div>
         {article && author ? (
@@ -43,6 +47,16 @@ class Article extends Component {
             </div>
             <div className="article-content">{article.content}</div>
             <div className="written-by" />
+            <div className="article-comment">
+              {comments.map((comment) => (
+                <Comment
+                  author={comment.user.username}
+                  content={comment.content}
+                  createdAt={comment.createdAt.substring(0, 10)}
+                  image={comment.image}
+                />
+              ))}
+            </div>
           </div>
         ) : (
           'Loading'

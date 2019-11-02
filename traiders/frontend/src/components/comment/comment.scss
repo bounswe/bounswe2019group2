@@ -1,0 +1,43 @@
+.comment-container {
+  width: 65%;
+  height: 100%;
+
+  margin: 0 auto;
+  padding: 10px;
+
+  .comment-author {
+    width: 65px;
+    height: 65px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .comment-image {
+    width: 65px;
+    height: 65px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+  }
+
+  .comment-content {
+    display: inline-block;
+    vertical-align: middle;
+
+    width: calc(100% - 75px);
+    min-height: 65px;
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    color: #555;
+    background-color: $WHITE;
+    border-bottom: 2px solid lighten($GREY, 15%);
+  }
+
+  .comment-datetime {
+    display: inline-block;
+    vertical-align: middle;
+    width: 70%;
+    text-align: left;
+  }
+}
