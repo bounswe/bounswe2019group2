@@ -35,7 +35,7 @@ class Article extends Component {
               <img
                 className="article-image"
                 src={article.image}
-                alt={article.iamage}
+                alt={article.image}
               />
             </div>
             <div className="article-content">{article.content}</div>
