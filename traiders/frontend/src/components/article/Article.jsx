@@ -11,26 +11,20 @@ class Article extends Component {
     getArticleComments(id);
   }
 
-  getAuthor = (url) => {
-    const { getArticleAuthor } = this.props;
-    getArticleAuthor(url);
-  };
-
   render() {
-    const { article, author, comments } = this.props;
-    if (article && (!author || article.author !== author.url)) {
-      this.getAuthor(article.author);
-    }
+    const { article, comments } = this.props;
 
     return (
       <div>
-        {article && author ? (
+        {(article && (
           <div className="article-container">
             <div className="article-title">{article.title}</div>
             <div className="article-author">
               <div className="user-related">
-                <div className="author-name">{`${author.first_name} ${author.last_name}`}</div>
-                <div className="author-username">({author.username})</div>
+                <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
+                <div className="author-username">
+                  ({article.author.username})
+                </div>
               </div>
               <div className="article-related">
                 {article.created_at.substring(0, 10)}
@@ -58,9 +52,8 @@ class Article extends Component {
               ))}
             </div>
           </div>
-        ) : (
-          'Loading'
-        )}
+        )) ||
+          'Loading'}
       </div>
     );
   }
