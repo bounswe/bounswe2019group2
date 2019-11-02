@@ -124,6 +124,7 @@ class Register extends Component {
                 setCountry={this.setCountry}
               />
             </Form.Item>
+            <br></br>
             <Form.Item>
               <Button
                 type="primary"
