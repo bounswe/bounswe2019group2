@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
+
 import './article.scss';
+import { PostWithAuthorization } from '../../common/http/httpUtil';
 
 import Comment from '../comment/Comment';
 
@@ -10,6 +12,18 @@ class Article extends Component {
     getArticle(id);
     getArticleComments(id);
   }
+
+  handleFollow = () => {
+    const { user, article } = this.props;
+    // eslint-disable-next-line camelcase
+    const user_followed = article.author.url;
+    const url = 'https://api.traiders.tk/following/';
+    PostWithAuthorization(url, user_followed, user.key)
+      // eslint-disable-next-line no-console
+      .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Errow while following\n', error));
+  };
 
   render() {
     const { article, comments } = this.props;
@@ -28,7 +42,7 @@ class Article extends Component {
               </div>
               <div className="article-related">
                 {article.created_at.substring(0, 10)}
-                <Button>Follow</Button>
+                <Button onClick={this.handleFollow}>Follow</Button>
               </div>
             </div>
 
@@ -39,7 +53,7 @@ class Article extends Component {
                 alt={article.image}
               />
             </div>
-            <div className="article-content">{article.content}</div>
+            <pre className="article-content">{article.content}</pre>
             <div className="written-by" />
             <div className="article-comment">
               {comments.map((comment) => (
