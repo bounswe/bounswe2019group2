@@ -8,6 +8,7 @@ import UserProfile from '../components/userProfile/UserProfileContainer';
 import ChangePassword from '../components/changePassword/ChangePassword';
 import Article from '../modules/articleModule/ArticleModule';
 import NewArticle from '../modules/newArticle/NewArticle';
+import Social from '../modules/social/Social';
 import bomUtil from '../common/utils/bomUtil';
 
 const ACTION_TYPE = {
@@ -55,6 +56,7 @@ class Routes extends Component {
           <Route path="/register" component={Register} />
           <Route path="/articles/:id" component={Article} />
           <Route path="/create-article" component={NewArticle} />
+          <Route path="/social" component={Social} />
           <Route render={() => <h1>404 Page not found</h1>} />
         </Switch>
       </Suspense>
