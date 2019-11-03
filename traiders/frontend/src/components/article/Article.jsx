@@ -12,12 +12,8 @@ class Article extends Component {
   }
 
   render() {
-<<<<<<< HEAD
     const { article, comments } = this.props;
-=======
-    const { article } = this.props;
 
->>>>>>> 5c95cfe2c0979b450014f2e40be0bd1ae7671b0e
     return (
       <div>
         {(article && (
