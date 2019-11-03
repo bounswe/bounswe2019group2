@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import './article.scss';
 
+import Comment from '../comment/Comment';
+
 class Article extends Component {
   componentDidMount() {
-    const { id, getArticle } = this.props;
+    const { id, getArticle, getArticleComments } = this.props;
     getArticle(id);
+    getArticleComments(id);
   }
 
   render() {
-    const { article } = this.props;
+    const { article, comments } = this.props;
 
     return (
       <div>
@@ -33,11 +36,21 @@ class Article extends Component {
               <img
                 className="article-image"
                 src={article.image}
-                alt={article.iamage}
+                alt={article.image}
               />
             </div>
             <div className="article-content">{article.content}</div>
             <div className="written-by" />
+            <div className="article-comment">
+              {comments.map((comment) => (
+                <Comment
+                  author={comment.user.username}
+                  content={comment.content}
+                  createdAt={comment.createdAt.substring(0, 10)}
+                  image={comment.image}
+                />
+              ))}
+            </div>
           </div>
         )) ||
           'Loading'}
