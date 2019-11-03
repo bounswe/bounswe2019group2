@@ -1,3 +1,6 @@
+/* eslint-disable */
+// disabling eslint-temporarily
+
 import React, { Component } from 'react';
 import { Input, Button } from 'antd';
 
@@ -11,8 +14,7 @@ class AddArticle extends Component {
     this.state = {
       image: null,
       content: null,
-      title: null,
-      imageUrl: null
+      title: null
     };
   }
 
@@ -47,7 +49,7 @@ class AddArticle extends Component {
         .then((response) => console.log(response))
         .catch((error) => console.log('Smt wrong \n', error));
     } else {
-      console.log('wtf');
+      console.log('smt-wrong');
     }
   };
 

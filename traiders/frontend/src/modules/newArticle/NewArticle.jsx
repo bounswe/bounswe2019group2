@@ -3,7 +3,7 @@ import React from 'react';
 import AddArticle from '../../components/addArticle/AddArticleModule';
 import Page from '../../components/page/Page';
 
-const NewArticle = (props) => {
+const NewArticle = () => {
   return (
     <Page>
       {/* TODO add breadcrumb here */}

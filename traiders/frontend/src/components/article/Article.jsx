@@ -15,10 +15,13 @@ class Article extends Component {
 
   handleFollow = () => {
     const { user, article } = this.props;
+    // eslint-disable-next-line camelcase
     const user_followed = article.author.url;
     const url = 'https://api.traiders.tk/following/';
     PostWithAuthorization(url, user_followed, user.key)
+      // eslint-disable-next-line no-console
       .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('Errow while following\n', error));
   };
 
