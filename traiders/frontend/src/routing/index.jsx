@@ -8,6 +8,7 @@ import UserProfile from '../components/userProfile/UserProfileContainer';
 import ChangePassword from '../components/changePassword/ChangePassword';
 import Article from '../modules/articleModule/ArticleModule';
 import bomUtil from '../common/utils/bomUtil';
+import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
 
 const ACTION_TYPE = {
   PUSH: 'PUSH',
@@ -49,6 +50,7 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/profile" component={UserProfile} />
+          <Route path="/updateprofile" component={UserProfileUpdate} />
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
