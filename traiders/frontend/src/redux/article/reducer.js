@@ -3,7 +3,8 @@ import { actionTypes } from './actions';
 const initialState = {
   articleList: [],
   currentArticle: null,
-  author: null
+  author: null,
+  commentsList: null
 };
 
 function articleReducer(state = initialState, action) {
@@ -23,6 +24,11 @@ function articleReducer(state = initialState, action) {
       return {
         ...state,
         author: action.payload
+      };
+    case actionTypes.SAVE_ARTICLE_COMMENTS:
+      return {
+        ...state,
+        commentsList: action.payload
       };
     default:
       return state;
