@@ -15,8 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewArticleActivity" android:label="Article"/>
-        <activity android:name=".WriteArticleActivity" android:label="Write Article" />
+        <activity android:name=".components.article.ViewArticleActivity" android:label="Article"/>
+        <activity android:name=".components.article.WriteArticleActivity" android:label="Write Article" />
         <activity android:name=".LocationActivity" />
         <activity
             android:name=".SignUpActivity"

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import tk.traiders.R;
-import tk.traiders.ViewArticleActivity;
+import tk.traiders.components.article.ViewArticleActivity;
 import tk.traiders.models.Article;
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder> {

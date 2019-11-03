@@ -1,5 +1,6 @@
 package tk.traiders.models;
 
+import java.io.PipedReader;
 import java.io.Serializable;
 
 public class Article implements Serializable {
@@ -11,8 +12,10 @@ public class Article implements Serializable {
     private String image;
     private User author;
     private String id;
+    private String likeCount;
+    private Like like;
 
-    public Article(String url, String title, String createdAt, String content, String image, User author, String id) {
+    public Article(String url, String title, String createdAt, String content, String image, User author, String id, String likeCount, Like like) {
         this.url = url;
         this.title = title;
         this.createdAt = createdAt;
@@ -20,6 +23,8 @@ public class Article implements Serializable {
         this.image = image;
         this.author = author;
         this.id = id;
+        this.likeCount = likeCount;
+        this.like = like;
     }
 
     public String getUrl() {
@@ -85,6 +90,24 @@ public class Article implements Serializable {
         return this;
     }
 
+    public String getLikeCount() {
+        return likeCount;
+    }
+
+    public Article setLikeCount(String likeCount) {
+        this.likeCount = likeCount;
+        return this;
+    }
+
+    public Like getLike() {
+        return like;
+    }
+
+    public Article setLike(Like like) {
+        this.like = like;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
@@ -95,6 +118,8 @@ public class Article implements Serializable {
                 ", image='" + image + '\'' +
                 ", author=" + author +
                 ", id='" + id + '\'' +
+                ", likeCount='" + likeCount + '\'' +
+                ", like=" + like +
                 '}';
     }
 }
