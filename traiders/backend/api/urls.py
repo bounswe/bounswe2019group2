@@ -17,6 +17,7 @@ router.register(r'following', FollowingViewSet, basename='following')
 router.register(r'comments/article', ArticleCommentViewSet, basename='articlecomment')
 router.register(r'comments/equipment', EquipmentCommentViewSet, basename='equipmentcomment')
 router.register(r'events', EventViewSet, basename='event')
+router.register(r'prediction', PredictionViewSet, basename='prediction')
 
 urlpatterns = [
     # documentation views
