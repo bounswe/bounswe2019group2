@@ -67,9 +67,13 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         }
     }
 
-    public static boolean isUserLoggedIn(Context context){
+    public static String getAuthorizationToken(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("auth", MODE_PRIVATE);
-        return sharedPreferences.getString("token", null) != null;
+        return sharedPreferences.getString("token", null);
+    }
+
+    public static boolean isUserLoggedIn(Context context){
+        return getAuthorizationToken(context) != null;
     }
 
     public static String getUserURL(Context context) {
@@ -87,6 +91,13 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
             } else {
                 inflater.inflate(R.menu.profile_menu_unauthorized, menu);
             }
+        }
+        else if(navController.getCurrentDestination().getId() == R.id.navigation_social)
+        {
+
+            //if(isUserLoggedIn(this)) {
+                inflater.inflate(R.menu.social_menu, menu);
+            //}
         }
         return true;
     }
@@ -110,6 +121,23 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 case R.id.log_in:
                     startActivity(new Intent(this, LoginActivity.class));
                     return true;
+
+
+            }
+        }
+        else if(navController.getCurrentDestination().getId() == R.id.navigation_social)
+        {
+            switch (item.getItemId()) {
+
+                case R.id.write_article:
+                    if(isUserLoggedIn(this)) {
+                        startActivity(new Intent(this, WriteArticleActivity.class));
+                    } else {
+                        Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(this, LoginActivity.class));
+                    }
+                    return true;
+
             }
         }
         return super.onOptionsItemSelected(item);

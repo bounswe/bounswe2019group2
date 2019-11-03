@@ -4,24 +4,29 @@ import { Button } from 'antd';
 import './article.scss';
 import { PostWithAuthorization } from '../../common/http/httpUtil';
 
+import Comment from '../comment/Comment';
+
 class Article extends Component {
   componentDidMount() {
-    const { id, getArticle } = this.props;
+    const { id, getArticle, getArticleComments } = this.props;
     getArticle(id);
+    getArticleComments(id);
   }
 
   handleFollow = () => {
     const { user, article } = this.props;
+    // eslint-disable-next-line camelcase
     const user_followed = article.author.url;
     const url = 'https://api.traiders.tk/following/';
     PostWithAuthorization(url, user_followed, user.key)
+      // eslint-disable-next-line no-console
       .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('Errow while following\n', error));
   };
 
   render() {
-    const { article } = this.props;
-    console.log(article);
+    const { article, comments } = this.props;
 
     return (
       <div>
@@ -45,11 +50,21 @@ class Article extends Component {
               <img
                 className="article-image"
                 src={article.image}
-                alt={article.iamage}
+                alt={article.image}
               />
             </div>
             <pre className="article-content">{article.content}</pre>
             <div className="written-by" />
+            <div className="article-comment">
+              {comments.map((comment) => (
+                <Comment
+                  author={comment.user.username}
+                  content={comment.content}
+                  createdAt={comment.createdAt.substring(0, 10)}
+                  image={comment.image}
+                />
+              ))}
+            </div>
           </div>
         )) ||
           'Loading'}

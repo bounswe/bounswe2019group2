@@ -45,7 +45,7 @@ class Register extends Component {
   render() {
     const { form } = this.props;
     const { getFieldDecorator } = form;
-
+    const intentionalSpace = <br />;
     return (
       <Page>
         <div className="register-container">
@@ -117,13 +117,13 @@ class Register extends Component {
                 rules: [{ required: true, message: 'Please enter your IBAN!' }]
               })(<Input type="text" placeholder="IBAN" />)}
             </Form.Item>
-
             <Form.Item>
               <MapContainer
                 setCity={this.setCity}
                 setCountry={this.setCountry}
               />
             </Form.Item>
+            {intentionalSpace}
             <Form.Item>
               <Button
                 type="primary"

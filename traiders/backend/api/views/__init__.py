@@ -7,3 +7,4 @@ from .comment import ArticleCommentViewSet, EquipmentCommentViewSet
 from .mobile_app import latest_mobile_app
 from .likes import LikeViewSet
 from .following import FollowingViewSet
+from .event import EventViewSet
