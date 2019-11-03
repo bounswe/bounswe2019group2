@@ -6,9 +6,9 @@ const MapContainer = (props) => {
   return (
     <Map
       google={google}
-      center={{ lat: 41.015137, lng: 28.97953 }}
-      height="300px"
-      zoom={15}
+      center={{ lat: 41.08505939148941, lng: 29.05161704948432 }}
+      height="400px"
+      zoom={12}
       setCity={setCity}
       setCountry={setCountry}
     />
