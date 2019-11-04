@@ -20,10 +20,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import tk.traiders.components.article.WriteArticleActivity;
+
 public class MainActivity extends AppCompatActivity implements NavController.OnDestinationChangedListener {
 
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
+    private static Map<String, String> headers = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,14 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 startActivity(new Intent(this, LoginActivity.class));
             }
         }
+    }
+
+    public static Map<String, String> getAuthorizationHeader(Context context){
+        if(isUserLoggedIn(context)) {
+            headers.put("Authorization", "Token " + MainActivity.getAuthorizationToken(context));
+            return headers;
+        }
+        return null;
     }
 
     public static String getAuthorizationToken(Context context){

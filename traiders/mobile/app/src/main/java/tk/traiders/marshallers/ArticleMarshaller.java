@@ -9,7 +9,9 @@ import java.util.List;
 
 import tk.traiders.constants.ArticleConstants;
 import tk.traiders.models.Article;
+import tk.traiders.models.Like;
 import tk.traiders.models.User;
+import tk.traiders.utils.DateUtils;
 
 public class ArticleMarshaller {
 
@@ -23,13 +25,15 @@ public class ArticleMarshaller {
 
             String url = articleAsJson.getString(ArticleConstants.URL);
             String title = articleAsJson.getString(ArticleConstants.TITLE);
-            String created_at = articleAsJson.getString(ArticleConstants.CREATED_AT);
+            String created_at = DateUtils.getHumanReadableDate(articleAsJson.getString(ArticleConstants.CREATED_AT).substring(0,19) + "Z");
             String content = articleAsJson.getString(ArticleConstants.CONTENT);
             String image = articleAsJson.getString(ArticleConstants.IMAGE);
             User author = UserMarshaller.unmarshall(articleAsJson.getString(ArticleConstants.AUTHOR));
             String id = articleAsJson.getString(ArticleConstants.ID);
+            String likeCount = articleAsJson.getString(ArticleConstants.NUMBER_OF_LIKES);
+            Like like = LikeMarshaller.unmarshall(articleAsJson.getString(ArticleConstants.LIKE));
 
-            article = new Article(url, title, created_at, content, image, author, id);
+            article = new Article(url, title, created_at, content, image, author, id, likeCount, like);
 
 
         } catch (JSONException e) {

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,7 +25,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.List;
+import java.util.Map;
 
+import tk.traiders.MainActivity;
 import tk.traiders.R;
 import tk.traiders.utils.MarshallerUtils;
 
@@ -103,7 +106,14 @@ public abstract class ListFragment extends Fragment {
                 recyclerView.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
             }
-        });
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = MainActivity.getAuthorizationHeader(getActivity());
+                return headers != null ? headers : super.getHeaders();
+            }
+        };
 
         requestQueue.add(request);
     }
