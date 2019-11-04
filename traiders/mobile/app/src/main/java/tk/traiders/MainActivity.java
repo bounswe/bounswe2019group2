@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -97,64 +95,36 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.clear();
-        MenuInflater inflater = getMenuInflater();
-        if(navController.getCurrentDestination().getId() == R.id.navigation_profile){
-            if(isUserLoggedIn(this)) {
-                inflater.inflate(R.menu.profile_menu_authorized, menu);
-            } else {
-                inflater.inflate(R.menu.profile_menu_unauthorized, menu);
-            }
-        }
-        else if(navController.getCurrentDestination().getId() == R.id.navigation_social)
-        {
-
-            //if(isUserLoggedIn(this)) {
-                inflater.inflate(R.menu.social_menu, menu);
-            //}
-        }
-        return true;
-    }
-
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        if(navController.getCurrentDestination().getId() == R.id.navigation_profile){
-            switch (item.getItemId()) {
-                case R.id.log_out:
-                    SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.remove("token");
-                    editor.remove("user");
-                    editor.apply();
-                    Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
-                    invalidateOptionsMenu();
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("token");
+                editor.remove("user");
+                editor.apply();
+                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+                invalidateOptionsMenu();
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+            case R.id.log_in:
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+            case R.id.write_article:
+                if (isUserLoggedIn(this)) {
+                    startActivity(new Intent(this, WriteArticleActivity.class));
+                } else {
+                    Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this, LoginActivity.class));
-                    return true;
-                case R.id.log_in:
-                    startActivity(new Intent(this, LoginActivity.class));
-                    return true;
-
-
-            }
+                }
+                return true;
+            case R.id.filter_events:
+                Toast.makeText(this, "filter events", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        else if(navController.getCurrentDestination().getId() == R.id.navigation_social)
-        {
-            switch (item.getItemId()) {
-
-                case R.id.write_article:
-                    if(isUserLoggedIn(this)) {
-                        startActivity(new Intent(this, WriteArticleActivity.class));
-                    } else {
-                        Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, LoginActivity.class));
-                    }
-                    return true;
-
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
+
 }
