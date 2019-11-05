@@ -5,6 +5,7 @@ from rest_framework import mixins
 from ..models import Event
 from ..serializers import EventSerializer
 from ..filters import EventFilterSet
+from rest_framework.pagination import LimitOffsetPagination
 
 
 class EventViewSet(mixins.RetrieveModelMixin,
@@ -15,3 +16,4 @@ class EventViewSet(mixins.RetrieveModelMixin,
     queryset = Event.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = EventFilterSet
+    pagination_class = LimitOffsetPagination
