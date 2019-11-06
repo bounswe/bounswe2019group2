@@ -3,6 +3,7 @@ import { Button } from 'antd';
 
 import './article.scss';
 import { PostWithAuthorization } from '../../common/http/httpUtil';
+import history from '../../common/history';
 
 import Comment from '../comment/Comment';
 
@@ -18,11 +19,15 @@ class Article extends Component {
     // eslint-disable-next-line camelcase
     const user_followed = article.author.url;
     const url = 'https://api.traiders.tk/following/';
-    PostWithAuthorization(url, user_followed, user.key)
-      // eslint-disable-next-line no-console
-      .then((response) => console.log(response))
-      // eslint-disable-next-line no-console
-      .catch((error) => console.log('Errow while following\n', error));
+    if (user) {
+      PostWithAuthorization(url, { user_followed }, user.key)
+        // eslint-disable-next-line no-console
+        .then((response) => console.log(response))
+        // eslint-disable-next-line no-console
+        .catch((error) => console.log('Errow while following\n', error));
+    } else {
+      history.push('/login');
+    }
   };
 
   render() {
@@ -60,7 +65,7 @@ class Article extends Component {
                 <Comment
                   author={comment.user.username}
                   content={comment.content}
-                  createdAt={comment.createdAt.substring(0, 10)}
+                  createdAt={comment.created_at.substring(0, 10)}
                   image={comment.image}
                 />
               ))}
