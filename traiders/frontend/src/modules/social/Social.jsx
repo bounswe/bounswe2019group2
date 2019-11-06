@@ -5,6 +5,7 @@ import './social.scss';
 import Page from '../../components/page/Page';
 import ArticleList from '../../components/articleList/ArticleListContainer';
 import EventsList from '../../components/eventsList/eventsListContainer';
+
 class Social extends Component {
   constructor(props) {
     super(props);
@@ -13,8 +14,9 @@ class Social extends Component {
     };
   }
 
-  handleClick = (prevState, buttonType) => {
+  handleClick = (buttonType) => {
     let showArticles;
+
     if (buttonType === 'article') {
       showArticles = true;
     } else {
@@ -34,14 +36,14 @@ class Social extends Component {
             <Button
               type="secondary"
               name="article"
-              onClick={() => this.handleClick(this.state, 'article')}
+              onClick={() => this.handleClick('article')}
             >
               Articles
             </Button>
             <Button
               type="secondary"
               name="events"
-              onClick={() => this.handleClick(this.state, 'event')}
+              onClick={() => this.handleClick('event')}
             >
               Events
             </Button>

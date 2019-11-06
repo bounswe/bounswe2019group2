@@ -24,28 +24,33 @@ export const navbarOptions = [
 
 export const eventsTableColumns = [
   {
-    title: 'a', // Header of that column
-    dataIndex: 'A', // Which property of the data to read
-    key: 'a'
+    title: 'Event', // Header of that column
+    dataIndex: 'event', // Which property of the data to read
+    key: 'event'
   },
   {
-    title: 'b', // Header of that column
-    dataIndex: 'B', // Which property of the data to read
-    key: 'b'
+    title: 'Country', // Header of that column
+    dataIndex: 'country.name', // Which property of the data to read
+    key: 'country'
   },
   {
-    title: 'c', // Header of that column
-    dataIndex: 'C', // Which property of the data to read
-    key: 'c'
+    title: 'Category', // Header of that column
+    dataIndex: 'category', // Which property of the data to read
+    key: 'cat'
   },
   {
-    title: 'd', // Header of that column
-    dataIndex: 'D', // Which property of the data to read
-    key: 'd'
+    title: 'Importance', // Header of that column
+    dataIndex: 'importance', // Which property of the data to read
+    key: 'importance'
   },
   {
-    title: 'e', // Header of that column
-    dataIndex: 'E', // Which property of the data to read
-    key: 'e'
+    title: 'Previous', // Header of that column
+    dataIndex: 'previous', // Which property of the data to read
+    key: 'prev'
+  },
+  {
+    title: 'Actual',
+    dataIndex: 'actual',
+    key: 'actual'
   }
 ];
