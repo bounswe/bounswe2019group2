@@ -10,6 +10,12 @@ services:
       - media:/media
       - migrations:/app/api/migrations
 
+  backendcron:
+    depends_on:
+      - backend
+    build: ./backend
+    command: cron && tail -f /var/log/cron.log
+
   db:
     image: postgres:11
     volumes:

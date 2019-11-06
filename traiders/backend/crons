@@ -1,0 +1,1 @@
+* * * * * root python manage.py updateparities 2>&1 > /log.txt
