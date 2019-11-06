@@ -59,6 +59,17 @@ class FollowingViewSetTests(APITestCase):
         # hasan follows nese
         Following.objects.create(user_following=self.users[1], user_followed=self.users[2], status=Following.ACCEPTED)
 
+    def test_follow_already_followed(self):
+        url = reverse('following-list')
+        data = {
+            'user_followed': reverse('user-detail', kwargs={'pk': self.users[0].pk})
+        }
+
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.tokens[2])
+        response = self.client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_create_for_private(self):
         # nese will try to follow hasan
 
