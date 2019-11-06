@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from ..models import Event
 from django_countries.serializer_fields import CountryField
-from django.contrib.auth.models import AnonymousUser
 
 
 class IsFollowingField(serializers.BooleanField):
@@ -18,7 +17,7 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
         fields = ["is_following", "url", "id", "date", "country", "calendarId", "category",
-                  "actual", "previous", "forecast", "sourceURL", "importance"]
+                  "actual", "previous", "forecast", "sourceURL", "importance", "event"]
 
     def update(self, instance: Event, validated_data: dict):
         is_following = validated_data.pop('is_following', None)

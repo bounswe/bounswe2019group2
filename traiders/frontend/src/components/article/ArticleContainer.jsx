@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
   return {
     article: state.article.currentArticle,
     author: state.article.author,
-    comments: state.article.commentsList
+    comments: state.article.commentsList,
+    user: state.user.currentUser
   };
 };
 
