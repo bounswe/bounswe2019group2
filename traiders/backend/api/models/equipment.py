@@ -11,7 +11,7 @@ class Equipment(models.Model):
                                 blank=False)
 
     symbol = models.CharField("Equipment Symbol",
-                              max_length=8,
+                              max_length=32,
                               blank=False,
                               unique=True)
 
