@@ -61,14 +61,15 @@ class Article extends Component {
             <pre className="article-content">{article.content}</pre>
             <div className="written-by" />
             <div className="article-comment">
-              {comments.map((comment) => (
-                <Comment
-                  author={comment.user.username}
-                  content={comment.content}
-                  createdAt={comment.created_at.substring(0, 10)}
-                  image={comment.image}
-                />
-              ))}
+              {comments &&
+                comments.map((comment) => (
+                  <Comment
+                    author={comment.user.username}
+                    content={comment.content}
+                    createdAt={comment.created_at.substring(0, 10)}
+                    image={comment.image}
+                  />
+                ))}
             </div>
           </div>
         )) ||
