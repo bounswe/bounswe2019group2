@@ -20,8 +20,11 @@
       }
 
       .article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         height: 120px;
-        width: 330px;
+        width: 400px;
         overflow: hidden;
 
         .article-title {
