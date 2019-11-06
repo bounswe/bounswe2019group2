@@ -4,7 +4,10 @@
 import React, { Component } from 'react';
 import { Input, Button } from 'antd';
 
-import { PostWithAuthorization } from '../../common/http/httpUtil';
+import {
+  PostWithAuthorization,
+  PatchUploadImage
+} from '../../common/http/httpUtil';
 import history from '../../common/history';
 import './add-article.scss';
 
@@ -44,9 +47,21 @@ class AddArticle extends Component {
     const { user } = this.props;
     const token = user.key;
     const url = 'https://api.traiders.tk/articles/';
-    if (content && image && title) {
+    if (content && title) {
       PostWithAuthorization(url, { content, title }, token)
-        .then((response) => console.log(response))
+        .then((response) => {
+          if (response.status === 201) {
+            response.json().then((res) => {
+              PatchUploadImage(res.url, image, token)
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((error) => {
+                  console.log('Smt wrong \n', error);
+                });
+            });
+          }
+        })
         .catch((error) => console.log('Smt wrong \n', error));
     } else {
       console.log('smt-wrong');
