@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',  # for token authentication
     'corsheaders',  # CORS
     'django_filters',
+    'django_countries',
     'api'
 ]
 

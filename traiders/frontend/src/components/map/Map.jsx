@@ -8,6 +8,7 @@ import {
 } from 'react-google-maps';
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from 'react-geocode';
+import { Input, Form } from 'antd';
 
 Geocode.setApiKey('AIzaSyAKrbRQadkOa8UFprsK7MRlz41ULmx7GTY');
 Geocode.setLanguage('en');
@@ -182,7 +183,15 @@ class Map extends React.Component {
       this.setState({
         address: address || '',
         city: city || '',
-        country: country || ''
+        country: country || '',
+        markerPosition: {
+          lat: newLat,
+          lng: newLng
+        },
+        mapPosition: {
+          lat: newLat,
+          lng: newLng
+        }
       });
     });
   };
@@ -244,39 +253,42 @@ class Map extends React.Component {
       map = (
         <div>
           <div>
-            <div className="form-group">
-              <label htmlFor="">Country</label>
-              <input
-                type="text"
-                name="country"
-                className="form-control"
-                onChange={this.onChange}
-                readOnly="readOnly"
-                value={country}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="">City</label>
-              <input
-                type="text"
-                name="city"
-                className="form-control"
-                onChange={this.onChange}
-                readOnly="readOnly"
-                value={city}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="">Address</label>
-              <input
-                type="text"
-                name="address"
-                className="form-control"
-                onChange={this.onChange}
-                readOnly="readOnly"
-                value={address}
-              />
-            </div>
+            <Form.Item>
+              <div className="form-group">
+                <Input
+                  placeholder="Country"
+                  className="form-control"
+                  onChange={this.onChange}
+                  readOnly="readOnly"
+                  value={country}
+                />
+              </div>
+            </Form.Item>
+            <Form.Item>
+              <div className="form-group">
+                <Input
+                  placeholder="City"
+                  type="text"
+                  className="form-control"
+                  onChange={this.onChange}
+                  readOnly="readOnly"
+                  value={city}
+                />
+              </div>
+            </Form.Item>
+            <Form.Item>
+              <div className="form-group">
+                <Input
+                  placeholder="Address"
+                  type="text"
+                  name="address"
+                  className="form-control"
+                  onChange={this.onChange}
+                  readOnly="readOnly"
+                  value={address}
+                />
+              </div>
+            </Form.Item>
           </div>
           <AsyncMap
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKrbRQadkOa8UFprsK7MRlz41ULmx7GTY&libraries=places&language=en"

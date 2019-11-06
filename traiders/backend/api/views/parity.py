@@ -1,7 +1,6 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import mixins
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.pagination import LimitOffsetPagination
 
 from ..models import Parity, Equipment
 from ..serializers import ParitySerializer
@@ -13,12 +12,14 @@ class ParityViewSet(ReadOnlyModelViewSet):
     queryset = Parity.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = ParityFilterSet
+    pagination_class = LimitOffsetPagination
 
 
 class ParityLatestViewSet(ReadOnlyModelViewSet):
     serializer_class = ParitySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ParityFilterSet
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         parities = []

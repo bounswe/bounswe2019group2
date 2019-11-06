@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import LimitOffsetPagination
 
 from ..models import ArticleComment, EquipmentComment
 from ..serializers import ArticleCommentSerializer, EquipmentCommentSerializer
@@ -25,6 +26,7 @@ class ArticleCommentViewSet(mixins.CreateModelMixin,
     queryset = ArticleComment.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = ArticleCommentFilterSet
+    pagination_class = LimitOffsetPagination
 
     def list(self, request, *args, **kwargs):
         if 'article' not in request.query_params:
@@ -54,6 +56,7 @@ class EquipmentCommentViewSet(mixins.CreateModelMixin,
     queryset = EquipmentComment.objects.all()
     filter_backends = [DjangoFilterBackend]
     filterset_class = EquipmentCommentFilterSet
+    pagination_class = LimitOffsetPagination
 
     def list(self, request, *args, **kwargs):
         if 'equipment' not in request.query_params:

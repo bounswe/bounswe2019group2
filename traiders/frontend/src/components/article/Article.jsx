@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
+
 import './article.scss';
+import { PostWithAuthorization } from '../../common/http/httpUtil';
+import history from '../../common/history';
+
+import Comment from '../comment/Comment';
 
 class Article extends Component {
   componentDidMount() {
-    const { id, getArticle } = this.props;
+    const { id, getArticle, getArticleComments } = this.props;
     getArticle(id);
+    getArticleComments(id);
   }
 
+  handleFollow = () => {
+    const { user, article } = this.props;
+    // eslint-disable-next-line camelcase
+    const user_followed = article.author.url;
+    const url = 'https://api.traiders.tk/following/';
+    if (user) {
+      PostWithAuthorization(url, { user_followed }, user.key)
+        // eslint-disable-next-line no-console
+        .then((response) => console.log(response))
+        // eslint-disable-next-line no-console
+        .catch((error) => console.log('Errow while following\n', error));
+    } else {
+      history.push('/login');
+    }
+  };
+
   render() {
-    const { article } = this.props;
+    const { article, comments } = this.props;
 
     return (
       <div>
@@ -25,7 +47,7 @@ class Article extends Component {
               </div>
               <div className="article-related">
                 {article.created_at.substring(0, 10)}
-                <Button>Follow</Button>
+                <Button onClick={this.handleFollow}>Follow</Button>
               </div>
             </div>
 
@@ -33,11 +55,21 @@ class Article extends Component {
               <img
                 className="article-image"
                 src={article.image}
-                alt={article.iamage}
+                alt={article.image}
               />
             </div>
-            <div className="article-content">{article.content}</div>
+            <pre className="article-content">{article.content}</pre>
             <div className="written-by" />
+            <div className="article-comment">
+              {comments.map((comment) => (
+                <Comment
+                  author={comment.user.username}
+                  content={comment.content}
+                  createdAt={comment.created_at.substring(0, 10)}
+                  image={comment.image}
+                />
+              ))}
+            </div>
           </div>
         )) ||
           'Loading'}
