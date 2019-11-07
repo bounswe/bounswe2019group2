@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
-from .equipment import Equipment
+from .parity import Parity
 from .users import User
 
 
@@ -16,8 +16,8 @@ class Prediction(models.Model):
     INCREASE = 1
     DECREASE = 0
     DIRECTION_CHOICES = (
-        (INCREASE, 'Increase'),
-        (DECREASE, 'Decrease'),
+        (INCREASE, 'Will Increase'),
+        (DECREASE, 'Will Decrease'),
     )
 
     by_user = models.ForeignKey(User,
@@ -25,20 +25,18 @@ class Prediction(models.Model):
                                 blank=False,
                                 related_name='+')
 
-    date = models.DateTimeField("Date of prediction",
-                                blank=True,
-                                default=now)
+    date = models.DateField("Date of prediction",
+                            blank=True,
+                            default=now)
 
-    base_equipment = models.ForeignKey(Equipment,
-                                       on_delete=models.CASCADE,
-                                       blank=False,
-                                       related_name='+')
-
-    target_equipment = models.ForeignKey(Equipment,
-                                         on_delete=models.CASCADE,
-                                         blank=False,
-                                         related_name='+')
+    parity = models.ForeignKey(Parity,
+                               on_delete=models.CASCADE,
+                               blank=False,
+                               related_name='+')
 
     direction = models.IntegerField(choices=DIRECTION_CHOICES, default=DECREASE)
 
     result = models.IntegerField(choices=RESULT_CHOICES, default=PENDING)
+
+    class Meta:
+        unique_together = ('date', 'by_user', 'parity')
