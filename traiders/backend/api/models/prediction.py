@@ -13,11 +13,11 @@ class Prediction(models.Model):
         (FAILED, 'Failed'),
         (PENDING, 'In Progress'),
     )
-    INCREASE = 1
-    DECREASE = 0
+    WILL_INCREASE = 1
+    WILL_DECREASE = 0
     DIRECTION_CHOICES = (
-        (INCREASE, 'Will Increase'),
-        (DECREASE, 'Will Decrease'),
+        (WILL_INCREASE, 'Will Increase'),
+        (WILL_DECREASE, 'Will Decrease'),
     )
 
     by_user = models.ForeignKey(User,
@@ -34,7 +34,7 @@ class Prediction(models.Model):
                                blank=False,
                                related_name='+')
 
-    direction = models.IntegerField(choices=DIRECTION_CHOICES, default=DECREASE)
+    direction = models.IntegerField(choices=DIRECTION_CHOICES, blank=False, default=WILL_DECREASE)
 
     result = models.IntegerField(choices=RESULT_CHOICES, default=PENDING)
 

@@ -10,7 +10,6 @@ options = Countries()
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     country = CountryField(country_dict=True)
-    success_rate = serializers.SerializerMethodField()
 
     def validate_country(self, country):
         if options.by_name(country) != "":
@@ -29,12 +28,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         if data.get('is_trader') and not data.get('iban'):
             raise serializers.ValidationError('Trader users should specify their IBAN.')
         return data
-
-    def get_success_rate(self, obj):
-        if obj.prediction_count < 5:
-            return -1
-        else:
-            return obj.success_rate
 
     class Meta:
         model = User

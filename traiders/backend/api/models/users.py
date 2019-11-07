@@ -12,5 +12,3 @@ class User(AbstractUser):
     city = models.CharField(max_length=64, blank=False)
     country = CountryField(default="TR")
     is_private = models.BooleanField(default=False)
-    success_rate = models.FloatField(blank=True, default=0)
-    prediction_count = models.IntegerField(blank=True, default=0)
