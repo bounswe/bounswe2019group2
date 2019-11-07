@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from .views import *
 
 router = DefaultRouter()
+router.register(r'users/success_rate', UserSuccessViewSet, basename='user-success')
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'token', TokenViewSet, basename='token')
 router.register(r'equipment', EquipmentViewSet, basename='equipment')

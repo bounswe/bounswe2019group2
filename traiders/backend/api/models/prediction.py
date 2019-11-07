@@ -6,8 +6,8 @@ from .users import User
 
 class Prediction(models.Model):
     SUCCESSFUL = 1
-    PENDING = 0
-    FAILED = -1
+    PENDING = -1
+    FAILED = 0
     RESULT_CHOICES = (
         (SUCCESSFUL, 'Successful'),
         (FAILED, 'Failed'),

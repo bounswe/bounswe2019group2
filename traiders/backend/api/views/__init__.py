@@ -1,4 +1,4 @@
-from .users import UserViewSet
+from .users import UserViewSet, UserSuccessViewSet
 from .token import TokenViewSet
 from .article import ArticleViewSet
 from .equipment import EquipmentViewSet
