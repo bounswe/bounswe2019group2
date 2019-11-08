@@ -9,8 +9,8 @@ from ..serializers import PredictionSerializer
 
 
 class PredictionViewSet(mixins.ListModelMixin,
+                        mixins.RetrieveModelMixin,
                         mixins.CreateModelMixin,
-                        mixins.UpdateModelMixin,
                         mixins.DestroyModelMixin,
                         GenericViewSet):
     """
