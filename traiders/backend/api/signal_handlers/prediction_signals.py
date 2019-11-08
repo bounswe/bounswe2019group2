@@ -21,6 +21,8 @@ def prediction_results(sender, instance: Parity, **kwargs):
     ratio = instance.ratio
     previous_latest = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
                                                               target_equipment=target_eq).first()
+    if previous_latest is None:
+        return
 
     closing_for_today = datetime.datetime.now().replace(hour=_DAY_CLOSING.hour,
                                                         minute=_DAY_CLOSING.minute,
