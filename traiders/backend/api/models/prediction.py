@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.timezone import now
+import datetime
 from .parity import Parity
 from .users import User
 
@@ -27,7 +27,7 @@ class Prediction(models.Model):
 
     date = models.DateField("Date of prediction",
                             blank=True,
-                            default=now)
+                            default=datetime.date.today)
 
     parity = models.ForeignKey(Parity,
                                on_delete=models.CASCADE,
