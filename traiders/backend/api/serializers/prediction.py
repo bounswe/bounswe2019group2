@@ -1,44 +1,33 @@
 from rest_framework import serializers
-from ..models import Prediction
-from datetime import datetime
+from ..models import Prediction, Equipment
 
 
 class PredictionSerializer(serializers.HyperlinkedModelSerializer):
+    base_equipment = serializers.CharField()
+    target_equipment = serializers.CharField()
 
-    def create(self, validated_data):
-        # We need to check if another prediction is made.
-        parity = validated_data['parity']
-        by_user = validated_data['by_user']
-        if 'date' in validated_data:
-            date = validated_data['date']
-        else:
-            date = datetime.now().date()
-        try:
-            Prediction.objects.get(by_user=by_user,
-                                   parity=parity,
-                                   date=date)
+    def _get_equipment_or_raise(self, symbol):
+        eq = Equipment.objects.filter(symbol=symbol).first()
+        if not eq:
+            raise serializers.ValidationError('Equipment not found')
+        return eq
 
-        except Prediction.DoesNotExist:
-            return super().create(validated_data)
-
-        raise serializers.ValidationError('You have already made another prediction today '
-                                          'for the given parity.')
+    validate_base_equipment = _get_equipment_or_raise
+    validate_target_equipment = _get_equipment_or_raise
 
     def validate(self, data):
         request = self.context['request']
+        data['by_user'] = request.user
 
-        # Unless admin is adding the instance
-        # We need the by_user field
+        date_default = Prediction._meta.get_field('date').default()
 
-        if request.method == 'POST':
-            if 'by_user' not in data:
-                request = self.context['request']
-                data['by_user'] = request.user
+        if Prediction.objects.filter(**data, date=date_default).exists():
+            raise serializers.ValidationError('You have already made a prediction today '
+                                              'for the given parity.')
 
         return data
 
     class Meta:
         model = Prediction
-        fields = ["url", "id", "by_user", "date", "parity",
-                  "direction", "result"]
-        read_only_fields = ["result", "date", "by_user"]
+        fields = ["url", "id", "by_user", "base_equipment", "target_equipment", "direction"]
+        read_only_fields = ["by_user"]

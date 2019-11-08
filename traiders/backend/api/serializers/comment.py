@@ -21,13 +21,15 @@ class CommentSerializerBase(serializers.HyperlinkedModelSerializer):
 
     def validate(self, data):
         data['user'] = self.context['request'].user
+
+        if not data.get('image') and not data.get('content'):
+            raise serializers.ValidationError("Please either provide an image or a text as the comment.")
         return data
 
     def create(self, validated_data: dict):
         if 'is_liked' in validated_data:
             validated_data.pop('is_liked')
-        if not validated_data.get('image') and not validated_data.get('content'):
-            raise serializers.ValidationError("Please either provide an image or a text as the comment.")
+
         return super().create(validated_data)
 
     def update(self, instance, validated_data: dict):
