@@ -15,8 +15,10 @@ class CommentBase(models.Model):
 
 
 class ArticleComment(CommentBase):
+    liked_by = models.ManyToManyField(User, related_name='article_comment_liked_by', blank=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, blank=False)
 
 
 class EquipmentComment(CommentBase):
+    liked_by = models.ManyToManyField(User, related_name='equipment_comment_liked_by', blank=True)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, blank=False)

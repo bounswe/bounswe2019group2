@@ -27,7 +27,7 @@ class Prediction(models.Model):
 
     date = models.DateField("Date of prediction",
                             blank=True,
-                            default=now().date)
+                            default=now)
 
     parity = models.ForeignKey(Parity,
                                on_delete=models.CASCADE,
