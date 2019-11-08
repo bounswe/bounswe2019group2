@@ -32,8 +32,7 @@ class UserViewSet(mixins.CreateModelMixin,
                 raise PermissionDenied("User profile is private. Please request to follow")
 
 
-class UserSuccessViewSet(mixins.ListModelMixin,
-                         mixins.RetrieveModelMixin,
+class UserSuccessViewSet(mixins.RetrieveModelMixin,
                          GenericViewSet):
     """
     View and edit users
