@@ -13,7 +13,11 @@ class IsLiked(serializers.BooleanField):
 
 class CommentSerializerBase(serializers.HyperlinkedModelSerializer):
     user = UserSerializer(read_only=True)
-    is_liked = IsLiked()
+    is_liked = IsLiked(required=False)
+    num_likes = serializers.SerializerMethodField(read_only=True)
+
+    def get_num_likes(self, comment):
+        return comment.liked_by.count()
 
     def validate(self, data):
         data['user'] = self.context['request'].user
@@ -28,7 +32,6 @@ class CommentSerializerBase(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data: dict):
         is_liked = validated_data.pop('is_liked', None)
-
         likers = instance.liked_by.all()
 
         if is_liked is True:
@@ -62,8 +65,9 @@ class ArticleCommentSerializer(CommentSerializerBase):
     class Meta:
         model = ArticleComment
         fields = ["id", "url", "created_at", "content", "image", "user",
-                  "article", "is_liked", "liked_by"]
-        read_only_fields = ['id', 'url', 'created_at', 'user', 'liked_by', 'is_liked']
+                  "article", "is_liked", "liked_by", "num_likes"]
+        read_only_fields = ['id', 'url', 'created_at', 'user',
+                            'liked_by', 'is_liked', 'num_likes']
 
 
 class EquipmentCommentSerializer(CommentSerializerBase):
@@ -79,5 +83,6 @@ class EquipmentCommentSerializer(CommentSerializerBase):
     class Meta:
         model = EquipmentComment
         fields = ["id", "url", "created_at", "content",
-                  "image", "user", "equipment", "is_liked", "liked_by"]
-        read_only_fields = ['id', 'url', 'created_at', 'user', 'liked_by', 'is_liked']
+                  "image", "user", "equipment", "is_liked", "liked_by", "num_likes"]
+        read_only_fields = ['id', 'url', 'created_at', 'user',
+                            'liked_by', 'is_liked', 'num_likes']

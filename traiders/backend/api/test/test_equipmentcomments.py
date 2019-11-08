@@ -116,7 +116,8 @@ class EquipmentCommentViewSetTests(APITestCase):
         response = self.client.get(url)
 
         expected_fields = {
-            'url', 'user', 'equipment', 'created_at', 'content', 'image', 'id'
+            'url', 'user', 'equipment', 'created_at', 'content', 'image', 'id',
+            'is_liked', 'liked_by', 'num_likes'
         }
         self.assertSetEqual(set(response.data.keys()), expected_fields)
 
@@ -136,6 +137,7 @@ class EquipmentCommentViewSetTests(APITestCase):
         comments = response.data
         self.assertEqual(len(comments), 1)  # check the number of equipments returned
 
-        expected_fields = {'content', 'equipment', 'url', 'created_at', 'image', 'user', 'id'}
+        expected_fields = {'content', 'equipment', 'url', 'created_at', 'image', 'user', 'id',
+                           'is_liked', 'liked_by', 'num_likes'}
 
         self.assertSetEqual(set(comments[0].keys()), expected_fields)
