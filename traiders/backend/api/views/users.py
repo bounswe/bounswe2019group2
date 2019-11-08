@@ -4,7 +4,7 @@ from rest_framework.exceptions import PermissionDenied
 from django.db.models import Count, Avg
 
 from ..models import User, Following, Prediction, Equipment
-from ..serializers.users import UserSerializer#, UserSuccessSerializer
+from ..serializers.users import UserSerializer
 from ..serializers import EquipmentSerializer
 from rest_framework.response import Response
 
