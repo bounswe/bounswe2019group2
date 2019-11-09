@@ -1,5 +1,4 @@
-import { Comment, Icon, Tooltip, Avatar } from 'antd';
-import moment from 'moment';
+import { Comment as CommentAntd, Icon, Tooltip, Avatar } from 'antd';
 import React from 'react';
 
 class CommentContainer extends React.Component {
@@ -30,7 +29,7 @@ class CommentContainer extends React.Component {
 
   render() {
     const { likes, dislikes, action } = this.state;
-
+    const { author, createdAt, content, image } = this.props;
     const actions = [
       <span key="comment-basic-like">
         <Tooltip title="Like">
@@ -51,34 +50,24 @@ class CommentContainer extends React.Component {
           />
         </Tooltip>
         <span style={{ paddingLeft: 8, cursor: 'auto' }}>{dislikes}</span>
-      </span>,
-      <span key="comment-basic-reply-to">Reply to</span>
+      </span>
     ];
 
     return (
       <div>
-        <Comment
+        <CommentAntd
           actions={actions}
-          author={<p>Mark Gibson</p>}
+          author={author}
           avatar={
             <Avatar
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt="Mark Gibson"
+              alt={author}
             />
           }
-          content={
-            <p>
-              It&apos;s been a long time to see the current USD/TL ratio stopped
-              increasing.I am not a fortuneteller but I think this article
-              suggest to invest TL which will result in humongous profit.
-            </p>
-          }
-          datetime={
-            <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-              <span>{moment().fromNow()}</span>
-            </Tooltip>
-          }
+          content={content}
+          datetime={createdAt}
         />
+        <div className="comment-image">{image}</div>
       </div>
     );
   }

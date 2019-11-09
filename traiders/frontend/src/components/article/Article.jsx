@@ -6,6 +6,7 @@ import { PostWithAuthorization } from '../../common/http/httpUtil';
 import history from '../../common/history';
 
 import Comment from '../comment/Comment';
+import AddComment from '../addComment/AddCommentModule';
 
 class Article extends Component {
   componentDidMount() {
@@ -70,6 +71,9 @@ class Article extends Component {
                     image={comment.image}
                   />
                 ))}
+            </div>
+            <div className="create-comment">
+              <AddComment />
             </div>
           </div>
         )) ||

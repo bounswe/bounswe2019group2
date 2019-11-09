@@ -7,12 +7,14 @@ const SAVE_ARTICLE_LIST = 'SAVE_ARTICLE_LIST';
 const SAVE_SINGLE_ARTICLE = 'SAVE_SINGLE_ARTICLE';
 const SAVE_ARTICLE_AUTHOR = 'SAVE_ARTICLE_AUTHOR';
 const SAVE_ARTICLE_COMMENTS = 'SAVE_ARTICLE_COMMENTS';
+const SAVE_SINGLE_COMMENT = 'SAVE_SINGLE_COMMENT';
 
 export const actionTypes = {
   SAVE_ARTICLE_LIST,
   SAVE_SINGLE_ARTICLE,
   SAVE_ARTICLE_AUTHOR,
-  SAVE_ARTICLE_COMMENTS
+  SAVE_ARTICLE_COMMENTS,
+  SAVE_SINGLE_COMMENT
 };
 
 /* Action Creators */
@@ -28,6 +30,13 @@ function saveSingleArticle(article) {
   return {
     type: SAVE_SINGLE_ARTICLE,
     payload: article
+  };
+}
+
+function saveSingleComment(comment) {
+  return {
+    type: SAVE_SINGLE_COMMENT,
+    payload: comment
   };
 }
 
@@ -49,7 +58,8 @@ export const actionCreators = {
   saveArticleList,
   saveSingleArticle,
   saveArticleAuthor,
-  saveArticleComments
+  saveArticleComments,
+  saveSingleComment
 };
 
 /* Api Call Functions */
@@ -76,6 +86,21 @@ export const getArticle = (id) => {
       })
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while fetching article\n', error));
+  };
+};
+
+export const getComment = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/comments/article/${id}/`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => {
+            return dispatch(saveSingleComment(res));
+          });
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching comment\n', error));
   };
 };
 
