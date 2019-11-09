@@ -9,12 +9,17 @@ services:
       - static:/static
       - media:/media
       - migrations:/app/api/migrations
+    env_file:
+      - ~/traiders_prod_env
 
   backendcron:
     depends_on:
       - backend
     build: ./backend
-    command: cron && tail -f /var/log/cron.log
+    command: bash run_crons.sh
+    restart: always
+    env_file:
+      - ~/traiders_prod_env
 
   db:
     image: postgres:11

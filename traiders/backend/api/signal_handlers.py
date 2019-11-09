@@ -15,7 +15,7 @@ def delete_parity_history(sender, instance: ParitySetting, **kwargs):
     base_eq = instance.base_equipment
     target_eq = instance.target_equipment
 
-    logging.info(f'deleting parity: {base_eq}/{target_eq}')
+    logger.info(f'deleting parity: {base_eq}/{target_eq}')
 
     # delete all parities managed by this parity setting
     Parity.objects.filter(base_equipment=base_eq,
@@ -29,7 +29,7 @@ def create_parity_history(sender, instance: ParitySetting, created, **kwargs):
     if not created:
         return
 
-    logging.info('creating history for: {parity_setting}')
+    logger.info('creating history for: {parity_setting}')
 
     base_eq = instance.base_equipment
     target_eq = instance.target_equipment
@@ -39,7 +39,7 @@ def create_parity_history(sender, instance: ParitySetting, created, **kwargs):
                                                    target_eq.symbol, target_eq.category,
                                                    outputsize='full')
     except Exception as e:
-        logger.error(f'fetching history for {base_eq}/{target_eq} failed: {e}')
+        logger.error(f'fetching history for {base_eq}/{target_eq} failed: {e}', exc_info=True)
         instance.delete()
         return
 

@@ -6,6 +6,8 @@ class Equipment(models.Model):
                             max_length=64,
                             blank=False)
 
+    # TODO use choice here
+    # TODO make choices seen in doc
     category = models.CharField("Equipment Category",
                                 max_length=16,
                                 blank=False)
