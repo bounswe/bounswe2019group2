@@ -29,7 +29,7 @@ def create_parity_history(sender, instance: ParitySetting, created, **kwargs):
     if not created:
         return
 
-    logger.info('creating history for: {parity_setting}')
+    logger.info(f'creating history for: {instance}')
 
     base_eq = instance.base_equipment
     target_eq = instance.target_equipment

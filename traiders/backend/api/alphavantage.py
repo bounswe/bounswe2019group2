@@ -12,7 +12,7 @@ ALPHA_VANTAGE_CATEGORY_LIST_PATH = {
     'currency': 'physical_currency_list/',
     'crypto': 'digital_currency_list/'
 }
-ALPHA_VANTAGE_KEYS = os.environ.get('ALPHA_VANTAGE_KEYS').split(',')
+ALPHA_VANTAGE_KEYS = os.environ.get('ALPHA_VANTAGE_KEYS', '').split(',')
 
 
 class QuotaError(Exception):
