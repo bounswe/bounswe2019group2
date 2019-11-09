@@ -41,19 +41,27 @@ class Article extends Component {
         {(article && (
           <div className="article-container">
             <div className="article-title">{article.title}</div>
-            <div className="article-author">
-              <div className="user-related">
-                <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
-                <div className="author-username">
-                  ({article.author.username})
+            <div className="article-header">
+              <div className="header-left-part">
+                <div className="user-related">
+                  <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
+                  <div className="author-username">
+                    ({article.author.username})
+                  </div>
+                </div>
+                <div className="article-related">
+                  {article.created_at.substring(0, 10)}
+                  <Button onClick={this.handleFollow} disabled={ownArticle}>
+                    Follow
+                  </Button>
                 </div>
               </div>
-              <div className="article-related">
-                {article.created_at.substring(0, 10)}
-                <Button onClick={this.handleFollow} disabled={ownArticle}>
-                  Follow
-                </Button>
-              </div>
+              {ownArticle && (
+                <div className="header-right-part">
+                  <Button type="primary">Edit</Button>
+                  <Button type="danger">Delete</Button>
+                </div>
+              )}
             </div>
 
             <div className="article-image-container">
