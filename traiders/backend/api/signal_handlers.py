@@ -60,9 +60,9 @@ def create_parity_history(sender, instance: ParitySetting, created, **kwargs):
 def end_of_day_parity_clean(sender, instance: Parity, **kwargs):
     last_parity = (
         Parity.objects
-            .order_by('-date')
-            .filter(base_equipment=instance.base_equipment, target_equipment=instance.target_equipment)
-            .first()
+              .order_by('-date')
+              .filter(base_equipment=instance.base_equipment, target_equipment=instance.target_equipment)
+              .first()
     )
 
     if not last_parity:
