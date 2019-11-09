@@ -20,10 +20,10 @@ class Prediction(models.Model):
         (WILL_DECREASE, 'Will Decrease'),
     )
 
-    by_user = models.ForeignKey(User,
-                                on_delete=models.CASCADE,
-                                blank=False,
-                                related_name='+')
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             blank=False,
+                             related_name='+')
 
     date = models.DateField("Date of prediction",
                             blank=True,
@@ -40,4 +40,4 @@ class Prediction(models.Model):
     result = models.IntegerField(choices=RESULT_CHOICES, default=PENDING)
 
     class Meta:
-        unique_together = ('date', 'by_user', 'base_equipment', 'target_equipment')
+        unique_together = ('date', 'user', 'base_equipment', 'target_equipment')

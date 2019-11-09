@@ -74,7 +74,7 @@ class PredictionViewTestCase(APITestCase):
         self.assertTrue(
             Prediction.objects.filter(**self.eq_pair,
                                       date=datetime.date.today(),
-                                      by_user=self.user).exists()
+                                      user=self.user).exists()
         )
 
         # test create again
@@ -83,7 +83,7 @@ class PredictionViewTestCase(APITestCase):
 
     def test_list(self):
         Prediction.objects.create(**self.eq_pair, date=datetime.date.today(),
-                                  by_user=self.user,
+                                  user=self.user,
                                   direction=Prediction.WILL_INCREASE)
 
         url = reverse('prediction-list')
@@ -101,7 +101,7 @@ class PredictionViewTestCase(APITestCase):
 
     def test_list_with_filter(self):
         Prediction.objects.create(**self.eq_pair, date=datetime.date.today(),
-                                  by_user=self.user,
+                                  user=self.user,
                                   direction=Prediction.WILL_INCREASE)
 
         url = reverse('prediction-list') + f'?base_equipment={self.eq1.symbol}&target_equipment={self.eq2.symbol}'
@@ -113,16 +113,13 @@ class PredictionViewTestCase(APITestCase):
 
         self.assertEqual(len(response.data), 1)
 
-
     def test_evaluate_successful(self):
         pass  # TODO implement after implementing evaluation
         # pred = Prediction.objects.create(**self.eq_pair,
         #                                  direction=Prediction.WILL_INCREASE,
-        #                                  by_user=self.user)
+        #                                  user=self.user)
         #
         # Parity.objects.create(**self.eq_pair, ratio=1.1,
         #                       date=make_aware(datetime.datetime.combine(self.today, datetime.time(19))))
         #
         # self.assertEqual(pred.result, Prediction.SUCCESSFUL)
-
-

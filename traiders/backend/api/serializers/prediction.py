@@ -17,7 +17,7 @@ class PredictionSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate(self, data):
         request = self.context['request']
-        data['by_user'] = request.user
+        data['user'] = request.user
 
         date_default = Prediction._meta.get_field('date').default()
 
@@ -29,5 +29,5 @@ class PredictionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Prediction
-        fields = ["url", "id", "by_user", "base_equipment", "target_equipment", "direction"]
-        read_only_fields = ["by_user"]
+        fields = ["url", "id", "user", "base_equipment", "target_equipment", "direction"]
+        read_only_fields = ["user"]

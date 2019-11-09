@@ -23,6 +23,5 @@ class PredictionViewSet(mixins.ListModelMixin,
     filterset_class = PredictionFilterSet
 
     def get_queryset(self):
-        return Prediction.objects.all().filter(by_user=self.request.user,
+        return Prediction.objects.all().filter(user=self.request.user,
                                                date=timezone.now().date())
-
