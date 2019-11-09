@@ -69,6 +69,11 @@ class ParityViewsetTests(APITestCase):
             "ratio": 0.000021
         }
 
+        for data in [parity1_data, parity2_data, parity3_data, parity4_data, parity5_data]:
+            for key in ['high', 'close', 'open', 'low']:
+                data[key] = data['ratio']
+            del data['ratio']
+
         eur_dollar = Parity(**parity1_data)
         dollar_try = Parity(**parity2_data)
         try_dollar = Parity(**parity3_data)

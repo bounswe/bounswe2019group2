@@ -2,7 +2,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import LimitOffsetPagination
 
-from ..models import Parity, ParitySetting
+from ..models import Parity, Equipment
 from ..serializers import ParitySerializer
 from ..filters import ParityFilterSet
 
@@ -23,10 +23,13 @@ class ParityLatestViewSet(ReadOnlyModelViewSet):
 
     def get_queryset(self):
         parities = []
-        for parity_setting in ParitySetting.objects.all():
-            parity = Parity.objects.order_by('-date').filter(base_equipment=parity_setting.base_equipment,
-                                                             target_equipment=parity_setting.target_equipment).first()
-            if parity:
-                parities.append(parity.id)
+
+        distinct_id_pairs = Parity.objects.values_list('base_equipment', 'target_equipment').distinct()
+
+        for base, target in distinct_id_pairs:
+            parity = Parity.objects.order_by('-date').filter(base_equipment_id=base,
+                                                             target_equipment_id=target).first()
+
+            parities.append(parity.id)
 
         return Parity.objects.filter(id__in=parities)

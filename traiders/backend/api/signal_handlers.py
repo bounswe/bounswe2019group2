@@ -1,7 +1,8 @@
 import logging
 from django.dispatch.dispatcher import receiver
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_save
 from django.db import transaction
+from django.utils.timezone import datetime, make_aware
 
 from .models import ParitySetting, Parity
 from . import alphavantage as av
@@ -52,3 +53,35 @@ def create_parity_history(sender, instance: ParitySetting, created, **kwargs):
 
     instance.last_updated = last_updated
     instance.save()
+
+
+@receiver(pre_save, sender=Parity)
+@transaction.atomic
+def end_of_day_parity_clean(sender, instance: Parity, **kwargs):
+    last_parity = (
+        Parity.objects
+            .order_by('-date')
+            .filter(base_equipment=instance.base_equipment, target_equipment=instance.target_equipment)
+            .first()
+    )
+
+    if not last_parity:
+        return
+
+    last_day = last_parity.date.date()
+
+    if last_day < instance.date.date():  # a day has ended
+        last_days_parities = Parity.objects.filter(
+            base_equipment=instance.base_equipment,
+            target_equipment=instance.target_equipment,
+            date__year=last_day.year,
+            date__month=last_day.month,
+            date__day=last_day.day
+        )
+
+        # delete other than last
+        last_days_parities.exclude(pk=last_parity.pk).delete()
+
+        # remove time data from date
+        last_parity.date = make_aware(datetime(last_day.year, last_day.month, last_day.day))
+        last_parity.save()

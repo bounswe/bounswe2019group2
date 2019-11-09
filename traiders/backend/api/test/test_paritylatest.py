@@ -73,6 +73,11 @@ class ParityLatestViewsetTests(APITestCase):
             "ratio": 8256
         }
 
+        for data in [parity1_data, parity2_data, parity3_data, parity4_data, parity5_data, parity6_data]:
+            for key in ['high', 'close', 'open', 'low']:
+                data[key] = data['ratio']
+            del data['ratio']
+
         eur_dollar = Parity(**parity1_data)
         dollar_try = Parity(**parity2_data)
         btc_usd = Parity(**parity3_data)
