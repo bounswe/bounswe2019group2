@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 
 import './login.scss';
 import Page from '../../../components/page/Page';
+import history from '../../../common/history';
 
 const Login = (props) => {
   const { user, form } = props;
   const { getFieldDecorator } = form;
+
+  user && history.push('/'); // If there is a logged in user then redirect to the home page
 
   const handleSubmit = (e) => {
     e.preventDefault();
