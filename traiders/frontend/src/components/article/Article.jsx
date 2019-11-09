@@ -31,7 +31,10 @@ class Article extends Component {
   };
 
   render() {
-    const { article, comments } = this.props;
+    const { article, comments, user } = this.props;
+
+    const ownArticle =
+      user && article ? user.user.url === article.author.url : false;
 
     return (
       <div>
@@ -47,7 +50,9 @@ class Article extends Component {
               </div>
               <div className="article-related">
                 {article.created_at.substring(0, 10)}
-                <Button onClick={this.handleFollow}>Follow</Button>
+                <Button onClick={this.handleFollow} disabled={ownArticle}>
+                  Follow
+                </Button>
               </div>
             </div>
 
