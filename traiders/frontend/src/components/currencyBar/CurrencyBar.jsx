@@ -24,6 +24,7 @@ class CurrencyBar extends Component {
           fullName={element.code}
           price={element.latest}
           changeRate={element.change_rate}
+          // eslint-disable-next-line react/no-array-index-key
           key={index}
         />
       );
