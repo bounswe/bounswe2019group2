@@ -10,7 +10,9 @@ const Login = (props) => {
   const { user, form } = props;
   const { getFieldDecorator } = form;
 
-  user && history.push('/'); // If there is a logged in user then redirect to the home page
+  if (user) {
+    history.push('/'); // If there is a logged in user then redirect to the home page
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
