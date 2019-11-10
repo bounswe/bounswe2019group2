@@ -18,31 +18,32 @@ def prediction_results(sender, instance: Parity, **kwargs):
     base_eq = instance.base_equipment
     target_eq = instance.target_equipment
     date = instance.date
-    ratio = instance.ratio
-    previous_latest = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
-                                                              target_equipment=target_eq).first()
-    if previous_latest is None:
-        return
-
     closing_for_today = datetime.datetime.now().replace(hour=_DAY_CLOSING.hour,
                                                         minute=_DAY_CLOSING.minute,
                                                         tzinfo=datetime.timezone.utc)
 
+    previous_latest = Parity.objects.order_by('-date').filter(base_equipment=base_eq,
+                                                              target_equipment=target_eq).first()
+
+    if previous_latest is None:
+        # No parities
+        return
+
     if (previous_latest.date <= closing_for_today) and (date >= closing_for_today):
         # Handling the prediction results
-        pass
-        # TODO commenting these until we have open/close ratios for parities
-        # predictions = Prediction.objects.filter(base_equipment=base_eq,
-        #                                         target_equipment=target_eq,
-        #                                         result=Prediction.PENDING)
-        # for pred in predictions:
-        #     if (ratio < pred.parity.ratio) and (pred.direction == Prediction.WILL_DECREASE):
-        #         pred.result = Prediction.SUCCESSFUL
-        #
-        #     elif (ratio > pred.parity.ratio) and (pred.direction == Prediction.WILL_INCREASE):
-        #         pred.result = Prediction.SUCCESSFUL
-        #
-        #     else:
-        #         pred.result = Prediction.FAILED
-        #
-        #     pred.save()
+
+        predictions = Prediction.objects.filter(base_equipment=base_eq,
+                                                target_equipment=target_eq,
+                                                result=Prediction.PENDING)
+
+        for pred in predictions:
+            if (pred.parity.open < pred.parity.close) and (pred.direction == Prediction.WILL_DECREASE):
+                pred.result = Prediction.SUCCESSFUL
+
+            if (pred.parity.open > pred.parity.close) and (pred.direction == Prediction.WILL_INCREASE):
+                pred.result = Prediction.SUCCESSFUL
+
+            else:
+                pred.result = Prediction.FAILED
+
+            pred.save()
