@@ -6,20 +6,24 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Set;
+
 import tk.traiders.R;
+import tk.traiders.components.event.OnResultListener;
 import tk.traiders.marshallers.ArticleMarshaller;
 import tk.traiders.marshallers.EventMarshaller;
 import tk.traiders.ui.ListFragment;
 import tk.traiders.ui.social.adapters.ArticlesAdapter;
 import tk.traiders.ui.social.adapters.EventsAdapter;
 
-public class EventsFragment extends ListFragment {
+public class EventsFragment extends ListFragment implements OnResultListener {
 
     @Override
     protected String getURL() {
@@ -40,5 +44,11 @@ public class EventsFragment extends ListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.events_menu, menu);
+    }
+
+
+    @Override
+    public void onResult(Set<String> countries, int importance) {
+        Toast.makeText(getActivity(), "" + countries.toString() + importance, Toast.LENGTH_SHORT).show();
     }
 }
