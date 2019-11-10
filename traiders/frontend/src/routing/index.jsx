@@ -10,6 +10,7 @@ import Article from '../modules/articleModule/ArticleModule';
 import NewArticle from '../modules/newArticle/NewArticle';
 import bomUtil from '../common/utils/bomUtil';
 import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
+import ParityPage from '../components/parityPage/ParityPage';
 
 const ACTION_TYPE = {
   PUSH: 'PUSH',
@@ -55,6 +56,7 @@ class Routes extends Component {
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/parity" component={ParityPage} />
           <Route path="/articles/:id" component={Article} />
           <Route path="/create-article" component={NewArticle} />
           <Route render={() => <h1>404 Page not found</h1>} />
