@@ -61,7 +61,7 @@ class EquipmentCommentViewSet(mixins.CreateModelMixin,
     def list(self, request, *args, **kwargs):
         if 'equipment' not in request.query_params:
             return Response({
-                'equipment': 'Please provide an article to see comments for that article.'
+                'equipment': 'Please provide an article to see comments for that equipment.'
             }, status=status.HTTP_400_BAD_REQUEST)
 
         return super().list(request, *args, **kwargs)

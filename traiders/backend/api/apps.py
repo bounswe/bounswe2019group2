@@ -5,4 +5,5 @@ class ApiConfig(AppConfig):
     name = 'api'
 
     def ready(self):
-        from . import signal_handlers
+        from .signal_handlers import prediction_signals
+        from .signal_handlers import parity_signal_handlers

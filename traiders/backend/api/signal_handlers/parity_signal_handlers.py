@@ -4,8 +4,8 @@ from django.db.models.signals import post_save, post_delete, pre_save
 from django.db import transaction
 from django.utils.timezone import datetime, make_aware
 
-from .models import ParitySetting, Parity
-from . import alphavantage as av
+from ..models import ParitySetting, Parity
+from .. import alphavantage as av
 
 logger = logging.getLogger(__name__)
 

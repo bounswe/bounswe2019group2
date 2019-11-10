@@ -7,3 +7,4 @@ from .likes import LikeSerializer
 from .following import FollowingSerializer
 from .comment import ArticleCommentSerializer, EquipmentCommentSerializer
 from .event import EventSerializer
+from .prediction import PredictionSerializer

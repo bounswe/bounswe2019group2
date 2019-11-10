@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from .views import *
 
 router = DefaultRouter()
+router.register(r'users/success_rate', UserSuccessViewSet, basename='user-success')
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'token', TokenViewSet, basename='token')
 router.register(r'equipment', EquipmentViewSet, basename='equipment')
@@ -17,6 +18,7 @@ router.register(r'following', FollowingViewSet, basename='following')
 router.register(r'comments/article', ArticleCommentViewSet, basename='articlecomment')
 router.register(r'comments/equipment', EquipmentCommentViewSet, basename='equipmentcomment')
 router.register(r'events', EventViewSet, basename='event')
+router.register(r'prediction', PredictionViewSet, basename='prediction')
 
 urlpatterns = [
     # documentation views
