@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 
+import { API } from '../../redux/apiConfig';
 import './article.scss';
-import { PostWithAuthorization } from '../../common/http/httpUtil';
+import {
+  PostWithAuthorization,
+  DeleteWithAuthorization
+} from '../../common/http/httpUtil';
 import history from '../../common/history';
 
 import Comment from '../comment/Comment';
 
 class Article extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false
+    };
+  }
+
   componentDidMount() {
     const { id, getArticle, getArticleComments } = this.props;
     getArticle(id);
@@ -18,7 +29,8 @@ class Article extends Component {
     const { user, article } = this.props;
     // eslint-disable-next-line camelcase
     const user_followed = article.author.url;
-    const url = 'https://api.traiders.tk/following/';
+    const url = `${API}/following/`;
+
     if (user) {
       PostWithAuthorization(url, { user_followed }, user.key)
         // eslint-disable-next-line no-console
@@ -30,8 +42,44 @@ class Article extends Component {
     }
   };
 
+  editArticle = () => {
+    const { article } = this.props;
+    const { id } = article;
+    history.push(`/article/edit/${id}`);
+  };
+
+  deleteArticle = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  handleOk = () => {
+    const { article, user } = this.props;
+    const { id } = article;
+    const url = `${API}/articles/${id}/`;
+
+    DeleteWithAuthorization(url, user.key).then((response) => {
+      if (response.status === 204) {
+        // eslint-disable-next-line
+        alert('Succesfully deleted');
+        this.setState({
+          visible: false
+        });
+        history.push('/');
+      }
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     const { article, comments, user } = this.props;
+    const { visible } = this.state;
 
     const ownArticle =
       user && article ? user.user.url === article.author.url : false;
@@ -58,8 +106,12 @@ class Article extends Component {
               </div>
               {ownArticle && (
                 <div className="header-right-part">
-                  <Button type="primary">Edit</Button>
-                  <Button type="danger">Delete</Button>
+                  <Button type="primary" onClick={this.editArticle}>
+                    Edit
+                  </Button>
+                  <Button type="danger" onClick={this.deleteArticle}>
+                    Delete
+                  </Button>
                 </div>
               )}
             </div>
@@ -81,9 +133,20 @@ class Article extends Component {
                     content={comment.content}
                     createdAt={comment.created_at.substring(0, 10)}
                     image={comment.image}
+                    key={comment.id}
                   />
                 ))}
             </div>
+            <Modal
+              title="DELETE"
+              visible={visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <div>
+                Are you sure? There is no way you to recover this action!
+              </div>
+            </Modal>
           </div>
         )) ||
           'Loading'}

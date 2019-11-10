@@ -18,12 +18,14 @@ class CurrencyBar extends Component {
     const { currencyList } = this.props;
     let currencies = currencyList.slice(0, 7);
     currencies = currencies.filter((element) => element.code !== 'TRY');
-    currencies = currencies.map((element) => {
+    currencies = currencies.map((element, index) => {
       return (
         <CurrencyInfo
           fullName={element.code}
           price={element.latest}
           changeRate={element.change_rate}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
         />
       );
     });
