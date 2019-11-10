@@ -1,6 +1,4 @@
-import re
 from rest_framework.schemas import openapi
-from rest_framework import serializers
 
 
 class AutoSchema(openapi.AutoSchema):
@@ -27,5 +25,19 @@ class AutoSchema(openapi.AutoSchema):
                 result['type'] = 'string'
             elif isinstance(choice, (int, float)):
                 result['type'] = 'number'
+
+        return result
+
+    def _map_serializer(self, serializer):
+        # DRF's generator does not work for callable defaults (namely, CurrentUserDefault)
+        # (https://github.com/encode/django-rest-framework/issues/6858)
+        # delete any 'default' key with callable value
+
+        result = super()._map_serializer(serializer)
+
+        for field_name, schema in result['properties'].items():
+            default = schema.get('default')
+            if default and callable(default):
+                del schema['default']
 
         return result
