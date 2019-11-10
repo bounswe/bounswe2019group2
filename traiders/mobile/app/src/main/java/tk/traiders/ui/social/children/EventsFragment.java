@@ -1,5 +1,6 @@
 package tk.traiders.ui.social.children;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -49,6 +50,14 @@ public class EventsFragment extends ListFragment implements OnResultListener {
 
     @Override
     public void onResult(Set<String> countries, int importance) {
-        Toast.makeText(getActivity(), "" + countries.toString() + importance, Toast.LENGTH_SHORT).show();
+        Uri.Builder builder = Uri.parse(getURL()).buildUpon();
+        for(String country: countries) {
+            builder.appendQueryParameter("country", country);
+        }
+        if(importance != 0) {
+            builder.appendQueryParameter("importance", String.valueOf(importance));
+        }
+        String filterURL = builder.build().toString();
+        super.fetchDataWithFilters(filterURL);
     }
 }

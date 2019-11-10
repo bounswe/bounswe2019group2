@@ -21,12 +21,16 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
+import tk.traiders.LocationActivity;
 import tk.traiders.R;
+import tk.traiders.models.Country;
 
 public class FilterFragment extends DialogFragment {
 
@@ -37,8 +41,9 @@ public class FilterFragment extends DialogFragment {
     ArrayAdapter<String> adapter;
 
     private List<String> countries = new ArrayList<>();
+    private Map<String, String> isoCodefromCountryName = new HashMap<>();
 
-    private int importance = 3;
+    private int importance = 0;
     private String country = "ALL";
 
     private Set<String> chosenCountries = new HashSet<>();
@@ -94,7 +99,9 @@ public class FilterFragment extends DialogFragment {
 
 
         for(String isoCountry: Locale.getISOCountries()) {
-            countries.add(new Locale("en", isoCountry).getDisplayCountry());
+            Locale locale = new Locale("en", isoCountry);
+            isoCodefromCountryName.put(locale.getDisplayCountry(), isoCountry);
+            countries.add(locale.getDisplayCountry());
         }
 
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, countries) {
@@ -137,7 +144,13 @@ public class FilterFragment extends DialogFragment {
                 NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
                 Fragment socialFragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
                 Fragment eventsFragment = socialFragment.getChildFragmentManager().getFragments().get(1);
-                ((OnResultListener) eventsFragment).onResult(chosenCountries, importance);
+                Set<String> chosenCountryCodes = new HashSet<>();
+
+                for(String country: chosenCountries) {
+                    chosenCountryCodes.add(isoCodefromCountryName.get(country));
+                }
+
+                ((OnResultListener) eventsFragment).onResult(chosenCountryCodes, importance);
                 dismiss();
             }
         });
