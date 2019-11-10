@@ -10,25 +10,25 @@ class ParityViewsetTests(APITestCase):
         equipment1_data = {
             "symbol": "USD",
             "name": "US Dollars",
-            "category": "Currency"
+            "category": "currency"
         }
 
         equipment2_data = {
             "symbol": "EUR",
             "name": "Euros",
-            "category": "Currency"
+            "category": "currency"
         }
 
         equipment3_data = {
             "symbol": "TRY",
             "name": "Turkish Liras",
-            "category": "Currency"
+            "category": "currency"
         }
 
         equipment4_data = {
             "symbol": "BTC",
             "name": "Bitcoin",
-            "category": "Crypto"
+            "category": "crypto"
         }
 
         dollar = Equipment(**equipment1_data)
@@ -102,7 +102,7 @@ class ParityViewsetTests(APITestCase):
         self.assertEqual(len(parities), 1)
 
     def test_get_by_category(self):
-        response = self.client.get('/parity/', data={"category": "Crypto"})
+        response = self.client.get('/parity/', data={"category": "crypto"})
         self.assertEqual(response.status_code, 200)
         parities = response.data
         self.assertEqual(len(parities), 2)
