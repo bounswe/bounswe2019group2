@@ -1,7 +1,7 @@
 from django.db import models
 import datetime
-from .parity import Parity
-from .users import User
+
+from . import Equipment, User
 
 
 class Prediction(models.Model):
@@ -14,29 +14,30 @@ class Prediction(models.Model):
         (PENDING, 'In Progress'),
     )
     WILL_INCREASE = 1
-    WILL_DECREASE = 0
+    WILL_DECREASE = -1
     DIRECTION_CHOICES = (
         (WILL_INCREASE, 'Will Increase'),
         (WILL_DECREASE, 'Will Decrease'),
     )
 
-    by_user = models.ForeignKey(User,
-                                on_delete=models.CASCADE,
-                                blank=False,
-                                related_name='+')
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             blank=False,
+                             related_name='+')
 
     date = models.DateField("Date of prediction",
                             blank=True,
                             default=datetime.date.today)
 
-    parity = models.ForeignKey(Parity,
-                               on_delete=models.CASCADE,
-                               blank=False,
-                               related_name='+')
+    base_equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE,
+                                       blank=False, related_name='+')
 
-    direction = models.IntegerField(choices=DIRECTION_CHOICES, blank=False, default=WILL_DECREASE)
+    target_equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE,
+                                         blank=False, related_name='+')
+
+    direction = models.IntegerField(choices=DIRECTION_CHOICES, blank=False)
 
     result = models.IntegerField(choices=RESULT_CHOICES, default=PENDING)
 
     class Meta:
-        unique_together = ('date', 'by_user', 'parity')
+        unique_together = ('date', 'user', 'base_equipment', 'target_equipment')
