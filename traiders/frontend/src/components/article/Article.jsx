@@ -10,7 +10,7 @@ import {
 import history from '../../common/history';
 
 import Comment from '../comment/Comment';
-import AddComment from '../addComment/AddCommentModule';
+import AddComment from '../addComment/AddCommentContainer';
 
 class Article extends Component {
   constructor(props) {
