@@ -1,14 +1,18 @@
 import { API } from '../apiConfig';
-import { PostWithUrlBody } from '../../common/http/httpUtil';
+import { PostWithUrlBody, GetWithUrl } from '../../common/http/httpUtil';
 
 /* Action Types */
 
 const SAVE_USER = 'SAVE_USER';
+const SAVE_FOLLOWERS = 'SAVE_FOLLOWERS';
+const SAVE_FOLLOWINGS = 'SAVE_FOLLOWINGS';
 const LOGOUT = 'LOGOUT';
 
 export const actionTypes = {
   SAVE_USER,
-  LOGOUT
+  LOGOUT,
+  SAVE_FOLLOWERS,
+  SAVE_FOLLOWINGS
 };
 
 /* Action Creators */
@@ -25,6 +29,18 @@ export function logout() {
     type: LOGOUT
   };
 }
+export function saveFollowers(list) {
+  return {
+    type: SAVE_FOLLOWERS,
+    payload: list
+  };
+}
+export function saveFollowings(list) {
+  return {
+    type: SAVE_FOLLOWINGS,
+    payload: list
+  };
+}
 
 export const actionCreators = {
   saveUser,
@@ -38,12 +54,40 @@ export const loginUser = (body) => {
     PostWithUrlBody(`${API}/token/`, body)
       .then((response) => {
         if (response.status === 201) {
-          response.json().then((res) => dispatch(saveUser(res)));
+          response.json().then((res) => {
+            dispatch(saveUser(res));
+          });
         }
       })
 
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while logging\n', error));
+  };
+};
+
+export const getFollowers = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/following/?user_followed=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => dispatch(saveFollowers(res)));
+        }
+      })
+      .catch((error) => console.log('Error while fetching followers\n', error));
+  };
+};
+
+export const getFollowings = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/following/?user_following=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => dispatch(saveFollowings(res)));
+        }
+      })
+      .catch((error) =>
+        console.log('Error while fetching followings\n', error)
+      );
   };
 };
 
