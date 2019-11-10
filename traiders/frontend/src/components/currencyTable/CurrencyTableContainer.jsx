@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import CurrencyTable from './CurrencyTable';
 import { getParities } from '../../redux/parities/actions';
-import { getOneParity } from '../../redux/parities/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -11,8 +10,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getParities,
-  getOneParity
+  getParities
 };
 
 export default connect(

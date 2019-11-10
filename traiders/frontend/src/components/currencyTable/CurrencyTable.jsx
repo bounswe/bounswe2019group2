@@ -5,15 +5,11 @@ import './currency-table.scss';
 class CurrencyTable extends Component {
   componentDidMount() {
     const { getParities } = this.props;
-    const { getOneParity } = this.props;
     getParities();
-    getOneParity('TL', 'EUR');
   }
 
   render() {
     const { parityList } = this.props;
-    const { oneParity } = this.props;
-    console.log(oneParity);
     const currencyList =
       parityList.length > 0
         ? parityList.map((parity) => {
