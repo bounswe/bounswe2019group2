@@ -9,3 +9,4 @@ from .likes import Like
 from .following import Following
 from .event import Event
 from .prediction import Prediction
+from .parity_setting import ParitySetting
