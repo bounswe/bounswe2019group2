@@ -16,7 +16,7 @@ class ArticleList extends Component {
     return (
       <div className="article-list-container">
         {articleList.map((article) => (
-          <ArticleRow article={article} history={history} />
+          <ArticleRow article={article} history={history} key={article.id} />
         ))}
       </div>
     );
