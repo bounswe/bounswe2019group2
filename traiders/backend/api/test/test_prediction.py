@@ -43,7 +43,7 @@ class PredictionViewTestCase(APITestCase):
 
         self.today = datetime.date.today()
 
-        Parity.objects.create(**self.eq_pair, ratio=1.0,
+        Parity.objects.create(**self.eq_pair, open=1.0, close=1.5, high=1.6, low=0.9,
                               date=make_aware(datetime.datetime.combine(self.today, datetime.time(18))))
 
     def test_create(self):
@@ -114,12 +114,23 @@ class PredictionViewTestCase(APITestCase):
         self.assertEqual(len(response.data), 1)
 
     def test_evaluate_successful(self):
-        pass  # TODO implement after implementing evaluation
-        # pred = Prediction.objects.create(**self.eq_pair,
-        #                                  direction=Prediction.WILL_INCREASE,
-        #                                  user=self.user)
-        #
-        # Parity.objects.create(**self.eq_pair, ratio=1.1,
-        #                       date=make_aware(datetime.datetime.combine(self.today, datetime.time(19))))
-        #
-        # self.assertEqual(pred.result, Prediction.SUCCESSFUL)
+        pred = Prediction.objects.create(**self.eq_pair,
+                                         direction=Prediction.WILL_INCREASE,
+                                         user=self.user)
+
+        Parity.objects.create(**self.eq_pair, open=1.0, close=1.55, high=1.6, low=0.9,
+                              date=make_aware(datetime.datetime.combine(self.today, datetime.time(19))))
+
+        updated_object = Prediction.objects.get(pk=pred.pk)
+        self.assertEqual(updated_object.result, Prediction.SUCCESSFUL)
+
+    def test_evaluate_failed(self):
+        pred = Prediction.objects.create(**self.eq_pair,
+                                         direction=Prediction.WILL_INCREASE,
+                                         user=self.user)
+
+        Parity.objects.create(**self.eq_pair, open=1.0, close=0.95, high=1.6, low=0.9,
+                              date=make_aware(datetime.datetime.combine(self.today, datetime.time(19))))
+
+        updated_object = Prediction.objects.get(pk=pred.pk)
+        self.assertEqual(updated_object.result, Prediction.FAILED)
