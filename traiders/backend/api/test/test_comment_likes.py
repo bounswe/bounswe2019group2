@@ -157,4 +157,3 @@ class ArticleCommentViewSetTests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
         response = self.client.patch(url, {'is_liked': False}, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
