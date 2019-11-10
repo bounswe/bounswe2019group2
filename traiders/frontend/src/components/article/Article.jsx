@@ -10,6 +10,7 @@ import {
 import history from '../../common/history';
 
 import Comment from '../comment/Comment';
+import AddComment from '../addComment/AddCommentContainer';
 
 class Article extends Component {
   constructor(props) {
@@ -136,6 +137,9 @@ class Article extends Component {
                     key={comment.id}
                   />
                 ))}
+            </div>
+            <div className="create-comment">
+              <AddComment />
             </div>
             <Modal
               title="DELETE"

@@ -4,7 +4,8 @@ const initialState = {
   articleList: [],
   currentArticle: null,
   author: null,
-  commentsList: null
+  commentsList: null,
+  currentComment: null
 };
 
 function articleReducer(state = initialState, action) {
@@ -29,6 +30,11 @@ function articleReducer(state = initialState, action) {
       return {
         ...state,
         commentsList: action.payload
+      };
+    case actionTypes.SAVE_SINGLE_COMMENT:
+      return {
+        ...state,
+        currentComment: action.payload
       };
     default:
       return state;
