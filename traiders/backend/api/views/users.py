@@ -4,6 +4,7 @@ from rest_framework.exceptions import PermissionDenied
 from django.db.models import Count, Avg
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import serializers
 
 from ..models import User, Following, Prediction, Equipment
 from ..serializers import EquipmentSerializer, UserSerializer
@@ -34,10 +35,17 @@ class UserViewSet(mixins.CreateModelMixin,
 
 class UserSuccessViewSet(GenericViewSet):
     """
-    View and edit users
+    View user success rates
     """
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ('user',)
+
+    class serializer_class(serializers.Serializer):  # this is just for schema generation, not used
+        base_equipment = EquipmentSerializer()
+        target_equipment = EquipmentSerializer()
+        success_rate = serializers.FloatField()
+        prediction_count = serializers.IntegerField()
+        user = UserSerializer
 
     def get_queryset(self):
         return (
