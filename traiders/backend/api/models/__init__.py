@@ -8,3 +8,4 @@ from .mobile_app import MobileApp
 from .likes import Like
 from .following import Following
 from .event import Event
+from .parity_setting import ParitySetting
