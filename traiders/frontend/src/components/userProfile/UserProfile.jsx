@@ -10,7 +10,7 @@ const UserProfile = (props) => {
   return (
     <Page>
       <UserHeader data={datas.user} />
-      <ParityPage base="TRY" target="EUR"></ParityPage>
+      <ParityPage base="TRY" target="EUR" />
     </Page>
   );
 };

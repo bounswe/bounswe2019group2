@@ -12,11 +12,13 @@ class ParityPage extends Component {
       limit: 30
     };
   }
+
   handler = (len) => {
     this.setState({
       limit: len
     });
   };
+
   render() {
     return (
       <Page>
@@ -26,15 +28,11 @@ class ParityPage extends Component {
             <Button onClick={() => this.handler(30)}>Monthly</Button>
             <Button onClick={() => this.handler(365)}>Yearly</Button>
             Your prediction:
-            <Button icon="arrow-up"></Button>
-            <Button icon="arrow-down"></Button>
+            <Button icon="arrow-up" />
+            <Button icon="arrow-down" />
           </div>
           <div className="down">
-            <ParityChart
-              base="TRY"
-              target="USD"
-              limit={this.state.limit}
-            ></ParityChart>
+            <ParityChart base="TRY" target="USD" limit={this.state.limit} />
           </div>
         </div>
       </Page>

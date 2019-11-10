@@ -6,11 +6,12 @@ class ParityChart extends Component {
     const { getOneParity } = this.props;
     getOneParity(this.props.base, this.props.target);
   }
+
   render() {
     const { oneParity } = this.props;
     const { base, target, limit } = this.props;
-    const title = target + '/' + base;
-    const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+    const title = `${target}/${base}`;
+    const { CanvasJSChart } = CanvasJSReact;
     const datas = [];
     for (let i = 0; i < limit; i++) {
       datas.push({
@@ -24,7 +25,7 @@ class ParityChart extends Component {
         text: title
       },
       axisY: {
-        title: title,
+        title,
         includeZero: false
       },
       data: [
