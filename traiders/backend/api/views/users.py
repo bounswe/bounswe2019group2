@@ -45,7 +45,7 @@ class UserSuccessViewSet(GenericViewSet):
         target_equipment = EquipmentSerializer()
         success_rate = serializers.FloatField()
         prediction_count = serializers.IntegerField()
-        user = UserSerializer
+        user = UserSerializer()
 
     def get_queryset(self):
         return (
