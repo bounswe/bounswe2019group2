@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from rest_framework.exceptions import PermissionDenied
 from ..models import Following
-from django.db import models
 
 
 class FollowingSerializer(serializers.HyperlinkedModelSerializer):
@@ -44,3 +42,9 @@ class FollowingSerializer(serializers.HyperlinkedModelSerializer):
         model = Following
         fields = ['url', 'id', 'user_following', 'user_followed', 'status']
         read_only_fields = ['url', 'id', 'user_following']
+
+        extra_kwargs = {
+            'user_following': {
+                'default': serializers.CurrentUserDefault()  # this is only for the unique_together validator to work
+            }
+        }

@@ -81,7 +81,8 @@
             android:id="@+id/button_publish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
             android:text="Publish"
             android:background="@color/primaryColor"
             android:textColor="@color/white" />

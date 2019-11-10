@@ -9,5 +9,7 @@ public class ArticleConstants {
     public static final String IMAGE = "image";
     public static final String AUTHOR = "author";
     public static final String ID = "id";
+    public static final String NUMBER_OF_LIKES = "num_likes";
+    public static final String LIKE = "like";
 
 }
