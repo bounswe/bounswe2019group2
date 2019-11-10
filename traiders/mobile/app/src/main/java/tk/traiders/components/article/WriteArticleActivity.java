@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ public class WriteArticleActivity extends AppCompatActivity {
     private TextView textView_image;
     private ImageView imageView_image;
     private Button button_publish;
+    private ProgressBar progressBar;
 
     private Uri imageURI = null;
 
@@ -66,10 +68,6 @@ public class WriteArticleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_article);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermissions();
-        }
-
         requestQueue = Volley.newRequestQueue(this);
 
         editText_title = findViewById(R.id.editText_title);
@@ -77,14 +75,20 @@ public class WriteArticleActivity extends AppCompatActivity {
         textView_image = findViewById(R.id.textView_image);
         imageView_image = findViewById(R.id.imageView_image);
         button_publish = findViewById(R.id.button_publish);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         button_publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                button_publish.setClickable(false);
+
                 String title = editText_title.getText().toString();
 
                 if(title.isEmpty()) {
                     editText_title.setError("Provide a title");
+                    button_publish.setClickable(true);
                     return;
                 }
 
@@ -92,8 +96,12 @@ public class WriteArticleActivity extends AppCompatActivity {
 
                 if(content.isEmpty()){
                     editText_content.setError("Provide a content");
+                    button_publish.setClickable(true);
                     return;
                 }
+
+                Toast.makeText(WriteArticleActivity.this, "publishing article...", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.VISIBLE);
 
                 JSONObject body = new JSONObject();
 
@@ -160,7 +168,20 @@ public class WriteArticleActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.write_article:
-                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), RESULT_LOAD_IMAGE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED &&
+                            ContextCompat.checkSelfPermission(this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                    == PackageManager.PERMISSION_GRANTED) {
+                        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), RESULT_LOAD_IMAGE);
+                    } else {
+                        checkPermissions();
+                    }
+                } else {
+                    startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), RESULT_LOAD_IMAGE);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -229,8 +250,14 @@ public class WriteArticleActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            Toast.makeText(WriteArticleActivity.this, s, Toast.LENGTH_LONG).show();
-            finish();
+            if(s.equals("OK")){
+                Toast.makeText(WriteArticleActivity.this, "article published", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(WriteArticleActivity.this, "an error occured", Toast.LENGTH_SHORT).show();
+            }
+            progressBar.setVisibility(View.GONE);
+            button_publish.setClickable(true);
             super.onPostExecute(s);
         }
     }
@@ -263,8 +290,8 @@ public class WriteArticleActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-
                     Toast.makeText(this, "Permissin Granted", Toast.LENGTH_SHORT).show();
+                    startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), RESULT_LOAD_IMAGE);
                 } else {
                     Toast.makeText(this, "Permissin Denied", Toast.LENGTH_SHORT).show();
                 }

@@ -3,6 +3,8 @@ package tk.traiders.ui.profile.children;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -97,7 +99,7 @@ public class PersonalFragment extends Fragment {
                         String first_name = jsonObject.getString("first_name");
                         String last_name = jsonObject.getString("last_name");
                         String email = jsonObject.getString("email");
-                        String country = jsonObject.getString("country");
+                        String country = jsonObject.getJSONObject("country").getString("name");
                         String city = jsonObject.getString("city");
                         String iban = jsonObject.getString("iban");
                         Boolean is_trader = jsonObject.getBoolean("is_trader");
@@ -178,7 +180,7 @@ public class PersonalFragment extends Fragment {
                     String first_name = jsonObject.getString("first_name");
                     String last_name = jsonObject.getString("last_name");
                     String email = jsonObject.getString("email");
-                    String country = jsonObject.getString("country");
+                    String country = jsonObject.getJSONObject("country").getString("name");
                     String city = jsonObject.getString("city");
                     String iban = jsonObject.getString("iban");
                     Boolean is_trader = jsonObject.getBoolean("is_trader");
@@ -212,5 +214,20 @@ public class PersonalFragment extends Fragment {
 
         super.onResume();
 
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if(MainActivity.isUserLoggedIn(getActivity())) {
+            inflater.inflate(R.menu.profile_menu_authorized, menu);
+        } else {
+            inflater.inflate(R.menu.profile_menu_unauthorized, menu);
+        }
     }
 }
