@@ -1,6 +1,8 @@
 package tk.traiders.models;
 
-public class Equipment {
+import java.io.Serializable;
+
+public class Equipment implements Serializable {
 
     private String url;
     private String id;

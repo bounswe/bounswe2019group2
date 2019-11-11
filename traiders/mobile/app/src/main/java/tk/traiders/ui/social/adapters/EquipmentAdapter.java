@@ -1,6 +1,7 @@
 package tk.traiders.ui.social.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import tk.traiders.R;
+import tk.traiders.components.equipment.ViewEquipmentActivity;
 import tk.traiders.models.Equipment;
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.EquipmentViewHolder> {
@@ -42,12 +44,21 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.Equi
 
         holder.category.setText(equipment.getCategory());
         holder.name.setText(equipment.getName());
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewEquipmentActivity.class);
+                intent.putExtra("equipment", equipment);
+                context.startActivity(intent);
+            }
+        });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             holder.name.setTooltipText(equipment.getName());
         } else {
             TooltipCompat.setTooltipText(holder.name, equipment.getName());
         }
         holder.symbol.setText(equipment.getSymbol());
+
 
     }
 
