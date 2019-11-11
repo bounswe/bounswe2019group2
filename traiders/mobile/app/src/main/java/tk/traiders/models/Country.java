@@ -1,6 +1,8 @@
 package tk.traiders.models;
 
-public class Country {
+import java.io.Serializable;
+
+public class Country implements Serializable {
 
     String name;
     String code;

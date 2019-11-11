@@ -20,16 +20,22 @@ public class CommentMarshaller {
 
         try {
 
-            JSONObject articleCommentAsJson = new JSONObject(response);
+            JSONObject commentAsJson = new JSONObject(response);
 
-            String id = articleCommentAsJson.getString(CommentConstants.ID);
-            String url = articleCommentAsJson.getString(CommentConstants.URL);
-            String created_at = DateUtils.getHumanReadableDate(articleCommentAsJson.getString(CommentConstants.CREATED_AT).substring(0,19) + "Z");
-            String content = articleCommentAsJson.getString(CommentConstants.CONTENT);
-            User author = UserMarshaller.unmarshall(articleCommentAsJson.getString(CommentConstants.AUTHOR));
-            String articleUrl = articleCommentAsJson.getString(CommentConstants.ARTICLE_URL);
+            String id = commentAsJson.getString(CommentConstants.ID);
+            String url = commentAsJson.getString(CommentConstants.URL);
+            String created_at = DateUtils.getHumanReadableDate(commentAsJson.getString(CommentConstants.CREATED_AT).substring(0,19) + "Z");
+            String content = commentAsJson.getString(CommentConstants.CONTENT);
+            User author = UserMarshaller.unmarshall(commentAsJson.getString(CommentConstants.AUTHOR));
+            String articleOrEquipmentUrl ;
+            if(commentAsJson.has(CommentConstants.ARTICLE_URL)){
+                articleOrEquipmentUrl = commentAsJson.getString(CommentConstants.ARTICLE_URL);
+            } else {
+                articleOrEquipmentUrl = commentAsJson.getString(CommentConstants.EQUIPMENT_URL);
+            }
 
-            comment = new Comment(id, url, created_at, content, author, articleUrl);
+
+            comment = new Comment(id, url, created_at, content, author, articleOrEquipmentUrl);
 
 
         } catch (JSONException e) {

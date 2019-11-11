@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".components.equipment.ViewEquipmentActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/activityViewEquipment_textView_equipmentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="United States Dollar" />
+
+    <TextView
+        android:id="@+id/activityViewEquipment_textView_equipmentCategory"
+        android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="TextView"
+        android:layout_margin="8dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_equipmentName"
+        tools:text="Currency" />
+
+    <TextView
+        android:id="@+id/activityViewEquipment_textView_equipmentSymbol"
+        android:layout_width="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_equipmentName"
+        tools:text="USD" />
+
+
+    <TextView
+        android:id="@+id/activityViewEquipment_textView_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Comments"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/primaryColor"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_equipmentCategory" />
+
+    <TextView
+        android:id="@+id/activityViewEquipment_textView_noComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="There is no comment yet, make one!"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_comments" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylerView_commentListEquipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_comments" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recylerView_commentListEquipment">
+
+        <EditText
+            android:id="@+id/activityViewEquipment_editText_addComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primaryColor"
+            android:hint="your comment..."
+            android:inputType="textMultiLine"
+            android:paddingStart="8dp" />
+
+        <ImageView
+            android:id="@+id/activityViewEquipment_imageView_addComment"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_play_arrow_24dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:text="Category:"
+        android:textStyle="italic"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/activityViewEquipment_textView_equipmentCategory"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_equipmentName" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:textStyle="italic"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:text="Symbol:"
+        app:layout_constraintEnd_toStartOf="@+id/activityViewEquipment_textView_equipmentSymbol"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activityViewEquipment_textView_equipmentCategory"
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_equipmentName" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
