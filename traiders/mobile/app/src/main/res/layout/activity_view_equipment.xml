@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".components.equipment.ViewEquipmentActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/activityViewEquipment_textView_equipmentName"
@@ -55,10 +59,9 @@
         android:id="@+id/activityViewEquipment_textView_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginVertical="8dp"
         android:gravity="center"
         android:text="Comments"
+        android:layout_marginTop="8dp"
         android:textColor="@color/primaryColor"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,16 +81,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_comments" />
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/comment_list"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylerView_commentListEquipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="8dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/activityViewEquipment_textView_noComment" />
+        app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_comments" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,9 +99,11 @@
         android:layout_margin="8dp"
         android:gravity="center"
         android:orientation="horizontal"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include">
+        app:layout_constraintTop_toBottomOf="@+id/recylerView_commentListEquipment">
 
         <EditText
             android:id="@+id/activityViewEquipment_editText_addComment"
@@ -150,4 +156,7 @@
         app:layout_constraintTop_toBottomOf="@+id/activityViewEquipment_textView_equipmentName" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
