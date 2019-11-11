@@ -24,7 +24,7 @@ class ParityLatestViewSet(ReadOnlyModelViewSet):
     def get_queryset(self):
         parities = []
 
-        distinct_id_pairs = Parity.objects.values_list('base_equipment', 'target_equipment').distinct()
+        distinct_id_pairs = Parity.objects.order_by().values_list('base_equipment', 'target_equipment').distinct()
 
         for base, target in distinct_id_pairs:
             parity = Parity.objects.order_by('-date').filter(base_equipment_id=base,
