@@ -28,11 +28,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import tk.traiders.LocationActivity;
 import tk.traiders.R;
-import tk.traiders.models.Country;
+import tk.traiders.ui.social.children.EventsFragment;
 
-public class FilterFragment extends DialogFragment {
+public class EventFilterFragment extends DialogFragment {
 
     private RatingBar ratingBar;
     private SearchView searchView;
@@ -41,7 +40,9 @@ public class FilterFragment extends DialogFragment {
     ArrayAdapter<String> adapter;
 
     private List<String> countries = new ArrayList<>();
-    private Map<String, String> isoCodefromCountryName = new HashMap<>();
+    private Map<String, String> isoCodeFromCountryName = new HashMap<>();
+    private Map<String, String> countryNameFromIsoCode = new HashMap<>();
+
 
     private int importance = 0;
     private String country = "ALL";
@@ -55,13 +56,39 @@ public class FilterFragment extends DialogFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_filter, container, false);
 
+        for(String isoCountry: Locale.getISOCountries()) {
+            Locale locale = new Locale("en", isoCountry);
+            isoCodeFromCountryName.put(locale.getDisplayCountry(), isoCountry);
+            countries.add(locale.getDisplayCountry());
+            countryNameFromIsoCode.put(isoCountry, locale.getDisplayCountry());
+        }
+
+        EventsFragment eventsFragment = getEventsFragment();
+
+        EventFilterState currentState =(EventFilterState) ((FilterStateListener) eventsFragment).getState();
+        importance = currentState.getImportance();
+
+        Set<String> currentChosenCountries = new HashSet<>();
+
+        for(String countryCode: currentState.getCountryCodes()) {
+            currentChosenCountries.add(countryNameFromIsoCode.get(countryCode));
+        }
+
+        chosenCountries = currentChosenCountries;
+
+
         ratingBar = rootView.findViewById(R.id.filterFragment_ratingBar);
         ratingBar.setRating(importance);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                FilterFragment.this.importance = (int) rating;
-                Toast.makeText(getActivity(), "Importance: " + FilterFragment.this.importance, Toast.LENGTH_SHORT).show();
+                EventFilterFragment.this.importance = (int) rating;
+                if(importance == 0) {
+                    Toast.makeText(getActivity(), "Importance: All", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getActivity(), "Importance: " + EventFilterFragment.this.importance, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -92,17 +119,14 @@ public class FilterFragment extends DialogFragment {
                 }
 
                 adapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "" + chosenCountries.toString(), Toast.LENGTH_SHORT).show();
+                if(chosenCountries.isEmpty()) {
+                    Toast.makeText(getActivity(), "Countries: All", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "" + chosenCountries.toString(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
         button = rootView.findViewById(R.id.filterFragment_button);
-
-
-        for(String isoCountry: Locale.getISOCountries()) {
-            Locale locale = new Locale("en", isoCountry);
-            isoCodefromCountryName.put(locale.getDisplayCountry(), isoCountry);
-            countries.add(locale.getDisplayCountry());
-        }
 
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, countries) {
 
@@ -141,21 +165,30 @@ public class FilterFragment extends DialogFragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-                Fragment socialFragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
-                Fragment eventsFragment = socialFragment.getChildFragmentManager().getFragments().get(1);
+
+                EventsFragment eventsFragment = getEventsFragment();
+
                 Set<String> chosenCountryCodes = new HashSet<>();
 
                 for(String country: chosenCountries) {
-                    chosenCountryCodes.add(isoCodefromCountryName.get(country));
+                    chosenCountryCodes.add(isoCodeFromCountryName.get(country));
                 }
 
-                ((OnResultListener) eventsFragment).onResult(chosenCountryCodes, importance);
+                ((FilterStateListener) eventsFragment).updateState(new EventFilterState(importance, chosenCountryCodes));
+
+                //((OnResultListener) eventsFragment).onResult(chosenCountryCodes, importance);
                 dismiss();
             }
         });
 
 
         return rootView;
+    }
+
+    private EventsFragment getEventsFragment(){
+        NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        Fragment socialFragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+        EventsFragment eventsFragment = (EventsFragment) socialFragment.getChildFragmentManager().getFragments().get(1);
+        return eventsFragment;
     }
 }
