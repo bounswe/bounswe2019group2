@@ -8,5 +8,7 @@ public class CommentConstants {
     public static final String CONTENT = "content";
     public static final String AUTHOR = "user";
     public static final String ARTICLE_URL = "article";
+    public static final String EQUIPMENT_URL = "equipment";
+
 
 }
