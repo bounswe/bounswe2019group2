@@ -19,11 +19,21 @@ class Register extends Component {
     e.preventDefault();
     const { postUserRegister, form } = this.props;
     const { city, country } = this.state;
-    form.validateFields((err, values) => {
-      if (!err) {
-        postUserRegister({ ...values, city, country });
+    form.validateFields(
+      ['username', 'password', 'confirm', 'email', 'first_name', 'last_name'],
+
+      (errors, values) => {
+        if (!errors) {
+          postUserRegister({ ...values, city, country });
+        } else {
+          alert(
+            Object.values(
+              Object.values(Object.values(Object.values(errors)[0])[0])[0]
+            )[0]
+          );
+        }
       }
-    });
+    );
   };
 
   setCity = (city) => {
@@ -40,6 +50,28 @@ class Register extends Component {
         country
       });
     }
+  };
+
+  compareToFirstPassword = (rule, value, callback) => {
+    const { form } = this.props;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
+    }
+  };
+
+  validateToNextPassword = (rule, value, callback) => {
+    const { form } = this.props;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
+  };
+  handleCheckbox = (e) => {};
+  handleConfirmBlur = (e) => {
+    const { value } = e.target;
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
 
   render() {
@@ -75,10 +107,11 @@ class Register extends Component {
             <Form.Item>
               {getFieldDecorator('password', {
                 rules: [
-                  { required: true, message: 'Please input your Password!' }
+                  { required: true, message: 'Please input your Password!' },
+                  { validator: this.validateToNextPassword }
                 ]
               })(
-                <Input
+                <Input.Password
                   prefix={
                     <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
                   }
@@ -87,9 +120,36 @@ class Register extends Component {
                 />
               )}
             </Form.Item>
+            <Form.Item hasFeedback>
+              {getFieldDecorator('confirm', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please confirm your password!'
+                  },
+                  {
+                    validator: this.compareToFirstPassword
+                  }
+                ]
+              })(
+                <Input.Password
+                  placeholder="Confirm Password"
+                  onBlur={this.handleConfirmBlur}
+                />
+              )}
+            </Form.Item>
             <Form.Item>
               {getFieldDecorator('email', {
-                rules: [{ required: true, message: 'Please input your email!' }]
+                rules: [
+                  {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!'
+                  },
+                  {
+                    required: true,
+                    message: 'Please input your E-mail!'
+                  }
+                ]
               })(
                 <Input
                   prefix={
@@ -112,6 +172,7 @@ class Register extends Component {
                 ]
               })(<Input type="text" placeholder="Last Name" />)}
             </Form.Item>
+
             <Form.Item>
               {getFieldDecorator('iban', {
                 rules: [{ required: true, message: 'Please enter your IBAN!' }]
