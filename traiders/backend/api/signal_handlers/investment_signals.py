@@ -3,7 +3,7 @@ from django.dispatch.dispatcher import receiver
 from django.db.models.signals import pre_save
 from django.db import transaction
 from ..models import Asset, Parity, OnlineInvestment
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, PermissionDenied
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +15,9 @@ def online_investment_pre(sender, instance: OnlineInvestment, **kwargs):
     base_eq = instance.base_equipment
     target_eq = instance.target_equipment
     base_amount = instance.base_amount
+
+    if not user.email_verified:
+        raise PermissionDenied("Verify your e-mail account before making an online investment.")
 
     asset = Asset.objects.filter(user=user,
                                  equipment=base_eq).first()
