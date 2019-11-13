@@ -21,9 +21,22 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    const { id, getArticle, getArticleComments } = this.props;
+    const {
+      id,
+      getArticle,
+      getArticleComments,
+      getFollowings,
+      getFollowers,
+      user
+    } = this.props;
     getArticle(id);
     getArticleComments(id);
+    if (user) {
+      const array = user.user.url.split('/');
+      const userId = array[array.length - 2];
+      getFollowings(userId);
+      getFollowers(userId);
+    }
   }
 
   handleFollow = () => {
@@ -41,6 +54,18 @@ class Article extends Component {
     } else {
       history.push('/login');
     }
+  };
+
+  handleUnfollow = () => {
+    const { user, article, deleteFollowing, followings } = this.props;
+    const { author } = article;
+
+    const followDetails =
+      article &&
+      followings &&
+      followings.filter((element) => element.user_followed === author.url);
+
+    deleteFollowing(followDetails[0].id, user.key);
   };
 
   editArticle = () => {
@@ -79,11 +104,19 @@ class Article extends Component {
   };
 
   render() {
-    const { article, comments, user } = this.props;
+    const { article, comments, user, followings } = this.props;
     const { visible } = this.state;
 
-    const ownArticle =
-      user && article ? user.user.url === article.author.url : false;
+    const ownArticle = user && article && user.user.url === article.author.url;
+
+    const isFollowing =
+      article &&
+      followings &&
+      followings.filter(
+        (element) => element.user_followed === article.author.url
+      );
+
+    const following = isFollowing.length !== 0;
 
     return (
       <div>
@@ -100,9 +133,13 @@ class Article extends Component {
                 </div>
                 <div className="article-related">
                   {article.created_at.substring(0, 10)}
-                  <Button onClick={this.handleFollow} disabled={ownArticle}>
-                    Follow
-                  </Button>
+                  {!following ? (
+                    <Button onClick={this.handleFollow} disabled={ownArticle}>
+                      Follow
+                    </Button>
+                  ) : (
+                    <Button onClick={this.handleUnfollow}>Unfollow</Button>
+                  )}
                 </div>
               </div>
               {ownArticle && (

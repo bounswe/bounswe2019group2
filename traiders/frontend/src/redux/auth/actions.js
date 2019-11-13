@@ -1,5 +1,9 @@
 import { API } from '../apiConfig';
-import { PostWithUrlBody, GetWithUrl } from '../../common/http/httpUtil';
+import {
+  PostWithUrlBody,
+  GetWithUrl,
+  DeleteWithAuthorization
+} from '../../common/http/httpUtil';
 
 /* Action Types */
 
@@ -73,6 +77,7 @@ export const getFollowers = (id) => {
           response.json().then((res) => dispatch(saveFollowers(res)));
         }
       })
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while fetching followers\n', error));
   };
 };
@@ -86,8 +91,24 @@ export const getFollowings = (id) => {
         }
       })
       .catch((error) =>
+        // eslint-disable-next-line no-console
         console.log('Error while fetching followings\n', error)
       );
+  };
+};
+
+export const deleteFollowing = (id, token) => {
+  const url = `${API}/following/${id}/`;
+  return () => {
+    DeleteWithAuthorization(url, token)
+      .then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line no-console
+          response.json().then((res) => console.log(res));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while unfollowing\n', error));
   };
 };
 
