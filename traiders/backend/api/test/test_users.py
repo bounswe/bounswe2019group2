@@ -57,7 +57,7 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         # test if created
         del data['password']  # dont check equality of password because it is hashed
-        data['country'] = 'GB' # filter works only with code
+        data['country'] = 'GB'  # filter works only with code
         self.assertEqual(User.objects.filter(**data).count(), 1)
         # test password separately
         self.assertTrue(User.objects.get(**data).check_password(password))
