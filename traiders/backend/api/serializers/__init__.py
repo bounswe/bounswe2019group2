@@ -9,3 +9,4 @@ from .comment import ArticleCommentSerializer, EquipmentCommentSerializer
 from .event import EventSerializer
 from .prediction import PredictionSerializer
 from .investment import ManualInvestmentSerializer, AssetSerializer, OnlineInvestmentSerializer
+from .order import BuyOrderSerializer, StopLossOrderSerializer

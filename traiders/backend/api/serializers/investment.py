@@ -6,6 +6,7 @@ from ..serializers import *
 class ManualInvestmentSerializer(serializers.HyperlinkedModelSerializer):
     base_equipment = serializers.CharField()
     target_equipment = serializers.CharField()
+    user = UserSerializer(read_only=True)
 
     def _get_equipment_or_raise(self, symbol):
         eq = Equipment.objects.filter(symbol=symbol).first()
@@ -34,6 +35,7 @@ class OnlineInvestmentSerializer(serializers.HyperlinkedModelSerializer):
     target_amount = serializers.DecimalField(read_only=True,
                                              max_digits=15,
                                              decimal_places=3)
+    user = UserSerializer(read_only=True)
 
     def _get_equipment_or_raise(self, symbol):
         eq = Equipment.objects.filter(symbol=symbol).first()

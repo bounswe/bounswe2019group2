@@ -22,6 +22,9 @@ router.register(r'prediction', PredictionViewSet, basename='prediction')
 router.register(r'manualinvestment', ManualInvestmentViewSet, basename='manualinvestment')
 router.register(r'asset', AssetViewSet, basename='asset')
 router.register(r'onlineinvestment', OnlineInvestmentViewSet, basename='onlineinvestment')
+router.register(r'buyorder', BuyOrderViewSet, basename='buyorder')
+router.register(r'stoplossorder', StopLossOrderViewSet, basename='stoplossorder')
+
 
 urlpatterns = [
     # documentation views
