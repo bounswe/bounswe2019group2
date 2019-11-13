@@ -12,3 +12,4 @@ class User(AbstractUser):
     city = models.CharField(max_length=64, blank=False)
     country = CountryField(default="TR")
     is_private = models.BooleanField(default=False)
+    avatar = models.IntegerField(blank=True, default=1, choices=[(i, i) for i in range(1, 21)])

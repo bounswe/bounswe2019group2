@@ -1,5 +1,5 @@
 from .equipment import Equipment
-from .investment import ManualInvestment
+from .investment import ManualInvestment, Asset, OnlineInvestment
 from .parity import Parity
 from .users import User
 from .article import Article

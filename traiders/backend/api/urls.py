@@ -19,6 +19,9 @@ router.register(r'comments/article', ArticleCommentViewSet, basename='articlecom
 router.register(r'comments/equipment', EquipmentCommentViewSet, basename='equipmentcomment')
 router.register(r'events', EventViewSet, basename='event')
 router.register(r'prediction', PredictionViewSet, basename='prediction')
+router.register(r'manualinvestment', ManualInvestmentViewSet, basename='manualinvestment')
+router.register(r'asset', AssetViewSet, basename='asset')
+router.register(r'onlineinvestment', OnlineInvestmentViewSet, basename='onlineinvestment')
 
 urlpatterns = [
     # documentation views
