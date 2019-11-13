@@ -34,6 +34,9 @@ class AddComment extends Component {
   handleSubmit = () => {
     const { content, image } = this.state;
     const { user } = this.props;
+    if (!user) {
+      history.push('/login');
+    }
     // eslint-disable-next-line
     const mainArticle = this.props.article;
     const token = user.key;
@@ -68,11 +71,6 @@ class AddComment extends Component {
   };
 
   render() {
-    const { user } = this.props;
-    if (!user) {
-      history.push('/login');
-    }
-
     return (
       <div className="add-comment-container">
         <div className="add-comment-header">
