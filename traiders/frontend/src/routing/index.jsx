@@ -12,6 +12,7 @@ import Social from '../modules/social/Social';
 import bomUtil from '../common/utils/bomUtil';
 import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
 import EditArticle from '../modules/articleModule/EditArticleModule';
+import Investments from '../modules/investments/InvestmentsModule';
 
 const ACTION_TYPE = {
   PUSH: 'PUSH',
@@ -61,6 +62,7 @@ class Routes extends Component {
           <Route path="/article/edit/:id" component={EditArticle} />
           <Route path="/create-article" component={NewArticle} />
           <Route path="/social" component={Social} />
+          <Route path="/investments" component={Investments} />
           <Route render={() => <h1>404 Page not found</h1>} />
         </Switch>
       </Suspense>
