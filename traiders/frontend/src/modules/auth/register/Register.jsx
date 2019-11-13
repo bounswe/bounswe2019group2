@@ -19,13 +19,15 @@ class Register extends Component {
     e.preventDefault();
     const { postUserRegister, form } = this.props;
     const { city, country } = this.state;
+
     form.validateFields(
-      ['username', 'password', 'confirm', 'email', 'first_name', 'last_name'],
+      ['username', 'password', 'email', 'first_name', 'last_name'],
 
       (errors, values) => {
         if (!errors) {
           postUserRegister({ ...values, city, country });
         } else {
+          // eslint-disable-next-line
           alert(
             Object.values(
               Object.values(Object.values(Object.values(errors)[0])[0])[0]
@@ -52,27 +54,18 @@ class Register extends Component {
     }
   };
 
-  compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
-    } else {
-      callback();
+  validatePasswordRegex = (rule, value, callback) => {
+    const reg = /^[A-Za-z0-9]{7,14}$/;
+    const test = reg.test(value);
+
+    if (!test) {
+      callback(
+        "Password should be between 8-15 characters and include a big letter 'A - Z' and a number between 0-9"
+      );
     }
   };
 
-  validateToNextPassword = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
-    }
-    callback();
-  };
-  handleCheckbox = (e) => {};
-  handleConfirmBlur = (e) => {
-    const { value } = e.target;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  };
+  // handleCheckbox = (e) => {};
 
   render() {
     const { form } = this.props;
@@ -106,9 +99,14 @@ class Register extends Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
+                validateTrigger: 'onChange',
                 rules: [
-                  { required: true, message: 'Please input your Password!' },
-                  { validator: this.validateToNextPassword }
+                  {
+                    required: false,
+                    message:
+                      "Password should be between 8-15 characters and include a big letter 'A - Z' and a number between 0-9!"
+                  }
+                  // { validator: this.validatePasswordRegex }
                 ]
               })(
                 <Input.Password
@@ -117,27 +115,12 @@ class Register extends Component {
                   }
                   type="password"
                   placeholder="Password"
+                  min={8}
+                  max={15}
                 />
               )}
             </Form.Item>
-            <Form.Item hasFeedback>
-              {getFieldDecorator('confirm', {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please confirm your password!'
-                  },
-                  {
-                    validator: this.compareToFirstPassword
-                  }
-                ]
-              })(
-                <Input.Password
-                  placeholder="Confirm Password"
-                  onBlur={this.handleConfirmBlur}
-                />
-              )}
-            </Form.Item>
+
             <Form.Item>
               {getFieldDecorator('email', {
                 rules: [
