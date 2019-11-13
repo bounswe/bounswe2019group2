@@ -11,14 +11,15 @@ options = Countries()
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     country = CountryField(country_dict=True)
 
-    def validate_country(self, country):
-        if options.by_name(country) != "":
-            return country
+    def validate_country(self, code_or_name):
+        if options.name(code_or_name):  # given string is code
+            return code_or_name
+
+        code = options.by_name(code_or_name)
+        if code:
+            return code
         else:
-            name = options.name(country)
-            if country == "":
-                raise serializers.ValidationError('{} is not a valid country'.format(country))
-            return name
+            raise serializers.ValidationError(f'{code_or_name} is not a valid country name or code')
 
     @staticmethod
     def validate_password(password):
