@@ -40,4 +40,3 @@ class BuyOrderSerializer(OrderSerializerBase):
         fields = ["url", "id", "user", "base_equipment", "target_equipment",
                   "date", "buy_ratio", "buy_amount"]
         read_only_fields = ["user"]
-

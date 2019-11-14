@@ -25,7 +25,7 @@ class OrderBase(models.Model):
 
 
 def deadline_time():
-        return datetime.datetime.now() + datetime.timedelta(days=1)
+    return datetime.datetime.now() + datetime.timedelta(days=1)
 
 
 class BuyOrder(OrderBase):
