@@ -44,6 +44,7 @@ class OnlineInvestmentViewSet(mixins.ListModelMixin,
 
 class AssetViewSet(mixins.ListModelMixin,
                    mixins.RetrieveModelMixin,
+                   mixins.CreateModelMixin,
                    GenericViewSet):
     """
     View assets

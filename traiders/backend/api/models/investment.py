@@ -44,8 +44,7 @@ class OnlineInvestment(InvestmentBase):
     target_amount = models.DecimalField("Amount bought from target equipment",
                                         max_digits=15,
                                         decimal_places=3,
-                                        blank=True,
-                                        null=True)
+                                        blank=True)
 
 
 class Asset(models.Model):
