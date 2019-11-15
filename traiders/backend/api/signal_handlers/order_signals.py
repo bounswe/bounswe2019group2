@@ -1,9 +1,8 @@
 import logging
 from django.dispatch.dispatcher import receiver
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save
 from django.db import transaction
 from ..models import BuyOrder, Parity, StopLossOrder, Asset
-from rest_framework.exceptions import ValidationError, PermissionDenied
 
 logger = logging.getLogger(__name__)
 

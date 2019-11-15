@@ -24,18 +24,10 @@ class OrderBase(models.Model):
         abstract = True
 
 
-def deadline_time():
-    return datetime.datetime.now() + datetime.timedelta(days=1)
-
-
 class BuyOrder(OrderBase):
 
     buy_ratio = models.DecimalField(max_digits=16, decimal_places=4, blank=False)
     buy_amount = models.DecimalField(max_digits=15, decimal_places=3, blank=False)
-
-    deadline = models.DateTimeField("Time of the given order",
-                                    blank=True,
-                                    default=deadline_time)
 
 
 class StopLossOrder(OrderBase):
