@@ -26,7 +26,6 @@ class ParityPage extends Component {
     });
     const { getOneParity } = this.props;
     getOneParity(target, base);
-    console.log(this.props.oneParity);
   }
 
   handler = (len) => {
