@@ -2,7 +2,7 @@ import logging
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 from django.db import transaction
-from ..models import BuyOrder, Parity, StopLossOrder, Asset
+from ..models import BuyOrder, Parity, StopLossOrder, Asset, OnlineInvestment
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +39,12 @@ def handle_orders(sender, instance: Parity, created, **kwargs):
                                                     amount=target_amount,
                                                     user=user)
                 target_asset.save()
+            investment = OnlineInvestment.objects.create(base_equipment=base_eq,
+                                                         user=user,
+                                                         target_equipment=target_eq,
+                                                         base_amount=buy_amount,
+                                                         target_amount=target_amount)
+            investment.save()
             order.delete()
 
     for order in stoploss_orders:
@@ -58,4 +64,11 @@ def handle_orders(sender, instance: Parity, created, **kwargs):
                                                     amount=target_amount,
                                                     user=user)
                 target_asset.save()
+
+            investment = OnlineInvestment.objects.create(base_equipment=base_eq,
+                                                         target_equipment=target_eq,
+                                                         user=user,
+                                                         base_amount=sell_amount,
+                                                         target_amount=target_amount)
+            investment.save()
             order.delete()
