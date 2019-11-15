@@ -20,13 +20,16 @@
       }
 
       .article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         height: 120px;
-        width: 330px;
+        width: 400px;
         overflow: hidden;
 
         .article-title {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
           font-size: 14px;
 
@@ -57,5 +60,10 @@
         }
       }
     }
+  }
+
+  .create-article {
+    display: flex;
+    justify-content: space-between;
   }
 }

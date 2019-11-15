@@ -10,13 +10,13 @@ const CurrencyInfo = (props) => {
   return (
     <div className="currency-container">
       <div className="currency-name">{fullName}</div>
-      <div className="currency-price">{price}</div>
+      <div className="currency-price">{price.toFixed(4)}</div>
       <div className="currency-change-container">
         <div className={`currency-change-arrow ${changeType}`}>
           <Icon type={changeType} />
         </div>
         <div className={`currency-change-amount ${changeType}`}>
-          %{changeRate}
+          %{changeRate.toFixed(4)}
         </div>
       </div>
     </div>

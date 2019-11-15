@@ -12,12 +12,11 @@
     vertical-align: middle;
   }
 
-  .comment-image {
-    width: 65px;
-    height: 65px;
-    display: inline-block;
-    vertical-align: middle;
-    border-radius: 50%;
+  .image {
+    width: 200px;
+    height: 200px;
+    align-self: center;
+    object-fit: fill;
   }
 
   .comment-content {

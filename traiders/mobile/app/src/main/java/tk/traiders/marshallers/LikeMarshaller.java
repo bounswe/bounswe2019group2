@@ -7,12 +7,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import tk.traiders.constants.ArticleConstants;
 import tk.traiders.constants.LikeConstants;
-import tk.traiders.models.Article;
 import tk.traiders.models.Like;
-import tk.traiders.models.User;
-import tk.traiders.utils.DateUtils;
 
 public class LikeMarshaller {
 

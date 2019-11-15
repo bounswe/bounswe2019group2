@@ -42,6 +42,8 @@ public abstract class ListFragment extends Fragment {
     private ProgressBar progressBar_loading;
     private ImageView imageView_error;
     private TextView textView_error;
+    private ImageView imageView_noData;
+    private TextView textView_noData;
 
     @Nullable
     @Override
@@ -52,10 +54,14 @@ public abstract class ListFragment extends Fragment {
         progressBar_loading = rootView.findViewById(R.id.progressBar_loading);
         imageView_error = rootView.findViewById(R.id.imageView_error);
         textView_error = rootView.findViewById(R.id.textView_error);
+        imageView_noData = rootView.findViewById(R.id.imageView_noData);
+        textView_noData = rootView.findViewById(R.id.textView_noData);
 
         progressBar_loading.setVisibility(View.VISIBLE);
         imageView_error.setVisibility(View.GONE);
         textView_error.setVisibility(View.GONE);
+        imageView_noData.setVisibility(View.GONE);
+        textView_noData.setVisibility(View.GONE);
 
         recyclerView = rootView.findViewById(R.id.recylerView);
 
@@ -78,7 +84,7 @@ public abstract class ListFragment extends Fragment {
         return rootView;
     }
 
-    private void fetchData() {
+    protected void fetchData() {
 
         StringRequest request = new StringRequest(Request.Method.GET, getURL(), new Response.Listener<String>() {
 
@@ -91,8 +97,16 @@ public abstract class ListFragment extends Fragment {
                 imageView_error.setVisibility(View.GONE);
                 progressBar_loading.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-                recyclerView.setVisibility(View.VISIBLE);
                 recyclerView.setAdapter(getAdapter(UTF8_response));
+                if(recyclerView.getAdapter().getItemCount() == 0) {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    imageView_noData.setVisibility(View.VISIBLE);
+                    textView_noData.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    imageView_noData.setVisibility(View.GONE);
+                    textView_noData.setVisibility(View.GONE);
+                }
 
             }
 
@@ -103,6 +117,58 @@ public abstract class ListFragment extends Fragment {
                 progressBar_loading.setVisibility(View.GONE);
                 imageView_error.setVisibility(View.VISIBLE);
                 textView_error.setVisibility(View.VISIBLE);
+                imageView_noData.setVisibility(View.GONE);
+                textView_noData.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = MainActivity.getAuthorizationHeader(getActivity());
+                return headers != null ? headers : super.getHeaders();
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+    protected void fetchDataWithFilters(String filterURL) {
+
+        StringRequest request = new StringRequest(Request.Method.GET, filterURL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                String UTF8_response = MarshallerUtils.convertToUTF8(response);
+
+                textView_error.setVisibility(View.GONE);
+                imageView_error.setVisibility(View.GONE);
+                progressBar_loading.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+                recyclerView.setAdapter(getAdapter(UTF8_response));
+                if(recyclerView.getAdapter().getItemCount() == 0) {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    imageView_noData.setVisibility(View.VISIBLE);
+                    textView_noData.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    imageView_noData.setVisibility(View.GONE);
+                    textView_noData.setVisibility(View.GONE);
+                }
+
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar_loading.setVisibility(View.GONE);
+                imageView_error.setVisibility(View.VISIBLE);
+                textView_error.setVisibility(View.VISIBLE);
+                imageView_noData.setVisibility(View.GONE);
+                textView_noData.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
             }

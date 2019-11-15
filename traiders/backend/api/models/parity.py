@@ -14,10 +14,10 @@ class Parity(models.Model):
                                          blank=False,
                                          related_name='+')
 
-    ratio = models.DecimalField("Ratio of target equipment to base equipment",
-                                max_digits=8,
-                                decimal_places=4,
-                                blank=False)
+    open = models.DecimalField(max_digits=16, decimal_places=4, blank=False)
+    close = models.DecimalField(max_digits=16, decimal_places=4, blank=False)
+    high = models.DecimalField(max_digits=16, decimal_places=4, blank=False)
+    low = models.DecimalField(max_digits=16, decimal_places=4, blank=False)
 
     date = models.DateTimeField("Date of the observed Parity",
                                 blank=True,
@@ -25,3 +25,6 @@ class Parity(models.Model):
 
     def __str__(self):
         return "/".join([self.base_equipment.symbol, self.target_equipment.symbol, str(self.date)])
+
+    class Meta:
+        ordering = ['-date']  # newest parity comes first

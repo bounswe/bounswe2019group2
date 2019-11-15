@@ -5,10 +5,10 @@ import UserHeader from '../userHeader/UserHeader';
 import './user-profile.scss';
 
 const UserProfile = (props) => {
-  const datas = props;
+  const { user } = props;
   return (
     <Page>
-      <UserHeader data={datas.user} />
+      <UserHeader data={user} />
     </Page>
   );
 };

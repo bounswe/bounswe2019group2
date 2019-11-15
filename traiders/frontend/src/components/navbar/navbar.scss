@@ -8,6 +8,14 @@
 
     padding-right: 100px;
 
+    .logo {
+      align-items: center;
+      padding: 7px 14px;
+      margin-right: auto;
+      justify-content: flex-start;
+      justify-self: start;
+    }
+
     .ant-menu {
       background-color: #85bb65;
     }

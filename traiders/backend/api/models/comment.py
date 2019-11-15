@@ -8,6 +8,7 @@ class CommentBase(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     content = models.TextField(blank=True, max_length=400)
     image = models.ImageField(blank=True)
+    liked_by = models.ManyToManyField(User, related_name='+')
 
     class Meta:
         abstract = True  # django wont create any table for this model

@@ -1,0 +1,31 @@
+.add-comment-container {
+  background-color: #001529;
+
+  .add-comment-header {
+    font-family: auto;
+    text-align: center;
+    color: white;
+  }
+
+  .header {
+    color: white;
+  }
+
+  .submit-button {
+    float: right;
+    size: 20px;
+    background-color: #001529;
+  }
+
+  .image-container {
+    width: 100px;
+    font-size: smaller;
+    color: #e1dcf5;
+    height: min-content;
+    background-color: #001529;
+  }
+
+  .file-input {
+    size: 25px;
+  }
+}

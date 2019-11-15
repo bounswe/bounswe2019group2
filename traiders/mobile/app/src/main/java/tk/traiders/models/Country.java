@@ -1,0 +1,40 @@
+package tk.traiders.models;
+
+import java.io.Serializable;
+
+public class Country implements Serializable {
+
+    String name;
+    String code;
+
+    public Country(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Country setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Country setCode(String code) {
+        this.code = code;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
+}
