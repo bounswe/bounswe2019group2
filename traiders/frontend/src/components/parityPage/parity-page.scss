@@ -2,10 +2,16 @@
   display: flex;
   flex-direction: column;
   width: 600px;
+
   .up {
     align-items: center;
+    justify-content: center;
+    align-content: center;
   }
+
   .down {
+    display: flex;
+    flex-direction: row;
     width: 100%;
   }
 }

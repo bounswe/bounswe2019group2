@@ -56,7 +56,7 @@ export const getParities = () => {
 export const getOneParity = (base, target) => {
   return (dispatch) => {
     GetWithUrl(
-      `${API}/parity/?base_equipment=${base}&target_eqiupment=${target}`
+      `${API}/parity/?base_equipment=${base}&target_equipment=${target}`
     )
       .then((response) => response.json())
       .then((response) => dispatch(saveOneParity(response)))

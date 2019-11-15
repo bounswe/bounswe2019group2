@@ -1,3 +1,4 @@
+/* eslint-disable */
 const React = require('react');
 let CanvasJS = require('./canvasjs.min');
 

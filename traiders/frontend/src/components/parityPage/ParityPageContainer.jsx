@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 
-import ParityChart from './ParityChart';
+import ParityPage from './ParityPage';
 import { getOneParity } from '../../redux/parities/actions';
 
 const mapStateToProps = (state) => {
   return {
-    oneParity: state.parity.oneParity
+    oneParity: state.parity.oneParity,
+    user: state.user.currentUser
   };
 };
 
@@ -16,4 +17,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ParityChart);
+)(ParityPage);
