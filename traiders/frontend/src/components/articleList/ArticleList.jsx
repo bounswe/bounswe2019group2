@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'antd';
 
 import './article-list.scss';
 import ArticleRow from './ArticleRow';
@@ -10,14 +11,29 @@ class ArticleList extends Component {
     getArticles();
   }
 
+  handleClick = () => {
+    history.push('/create-article');
+  };
+
   render() {
-    const { articleList } = this.props;
+    const { articleList, limit } = this.props;
+    let filteredList = articleList.filter((article) => article.image);
+
+    if (limit) {
+      filteredList = filteredList.slice(0, 4);
+    }
 
     return (
       <div className="article-list-container">
-        {articleList.map((article) => (
+        {filteredList.map((article) => (
           <ArticleRow article={article} history={history} key={article.id} />
         ))}
+        <div className="create-article">
+          Would you like to share your knowledge with others?
+          <Button onClick={this.handleClick} type="primary">
+            Create Article
+          </Button>
+        </div>
       </div>
     );
   }
