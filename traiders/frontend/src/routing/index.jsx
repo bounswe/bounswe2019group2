@@ -12,6 +12,7 @@ import Social from '../modules/social/Social';
 import bomUtil from '../common/utils/bomUtil';
 import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
 import EditArticle from '../modules/articleModule/EditArticleModule';
+import EquipmentPage from '../components/equipmentPage/EquipmentPage';
 
 const ACTION_TYPE = {
   PUSH: 'PUSH',
@@ -58,6 +59,7 @@ class Routes extends Component {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/articles/:id" component={Article} />
+          <Route path="/equipment/:base" component={EquipmentPage} />
           <Route path="/article/edit/:id" component={EditArticle} />
           <Route path="/create-article" component={NewArticle} />
           <Route path="/social" component={Social} />
