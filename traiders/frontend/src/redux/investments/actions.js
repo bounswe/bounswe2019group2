@@ -29,8 +29,9 @@ export const getInvestments = (id) => {
     GetWithAuthorization(`${API}/investment/?id=${id}`)
       .then((response) => response.json())
       .then((response) => dispatch(saveInvestmentList(response)))
-      // eslint-disable-next-line no-console
+
       .catch((error) =>
+        // eslint-disable-next-line no-console
         console.log('Error while fetching investments\n', error)
       );
   };

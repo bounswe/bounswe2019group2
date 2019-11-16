@@ -2,7 +2,7 @@ import React from 'react';
 
 import './add-investment.scss';
 
-const AddInvestment = (props) => {
+const AddInvestment = () => {
   return (
     <div>
       <div>Hello World</div>

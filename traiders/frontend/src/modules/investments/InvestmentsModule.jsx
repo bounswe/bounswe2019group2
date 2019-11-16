@@ -5,7 +5,7 @@ import Page from '../../components/page/Page';
 import MyInvestments from '../../components/myInvestments/MyInvestmentsContainer';
 import AddInvestment from '../../components/addInvestment/AddInvestmentContainer';
 
-const InvestmentsModule = (props) => {
+const InvestmentsModule = () => {
   return (
     <Page>
       <div className="investments-container">
