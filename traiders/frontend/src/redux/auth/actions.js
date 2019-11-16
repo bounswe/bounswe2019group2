@@ -115,8 +115,15 @@ export const deleteFollowing = (id, token) => {
 export const postUserRegister = (body) => {
   return () => {
     PostWithUrlBody(`${API}/users/`, body)
-      // eslint-disable-next-line
-      .then(alert('Successfully registered'))
+      .then((response) => {
+        if (!response.ok) {
+          // eslint-disable-next-line
+          response.text().then((text) => alert(text));
+        } else {
+          // eslint-disable-next-line
+          response.json().then((res) => alert(res.type, res.message));
+        }
+      })
 
       .catch((error) =>
         // eslint-disable-next-line no-console
