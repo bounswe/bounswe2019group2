@@ -46,7 +46,9 @@ class ParityPage extends Component {
       direction: pred
     };
     PostWithAuthorization(url, body, token)
+      // eslint-disable-next-line no-console
       .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('Smt wrong \n', error));
   };
 
