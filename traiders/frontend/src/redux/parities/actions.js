@@ -5,9 +5,11 @@ import { GetWithUrl } from '../../common/http/httpUtil';
 
 const SAVE_PARITY_LIST = 'SAVE_PARITY_LIST';
 const SAVE_CURRENCY_LIST = 'SAVE_CURRENCY_LIST';
+const SAVE_ONE_PARITY = 'SAVE_ONE_PARITY';
 
 export const actionTypes = {
   SAVE_PARITY_LIST,
+  SAVE_ONE_PARITY,
   SAVE_CURRENCY_LIST
 };
 
@@ -26,9 +28,16 @@ function saveParityList(parityList) {
     payload: parityList
   };
 }
+function saveOneParity(oneParity) {
+  return {
+    type: SAVE_ONE_PARITY,
+    payload: oneParity
+  };
+}
 
 export const actionCreator = {
   saveParityList,
+  saveOneParity,
   saveCurrencyList
 };
 
@@ -39,6 +48,18 @@ export const getParities = () => {
     GetWithUrl(`${API}/parity/latest/`)
       .then((response) => response.json())
       .then((response) => dispatch(saveParityList(response)))
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching parities\n', error));
+  };
+};
+
+export const getOneParity = (base, target) => {
+  return (dispatch) => {
+    GetWithUrl(
+      `${API}/parity/?base_equipment=${base}&target_equipment=${target}`
+    )
+      .then((response) => response.json())
+      .then((response) => dispatch(saveOneParity(response)))
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while fetching parities\n', error));
   };

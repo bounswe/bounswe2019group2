@@ -116,7 +116,7 @@ class Article extends Component {
         (element) => element.user_followed === article.author.url
       );
 
-    const following = isFollowing.length !== 0;
+    const following = isFollowing ? isFollowing.length !== 0 : false;
 
     return (
       <div>

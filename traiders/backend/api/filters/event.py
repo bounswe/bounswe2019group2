@@ -9,9 +9,9 @@ class EventFilterSet(filters.FilterSet):
     importance = filters.MultipleChoiceFilter(field_name="importance",
                                               label="filter by importance",
                                               choices=[(i, i) for i in range(1, 4)])
-    country = filters.ChoiceFilter(field_name="country",
-                                   label="filter by country",
-                                   choices=Countries())
+    country = filters.MultipleChoiceFilter(field_name="country",
+                                           label="filter by country",
+                                           choices=Countries())
 
     class Meta:
         model = Event
