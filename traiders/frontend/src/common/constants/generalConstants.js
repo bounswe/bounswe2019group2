@@ -12,7 +12,7 @@ export const navbarOptions = [
   },
   {
     name: 'INVESTMENTS',
-    url: '/',
+    url: '/investments',
     id: 3
   },
   {
