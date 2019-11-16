@@ -9,7 +9,7 @@ import {
 } from '../../common/http/httpUtil';
 import history from '../../common/history';
 
-import Comment from '../comment/Comment';
+import Comment from '../comment/CommentContainer';
 import AddComment from '../addComment/AddCommentContainer';
 
 class Article extends Component {
@@ -164,6 +164,10 @@ class Article extends Component {
             <pre className="article-content">{article.content}</pre>
             <div className="written-by" />
             <div className="article-comment">
+              <div className="comment-header-div">
+                <h2 className="comment-header">COMMENTS</h2>
+              </div>
+
               {comments &&
                 comments.map((comment) => (
                   <Comment
@@ -171,7 +175,9 @@ class Article extends Component {
                     content={comment.content}
                     createdAt={comment.created_at.substring(0, 10)}
                     image={comment.image}
-                    key={comment.id}
+                    commentId={comment.id}
+                    articleId={comment.article}
+                    authorURL={comment.user.url}
                   />
                 ))}
             </div>
