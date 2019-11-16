@@ -17,7 +17,7 @@ export const navbarOptions = [
   },
   {
     name: 'PORTFOLIO',
-    url: '/',
+    url: '/portfolio',
     id: 4
   }
 ];
