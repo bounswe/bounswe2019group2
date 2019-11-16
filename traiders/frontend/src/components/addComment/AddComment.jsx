@@ -68,11 +68,6 @@ class AddComment extends Component {
   };
 
   render() {
-    const { user } = this.props;
-    if (!user) {
-      history.push('/login');
-    }
-
     return (
       <div className="add-comment-container">
         <div className="add-comment-header">
