@@ -1,42 +1,20 @@
 .comment-container {
-  width: 35%;
-  height: 100%;
+  border-top-style: double;
+  border-bottom-style: double;
 
-  margin: 0 auto;
-  padding: 10px;
-
-  .comment-author {
-    width: 65px;
-    height: 65px;
-    display: inline-block;
-    vertical-align: middle;
+  .own-part {
+    margin-left: 200px;
   }
 
-  .image {
-    width: 200px;
-    height: 200px;
-    align-self: center;
-    object-fit: fill;
+  .button-style {
+    padding: 2px 2px;
   }
 
-  .comment-content {
-    display: inline-block;
-    vertical-align: middle;
-
-    width: calc(100% - 75px);
-    min-height: 65px;
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-    color: #555;
-    background-color: white;
-    border-bottom: 2px solid lighten(grey, 15%);
+  .icon-style {
+    padding: 1px 1px;
   }
 
-  .comment-datetime {
-    display: inline-block;
-    vertical-align: middle;
-    width: 70%;
-    text-align: left;
+  .alert-container {
+    font-size: smaller;
   }
 }
