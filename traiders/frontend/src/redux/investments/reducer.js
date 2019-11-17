@@ -1,7 +1,8 @@
 import { actionTypes } from './actions';
 
 const initialState = {
-  investments: null
+  investments: null,
+  assets: null
 };
 
 function investmentReducer(state = initialState, action) {
@@ -11,7 +12,11 @@ function investmentReducer(state = initialState, action) {
         ...state,
         investments: action.payload
       };
-
+    case actionTypes.SAVE_ASSETS_LIST:
+      return {
+        ...state,
+        assets: action.payload
+      };
     default:
       return state;
   }
