@@ -72,8 +72,8 @@
         android:id="@+id/activityViewEquipment_textView_noComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
         android:text="There is no comment yet, make one!"
         android:visibility="gone"
@@ -86,6 +86,7 @@
         android:id="@+id/recylerView_commentListEquipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,13 +97,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="8dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/recylerView_commentListEquipment">
 
         <EditText

@@ -188,7 +188,8 @@ public class EventFilterFragment extends DialogFragment {
     private EventsFragment getEventsFragment(){
         NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         Fragment socialFragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
-        EventsFragment eventsFragment = (EventsFragment) socialFragment.getChildFragmentManager().getFragments().get(1);
+        //android:switcher:2131231042:1
+        EventsFragment eventsFragment = (EventsFragment) socialFragment.getChildFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewPager_social + ":" + 1);
         return eventsFragment;
     }
 }

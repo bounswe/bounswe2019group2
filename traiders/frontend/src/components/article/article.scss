@@ -88,4 +88,15 @@
     color: rgba(0, 0, 0, 0.84);
     font-weight: 400;
   }
+
+  .comment-header-div {
+    background-color: #001529;
+
+    .comment-header {
+      color: white;
+      font-family: medium-content-serif-font, Georgia, Cambria,
+        'Times New Roman', Times, serif;
+      text-align: center;
+    }
+  }
 }

@@ -11,6 +11,7 @@ import NewArticle from '../modules/newArticle/NewArticle';
 import Social from '../modules/social/Social';
 import bomUtil from '../common/utils/bomUtil';
 import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
+import ParityPage from '../components/parityPage/ParityPageContainer';
 import EditArticle from '../modules/articleModule/EditArticleModule';
 import EquipmentPage from '../components/equipmentPage/EquipmentPage';
 
@@ -58,6 +59,7 @@ class Routes extends Component {
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/parity/:target/:base" component={ParityPage} />
           <Route path="/articles/:id" component={Article} />
           <Route path="/equipment/:base" component={EquipmentPage} />
           <Route path="/article/edit/:id" component={EditArticle} />
