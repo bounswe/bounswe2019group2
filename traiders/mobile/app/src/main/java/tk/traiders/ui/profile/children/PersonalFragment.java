@@ -1,5 +1,6 @@
 package tk.traiders.ui.profile.children;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 
 import tk.traiders.MainActivity;
 import tk.traiders.R;
+import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
 
 public class PersonalFragment extends Fragment {
@@ -44,6 +47,8 @@ public class PersonalFragment extends Fragment {
     private TextView textView_username;
     private TextView textView_iban;
     private LinearLayout linearLayout_iban;
+    private ImageView imageView_addPhotoProfile;
+    private String URL;
 
     @Nullable
     @Override
@@ -57,11 +62,20 @@ public class PersonalFragment extends Fragment {
         textView_username = rootView.findViewById(R.id.personal_textView_username);
         textView_iban = rootView.findViewById(R.id.personal_textView_iban);
         linearLayout_iban = rootView.findViewById(R.id.personal_linearLayout_iban);
+        imageView_addPhotoProfile = rootView.findViewById(R.id.imageView_addPhotoProfile);
+
+        URL = MainActivity.getUserURL(getActivity());
+
+        imageView_addPhotoProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ChooseAvatarActivity.class).putExtra("userUrl", URL));
+            }
+        });
 
 
         RequestQueue queue = Volley.newRequestQueue(getParentFragment().getActivity());
 
-        String URL = MainActivity.getUserURL(getActivity());
 
         if(URL == null) {
             Toast.makeText(getActivity(), "Please log in to see this page!", Toast.LENGTH_SHORT).show();

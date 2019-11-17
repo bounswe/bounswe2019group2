@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".components.equipment.ViewEquipmentActivity"></activity>
+        <activity android:name=".ui.profile.avatars.ChooseAvatarActivity" android:label="Choose Avatar"></activity>
+        <activity android:name=".components.equipment.ViewEquipmentActivity" />
         <activity
             android:name=".components.article.ViewArticleActivity"
             android:label="Article" />
