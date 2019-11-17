@@ -12,7 +12,7 @@ export const navbarOptions = [
   },
   {
     name: 'INVESTMENTS',
-    url: '/',
+    url: '/investments',
     id: 3
   },
   {
@@ -54,3 +54,5 @@ export const eventsTableColumns = [
     key: 'actual'
   }
 ];
+
+export const assetsTableConstants = [];
