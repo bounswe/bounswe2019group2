@@ -54,3 +54,5 @@ export const eventsTableColumns = [
     key: 'actual'
   }
 ];
+
+export const assetsTableConstants = [];

@@ -10,7 +10,7 @@ const InvestmentsModule = () => {
   return (
     <Page>
       <div className="investments-page-container">
-        <div clasName="assets-container">
+        <div className="assets-container">
           <Assets />
         </div>
         <div className="investment-container">
