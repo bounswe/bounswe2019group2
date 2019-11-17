@@ -2,7 +2,8 @@ import { actionTypes } from './actions';
 
 const initialState = {
   investments: null,
-  assets: null
+  assets: null,
+  currencyList: null
 };
 
 function investmentReducer(state = initialState, action) {
@@ -16,6 +17,11 @@ function investmentReducer(state = initialState, action) {
       return {
         ...state,
         assets: action.payload
+      };
+    case actionTypes.SAVE_CURRENCY_LIST:
+      return {
+        ...state,
+        currencyList: action.payload
       };
     default:
       return state;
