@@ -19,18 +19,19 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
+
             android:background="@drawable/circle_border">
 
             <ImageView
-
+                android:id="@+id/imageView_addPhotoProfile"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_margin="9dp"
-                android:padding="3dp"
+                android:padding="18dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/circle"
-                android:scaleType="centerInside"
-                android:src="@drawable/profile_page"  />
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_photo_profile_24dp" />
 
 
         </RelativeLayout>
