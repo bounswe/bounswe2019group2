@@ -38,7 +38,7 @@ class ManualInvestmentSerializer(BaseInvestmentSerializer):
 
 def verify_credit_card(credit_card, credit_card_ccv, credit_card_valid_until):
     # TODO put credit card verification logic
-    return False
+    return True
 
 
 class OnlineInvestmentSerializer(BaseInvestmentSerializer):
@@ -78,6 +78,13 @@ class OnlineInvestmentSerializer(BaseInvestmentSerializer):
                 raise ValidationError("Your credit card information could not be verified."
                                       "Please make sure you have entered correct"
                                       " Number, Valid Until Date (MM/YY) and CCV (3 digits)")
+
+            asset, _ = Asset.objects.get_or_create(user=user,
+                                                   equipment=base_eq)
+
+            asset.amount = asset.amount + base_amount
+            asset.save()
+
         else:
             asset = Asset.objects.filter(user=user,
                                          equipment=base_eq).first()
@@ -115,6 +122,11 @@ class AssetSerializer(serializers.HyperlinkedModelSerializer):
                                       decimal_places=3,
                                       coerce_to_string=False)
 
+    on_hold_for_investment = serializers.DecimalField(max_digits=15,
+                                                      decimal_places=3,
+                                                      coerce_to_string=False,
+                                                      read_only=True)
+
     def _get_equipment_or_raise(self, symbol):
         eq = Equipment.objects.filter(symbol=symbol).first()
         if not eq:
@@ -140,17 +152,15 @@ class AssetSerializer(serializers.HyperlinkedModelSerializer):
         if not user.is_trader:
             raise ValidationError("Please become a trader user to keep your assets in the system.")
 
-        obj = Asset.objects.filter(user=user,
-                                   equipment=equipment).first()
+        obj, _ = Asset.objects.get_or_create(user=user,
+                                             equipment=equipment)
 
-        if obj is not None:
-            obj.amount = obj.amount + amount
-            obj.save()
-            return obj
-        else:
-            return super().create(validated_data)
+        obj.amount = obj.serializable_value('amount') + amount
+        obj.save()
+
+        return obj
 
     class Meta:
         model = Asset
-        fields = ["url", "id", "user", "equipment", "amount"]
-        read_only_fields = ["user"]
+        fields = ["url", "id", "user", "equipment", "amount", "on_hold_for_investment"]
+        read_only_fields = ["user", "on_hold_for_investment"]

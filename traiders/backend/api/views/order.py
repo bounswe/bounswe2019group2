@@ -16,7 +16,7 @@ class BuyOrderViewSet(mixins.ListModelMixin,
                       mixins.DestroyModelMixin,
                       GenericViewSet):
     """
-    View, create and delete manual investments
+    View, create and delete buying orders
     """
     permission_classes = (IsAuthenticated,)
     serializer_class = BuyOrderSerializer
@@ -31,14 +31,13 @@ class BuyOrderViewSet(mixins.ListModelMixin,
                                      equipment=eq).first()
         amount = instance.buy_amount
 
-        if asset is not None:
-            asset.amount = asset.amount + amount
-            asset.save()
-        else:
-            asset = Asset.objects.create(user=user,
-                                         equipment=eq,
-                                         amount=amount)
-            asset.save()
+        asset = Asset.objects.get_or_create(user=user,
+                                            equipment=eq)
+
+        asset.amount = asset.serializable_value('amount') + amount
+
+        asset.save()
+
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -52,7 +51,7 @@ class StopLossOrderViewSet(mixins.ListModelMixin,
                            mixins.DestroyModelMixin,
                            GenericViewSet):
     """
-    View, create and delete manual investments
+    View, create and delete stoploss orders
     """
     permission_classes = (IsAuthenticated,)
     serializer_class = StopLossOrderSerializer
@@ -63,20 +62,16 @@ class StopLossOrderViewSet(mixins.ListModelMixin,
         instance = self.get_object()
         eq = instance.base_equipment
         user = instance.user
-        asset = Asset.objects.filter(user=user,
-                                     equipment=eq).first()
         amount = instance.sell_amount
 
         # Adding the amount back to the balance of the user
+        asset = Asset.objects.get_or_create(user=user,
+                                            equipment=eq)
 
-        if asset is not None:
-            asset.amount = asset.amount + amount
-            asset.save()
-        else:
-            asset = Asset.objects.create(user=user,
-                                         equipment=eq,
-                                         amount=amount)
-            asset.save()
+        asset.amount = asset.serializable_value('amount') + amount
+
+        asset.save()
+
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 

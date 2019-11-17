@@ -62,6 +62,7 @@ class StopLossOrderSerializer(OrderSerializerBase):
 
         # Subtract the amount of possible action money, i.e. put on hold.
         asset.amount = balance - sell_amount
+        asset.on_hold_for_investment = asset.on_hold_for_investment + sell_amount
         asset.save()
         return super().create(validated_data)
 
@@ -107,6 +108,7 @@ class BuyOrderSerializer(OrderSerializerBase):
 
         # Subtract the amount of possible action money, i.e. put on hold.
         asset.amount = balance - buy_amount
+        asset.on_hold_for_investment = asset.on_hold_for_investment + buy_amount
         asset.save()
         return super().create(validated_data)
 
