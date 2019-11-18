@@ -1,9 +1,10 @@
 from django.contrib.auth.hashers import make_password
-
-from rest_framework import serializers
-from ..models.users import User
 from django_countries.serializer_fields import CountryField
 from django_countries import Countries
+from rest_framework import serializers
+import requests as rq
+
+from ..models.users import User
 
 options = Countries()
 
@@ -24,6 +25,15 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     @staticmethod
     def validate_password(password):
         return make_password(password)  # password hashing
+
+    @staticmethod
+    def validate_iban(iban):
+        res = rq.get(f'https://openiban.com/validate/{iban}')
+
+        if res.status_code != 200 or not res.json().get('valid'):
+            raise serializers.ValidationError('Enter a valid IBAN')
+
+        return iban
 
     def validate(self, data):
         if data.get('is_trader') and not data.get('iban'):
