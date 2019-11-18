@@ -15,7 +15,8 @@ class OrderViewTestCase(APITestCase):
             'email': 'moneyhunter0@example.com',
             'iban': '1234567891234567891234567891234567',
             'is_trader': True,
-            'city': "Cairo"
+            'city': "Cairo",
+            'email_verified': True
         }
 
         self.user = User(**data)
