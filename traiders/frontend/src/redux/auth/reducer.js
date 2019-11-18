@@ -1,7 +1,9 @@
 import { actionTypes } from './actions';
 
 const initialState = {
-  currentUser: null
+  currentUser: null,
+  followers: null,
+  followings: null
 };
 
 function userReducer(state = initialState, action) {
@@ -16,6 +18,17 @@ function userReducer(state = initialState, action) {
         ...state,
         currentUser: null
       };
+    case actionTypes.SAVE_FOLLOWINGS:
+      return {
+        ...state,
+        followings: action.payload
+      };
+    case actionTypes.SAVE_FOLLOWERS:
+      return {
+        ...state,
+        followers: action.payload
+      };
+
     default:
       return state;
   }

@@ -21,7 +21,7 @@ import tk.traiders.R;
 import tk.traiders.models.Comment;
 
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ArticleCommentsViewHolder> {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentsViewHolder> {
 
     private Context context;
 
@@ -45,12 +45,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ArticleC
 
     @NonNull
     @Override
-    public ArticleCommentsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ArticleCommentsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_list_item, parent, false));
+    public CommentsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new CommentsViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.comment_list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ArticleCommentsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CommentsViewHolder holder, int position) {
         Comment comment = commentList.get(position);
         holder.textView_author.setText(comment.getAuthor().getUsername());
         holder.textView_createdAt.setText(comment.getCreatedAt());
@@ -75,7 +75,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ArticleC
         return commentList.size();
     }
 
-    static class ArticleCommentsViewHolder extends RecyclerView.ViewHolder {
+    static class CommentsViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textView_author;
         private TextView textView_createdAt;
@@ -84,7 +84,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ArticleC
         private TextView textView_content;
 
 
-        public ArticleCommentsViewHolder(@NonNull View itemView) {
+        public CommentsViewHolder(@NonNull View itemView) {
             super(itemView);
             textView_author = itemView.findViewById(R.id.textView_comment_author);
             textView_createdAt = itemView.findViewById(R.id.textView_comment_createdAt);

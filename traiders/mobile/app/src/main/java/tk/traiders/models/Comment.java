@@ -7,15 +7,15 @@ public class Comment {
     private String createdAt;
     private String content;
     private User author;
-    private String articleUrl;
+    private String articleOrEquipmentUrl;
 
-    public Comment(String id, String url, String createdAt, String content, User author, String articleUrl) {
+    public Comment(String id, String url, String createdAt, String content, User author, String articleOrEquipmentUrl) {
         this.id = id;
         this.url = url;
         this.createdAt = createdAt;
         this.content = content;
         this.author = author;
-        this.articleUrl = articleUrl;
+        this.articleOrEquipmentUrl = articleOrEquipmentUrl;
     }
 
     public String getId() {
@@ -63,12 +63,12 @@ public class Comment {
         return this;
     }
 
-    public String getArticleUrl() {
-        return articleUrl;
+    public String getArticleOrEquipmentUrl() {
+        return articleOrEquipmentUrl;
     }
 
-    public Comment setArticleUrl(String articleUrl) {
-        this.articleUrl = articleUrl;
+    public Comment setArticleOrEquipmentUrl(String articleOrEquipmentUrl) {
+        this.articleOrEquipmentUrl = articleOrEquipmentUrl;
         return this;
     }
 }

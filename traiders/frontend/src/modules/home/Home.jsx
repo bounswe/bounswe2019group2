@@ -7,12 +7,12 @@ import ArticleList from '../../components/articleList/ArticleListContainer';
 
 const Home = (props) => {
   const { history } = props;
-
+  const articleLimit = 6;
   return (
     <Page>
       <div className="home-container">
         <CurrencyTable />
-        <ArticleList history={history} />
+        <ArticleList limit={articleLimit} history={history} />
       </div>
     </Page>
   );

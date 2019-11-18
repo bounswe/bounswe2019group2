@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="54dp">
+
+    <TextView
+        android:id="@+id/textView_equipmentSymbol"
+        android:layout_width="0dp"
+        android:layout_weight="1.2"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:layout_height="54dp"
+        tools:text = "AED"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_marginTop="7dp"
+        android:layout_height="40dp"
+        android:background="@color/primaryColor"/>
+
+    <TextView
+        android:id="@+id/textView_equipmentName"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:paddingHorizontal="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:gravity="start|center"
+        android:layout_height="wrap_content"
+        tools:text = "United Arab Emirates Dirham"/>
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_marginTop="7dp"
+        android:layout_height="40dp"
+        android:background="@color/primaryColor"/>
+
+    <TextView
+        android:id="@+id/textView_equipmentCategory"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:layout_height="54dp"
+        tools:text = "currency"/>
+
+
+
+</LinearLayout>

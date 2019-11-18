@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tk.traiders.components.article.WriteArticleActivity;
-import tk.traiders.components.event.FilterFragment;
+import tk.traiders.components.event.EventFilterFragment;
 
 public class MainActivity extends AppCompatActivity implements NavController.OnDestinationChangedListener {
 
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 }
                 return true;
             case R.id.filter_events:
-                new FilterFragment().show(getSupportFragmentManager(), "FilterFragment");
+                new EventFilterFragment().show(getSupportFragmentManager(), "EventFilterFragment");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
