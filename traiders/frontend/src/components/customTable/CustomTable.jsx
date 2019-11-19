@@ -5,7 +5,7 @@ import './custom-table.scss';
 
 const Row = (props) => {
   const { item } = props;
-  const { close, open, high, low, base_equipment, target_equipment } = item;
+  const { close, open, base_equipment, target_equipment } = item;
   console.log(base_equipment, target_equipment);
   const changeRate = (((close - open) / open) * 100).toFixed(4);
   const changeType = changeRate < 0 ? 'fall' : 'rise';
