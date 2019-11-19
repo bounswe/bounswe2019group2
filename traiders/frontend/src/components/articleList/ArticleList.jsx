@@ -22,7 +22,7 @@ class ArticleList extends Component {
     if (limit) {
       filteredList = filteredList
         .filter((article) => article.image)
-        .slice(0, 4);
+        .slice(0, 7);
     }
 
     return (

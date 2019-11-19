@@ -10,7 +10,6 @@ const CurrencyInfo = (props) => {
   const changeType = changeRate < 0 ? 'fall' : 'rise';
 
   const handleRoute = () => {
-    const { fullName } = props;
     const url = `/equipment/${fullName}`;
     history.push(url);
   };
