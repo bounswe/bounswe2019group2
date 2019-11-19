@@ -13,12 +13,13 @@ class MyInvestments extends Component {
     this.state = {
       visibleManual: false,
       visibleOnline: false,
-      manualCurrency: 'TRY',
-      onlineCurrency: 'TRY',
+      // manualCurrency: 'TRY',
+      // onlineCurrency: 'TRY'
       manualAmount: null,
       onlineAmount: null
     };
   }
+
   componentDidMount() {
     const { getInvestments, user } = this.props;
     getInvestments(1, user.key);
@@ -38,6 +39,7 @@ class MyInvestments extends Component {
       visibleManual: true
     });
   };
+
   handleOkManual = () => {
     // eslint-disable-next-line
 
@@ -71,6 +73,7 @@ class MyInvestments extends Component {
       visibleOnline: false
     });
   };
+
   render() {
     const { user } = this.props;
     const {
