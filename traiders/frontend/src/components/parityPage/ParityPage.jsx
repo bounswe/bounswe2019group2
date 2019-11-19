@@ -67,12 +67,12 @@ class ParityPage extends Component {
           <div className="up">
             Your prediction:
             <Button
-              type="default"
+              type="secondary"
               onClick={() => this.handlerPrd(1)}
               icon="arrow-up"
             />
             <Button
-              type="default"
+              type="secondary"
               onClick={() => this.handlerPrd(-1)}
               icon="arrow-down"
             />
