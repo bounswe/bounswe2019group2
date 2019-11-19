@@ -25,7 +25,7 @@ class ManualInvestmentViewSet(mixins.ListModelMixin,
     filterset_class = ManualInvestmentFilterSet
 
     def get_queryset(self):
-        return ManualInvestment.objects.all().filter(user=self.request.user)
+        return ManualInvestment.objects.all().filter(user=self.request.user).order_by('pk')
 
 
 class OnlineInvestmentViewSet(mixins.ListModelMixin,
@@ -42,7 +42,7 @@ class OnlineInvestmentViewSet(mixins.ListModelMixin,
     filterset_class = OnlineInvestmentFilterSet
 
     def get_queryset(self):
-        return OnlineInvestment.objects.all().filter(user=self.request.user)
+        return OnlineInvestment.objects.all().filter(user=self.request.user).order_by('pk')
 
 
 class AssetViewSet(mixins.ListModelMixin,
@@ -102,8 +102,8 @@ class ProfitLossViewSet(GenericViewSet):
 
     def list(self, request):
         data = {}
-        manuals = ManualInvestment.objects.filter(user=self.request.user)
-        onlines = OnlineInvestment.objects.filter(user=self.request.user)
+        manuals = ManualInvestment.objects.filter(user=self.request.user).order_by('pk')
+        onlines = OnlineInvestment.objects.filter(user=self.request.user).order_by('pk')
 
         if 'equipment' not in self.request.query_params:
             raise ValidationError('Please provide an equipment to see the profit/loss')
