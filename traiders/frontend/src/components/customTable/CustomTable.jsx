@@ -5,8 +5,8 @@ import './custom-table.scss';
 
 const Row = (props) => {
   const { item } = props;
+  // eslint-disable-next-line camelcase
   const { close, open, base_equipment, target_equipment } = item;
-  console.log(base_equipment, target_equipment);
   const changeRate = (((close - open) / open) * 100).toFixed(4);
   const changeType = changeRate < 0 ? 'fall' : 'rise';
 
@@ -38,6 +38,7 @@ const CustomTable = (props) => {
   const { parityList } = props;
   const parities =
     parityList &&
+    // eslint-disable-next-line react/no-array-index-key
     parityList.map((element, index) => <Row item={element} key={index} />);
 
   return <div className="custom-table-container">{parities}</div>;
