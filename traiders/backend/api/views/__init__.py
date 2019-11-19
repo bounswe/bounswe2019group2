@@ -11,3 +11,4 @@ from .event import EventViewSet
 from .prediction import PredictionViewSet
 from .investment import ManualInvestmentViewSet, AssetViewSet, OnlineInvestmentViewSet
 from .order import BuyOrderViewSet, StopLossOrderViewSet
+from .verify_email import verify_email
