@@ -73,9 +73,9 @@ class Assets extends Component {
       <div className="assets-container">
         <div className="assets-table">
           <Table
-            data={assets}
+            dataSource={assets}
             columns={assetsTableConstants}
-            title={() => 'My Assets'}
+            title={() => 'MY ASSETS'}
             bordered
           />
         </div>

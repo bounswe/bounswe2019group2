@@ -56,3 +56,28 @@ export const eventsTableColumns = [
 ];
 
 export const assetsTableConstants = [];
+
+export const investmentsTableColumns = [
+  {
+    title: 'AMOUNT',
+    dataIndex: 'base_amount',
+    key: 'amount'
+  },
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  }
+];

@@ -1,0 +1,21 @@
+.investment-part {
+  display: flex;
+  flex-direction: column;
+
+  .make-investment {
+    padding-top: 10px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    .manual-investment {
+      align-items: center;
+
+      margin-right: 10px;
+    }
+
+    .online-investment {
+      align-items: center;
+    }
+  }
+}

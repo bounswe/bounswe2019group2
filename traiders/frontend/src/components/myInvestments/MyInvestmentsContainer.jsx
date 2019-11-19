@@ -5,7 +5,8 @@ import { getInvestments } from '../../redux/investments/actions';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.currentUser
+    user: state.user.currentUser,
+    investments: state.investment.investments
   };
 };
 
