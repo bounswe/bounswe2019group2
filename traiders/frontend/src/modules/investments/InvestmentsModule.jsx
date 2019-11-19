@@ -3,7 +3,7 @@ import React from 'react';
 import './investments-module.scss';
 import Page from '../../components/page/Page';
 import MyInvestments from '../../components/myInvestments/MyInvestmentsContainer';
-import AddInvestment from '../../components/addInvestment/AddInvestmentContainer';
+// import AddInvestment from '../../components/addInvestment/AddInvestmentContainer';
 import Assets from '../../components/assets/AssetsContainer';
 
 const InvestmentsModule = () => {
@@ -14,7 +14,6 @@ const InvestmentsModule = () => {
           <Assets />
         </div>
         <div className="investment-container">
-          <AddInvestment />
           <MyInvestments />
         </div>
       </div>
