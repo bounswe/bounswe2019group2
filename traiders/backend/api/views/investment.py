@@ -101,8 +101,10 @@ class ProfitLossViewSet(GenericViewSet):
         equipment = serializers.CharField()
 
     def list(self, request):
+        data = {}
         manuals = ManualInvestment.objects.filter(user=self.request.user)
         onlines = OnlineInvestment.objects.filter(user=self.request.user)
+
         if 'equipment' not in self.request.query_params:
             raise ValidationError('Please provide an equipment to see the profit/loss')
 
@@ -113,14 +115,25 @@ class ProfitLossViewSet(GenericViewSet):
 
         manual_profits = 0
         online_profits = 0
+
+        context = self.get_serializer_context()
+
+        data['manual_investments'] = []
         for manual in manuals:
-            manual_profits += self._get_profit(manual, equipment)
+            profit = self._get_profit(manual, equipment)
+            investment = ManualInvestmentSerializer(manual, context=context).data
+            data['manual_investments'].append({'investment': investment, 'profit': profit})
+            manual_profits += profit
 
+        data['online_investments'] = []
         for online in onlines:
-            online_profits += self._get_profit(online, equipment)
+            profit = self._get_profit(online, equipment)
+            investment = OnlineInvestmentSerializer(online, context=context).data
+            data['online_investments'].append({'investment': investment, 'profit': profit})
+            online_profits += profit
 
-        data = {'manual_investment_profits': manual_profits,
-                'online_investment_profits': online_profits,
-                'total_profit': manual_profits + online_profits}
+        data['manual_investment_profits'] = manual_profits
+        data['online_investment_profits'] = online_profits
+        data['total_profit'] = manual_profits + online_profits
 
         return Response(data)
