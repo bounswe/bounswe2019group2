@@ -17,10 +17,12 @@ class ArticleList extends Component {
 
   render() {
     const { articleList, limit } = this.props;
-    let filteredList = articleList.filter((article) => article.image);
+    let filteredList = articleList;
 
     if (limit) {
-      filteredList = filteredList.slice(0, 4);
+      filteredList = filteredList
+        .filter((article) => article.image)
+        .slice(0, 4);
     }
 
     return (
