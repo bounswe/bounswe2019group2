@@ -1,0 +1,6 @@
+Hi {{ user.first_name }} {{ user.last_name }},
+
+To be able to make investments, you need to confirm your e-mail address by clicking the following link:
+{{ link }}
+
+TrAiders

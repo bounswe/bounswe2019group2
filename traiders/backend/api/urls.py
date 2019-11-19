@@ -50,6 +50,9 @@ urlpatterns = [
     # Link to latest mobile application
     path('mobile/', latest_mobile_app),
 
+    # Email verification
+    path('verify/<int:pk>', verify_email, name='verify-email'),
+
     # all API ends
     *router.urls
 ]
