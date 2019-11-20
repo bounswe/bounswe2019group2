@@ -99,6 +99,7 @@ class MyInvestments extends Component {
               dataSource={manualInvestments}
               bordered
               title={() => 'MANUAL INVESTMENTS'}
+              rowKey="id"
             />
           </div>
           <div className="make-investment">
@@ -116,6 +117,7 @@ class MyInvestments extends Component {
               dataSource={onlineInvestments}
               bordered
               title={() => 'ONLINE INVESTMENTS'}
+              rowKey="id"
             />
           </div>
           <div className="make-investment">

@@ -101,7 +101,7 @@ export const getCurrencyList = () => {
 
       .catch((error) =>
         // eslint-disable-next-line no-console
-        console.log('Error while fetching assets\n', error)
+        console.log('Error while fetching currencyList\n', error)
       );
   };
 };

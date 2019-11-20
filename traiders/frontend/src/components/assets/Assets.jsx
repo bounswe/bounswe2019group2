@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Table, Button, Modal, Select, Input } from 'antd';
 
 import './assets.scss';
+import { API } from '../../redux/apiConfig';
+import { PostWithAuthorization } from '../../common/http/httpUtil';
 import { assetsTableConstants } from '../../common/constants/generalConstants';
+import history from '../../common/history';
 
 const { Option } = Select;
 
@@ -29,8 +32,16 @@ class Assets extends Component {
   };
 
   handleOk = () => {
-    // eslint-disable-next-line
     const { newAssetAmount, selectedCurrency } = this.state;
+    const { user, getAssets } = this.props;
+    const body = { equipment: selectedCurrency, amount: newAssetAmount };
+    const url = `${API}/asset/`;
+
+    PostWithAuthorization(url, body, user.key)
+      .then((response) => console.log(response))
+      .catch((error) => console.log('error while adding asset', error));
+
+    setTimeout(() => getAssets(user.key), 1000);
 
     this.setState({
       visible: false
@@ -66,8 +77,12 @@ class Assets extends Component {
   };
 
   render() {
-    const { assets } = this.props;
+    const { assets, user } = this.props;
     const { visible, newAssetAmount } = this.state;
+
+    if (!user) {
+      history.push('/login');
+    }
 
     return (
       <div className="assets-container">
@@ -77,6 +92,7 @@ class Assets extends Component {
             columns={assetsTableConstants}
             title={() => 'MY ASSETS'}
             bordered
+            rowKey="id"
           />
         </div>
         <div className="add-assets">
