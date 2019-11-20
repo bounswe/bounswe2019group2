@@ -19,7 +19,7 @@ class Assets extends Component {
   componentDidMount() {
     const { user, getAssets, getCurrencyList } = this.props;
     getCurrencyList();
-    getAssets(1, user.key);
+    getAssets(user.key);
   }
 
   handleAddAsset = () => {

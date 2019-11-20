@@ -2,16 +2,22 @@
   display: flex;
   flex-direction: column;
 
-  .make-investment {
-    padding-top: 10px;
+  .ant-table-title {
+    background-color: white;
+  }
 
+  .ant-table-row {
+    background-color: white;
+  }
+
+  .make-investment {
     display: flex;
     justify-content: flex-end;
 
     .manual-investment {
       align-items: center;
 
-      margin-right: 10px;
+      padding-bottom: 10px;
     }
 
     .online-investment {

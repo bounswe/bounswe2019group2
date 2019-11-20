@@ -3,7 +3,10 @@ import { Table, Button, Modal, Select, Input } from 'antd';
 
 import history from '../../common/history';
 import './my-investments.scss';
-import { investmentsTableColumns } from '../../common/constants/generalConstants';
+import {
+  manualInvestmentsTableColumns,
+  onlineInvestmentsTableColumns
+} from '../../common/constants/generalConstants';
 
 const { Option } = Select;
 
@@ -21,8 +24,10 @@ class MyInvestments extends Component {
   }
 
   componentDidMount() {
-    const { getInvestments, user } = this.props;
-    getInvestments(1, user.key);
+    const { getManualInvestments, getOnlineInvestments, user } = this.props;
+    console.log(user);
+    getManualInvestments(user.key);
+    getOnlineInvestments(user.key);
   }
 
   menu = (list) => {
@@ -75,7 +80,7 @@ class MyInvestments extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, manualInvestments, onlineInvestments } = this.props;
     const {
       visibleManual,
       visibleOnline,
@@ -87,24 +92,38 @@ class MyInvestments extends Component {
     }
     return (
       <div className="investment-part">
-        <div className="investments-table">
-          <Table
-            columns={investmentsTableColumns}
-            dataSource={[]}
-            bordered
-            title={() => 'MY INVESTMENTS'}
-          />
-        </div>
-        <div className="make-investment">
-          <div className="manual-investment">
-            <Button type="primary" onClick={this.handleManual}>
-              Manual Investment
-            </Button>
+        <div className="manual-investments">
+          <div className="manual-investments-table">
+            <Table
+              columns={manualInvestmentsTableColumns}
+              dataSource={manualInvestments}
+              bordered
+              title={() => 'MANUAL INVESTMENTS'}
+            />
           </div>
-          <div className="online-investment">
-            <Button type="primary" onClick={this.handleOnline}>
-              Online Investment
-            </Button>
+          <div className="make-investment">
+            <div className="manual-investment">
+              <Button type="primary" onClick={this.handleManual}>
+                Manual Investment
+              </Button>
+            </div>
+          </div>
+        </div>
+        <div className="online-investments">
+          <div className="online-investments-table">
+            <Table
+              columns={onlineInvestmentsTableColumns}
+              dataSource={onlineInvestments}
+              bordered
+              title={() => 'ONLINE INVESTMENTS'}
+            />
+          </div>
+          <div className="make-investment">
+            <div className="online-investment">
+              <Button type="primary" onClick={this.handleOnline}>
+                Online Investment
+              </Button>
+            </div>
           </div>
         </div>
         <Modal

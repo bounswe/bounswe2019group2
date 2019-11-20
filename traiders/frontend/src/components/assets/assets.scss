@@ -3,6 +3,14 @@
   flex-direction: column;
   padding-bottom: 20px;
 
+  .ant-table-title {
+    background-color: white;
+  }
+
+  .ant-table-row {
+    background-color: white;
+  }
+
   .add-assets {
     padding-top: 10px;
     display: flex;

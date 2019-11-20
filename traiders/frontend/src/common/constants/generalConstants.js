@@ -55,18 +55,69 @@ export const eventsTableColumns = [
   }
 ];
 
-export const assetsTableConstants = [];
-
-export const investmentsTableColumns = [
+export const assetsTableConstants = [
   {
     title: 'AMOUNT',
-    dataIndex: 'base_amount',
+    dataIndex: 'amount',
     key: 'amount'
+  },
+  {
+    title: 'EQUIPMENT',
+    dataIndex: 'equipment',
+    key: 'equipment'
+  },
+  {
+    title: 'ON HOLD FOR INVESTMENT',
+    dataIndex: 'on_hold_for_investment',
+    key: 'onhold'
+  }
+];
+
+export const manualInvestmentsTableColumns = [
+  {
+    title: 'BASE AMOUNT',
+    dataIndex: 'base_amount',
+    key: 'baseAmount'
   },
   {
     title: 'BASE EQUIPMENT',
     dataIndex: 'base_equipment',
     key: 'baseEquipment'
+  },
+  {
+    title: 'TARGET AMOUNT',
+    dataIndex: 'target_amount',
+    key: 'targetAmount'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  }
+];
+
+export const onlineInvestmentsTableColumns = [
+  {
+    title: 'BASE AMOUNT',
+    dataIndex: 'base_amount',
+    key: 'baseAmount'
+  },
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+  {
+    title: 'TARGET AMOUNT',
+    dataIndex: 'target_amount',
+    key: 'targetAmount'
   },
 
   {
