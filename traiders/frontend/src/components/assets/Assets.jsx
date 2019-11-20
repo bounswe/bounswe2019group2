@@ -38,8 +38,14 @@ class Assets extends Component {
     const url = `${API}/asset/`;
 
     PostWithAuthorization(url, body, user.key)
-      .then((response) => console.log(response))
-      .catch((error) => console.log('error while adding asset', error));
+      .then((response) => {
+        if (response.status !== 201) {
+          response.json().then((res) => alert(res));
+        } else {
+          alert('Success');
+        }
+      })
+      .catch(() => alert('error while adding asset'));
 
     setTimeout(() => getAssets(user.key), 1000);
 
