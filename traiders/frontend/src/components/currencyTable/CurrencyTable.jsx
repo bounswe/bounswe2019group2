@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import CustomTable from '../customTable/CustomTable';
 import './currency-table.scss';
 
 class CurrencyTable extends Component {
@@ -10,31 +11,7 @@ class CurrencyTable extends Component {
 
   render() {
     const { parityList } = this.props;
-    const currencyList =
-      parityList.length > 0
-        ? parityList.map((parity) => {
-            return (
-              <div className="currency-table-row" key={parity.id}>
-                <div className="parity">
-                  <div className="parity-symbols">
-                    {parity.base_equipment.symbol}/
-                    {parity.target_equipment.symbol}
-                  </div>
-                  <div className="parity-names">
-                    {parity.base_equipment.name}/{parity.target_equipment.name}
-                  </div>
-                </div>
-                <div className="parity-ratio">{parity.ratio}</div>
-              </div>
-            );
-          })
-        : null;
-    return (
-      <div className="currency-table-container">
-        {currencyList}
-        <div className="currency-table-footer" />
-      </div>
-    );
+    return <CustomTable parityList={parityList} />;
   }
 }
 
