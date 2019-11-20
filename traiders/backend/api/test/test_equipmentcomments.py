@@ -54,7 +54,7 @@ class EquipmentCommentViewSetTests(APITestCase):
 
         data = {
             'content': 'thank you, user2',
-            'equipment': reverse('equipment-detail', kwargs={'pk': self.equipment.pk})
+            'equipment': self.equipment.symbol
         }
 
         # test without token
