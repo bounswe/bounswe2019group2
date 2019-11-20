@@ -3,21 +3,30 @@ import { GetWithAuthorization, GetWithUrl } from '../../common/http/httpUtil';
 
 /* Action Types */
 
-const SAVE_INVESTMENT_LIST = 'SAVE_INVESTMENT_LIST';
+const SAVE_MANUAL_INVESTMENT_LIST = 'SAVE_MANUAL_INVESTMENT_LIST';
+const SAVE_ONLINE_INVESTMENT_LIST = 'SAVE_ONLINE_INVESTMENT_LIST';
 const SAVE_ASSETS_LIST = 'SAVE_ASSETS_LIST';
 const SAVE_CURRENCY_LIST = 'SAVE_CURRENCY_LIST';
 
 export const actionTypes = {
-  SAVE_INVESTMENT_LIST,
+  SAVE_MANUAL_INVESTMENT_LIST,
+  SAVE_ONLINE_INVESTMENT_LIST,
   SAVE_ASSETS_LIST,
   SAVE_CURRENCY_LIST
 };
 
 /* Action Creators */
 
-function saveInvestmentList(list) {
+function saveManualInvestmentList(list) {
   return {
-    type: SAVE_INVESTMENT_LIST,
+    type: SAVE_MANUAL_INVESTMENT_LIST,
+    payload: list
+  };
+}
+
+function saveOnlineInvestmentList(list) {
+  return {
+    type: SAVE_ONLINE_INVESTMENT_LIST,
     payload: list
   };
 }
@@ -37,29 +46,43 @@ function saveCurrencyList(list) {
 }
 
 export const actionCreators = {
-  saveInvestmentList,
+  saveManualInvestmentList,
+  saveOnlineInvestmentList,
   saveAssetList,
   saveCurrencyList
 };
 
 /* Api Call Functions */
 
-export const getInvestments = (id, token) => {
+export const getManualInvestments = (token) => {
   return (dispatch) => {
-    GetWithAuthorization(`${API}/investment/?id=${id}`, token)
+    GetWithAuthorization(`${API}/manualinvestment/`, token)
       .then((response) => response.json())
-      .then((response) => dispatch(saveInvestmentList(response)))
+      .then((response) => dispatch(saveManualInvestmentList(response)))
 
       .catch((error) =>
         // eslint-disable-next-line no-console
-        console.log('Error while fetching investments\n', error)
+        console.log('Error while fetching manual investments\n', error)
       );
   };
 };
 
-export const getAssets = (id, token) => {
+export const getOnlineInvestments = (token) => {
   return (dispatch) => {
-    GetWithAuthorization(`${API}/asset/?id=${id}`, token)
+    GetWithAuthorization(`${API}/onlineinvestment/`, token)
+      .then((response) => response.json())
+      .then((response) => dispatch(saveOnlineInvestmentList(response)))
+
+      .catch((error) =>
+        // eslint-disable-next-line no-console
+        console.log('Error while fetching  online investments\n', error)
+      );
+  };
+};
+
+export const getAssets = (token) => {
+  return (dispatch) => {
+    GetWithAuthorization(`${API}/asset/`, token)
       .then((response) => response.json())
       .then((response) => dispatch(saveAssetList(response)))
 
@@ -78,7 +101,7 @@ export const getCurrencyList = () => {
 
       .catch((error) =>
         // eslint-disable-next-line no-console
-        console.log('Error while fetching assets\n', error)
+        console.log('Error while fetching currencyList\n', error)
       );
   };
 };

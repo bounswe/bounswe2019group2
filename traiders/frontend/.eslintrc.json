@@ -19,6 +19,9 @@
     "arrow-parens": ["error"],
     "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-wrap-multilines": "off",
+    "no-alert": "off",
+    "no-undef": "off",
+    "react/jsx-curly-newline": "off",
     "quotes": [
       2,
       "single",

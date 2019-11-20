@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal, Select, Input } from 'antd';
+import { Table, Button, Modal, Select, Input, Checkbox } from 'antd';
 
 import history from '../../common/history';
 import './my-investments.scss';
-import { investmentsTableColumns } from '../../common/constants/generalConstants';
+import {
+  manualInvestmentsTableColumns,
+  onlineInvestmentsTableColumns
+} from '../../common/constants/generalConstants';
+import { API } from '../../redux/apiConfig';
+import { PostWithAuthorization } from '../../common/http/httpUtil';
 
 const { Option } = Select;
 
@@ -12,17 +17,27 @@ class MyInvestments extends Component {
     super(props);
     this.state = {
       visibleManual: false,
+      manualBaseCurrency: 'TRY',
+      manualTargetCurrency: 'TRY',
+      manualBaseAmount: null,
+      manualTargetAmount: null,
+      manualDate: null,
       visibleOnline: false,
-      // manualCurrency: 'TRY',
-      // onlineCurrency: 'TRY'
-      manualAmount: null,
-      onlineAmount: null
+      onlineBaseCurrency: 'TRY',
+      onlineTargetCurrency: 'TRY',
+      onlineBaseAmount: null,
+      creditCardNumber: null,
+      creditCardValidUntil: null,
+      CCV: null,
+      isCreditCard: false
     };
   }
 
   componentDidMount() {
-    const { getInvestments, user } = this.props;
-    getInvestments(1, user.key);
+    const { getManualInvestments, getOnlineInvestments, user } = this.props;
+
+    getManualInvestments(user.key);
+    getOnlineInvestments(user.key);
   }
 
   menu = (list) => {
@@ -41,7 +56,34 @@ class MyInvestments extends Component {
   };
 
   handleOkManual = () => {
-    // eslint-disable-next-line
+    const {
+      manualBaseCurrency,
+      manualBaseAmount,
+      manualTargetAmount,
+      manualTargetCurrency,
+      manualDate
+    } = this.state;
+    const { user, getManualInvestments } = this.props;
+    const url = `${API}/manualinvestment/`;
+    const body = {
+      base_equipment: manualBaseCurrency,
+      target_equipment: manualTargetCurrency,
+      base_amount: manualBaseAmount,
+      target_amount: manualTargetAmount,
+      date: manualDate
+    };
+
+    PostWithAuthorization(url, body, user.key)
+      .then((response) => {
+        if (response.status !== 201) {
+          response.json().then((res) => alert(res));
+        } else {
+          alert('Success');
+        }
+      })
+      .catch(() => alert('error while adding manual investment'));
+
+    setTimeout(() => getManualInvestments(user.key), 1000);
 
     this.setState({
       visibleManual: false
@@ -61,7 +103,44 @@ class MyInvestments extends Component {
   };
 
   handleOkOnline = () => {
-    // eslint-disable-next-line
+    const {
+      onlineBaseCurrency,
+      onlineBaseAmount,
+      onlineTargetCurrency,
+      creditCardNumber,
+      creditCardValidUntil,
+      CCV,
+      isCreditCard
+    } = this.state;
+    const { user, getOnlineInvestments } = this.props;
+    const url = `${API}/onlineinvestment/`;
+    const body = isCreditCard
+      ? {
+          base_equipment: onlineBaseCurrency,
+          target_equipment: onlineTargetCurrency,
+          base_amount: onlineBaseAmount,
+          credit_card: creditCardNumber,
+          credit_card_valid_until: creditCardValidUntil,
+          credit_card_ccv: CCV
+        }
+      : {
+          base_equipment: onlineBaseCurrency,
+          target_equipment: onlineTargetCurrency,
+          base_amount: onlineBaseAmount
+        };
+    PostWithAuthorization(url, body, user.key)
+      .then((response) => {
+        if (response.status !== 201) {
+          response.json().then((res) => {
+            alert(JSON.stringify(res));
+          });
+        } else {
+          alert('Success');
+        }
+      })
+      .catch(() => alert('error while adding online investment'));
+
+    setTimeout(() => getOnlineInvestments(user.key), 1000);
 
     this.setState({
       visibleOnline: false
@@ -74,37 +153,81 @@ class MyInvestments extends Component {
     });
   };
 
+  changeValue = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleSelectCurrency = (name, value) => {
+    this.setState({
+      [name]: value
+    });
+  };
+
+  triggerRadio = () => {
+    this.setState((prevState) => {
+      return {
+        isCreditCard: !prevState.isCreditCard
+      };
+    });
+  };
+
   render() {
-    const { user } = this.props;
+    const { user, manualInvestments, onlineInvestments } = this.props;
     const {
       visibleManual,
       visibleOnline,
-      manualAmount,
-      onlineAmount
+      manualBaseAmount,
+      manualTargetAmount,
+      manualDate,
+      onlineBaseAmount,
+      CCV,
+      creditCardNumber,
+      creditCardValidUntil,
+      isCreditCard
     } = this.state;
     if (!user) {
       history.push('/login');
     }
+
     return (
       <div className="investment-part">
-        <div className="investments-table">
-          <Table
-            columns={investmentsTableColumns}
-            dataSource={[]}
-            bordered
-            title={() => 'MY INVESTMENTS'}
-          />
-        </div>
-        <div className="make-investment">
-          <div className="manual-investment">
-            <Button type="primary" onClick={this.handleManual}>
-              Manual Investment
-            </Button>
+        <div className="manual-investments">
+          <div className="manual-investments-table">
+            <Table
+              columns={manualInvestmentsTableColumns}
+              dataSource={manualInvestments}
+              bordered
+              title={() => 'MANUAL INVESTMENTS'}
+              rowKey="id"
+            />
           </div>
-          <div className="online-investment">
-            <Button type="primary" onClick={this.handleOnline}>
-              Online Investment
-            </Button>
+          <div className="make-investment">
+            <div className="manual-investment">
+              <Button type="primary" onClick={this.handleManual}>
+                Manual Investment
+              </Button>
+            </div>
+          </div>
+        </div>
+        <div className="online-investments">
+          <div className="online-investments-table">
+            <Table
+              columns={onlineInvestmentsTableColumns}
+              dataSource={onlineInvestments}
+              bordered
+              title={() => 'ONLINE INVESTMENTS'}
+              rowKey="id"
+            />
+          </div>
+          <div className="make-investment">
+            <div className="online-investment">
+              <Button type="primary" onClick={this.handleOnline}>
+                Online Investment
+              </Button>
+            </div>
           </div>
         </div>
         <Modal
@@ -114,20 +237,50 @@ class MyInvestments extends Component {
           onCancel={this.handleCancelManual}
         >
           <div className="modal">
+            <div className="base-equipment">
+              <Input
+                placeholder="Base equipment amount"
+                type="number"
+                name="manualBaseAmount"
+                value={manualBaseAmount}
+                onChange={this.changeValue}
+              />
+              <Select
+                defaultValue="TRY"
+                onChange={(value) =>
+                  this.handleSelectCurrency('manualBaseCurrency', value)
+                }
+                style={{ width: 120 }}
+              >
+                {/* eslint-disable-next-line no-use-before-define */}
+                {this.menu(currencyList)}
+              </Select>
+            </div>
+            <div className="target-equipment">
+              <Input
+                placeholder="Target equipment amount"
+                type="number"
+                name="manualTargetAmount"
+                value={manualTargetAmount}
+                onChange={this.changeValue}
+              />
+              <Select
+                defaultValue="TRY"
+                onChange={(value) =>
+                  this.handleSelectCurrency('manualTargetCurrency', value)
+                }
+                style={{ width: 120 }}
+              >
+                {/* eslint-disable-next-line no-use-before-define */}
+                {this.menu(currencyList)}
+              </Select>
+            </div>
             <Input
-              placeholder="Please enter the amount"
-              type="number"
-              value={manualAmount}
+              placeholder="Date (Format: YYYY-MM-DD)"
+              name="manualDate"
+              value={manualDate}
               onChange={this.changeValue}
             />
-            <Select
-              defaultValue="TRY"
-              onChange={this.handleSelectCurrency}
-              style={{ width: 120 }}
-            >
-              {/* eslint-disable-next-line no-use-before-define */}
-              {this.menu(currencyList)}
-            </Select>
           </div>
         </Modal>
         <Modal
@@ -137,20 +290,73 @@ class MyInvestments extends Component {
           onCancel={this.handleCancelOnline}
         >
           <div className="modal">
-            <Input
-              placeholder="Please enter the amount"
-              type="number"
-              value={onlineAmount}
-              onChange={this.changeValue}
-            />
-            <Select
-              defaultValue="TRY"
-              onChange={this.handleSelectCurrency}
-              style={{ width: 120 }}
-            >
-              {/* eslint-disable-next-line no-use-before-define */}
-              {this.menu(currencyList)}
-            </Select>
+            <div className="base-equipment">
+              <Input
+                placeholder="Base equipment amount"
+                type="number"
+                name="onlineBaseAmount"
+                value={onlineBaseAmount}
+                onChange={this.changeValue}
+              />
+              <Select
+                defaultValue="TRY"
+                onChange={(value) =>
+                  this.handleSelectCurrency('onlineBaseAmount', value)
+                }
+                style={{ width: 120 }}
+              >
+                {/* eslint-disable-next-line no-use-before-define */}
+                {this.menu(currencyList)}
+              </Select>
+            </div>
+            <div className="target-equipment-online">
+              Target:
+              <Select
+                defaultValue="TRY"
+                onChange={(value) =>
+                  this.handleSelectCurrency('onlineTargetCurrency', value)
+                }
+                style={{ width: 120 }}
+              >
+                {/* eslint-disable-next-line no-use-before-define */}
+                {this.menu(currencyList)}
+              </Select>
+            </div>
+            <div className="credit-card-radio">
+              <Checkbox onChange={this.triggerRadio}>
+                Use Credit Card (Or you can use your assets)
+              </Checkbox>
+            </div>
+            {isCreditCard && (
+              <div className="credit-card">
+                <div className="cc-number">
+                  <Input
+                    placeholder="16 Characters Credit Card Number"
+                    type="number"
+                    name="creditCardNumber"
+                    value={creditCardNumber}
+                    onChange={this.changeValue}
+                  />
+                </div>
+                <div className="cc-date">
+                  <Input
+                    placeholder="Valid Until (MM/YY)"
+                    name="creditCardValidUntil"
+                    value={creditCardValidUntil}
+                    onChange={this.changeValue}
+                  />
+                </div>
+                <div className="cc-ccv">
+                  <Input
+                    placeholder="CCV (3 characters long)"
+                    type="number"
+                    name="CCV"
+                    value={CCV}
+                    onChange={this.changeValue}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </Modal>
       </div>
