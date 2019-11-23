@@ -1,0 +1,64 @@
+.investment-part {
+  display: flex;
+  flex-direction: column;
+
+  .ant-table-title {
+    background-color: white;
+  }
+
+  .ant-table-row {
+    background-color: white;
+  }
+
+  .make-investment {
+    display: flex;
+    justify-content: flex-end;
+
+    .manual-investment {
+      align-items: center;
+
+      padding-bottom: 10px;
+    }
+
+    .online-investment {
+      align-items: center;
+    }
+  }
+}
+
+.ant-modal-body {
+  .modal {
+    display: flex;
+    flex-direction: column;
+
+    .base-equipment {
+      display: flex;
+      justify-content: space-between;
+
+      padding-bottom: 5px;
+    }
+
+    .target-equipment {
+      display: flex;
+      justify-content: space-between;
+
+      padding-bottom: 5px;
+    }
+
+    .target-equipment-online {
+      display: flex;
+      align-items: center;
+    }
+
+    .credit-card {
+      .cc-number {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      .cc-date {
+        padding-bottom: 5px;
+      }
+    }
+  }
+}

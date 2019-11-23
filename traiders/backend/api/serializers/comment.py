@@ -1,6 +1,6 @@
-from rest_framework import serializers
+from rest_framework import serializers, fields
 
-from ..models import ArticleComment, EquipmentComment
+from ..models import ArticleComment, EquipmentComment, Equipment
 from . import UserSerializer
 
 
@@ -75,6 +75,20 @@ class ArticleCommentSerializer(CommentSerializerBase):
 
 
 class EquipmentCommentSerializer(CommentSerializerBase):
+
+    class EquipmentField(serializers.CharField):
+        def get_attribute(self, instance):
+            return instance.equipment.symbol
+
+        def run_validation(self, symbol=fields.empty):
+            super().run_validation(symbol)
+            equipment = Equipment.objects.filter(symbol=symbol).first()
+            if equipment is None:
+                raise serializers.ValidationError('No such equipment')
+            return equipment
+
+    equipment = EquipmentField()
+
     def get_fields(self):
         fields = super().get_fields()
 

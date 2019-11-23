@@ -19,6 +19,12 @@ router.register(r'comments/article', ArticleCommentViewSet, basename='articlecom
 router.register(r'comments/equipment', EquipmentCommentViewSet, basename='equipmentcomment')
 router.register(r'events', EventViewSet, basename='event')
 router.register(r'prediction', PredictionViewSet, basename='prediction')
+router.register(r'manualinvestment', ManualInvestmentViewSet, basename='manualinvestment')
+router.register(r'asset', AssetViewSet, basename='asset')
+router.register(r'onlineinvestment', OnlineInvestmentViewSet, basename='onlineinvestment')
+router.register(r'buyorder', BuyOrderViewSet, basename='buyorder')
+router.register(r'stoplossorder', StopLossOrderViewSet, basename='stoplossorder')
+
 
 urlpatterns = [
     # documentation views
@@ -43,6 +49,9 @@ urlpatterns = [
 
     # Link to latest mobile application
     path('mobile/', latest_mobile_app),
+
+    # Email verification
+    path('verify/<int:pk>', verify_email, name='verify-email'),
 
     # all API ends
     *router.urls

@@ -8,6 +8,10 @@
   width: 120px;
   height: 64px;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   .currency-name {
     display: flex;
     justify-content: flex-start;

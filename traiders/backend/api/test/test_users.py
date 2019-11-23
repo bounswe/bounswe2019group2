@@ -181,13 +181,13 @@ class UserViewSetTests(APITestCase):
         # test status code
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_become_trader_with_iban(self):
+    def test_become_trader_with_valid_iban(self):
         pk = User.objects.get(username='marry48').pk
 
         url = reverse('user-detail', kwargs={'pk': pk})
         data = {
             'is_trader': True,
-            'iban': '1234567890123456789012345678901234'
+            'iban': 'DE89370400440532013000'
         }
 
         # without authentication
@@ -201,6 +201,22 @@ class UserViewSetTests(APITestCase):
         # test status code
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_become_trader_with_invalid_iban(self):
+        pk = User.objects.get(username='marry48').pk
+
+        url = reverse('user-detail', kwargs={'pk': pk})
+        data = {
+            'is_trader': True,
+            'iban': 'TR12341234123412341234123412341234'
+        }
+
+        # with authentication
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.patch(url, data, format='json')
+
+        # test status code
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_retrieve_user(self):
         user = User.objects.get(username='marry48')
 
@@ -211,7 +227,8 @@ class UserViewSetTests(APITestCase):
 
         expected_fields = {
             'url', 'username', 'first_name', 'last_name', 'email',
-            'date_joined', 'is_trader', 'iban', 'city', 'country', 'is_private'
+            'date_joined', 'is_trader', 'iban', 'city', 'country', 'is_private',
+            'avatar'
         }
 
         self.assertSetEqual(expected_fields, set(response.data.keys()))

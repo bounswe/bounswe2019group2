@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from 'antd';
 
+import history from '../../common/history';
 import './custom-table.scss';
 
 const Row = (props) => {
@@ -11,10 +12,37 @@ const Row = (props) => {
   const changeRate = (((close - open) / open) * 100).toFixed(4);
   const changeType = changeRate < 0 ? 'fall' : 'rise';
 
+  const handleRoute = (event, equipmentSymbol) => {
+    event.stopPropagation();
+    const url = `/equipment/${equipmentSymbol}`;
+    history.push(url);
+  };
+
+  const handleParity = () => {
+    const url = `/parity/${base_equipment.symbol}/${target_equipment.symbol}`;
+    history.push(url);
+  };
+
   return (
-    <div className="table-row">
+    <div className="table-row" onClick={handleParity}>
       <div className="parity-details">
-        <div className="parity-symbols">{`${base_equipment.symbol} / ${target_equipment.symbol}`}</div>
+        <div className="parity-symbols">
+          <div
+            onClick={(event) => handleRoute(event, base_equipment.symbol)}
+            className="base-equipment"
+            value={base_equipment.symbol}
+          >
+            {`${base_equipment.symbol}`}
+          </div>
+          /
+          <div
+            onClick={(event) => handleRoute(event, target_equipment.symbol)}
+            className="target-equipment"
+            value={target_equipment.symbol}
+          >
+            {` ${target_equipment.symbol}`}
+          </div>
+        </div>
         <div className="parity-names">
           {`${base_equipment.name} / ${target_equipment.name}`}
         </div>
