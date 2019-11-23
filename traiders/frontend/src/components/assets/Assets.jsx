@@ -22,7 +22,9 @@ class Assets extends Component {
   componentDidMount() {
     const { user, getAssets, getCurrencyList } = this.props;
     getCurrencyList();
-    getAssets(user.key);
+    if (user) {
+      getAssets(user.key);
+    }
   }
 
   handleAddAsset = () => {
