@@ -34,10 +34,16 @@ class MyInvestments extends Component {
   }
 
   componentDidMount() {
-    const { getManualInvestments, getOnlineInvestments, user } = this.props;
+    const {
+      getManualInvestments,
+      getOnlineInvestments,
+      user,
+      getCurrencyList
+    } = this.props;
 
     getManualInvestments(user.key);
     getOnlineInvestments(user.key);
+    getCurrencyList();
   }
 
   menu = (list) => {
@@ -175,7 +181,12 @@ class MyInvestments extends Component {
   };
 
   render() {
-    const { user, manualInvestments, onlineInvestments } = this.props;
+    const {
+      user,
+      manualInvestments,
+      onlineInvestments,
+      currencyList
+    } = this.props;
     const {
       visibleManual,
       visibleOnline,
@@ -191,6 +202,10 @@ class MyInvestments extends Component {
     if (!user) {
       history.push('/login');
     }
+    const filteredList = [];
+    currencyList.forEach((element) => {
+      filteredList.push(element.code);
+    });
 
     return (
       <div className="investment-part">
@@ -253,7 +268,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <div className="target-equipment">
@@ -272,7 +287,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <Input
@@ -306,7 +321,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <div className="target-equipment-online">
@@ -319,7 +334,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <div className="credit-card-radio">
@@ -365,4 +380,3 @@ class MyInvestments extends Component {
 }
 
 export default MyInvestments;
-const currencyList = ['TRY', 'EUR', 'USD'];

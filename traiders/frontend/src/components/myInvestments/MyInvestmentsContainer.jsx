@@ -3,20 +3,23 @@ import { connect } from 'react-redux';
 import MyInvestments from './MyInvestments';
 import {
   getManualInvestments,
-  getOnlineInvestments
+  getOnlineInvestments,
+  getCurrencyList
 } from '../../redux/investments/actions';
 
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
     manualInvestments: state.investment.manualInvestments,
-    onlineInvestments: state.investment.onlineInvestments
+    onlineInvestments: state.investment.onlineInvestments,
+    currencyList: state.investment.currencyList
   };
 };
 
 const mapDispatchToProps = {
   getManualInvestments,
-  getOnlineInvestments
+  getOnlineInvestments,
+  getCurrencyList
 };
 
 export default connect(
