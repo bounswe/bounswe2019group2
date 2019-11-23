@@ -18,7 +18,6 @@ const UserHeader = (props) => {
         <div className="left-up">
           <Avatar size={80}>{user.username.charAt(0).toUpperCase()}</Avatar>
           <h1>{user.username}</h1>
-          <h2>Success Rate 0.0%</h2>
         </div>
         <div className="left-down">
           <Button

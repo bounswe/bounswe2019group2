@@ -2,11 +2,17 @@ import { actionTypes } from './actions';
 
 const initialState = {
   commentsList: null,
-  currentComment: null
+  currentComment: null,
+  currentEquipment: null
 };
 
 function equipmentReducer(state = initialState, action) {
   switch (action.type) {
+    case actionTypes.SAVE_SINGLE_EQUIPMENT:
+      return {
+        ...state,
+        currentEquipment: action.payload
+      };
     case actionTypes.SAVE_EQUIPMENT_COMMENTS:
       return {
         ...state,

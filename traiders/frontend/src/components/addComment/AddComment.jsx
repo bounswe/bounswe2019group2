@@ -33,17 +33,24 @@ class AddComment extends Component {
 
   handleSubmit = () => {
     const { content, image } = this.state;
-    const { user } = this.props;
+    const { user, submitUrl } = this.props;
     if (!user) {
       history.push('/login');
     }
-    // eslint-disable-next-line
-    const mainArticle = this.props.article;
     const token = user.key;
-    const article = mainArticle.url;
-    const submitUrl = 'https://api.traiders.tk/comments/article/';
-    if ((content, article)) {
-      PostWithAuthorization(submitUrl, { content, article }, token)
+    let body, equipment, article;
+    if (submitUrl.includes('equipment')) {
+      equipment = this.props.equipment;
+      body = { content, equipment };
+    } else {
+      // eslint-disable-next-line
+      const mainArticle = this.props.article;
+      article = mainArticle.url;
+      body = { content, article };
+    }
+    console.log(submitUrl, body);
+    if (body) {
+      PostWithAuthorization(submitUrl, body, token)
         .then((response) => {
           if (response.status === 201 && image) {
             response.json().then((res) => {

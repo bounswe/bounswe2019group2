@@ -5,12 +5,21 @@ import { GetWithUrl } from '../../common/http/httpUtil';
 
 const SAVE_EQUIPMENT_COMMENTS = 'SAVE_EQUIPMENT_COMMENTS';
 const SAVE_SINGLE_COMMENT = 'SAVE_SINGLE_COMMENT';
+const SAVE_SINGLE_EQUIPMENT = 'SAVE_SINGLE_EQUIPMENT';
 
 export const actionTypes = {
   SAVE_EQUIPMENT_COMMENTS,
-  SAVE_SINGLE_COMMENT
+  SAVE_SINGLE_COMMENT,
+  SAVE_SINGLE_EQUIPMENT
 };
 /* Action Creators */
+
+function saveSingleEquipment(equipment) {
+  return {
+    type: SAVE_SINGLE_EQUIPMENT,
+    payload: equipment
+  };
+}
 
 function saveSingleComment(comment) {
   return {
@@ -28,10 +37,17 @@ function saveEquipmentComments(commentsList) {
 
 export const actionCreators = {
   saveEquipmentComments,
-  saveSingleComment
+  saveSingleComment,
+  saveSingleEquipment
 };
 
 /* Api Call Functions */
+
+export const getEquipment = (base) => {
+  return (dispatch) => {
+    return dispatch(saveSingleEquipment(base));
+  };
+};
 
 export const getComment = (id) => {
   return (dispatch) => {

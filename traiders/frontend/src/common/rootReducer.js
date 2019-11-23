@@ -8,6 +8,7 @@ import articleReducer from '../redux/article/reducer';
 import eventsReducer from '../redux/events/reducer';
 import investmentReducer from '../redux/investments/reducer';
 import equipmentReducer from '../redux/equipment/reducer';
+import successReducer from '../redux/success/reducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   article: articleReducer,
   events: eventsReducer,
   investment: investmentReducer,
-  equipment: equipmentReducer
+  equipment: equipmentReducer,
+  success: successReducer
 });
 
 export default rootReducer;
