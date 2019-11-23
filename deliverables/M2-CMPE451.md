@@ -342,15 +342,49 @@ The system shall support following equipments and possible conversions between t
 
 
 ## Scenario 3 (Web)
+## Name (Trader)
+![Name](insert image URL here)
 
 **Persona**
-
+* 25 years old
+* Recently graduated
+* Works at a production facility
+* Very ambitious and curious about investments
+* Very easily influenced by opinions
+* Looking for news, expert opinions
 
 **Story**
+* Name recently graduated from university works as a project manager at a production facility.
+He comes to our website and logs in. 
+He is very curious about the state of the GBP, since he hears a lot about it in the news.
+He first visits the GBP/TRY page to check the history.
+Saw some potential, and wants to read more about the GBP equipment. Therefore he moves to the GBP page.
+There he sees a comment about the equipment. Scenario1Name's comment from a week earlier become true yesterday.
+He thinks that this could be a nice person to follow.
+Then he moves to the user page of Scenario1Name.
+He sees the success rate of the user and is very much impressed.
+He follows the user, and heads back to the parity page.
+He makes a prediction according to the user's comments.
+Then he heads to the investments. He first needs to add an asset.
+He adds asset, then makes an investment.
+In case of any quick changes, he puts an order.
+Luckily, in few minutes a new parity update happens, and his order gets triggered.
 
 **Preconditions**
+1. Uses a web browser to visit our website
+2. Already has an account
+3. Already has a verified e-mail
+4. Already has an IBAN in the system
 
 **Acceptance Criteria**
+1.1.2.1
+1.1.3.1, 1.1.3.2, 1.1.3.7
+1.1.4.1, 1.1.4.6
+1.1.7.1, 1.1.7.2, 1.1.7.3
+1.1.8.1, 1.1.8.3, 1.1.8.4
+1.1.8.5, 1.1.8.6, 1.2.4.5
+
+
 
 ## Evaluation of tools and managing the project
 
