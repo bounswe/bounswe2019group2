@@ -33,14 +33,14 @@ class AddComment extends Component {
 
   handleSubmit = () => {
     const { content, image } = this.state;
-    const { user, submitUrl } = this.props;
+    const { user, submitUrl, equipment } = this.props;
     if (!user) {
       history.push('/login');
     }
     const token = user.key;
-    let body, equipment, article;
+    // eslint-disable-next-line one-var
+    let body, article;
     if (submitUrl.includes('equipment')) {
-      equipment = this.props.equipment;
       body = { content, equipment };
     } else {
       // eslint-disable-next-line
@@ -48,7 +48,7 @@ class AddComment extends Component {
       article = mainArticle.url;
       body = { content, article };
     }
-    console.log(submitUrl, body);
+
     if (body) {
       PostWithAuthorization(submitUrl, body, token)
         .then((response) => {

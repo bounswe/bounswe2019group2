@@ -35,12 +35,12 @@ class EquipmentPage extends Component {
         return parity.target_equipment.symbol === base;
       });
     }
-    console.log(comments);
+
     return (
       <Page>
         <div className="container">
           <div>
-            <CustomTable parityList={parityList}></CustomTable>
+            <CustomTable parityList={parityList} />
           </div>
           <div>
             {comments &&

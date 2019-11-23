@@ -13,7 +13,7 @@ const UserHeader = (props) => {
   const { user } = data;
 
   return (
-    <div className="all">
+    <div className="user-header-container">
       <div className="left">
         <div className="left-up">
           <Avatar size={80}>{user.username.charAt(0).toUpperCase()}</Avatar>

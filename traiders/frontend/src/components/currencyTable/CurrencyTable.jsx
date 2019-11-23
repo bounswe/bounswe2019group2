@@ -9,13 +9,14 @@ class CurrencyTable extends Component {
   }
 
   render() {
-    let { parityList, base } = this.props;
+    let { parityList } = this.props;
+    const { base } = this.props;
     if (base !== null && parityList) {
       parityList = parityList.filter((parity) => {
         return parity.target_equipment.symbol === base;
       });
     }
-    console.log(parityList);
+
     const currencyList =
       parityList.length > 0
         ? parityList.map((parity) => {

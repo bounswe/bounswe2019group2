@@ -9,7 +9,7 @@ const UserProfile = (props) => {
   const { user } = props;
   return (
     <Page>
-      <div className="all">
+      <div className="profile-container">
         <div>
           <UserHeader data={user} />
         </div>
