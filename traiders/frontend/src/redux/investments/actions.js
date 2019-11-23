@@ -7,15 +7,33 @@ const SAVE_MANUAL_INVESTMENT_LIST = 'SAVE_MANUAL_INVESTMENT_LIST';
 const SAVE_ONLINE_INVESTMENT_LIST = 'SAVE_ONLINE_INVESTMENT_LIST';
 const SAVE_ASSETS_LIST = 'SAVE_ASSETS_LIST';
 const SAVE_CURRENCY_LIST = 'SAVE_CURRENCY_LIST';
+const SAVE_BUY_ORDER_LIST = 'SAVE_BUY_ORDER_LIST';
+const SAVE_STOP_LOSS_ORDER_LIST = 'SAVE_STOP_LOSS_ORDER_LIST';
 
 export const actionTypes = {
   SAVE_MANUAL_INVESTMENT_LIST,
   SAVE_ONLINE_INVESTMENT_LIST,
   SAVE_ASSETS_LIST,
-  SAVE_CURRENCY_LIST
+  SAVE_CURRENCY_LIST,
+  SAVE_BUY_ORDER_LIST,
+  SAVE_STOP_LOSS_ORDER_LIST
 };
 
 /* Action Creators */
+
+function saveBuyOrderList(list) {
+  return {
+    type: SAVE_BUY_ORDER_LIST,
+    payload: list
+  };
+}
+
+function saveStopLossOrderList(list) {
+  return {
+    type: SAVE_STOP_LOSS_ORDER_LIST,
+    payload: list
+  };
+}
 
 function saveManualInvestmentList(list) {
   return {
@@ -63,6 +81,32 @@ export const getManualInvestments = (token) => {
       .catch((error) =>
         // eslint-disable-next-line no-console
         console.log('Error while fetching manual investments\n', error)
+      );
+  };
+};
+
+export const getBuyOrders = (token) => {
+  return (dispatch) => {
+    GetWithAuthorization(`${API}/buyorder/`, token)
+      .then((response) => response.json())
+      .then((response) => dispatch(saveBuyOrderList(response)))
+
+      .catch((error) =>
+        // eslint-disable-next-line no-console
+        console.log('Error while fetching buy orders\n', error)
+      );
+  };
+};
+
+export const getStopLossOrders = (token) => {
+  return (dispatch) => {
+    GetWithAuthorization(`${API}/stoplossorder/`, token)
+      .then((response) => response.json())
+      .then((response) => dispatch(saveStopLossOrderList(response)))
+
+      .catch((error) =>
+        // eslint-disable-next-line no-console
+        console.log('Error while fetching stop-loss orders\n', error)
       );
   };
 };

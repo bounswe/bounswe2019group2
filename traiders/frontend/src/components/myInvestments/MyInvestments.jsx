@@ -40,9 +40,10 @@ class MyInvestments extends Component {
       user,
       getCurrencyList
     } = this.props;
-
-    getManualInvestments(user.key);
-    getOnlineInvestments(user.key);
+    if (user) {
+      getManualInvestments(user.key);
+      getOnlineInvestments(user.key);
+    }
     getCurrencyList();
   }
 
