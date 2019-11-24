@@ -350,19 +350,33 @@ He visits the his profile page and sees the increase in the follower number and 
 
 
 ## Scenario 2 (Web)
+### Reşat Bakış
 
 **Persona**
-
+* 32 years old.
+* Works at a grocery store.
+* Had some bad experience with investing and wants to share them.
 
 **Story**
+* He enters our website and clicks register.
+* He fills in his info and decides to register as a trader. 
+* He realizes he made a mistake when typing his IBAN and fixes it after seeing the error message.
+* He clicks "social" on the navigation bar, scrolls down the page and clicks "create article".
+* He writes and article about how he lost 10000 liras by investing in a company that his friend suggested. He argues 
+about the state of Turkey's economy, and asks for safe investment options.
+* He sees he made a small typo, wants to edit the article.
+* He accidentally clicks on "delete" and cancels it. Then clicks on "edit", and fixes the typo.
+* He comments the link to his article on a popular article to get more views. 
+* He also "likes" the popular article and "follows" it author.
 
 **Preconditions**
+1. Visits our website.
 
 **Acceptance Criteria**
 
 
 ## Scenario 3 (Web)
-## Name (Trader)
+### Name (Trader)
 ![Name](insert image URL here)
 
 **Persona**
