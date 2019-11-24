@@ -332,16 +332,12 @@ The system shall support following equipments and possible conversions between t
 * Name  graduated from university 5 years ago  and works as a banker.
 He uses our mobile application and he is our loyal user.
 He uses our mobile app everyday to see which articles are written by other users and which events are occured.
-He is interested in the state of Dollar against Turkish Lira.
-According to political agenda, he tries to make predictions about the Dollar/Try parity.
-He visits the events page and reads an interesting discourse of Donald Trump about S-400  defense system.
-He thinks that this discourse will affect the state of Dollar.
-He decides to write article about it and visits the articles.
-He writes an article about this event.
-After he explains his reasons,he states that the dolar will be valued against Turkish Lira.
-His article receives many likes since his prediction becomes true.
-The other users which are realize that Name's articles are reasonable, start to follow Name.
-Name sees the number of likes and wonders the his follower number.
+He is interested in the state of GBP against Turkish Lira.
+According to political agenda, he tries to make predictions about the GBP.
+He visits the events page and reads an event about brexit.
+He remembers his article which is written 1 week earlier from this event.
+He sees that his prediction about GBP in his article becomes true and there are many likes and comments in his article.
+After Name sees the number of likes, he wonders the his follower number.
 He visits the his profile page and sees the increase in the follower number and becomes very happy.  
 **Preconditions**
 
