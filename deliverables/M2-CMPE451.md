@@ -318,15 +318,39 @@ The system shall support following equipments and possible conversions between t
 # User Scenarios
 
 ## Scenario 1 (Mobile)
-
+![Name](insert image URL here)
 **Persona**
+* 29 years old
+* Graduated 5 years ago from the finance department.
+* Works at a bank.
+* Very ambitious and curious about investments
+* Research and analyze economic issues.
+* Advise  individuals on economic topics.
 
 
 **Story**
-
+* Name  graduated from university 5 years ago  and works as a banker.
+He uses our mobile application and he is our loyal user.
+He uses our mobile app everyday to see which articles are written by other users and which events are occured.
+He is interested in the state of Dollar against Turkish Lira.
+According to political agenda, he tries to make predictions about the Dollar/Try parity.
+He visits the events page and reads an interesting discourse of Donald Trump about S-400  defense system.
+He thinks that this discourse will affect the state of Dollar.
+He decides to write article about it and visits the articles.
+He writes an article about this event.
+After he explains his reasons,he states that the dolar will be valued against Turkish Lira.
+His article receives many likes since his prediction becomes true.
+The other users which are realize that Name's articles are reasonable, start to follow Name.
+Name sees the number of likes and wonders the his follower number.
+He visits the his profile page and sees the increase in the follower number and becomes very happy.  
 **Preconditions**
 
+1. Uses a our mobile app.
+2. Already has an account
+3. Already has a verified e-mail
+
 **Acceptance Criteria**
+
 
 
 ## Scenario 2 (Web)
