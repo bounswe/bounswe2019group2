@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Icon } from 'antd';
 
 import { API } from '../../redux/apiConfig';
 import './article.scss';
@@ -16,7 +16,8 @@ class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      action: null
     };
   }
 
@@ -24,20 +25,72 @@ class Article extends Component {
     const {
       id,
       getArticle,
+      getArticleWithAuthorization,
       getArticleComments,
       getFollowings,
       getFollowers,
       user
     } = this.props;
-    getArticle(id);
-    getArticleComments(id);
+
     if (user) {
       const array = user.user.url.split('/');
       const userId = array[array.length - 2];
       getFollowings(userId);
       getFollowers(userId);
+      getArticleWithAuthorization(id, user.key);
+    } else {
+      getArticle(id);
+      getArticleComments(id);
     }
   }
+
+  handleLike = () => {
+    const { user, id, getArticleWithAuthorization } = this.props;
+    const url = `${API}/likes/`;
+    // eslint-disable-next-line
+    const article = this.props.article.url;
+    // eslint-disable-next-line
+    const articleLike = this.props.article.like;
+    if (user) {
+      if (!articleLike) {
+        PostWithAuthorization(url, { article }, user.key)
+          // eslint-disable-next-line no-console
+          .then((response) => console.log(response))
+          // eslint-disable-next-line no-console
+          .catch((error) => console.log('Errow while following\n', error));
+        setTimeout(getArticleWithAuthorization(id, user.key), 500);
+      } else {
+        // eslint-disable-next-line
+        alert("You've already liked this article!");
+      }
+    } else {
+      history.push('/login');
+    }
+  };
+
+  handleDislike = () => {
+    const { user, id, getArticleWithAuthorization } = this.props;
+    // eslint-disable-next-line
+    const articleLike = this.props.article.like;
+
+    if (user) {
+      if (articleLike && articleLike.user === user.user.url) {
+        const likeArray = articleLike.url.split('/');
+        const likeId = likeArray[likeArray.length - 2];
+        const url = `${API}/likes/${likeId}/`;
+        DeleteWithAuthorization(url, user.key)
+          // eslint-disable-next-line no-console
+          .then((response) => console.log(response.url))
+          // eslint-disable-next-line no-console
+          .catch((error) => console.log('Errow while following\n', error));
+      } else {
+        alert('There is no like for this user.');
+      }
+      setTimeout(getArticleWithAuthorization(id, user.key), 500);
+    } else {
+      history.push('/login');
+    }
+  };
 
   handleFollow = () => {
     const { user, article } = this.props;
@@ -105,7 +158,7 @@ class Article extends Component {
 
   render() {
     const { article, comments, user, followings } = this.props;
-    const { visible } = this.state;
+    const { visible, action } = this.state;
 
     const ownArticle = user && article && user.user.url === article.author.url;
 
@@ -117,7 +170,8 @@ class Article extends Component {
       );
 
     const following = isFollowing ? isFollowing.length !== 0 : false;
-
+    // eslint-disable-next-line
+    console.log(this.props.article, this.props.user);
     return (
       <div>
         {(article && (
@@ -162,6 +216,30 @@ class Article extends Component {
               />
             </div>
             <pre className="article-content">{article.content}</pre>
+            <div className="article-like">
+              <h4>Number of Likes: {article.num_likes}</h4>
+
+              <Button
+                style={{ paddingLeft: 12, cursor: 'auto' }}
+                onClick={this.handleLike}
+              >
+                <Icon
+                  type="like"
+                  theme={action === 'liked' ? 'filled' : 'outlined'}
+                  onClick={this.handleLike}
+                />
+              </Button>
+              <Button
+                onClick={this.handleDislike}
+                style={{ paddingLeft: 12, cursor: 'auto' }}
+              >
+                <Icon
+                  type="dislike"
+                  theme={action === 'disliked' ? 'filled' : 'outlined'}
+                  onClick={this.handleDislike}
+                />
+              </Button>
+            </div>
             <div className="written-by" />
             <div className="article-comment">
               <div className="comment-header-div">
