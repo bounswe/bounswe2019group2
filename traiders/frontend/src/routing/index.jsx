@@ -15,6 +15,7 @@ import ParityPage from '../components/parityPage/ParityPageContainer';
 import EditArticle from '../modules/articleModule/EditArticleModule';
 import EquipmentPage from '../components/equipmentPage/EquipmentPageContainer';
 import Investments from '../modules/investments/InvestmentsModule';
+import OtherUser from '../components/otherUser/OtherUserContainer';
 
 const ACTION_TYPE = {
   PUSH: 'PUSH',
@@ -55,14 +56,15 @@ class Routes extends Component {
       <Suspense>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/profile" component={UserProfile} />
+          <Route exact path="/profile" component={UserProfile} />
+          <Route exact path="/profile/:id" component={OtherUser} />
           <Route path="/updateprofile" component={UserProfileUpdate} />
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/parity/:target/:base" component={ParityPage} />
           <Route path="/articles/:id" component={Article} />
-          <Route path="/equipment/:base" component={EquipmentPage} />
+          <Route exact path="/equipment/:base" component={EquipmentPage} />
           <Route path="/article/edit/:id" component={EditArticle} />
           <Route path="/create-article" component={NewArticle} />
           <Route path="/social" component={Social} />

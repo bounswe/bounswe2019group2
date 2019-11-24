@@ -8,12 +8,14 @@ import {
 /* Action Types */
 
 const SAVE_USER = 'SAVE_USER';
+const SAVE_OTHER_USER = 'SAVE_OTHER_USER';
 const SAVE_FOLLOWERS = 'SAVE_FOLLOWERS';
 const SAVE_FOLLOWINGS = 'SAVE_FOLLOWINGS';
 const LOGOUT = 'LOGOUT';
 
 export const actionTypes = {
   SAVE_USER,
+  SAVE_OTHER_USER,
   LOGOUT,
   SAVE_FOLLOWERS,
   SAVE_FOLLOWINGS
@@ -24,6 +26,12 @@ export const actionTypes = {
 function saveUser(user) {
   return {
     type: SAVE_USER,
+    payload: user
+  };
+}
+function saveOtherUser(user) {
+  return {
+    type: SAVE_OTHER_USER,
     payload: user
   };
 }
@@ -66,6 +74,19 @@ export const loginUser = (body) => {
 
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while logging\n', error));
+  };
+};
+
+export const getOtherUser = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/users/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => dispatch(saveOtherUser(res)));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching followers\n', error));
   };
 };
 
