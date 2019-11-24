@@ -58,7 +58,7 @@ class Article extends Component {
           .then((response) => console.log(response))
           // eslint-disable-next-line no-console
           .catch((error) => console.log('Errow while following\n', error));
-        setTimeout(getArticleWithAuthorization(id, user.key), 500);
+        setTimeout(getArticleWithAuthorization(id, user.key), 300);
       } else {
         // eslint-disable-next-line
         alert("You've already liked this article!");
@@ -86,17 +86,19 @@ class Article extends Component {
       } else {
         alert('There is no like for this user.');
       }
-      setTimeout(getArticleWithAuthorization(id, user.key), 500);
+      setTimeout(getArticleWithAuthorization(id, user.key), 1000);
     } else {
       history.push('/login');
     }
   };
 
   handleFollow = () => {
-    const { user, article } = this.props;
+    const { user, article, getFollowings, id } = this.props;
     // eslint-disable-next-line camelcase
     const user_followed = article.author.url;
     const url = `${API}/following/`;
+    const array = user.user.url.split('/');
+    const userId = array[array.length - 2];
 
     if (user) {
       PostWithAuthorization(url, { user_followed }, user.key)
@@ -104,21 +106,31 @@ class Article extends Component {
         .then((response) => console.log(response))
         // eslint-disable-next-line no-console
         .catch((error) => console.log('Errow while following\n', error));
+      setTimeout(getFollowings(id, user.key), 3000);
     } else {
       history.push('/login');
     }
+    setTimeout(getFollowings(userId), 500);
   };
 
   handleUnfollow = () => {
-    const { user, article, deleteFollowing, followings } = this.props;
+    const {
+      user,
+      article,
+      deleteFollowing,
+      followings,
+      getFollowings
+    } = this.props;
     const { author } = article;
-
+    const array = user.user.url.split('/');
+    const userId = array[array.length - 2];
     const followDetails =
       article &&
       followings &&
       followings.filter((element) => element.user_followed === author.url);
 
     deleteFollowing(followDetails[0].id, user.key);
+    setTimeout(getFollowings(userId), 1000);
   };
 
   editArticle = () => {
@@ -171,7 +183,7 @@ class Article extends Component {
 
     const following = isFollowing ? isFollowing.length !== 0 : false;
     // eslint-disable-next-line
-    console.log(this.props.article, this.props.user);
+    console.log(followings);
     return (
       <div>
         {(article && (
