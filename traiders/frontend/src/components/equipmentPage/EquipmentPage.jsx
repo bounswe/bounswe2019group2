@@ -7,28 +7,19 @@ import AddComment from '../addComment/AddCommentContainer';
 import './equipment-page.scss';
 
 class EquipmentPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      base: ''
-    };
-  }
-
   componentWillMount() {
     const { match, getParities } = this.props;
     const { base } = match.params;
     getParities();
-    this.setState({
-      base
-    });
+
     const { getEquipmentComments, getEquipment } = this.props;
     getEquipmentComments(base);
     getEquipment(base);
   }
 
   render() {
-    const { base } = this.state;
-    const { comments } = this.props;
+    const { comments, match } = this.props;
+    const { base } = match.params;
     let { parityList } = this.props;
     if (parityList) {
       parityList = parityList.filter((parity) => {
