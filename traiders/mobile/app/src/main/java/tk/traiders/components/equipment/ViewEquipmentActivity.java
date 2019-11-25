@@ -122,7 +122,7 @@ public class ViewEquipmentActivity extends AppCompatActivity {
                     {
                         Map<String, String>  params = new HashMap<String, String>();
                         params.put("content", comment);
-                        params.put("equipment", equipment.getUrl());
+                        params.put("equipment", equipment.getSymbol());
 
                         return params;
                     }

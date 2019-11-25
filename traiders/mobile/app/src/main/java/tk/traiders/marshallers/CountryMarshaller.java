@@ -14,10 +14,14 @@ import tk.traiders.models.Country;
 import tk.traiders.models.Like;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class CountryMarshaller {
 
     public static Country unmarshall(String response){
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         Country country = null;
 
@@ -37,6 +41,8 @@ public class CountryMarshaller {
     }
 
     public static List<Country> unmarshallList(String response) {
+
+        response = MarshallerUtils.convertToUTF8(response);
 
         List<Country> countryList = new ArrayList<>();
 

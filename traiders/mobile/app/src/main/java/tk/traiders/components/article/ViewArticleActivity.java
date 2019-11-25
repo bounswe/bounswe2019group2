@@ -126,6 +126,7 @@ public class ViewArticleActivity extends AppCompatActivity {
                     protected Map<String, String> getParams()
                     {
                         Map<String, String>  params = new HashMap<String, String>();
+
                         params.put("content", comment);
                         params.put("article", article.getUrl());
 

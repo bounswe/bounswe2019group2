@@ -1,30 +1,33 @@
 package tk.traiders.ui.profile.children;
 
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import android.net.Uri;
 
+import androidx.recyclerview.widget.RecyclerView;
 
+import tk.traiders.MainActivity;
 import tk.traiders.R;
+import tk.traiders.marshallers.FollowingMarshaller;
+import tk.traiders.ui.ListFragment;
+import tk.traiders.ui.profile.adapters.FollowingAdapter;
 
 
+public class FollowersFragment extends ListFragment {
 
-public class FollowersFragment extends Fragment {
+    private static final String BASE_URL = "https://api.traiders.tk/following/";
 
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_followers, container, false);
-        return rootView;
+    protected String getURL() {
+        Uri.Builder builder = Uri.parse(BASE_URL).buildUpon();
+        builder.appendQueryParameter("user_followed", MainActivity.getUserID(getContext()));
+        String urlWithFilters = builder.build().toString();
+        return urlWithFilters ;
     }
 
-
-
+    @Override
+    protected RecyclerView.Adapter getAdapter(String response) {
+        return new FollowingAdapter(getContext(), FollowingMarshaller.unmarshallList(response), "followers");
+    }
 }

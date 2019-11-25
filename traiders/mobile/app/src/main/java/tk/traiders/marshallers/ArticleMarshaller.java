@@ -12,10 +12,14 @@ import tk.traiders.models.Article;
 import tk.traiders.models.Like;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class ArticleMarshaller {
 
     public static Article unmarshall(String response){
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         Article article = null;
 
@@ -44,6 +48,10 @@ public class ArticleMarshaller {
     }
 
     public static List<Article> unmarshallList(String response) {
+
+        response = MarshallerUtils.convertToUTF8(response);
+
+
 
         List<Article> articleList = new ArrayList<>();
 

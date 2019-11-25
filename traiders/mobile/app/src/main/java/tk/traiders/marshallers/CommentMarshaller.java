@@ -11,10 +11,14 @@ import tk.traiders.constants.CommentConstants;
 import tk.traiders.models.Comment;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class CommentMarshaller {
 
     public static Comment unmarshall(String response){
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         Comment comment = null;
 
@@ -46,6 +50,8 @@ public class CommentMarshaller {
     }
 
     public static List<Comment> unmarshallList(String response) {
+
+        response = MarshallerUtils.convertToUTF8(response);
 
         List<Comment> commentList = new ArrayList<>();
 
