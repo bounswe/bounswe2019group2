@@ -23,6 +23,11 @@ function equipmentReducer(state = initialState, action) {
         ...state,
         currentComment: action.payload
       };
+    case actionTypes.CLEAR_EQUIPMENT_COMMENTS:
+      return {
+        ...state,
+        currentComment: null
+      };
     default:
       return state;
   }

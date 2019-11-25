@@ -6,13 +6,21 @@ import { GetWithUrl } from '../../common/http/httpUtil';
 const SAVE_EQUIPMENT_COMMENTS = 'SAVE_EQUIPMENT_COMMENTS';
 const SAVE_SINGLE_COMMENT = 'SAVE_SINGLE_COMMENT';
 const SAVE_SINGLE_EQUIPMENT = 'SAVE_SINGLE_EQUIPMENT';
+const CLEAR_EQUIPMENT_COMMENTS = 'CLEAR_EQUIPMENT_COMMENTS';
 
 export const actionTypes = {
   SAVE_EQUIPMENT_COMMENTS,
   SAVE_SINGLE_COMMENT,
-  SAVE_SINGLE_EQUIPMENT
+  SAVE_SINGLE_EQUIPMENT,
+  CLEAR_EQUIPMENT_COMMENTS
 };
 /* Action Creators */
+
+function clearEquipmentComments() {
+  return {
+    type: CLEAR_EQUIPMENT_COMMENTS
+  };
+}
 
 function saveSingleEquipment(equipment) {
   return {
@@ -66,6 +74,7 @@ export const getComment = (id) => {
 
 export const getEquipmentComments = (base) => {
   return (dispatch) => {
+    dispatch(clearEquipmentComments());
     GetWithUrl(`${API}/comments/equipment/?equipment=${base}`)
       .then((response) => {
         if (response.status === 200) {
