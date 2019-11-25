@@ -12,20 +12,14 @@ class ParityPage extends Component {
     super(props);
     this.state = {
       limit: 30,
-      base: '',
-      target: '',
       ma: 0
     };
   }
 
   componentWillMount() {
-    const { match } = this.props;
+    const { match, getOneParity } = this.props;
     const { base, target } = match.params;
-    this.setState({
-      base,
-      target
-    });
-    const { getOneParity } = this.props;
+
     getOneParity(target, base);
   }
 
@@ -37,8 +31,8 @@ class ParityPage extends Component {
   };
 
   handlerPrd = (pred) => {
-    const { user } = this.props;
-    const { base, target } = this.state;
+    const { user, match } = this.props;
+    const { base, target } = match.params;
     const token = user.key;
     const url = 'https://api.traiders.tk/prediction/';
     const body = {
@@ -60,8 +54,9 @@ class ParityPage extends Component {
   };
 
   render() {
-    const { oneParity } = this.props;
-    const { limit, base, target, ma } = this.state;
+    const { oneParity, match } = this.props;
+    const { target, base } = match.params;
+    const { limit, ma } = this.state;
     const l1 = `/equipment/${target}`;
     const l2 = `/equipment/${base}`;
     return (

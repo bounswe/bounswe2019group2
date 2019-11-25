@@ -76,11 +76,9 @@ export const getOneParity = (base, target) => {
 
 export const getCurrencies = () => {
   return (dispatch) => {
-    GetWithUrl('https://finans.apipara.com/json/v7//converter')
+    GetWithUrl(`${API}/parity/?limit=6`)
       .then((response) => response.json())
-      .then((response) =>
-        dispatch(saveCurrencyList(response.response.currency))
-      )
+      .then((res) => dispatch(saveCurrencyList(res.results)))
 
       .catch((error) =>
         // eslint-disable-next-line no-console

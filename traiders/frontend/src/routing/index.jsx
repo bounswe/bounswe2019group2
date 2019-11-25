@@ -62,7 +62,7 @@ class Routes extends Component {
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/parity/:target/:base" component={ParityPage} />
+          <Route exact path="/parity/:target/:base" component={ParityPage} />
           <Route path="/articles/:id" component={Article} />
           <Route exact path="/equipment/:base" component={EquipmentPage} />
           <Route path="/article/edit/:id" component={EditArticle} />
