@@ -16,7 +16,6 @@ class Register extends Component {
       // eslint-disable-next-line
       isTrader: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit = (e) => {
@@ -24,7 +23,7 @@ class Register extends Component {
     const { postUserRegister, form } = this.props;
     const { city, country } = this.state;
     // eslint-disable-next-line
-    const { is_trader } = this.state.isTrader;
+    const is_trader = this.state.isTrader;
     const passValue = form.getFieldValue('password');
     const ibanValue = form.getFieldValue('iban');
 
@@ -70,11 +69,14 @@ class Register extends Component {
             console.log('Error when fetch register\n', error)
           );
       } else {
+        console.log('blabla1');
         form.validateFields(
-          ['username', 'password', 'email', 'first_name', 'last_name'],
+          ['username', 'email', 'first_name', 'last_name', 'password'],
 
           (errors, values) => {
+            console.log('blabla2');
             if (!errors) {
+              console.log('blabla3');
               postUserRegister({ ...values, is_trader, city, country });
             } else {
               // eslint-disable-next-line
@@ -192,15 +194,11 @@ class Register extends Component {
             </Form.Item>
             <Form.Item help="Password should be between 8-15 characters and include a big letter 'A - Z' and a number between 0-9!">
               {getFieldDecorator('password', {
-                validateTrigger: 'onChange',
                 rules: [
                   {
                     required: true,
                     message:
                       "Password should be between 8-15 characters and include a big letter 'A - Z' and a number between 0-9!"
-                  },
-                  {
-                    validator: this.validateToNextPassword
                   }
                 ]
               })(
@@ -217,7 +215,6 @@ class Register extends Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('confirm', {
-                validateTrigger: 'onChange',
                 rules: [
                   {
                     required: false,
@@ -274,21 +271,16 @@ class Register extends Component {
                 ]
               })(<Input type="text" placeholder="Last Name" />)}
             </Form.Item>
-            <Form.Item>
-              {getFieldDecorator('isTrader', {
-                valuePropName: 'unchecked',
-                initialValue: false
-              })(
-                <Checkbox onChange={this.handleCheckbox}>
-                  I want to have a Trader Account
-                </Checkbox>
-              )}
-            </Form.Item>
+
+            <Checkbox onChange={this.handleCheckbox}>
+              I want to have a Trader Account
+            </Checkbox>
+
             {isTrader && (
               <Form.Item>
                 {getFieldDecorator('iban', {
                   rules: [
-                    { required: true, message: 'Please enter your IBAN!' }
+                    { required: false, message: 'Please enter your IBAN!' }
                   ]
                 })(<Input type="text" placeholder="IBAN" />)}
               </Form.Item>
