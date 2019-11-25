@@ -38,11 +38,13 @@ class MyInvestments extends Component {
       getManualInvestments,
       getOnlineInvestments,
       user,
-      getCurrencyList
+      getCurrencyList,
+      getProfitList
     } = this.props;
     if (user) {
       getManualInvestments(user.key);
       getOnlineInvestments(user.key);
+      getProfitList(user.key);
     }
     getCurrencyList();
   }
@@ -95,6 +97,15 @@ class MyInvestments extends Component {
     this.setState({
       visibleManual: false
     });
+  };
+
+  mergeArrays = (arr1, arr2) => {
+    const newList = [];
+    arr1.forEach((element, index) =>
+      newList.push({ ...element, ...arr2[index] })
+    );
+
+    return newList;
   };
 
   handleCancelManual = () => {
@@ -186,7 +197,8 @@ class MyInvestments extends Component {
       user,
       manualInvestments,
       onlineInvestments,
-      currencyList
+      currencyList,
+      profitLossList
     } = this.props;
     const {
       visibleManual,
@@ -200,6 +212,20 @@ class MyInvestments extends Component {
       creditCardValidUntil,
       isCreditCard
     } = this.state;
+    let newManualInvestmentList;
+    let newOnlineInvestmentList;
+    if (user) {
+      newManualInvestmentList = this.mergeArrays(
+        manualInvestments,
+        profitLossList.manual_investments
+      );
+
+      newOnlineInvestmentList = this.mergeArrays(
+        onlineInvestments,
+        profitLossList.online_investments
+      );
+    }
+
     if (!user) {
       history.push('/login');
     }
@@ -214,7 +240,7 @@ class MyInvestments extends Component {
           <div className="manual-investments-table">
             <Table
               columns={manualInvestmentsTableColumns}
-              dataSource={manualInvestments}
+              dataSource={newManualInvestmentList}
               bordered
               title={() => 'MANUAL INVESTMENTS'}
               rowKey="id"
@@ -232,7 +258,7 @@ class MyInvestments extends Component {
           <div className="online-investments-table">
             <Table
               columns={onlineInvestmentsTableColumns}
-              dataSource={onlineInvestments}
+              dataSource={newOnlineInvestmentList}
               bordered
               title={() => 'ONLINE INVESTMENTS'}
               rowKey="id"

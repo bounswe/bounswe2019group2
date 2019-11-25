@@ -100,6 +100,11 @@ export const manualInvestmentsTableColumns = [
     title: 'DATE',
     dataIndex: 'date',
     key: 'date'
+  },
+  {
+    title: 'TOTAL PROFIT LOSS IN TRY',
+    dataIndex: 'profit',
+    key: 'profit'
   }
 ];
 
@@ -130,5 +135,10 @@ export const onlineInvestmentsTableColumns = [
     title: 'DATE',
     dataIndex: 'date',
     key: 'date'
+  },
+  {
+    title: 'TOTAL PROFIT LOSS IN TRY',
+    dataIndex: 'profit',
+    key: 'profit'
   }
 ];
