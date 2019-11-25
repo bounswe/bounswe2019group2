@@ -214,7 +214,7 @@ class MyInvestments extends Component {
     } = this.state;
     let newManualInvestmentList;
     let newOnlineInvestmentList;
-    if (user) {
+    if ((user, manualInvestments, onlineInvestments, profitLossList)) {
       newManualInvestmentList = this.mergeArrays(
         manualInvestments,
         profitLossList.manual_investments
