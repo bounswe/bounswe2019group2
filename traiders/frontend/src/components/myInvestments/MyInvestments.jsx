@@ -34,10 +34,19 @@ class MyInvestments extends Component {
   }
 
   componentDidMount() {
-    const { getManualInvestments, getOnlineInvestments, user } = this.props;
-
-    getManualInvestments(user.key);
-    getOnlineInvestments(user.key);
+    const {
+      getManualInvestments,
+      getOnlineInvestments,
+      user,
+      getCurrencyList,
+      getProfitList
+    } = this.props;
+    if (user) {
+      getManualInvestments(user.key);
+      getOnlineInvestments(user.key);
+      getProfitList(user.key);
+    }
+    getCurrencyList();
   }
 
   menu = (list) => {
@@ -88,6 +97,15 @@ class MyInvestments extends Component {
     this.setState({
       visibleManual: false
     });
+  };
+
+  mergeArrays = (arr1, arr2) => {
+    const newList = [];
+    arr1.forEach((element, index) =>
+      newList.push({ ...element, ...arr2[index] })
+    );
+
+    return newList;
   };
 
   handleCancelManual = () => {
@@ -175,7 +193,13 @@ class MyInvestments extends Component {
   };
 
   render() {
-    const { user, manualInvestments, onlineInvestments } = this.props;
+    const {
+      user,
+      manualInvestments,
+      onlineInvestments,
+      currencyList,
+      profitLossList
+    } = this.props;
     const {
       visibleManual,
       visibleOnline,
@@ -188,9 +212,27 @@ class MyInvestments extends Component {
       creditCardValidUntil,
       isCreditCard
     } = this.state;
+    let newManualInvestmentList;
+    let newOnlineInvestmentList;
+    if (user) {
+      newManualInvestmentList = this.mergeArrays(
+        manualInvestments,
+        profitLossList.manual_investments
+      );
+
+      newOnlineInvestmentList = this.mergeArrays(
+        onlineInvestments,
+        profitLossList.online_investments
+      );
+    }
+
     if (!user) {
       history.push('/login');
     }
+    const filteredList = [];
+    currencyList.forEach((element) => {
+      filteredList.push(element.code);
+    });
 
     return (
       <div className="investment-part">
@@ -198,7 +240,7 @@ class MyInvestments extends Component {
           <div className="manual-investments-table">
             <Table
               columns={manualInvestmentsTableColumns}
-              dataSource={manualInvestments}
+              dataSource={newManualInvestmentList}
               bordered
               title={() => 'MANUAL INVESTMENTS'}
               rowKey="id"
@@ -216,7 +258,7 @@ class MyInvestments extends Component {
           <div className="online-investments-table">
             <Table
               columns={onlineInvestmentsTableColumns}
-              dataSource={onlineInvestments}
+              dataSource={newOnlineInvestmentList}
               bordered
               title={() => 'ONLINE INVESTMENTS'}
               rowKey="id"
@@ -253,7 +295,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <div className="target-equipment">
@@ -272,7 +314,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <Input
@@ -306,7 +348,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <div className="target-equipment-online">
@@ -319,7 +361,7 @@ class MyInvestments extends Component {
                 style={{ width: 120 }}
               >
                 {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(currencyList)}
+                {this.menu(filteredList)}
               </Select>
             </div>
             <div className="credit-card-radio">
@@ -365,4 +407,3 @@ class MyInvestments extends Component {
 }
 
 export default MyInvestments;
-const currencyList = ['TRY', 'EUR', 'USD'];

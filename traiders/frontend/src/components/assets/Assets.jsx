@@ -22,7 +22,9 @@ class Assets extends Component {
   componentDidMount() {
     const { user, getAssets, getCurrencyList } = this.props;
     getCurrencyList();
-    getAssets(user.key);
+    if (user) {
+      getAssets(user.key);
+    }
   }
 
   handleAddAsset = () => {
@@ -83,12 +85,16 @@ class Assets extends Component {
   };
 
   render() {
-    const { assets, user } = this.props;
+    const { assets, user, currencyList } = this.props;
     const { visible, newAssetAmount } = this.state;
 
     if (!user) {
       history.push('/login');
     }
+    const filteredList = [];
+    currencyList.forEach((element) => {
+      filteredList.push(element.code);
+    });
 
     return (
       <div className="assets-container">
@@ -125,7 +131,7 @@ class Assets extends Component {
               style={{ width: 120 }}
             >
               {/* eslint-disable-next-line no-use-before-define */}
-              {this.menu(currencyList)}
+              {this.menu(filteredList)}
             </Select>
           </div>
         </Modal>
@@ -135,5 +141,3 @@ class Assets extends Component {
 }
 
 export default Assets;
-
-const currencyList = ['TRY', 'EUR', 'USD'];

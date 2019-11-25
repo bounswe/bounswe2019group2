@@ -7,15 +7,24 @@ const SAVE_MANUAL_INVESTMENT_LIST = 'SAVE_MANUAL_INVESTMENT_LIST';
 const SAVE_ONLINE_INVESTMENT_LIST = 'SAVE_ONLINE_INVESTMENT_LIST';
 const SAVE_ASSETS_LIST = 'SAVE_ASSETS_LIST';
 const SAVE_CURRENCY_LIST = 'SAVE_CURRENCY_LIST';
+const SAVE_PROFIT_LOSS_LIST = 'SAVE_PROFIT_LOSS_LIST';
 
 export const actionTypes = {
   SAVE_MANUAL_INVESTMENT_LIST,
   SAVE_ONLINE_INVESTMENT_LIST,
   SAVE_ASSETS_LIST,
-  SAVE_CURRENCY_LIST
+  SAVE_CURRENCY_LIST,
+  SAVE_PROFIT_LOSS_LIST
 };
 
 /* Action Creators */
+
+function saveProfitLossList(list) {
+  return {
+    type: SAVE_PROFIT_LOSS_LIST,
+    payload: list
+  };
+}
 
 function saveManualInvestmentList(list) {
   return {
@@ -76,6 +85,19 @@ export const getOnlineInvestments = (token) => {
       .catch((error) =>
         // eslint-disable-next-line no-console
         console.log('Error while fetching  online investments\n', error)
+      );
+  };
+};
+
+export const getProfitList = (token) => {
+  return (dispatch) => {
+    GetWithAuthorization(`${API}/profitloss/?equipment=TRY`, token)
+      .then((response) => response.json())
+      .then((response) => dispatch(saveProfitLossList(response)))
+
+      .catch((error) =>
+        // eslint-disable-next-line no-console
+        console.log('Error while fetching  profit-loss list\n', error)
       );
   };
 };
