@@ -212,9 +212,9 @@ class MyInvestments extends Component {
       creditCardValidUntil,
       isCreditCard
     } = this.state;
-    let newManualInvestmentList;
-    let newOnlineInvestmentList;
-    if ((user, manualInvestments, onlineInvestments, profitLossList)) {
+    let newManualInvestmentList = [];
+    let newOnlineInvestmentList = [];
+    if (user && manualInvestments && onlineInvestments && profitLossList) {
       newManualInvestmentList = this.mergeArrays(
         manualInvestments,
         profitLossList.manual_investments
