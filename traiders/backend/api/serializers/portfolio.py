@@ -11,9 +11,19 @@ class IsFollowingField(serializers.BooleanField):
 class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
     is_following = IsFollowingField()
 
+    def get_fields(self):
+        fields = super().get_fields()
+        view = self.context.get('view')
+        if view and self.context['request'].user != fields['user']:
+            fields['name'].read_only = True
+            fields['parities'].read_only = True
+            fields['user'].read_only = True
+
+        return fields
+
     class Meta:
         model = Portfolio
-        fields = ["name", "owner", "followed_by", "parities"]
+        fields = ["name", "user", "followed_by", "parities"]
 
     def update(self, instance: Portfolio, validated_data: dict):
         is_following = validated_data.pop('is_following', None)
@@ -26,6 +36,8 @@ class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
         if is_following is True:
             if self.context['request'].user in followers:
                 raise serializers.ValidationError('You already follow this event.')
+            if self.context['request'].user in followers:
+                raise serializers.ValidationError('A user cannot follow his/her own portfolio.')
             instance.followed_by.add(self.context['request'].user)
         elif is_following is False:
             if self.context['request'].user not in followers:

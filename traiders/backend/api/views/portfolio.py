@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
@@ -17,6 +18,7 @@ class PortfolioViewSet(mixins.CreateModelMixin,
     serializer_class = PortfolioSerializer
     queryset = Portfolio.objects.all()
     filter_backends = [DjangoFilterBackend]
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def list(self, request, *args, **kwargs):
         if 'user' not in request.query_params:
@@ -27,6 +29,6 @@ class PortfolioViewSet(mixins.CreateModelMixin,
         return super().list(request, *args, **kwargs)
 
     def check_object_permissions(self, request, portfolio):
-        # Another user can only retrieve; cannot update, delete, update or partial_update
-        if self.action != 'retrieve' and request.user != portfolio.owner:
+        # Another user can only retrieve; cannot delete
+        if (self.action == 'create' or self.action == 'destroy') and request.user != portfolio.user:
             raise PermissionDenied
