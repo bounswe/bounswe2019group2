@@ -94,7 +94,7 @@ class Article extends Component {
   };
 
   handleFollow = () => {
-    const { user, article, getFollowings, id } = this.props;
+    const { user, article, getFollowings } = this.props;
     // eslint-disable-next-line camelcase
     const user_followed = article.author.url;
     const url = `${API}/following/`;
@@ -107,11 +107,10 @@ class Article extends Component {
         .then((response) => console.log(response))
         // eslint-disable-next-line no-console
         .catch((error) => console.log('Errow while following\n', error));
-      setTimeout(getFollowings(id, user.key), 3000);
+      setTimeout(() => getFollowings(userId), 500);
     } else {
       history.push('/login');
     }
-    setTimeout(getFollowings(userId), 500);
   };
 
   handleUnfollow = () => {
@@ -131,7 +130,7 @@ class Article extends Component {
       followings.filter((element) => element.user_followed === author.url);
 
     deleteFollowing(followDetails[0].id, user.key);
-    setTimeout(getFollowings(userId), 1000);
+    setTimeout(() => getFollowings(userId), 500);
   };
 
   editArticle = () => {
