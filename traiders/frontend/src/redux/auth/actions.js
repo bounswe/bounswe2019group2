@@ -2,7 +2,8 @@ import { API } from '../apiConfig';
 import {
   PostWithUrlBody,
   GetWithUrl,
-  DeleteWithAuthorization
+  DeleteWithAuthorization,
+  PatchWithAuthorization
 } from '../../common/http/httpUtil';
 
 /* Action Types */
@@ -74,6 +75,20 @@ export const loginUser = (body) => {
 
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while logging\n', error));
+  };
+};
+
+export const updateUser = (id, body, token) => {
+  return () => {
+    PatchWithAuthorization(`${API}/users/${id}`, body, token)
+      .then((response) => {
+        if (response.status === 200) {
+          // eslint-disable-next-line no-console
+          response.json().then((res) => console.log(res));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching followers\n', error));
   };
 };
 

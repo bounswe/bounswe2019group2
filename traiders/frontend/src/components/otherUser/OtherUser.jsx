@@ -16,7 +16,7 @@ class OtherUser extends Component {
   }
 
   componentWillMount() {
-    const { match, getOtherUser, followings } = this.props;
+    const { match, getOtherUser } = this.props;
     const { id } = match.params;
     getOtherUser(id);
     GetWithUrl(`${API}/following/?user_following=${id}`)
@@ -29,30 +29,30 @@ class OtherUser extends Component {
         // eslint-disable-next-line no-console
         console.log('Error while fetching followings\n', error)
       );
-    // eslint-disable-next-line no-console
-    console.log(followings);
   }
 
   render() {
     const { otherUser, user } = this.props;
+    const { match } = this.props;
+    const { id } = match.params;
     const { followings } = this.state;
     const followingNumber = followings.length;
+    const array = user.user.url.split('/');
+    const userId = array[array.length - 2];
     if (otherUser) {
       return (
         <Page>
           <div className="other-profile-container">
             <div>
               <UserHeader
-                user={otherUser}
+                userId={userId}
                 other
                 followingN={followingNumber}
-                handleFollow={this.handleFollow}
-                handleUnfollow={this.handleUnfollow}
-                otherUser={user}
+                otherUserId={id}
               />
             </div>
             <div>
-              <UserSuccess user={otherUser} />
+              <UserSuccess id={id} />
             </div>
           </div>
         </Page>

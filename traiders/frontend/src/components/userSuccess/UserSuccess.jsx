@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 
 class UserSuccess extends Component {
   componentWillMount() {
-    const { user, getParities } = this.props;
-    const array = user.url.split('/');
-    const id = array[array.length - 2];
+    const { id, getParities } = this.props;
     getParities(id);
   }
 

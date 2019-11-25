@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Avatar, Icon, Button } from 'antd';
+import { Avatar, Icon, Button, Modal, Radio } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { API } from '../../redux/apiConfig';
 import { PostWithAuthorization } from '../../common/http/httpUtil';
 import history from '../../common/history';
+import images from '../../common/images';
 
 import './user-header.scss';
 
@@ -14,27 +15,26 @@ class UserHeader extends Component {
     this.state = {
       followingNumber: null,
       followerNumber: null,
-      isFollowing: null
+      isFollowing: null,
+      visible: false,
+      value: 1
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const {
       getFollowers,
       getFollowings,
-      user,
+      userId,
       followings,
-      otherUser
+      otherUserId,
+      getOtherUser,
+      otherUser,
+      followers,
+      followingN
     } = this.props;
-    if (user) {
-      const array = user.url.split('/');
-      const userId = array[array.length - 2];
-      getFollowers(userId);
-      // eslint-disable-next-line no-console
-      console.log(userId);
-    }
-    const { followers, followingN } = this.props;
-
+    getFollowers(otherUserId);
+    // eslint-disable-next-line no-console
     if (followers) {
       const followersN = followers.length;
       this.setState({
@@ -42,33 +42,44 @@ class UserHeader extends Component {
         followerNumber: followersN
       });
     }
-    if (otherUser) {
-      const array = otherUser.user.url.split('/');
-      const userId = array[array.length - 2];
+    if (otherUserId) {
+      getOtherUser(otherUserId);
       getFollowings(userId);
     }
+    this.setState({
+      value: otherUser.avatar
+    });
 
     let Following =
       followings &&
-      followings.filter((element) => element.user_followed === user.url);
+      followings.filter((element) => element.user_followed === otherUser.url);
     Following = Following.length !== 0;
-
     this.setState({
       isFollowing: Following
     });
-    // eslint-disable-next-line no-console
-    console.log(followings, followers);
   }
 
+  onChange = (e) => {
+    const v = e.target.value;
+    this.setState({
+      value: v
+    });
+  };
+
   handleFollow = () => {
-    const { user, otherUser, getFollowings } = this.props;
+    const {
+      user,
+      otherUser,
+      getFollowings,
+      userId,
+      getFollowers,
+      otherUserId
+    } = this.props;
     // eslint-disable-next-line camelcase
-    const user_followed = user.url;
+    const user_followed = otherUser.url;
     const url = `${API}/following/`;
-    const array = otherUser.user.url.split('/');
-    const userId = array[array.length - 2];
     if (user) {
-      PostWithAuthorization(url, { user_followed }, otherUser.key)
+      PostWithAuthorization(url, { user_followed }, user.key)
         // eslint-disable-next-line no-console
         .then((response) => console.log(response))
         // eslint-disable-next-line no-console
@@ -77,6 +88,7 @@ class UserHeader extends Component {
       history.push('/login');
     }
     setTimeout(() => getFollowings(userId), 500);
+    setTimeout(() => getFollowers(otherUserId), 500);
     this.setState((prevState) => ({
       isFollowing: !prevState.isFollowing,
       followerNumber: prevState.followerNumber + 1
@@ -89,16 +101,17 @@ class UserHeader extends Component {
       otherUser,
       deleteFollowing,
       getFollowings,
-      followings
+      followings,
+      userId,
+      getFollowers,
+      otherUserId
     } = this.props;
-    const array = otherUser.user.url.split('/');
-    const userId = array[array.length - 2];
     if (followings) {
       let followDetails;
       followings.forEach((element) => {
-        if (element.user_followed === user.url) followDetails = element;
+        if (element.user_followed === otherUser.url) followDetails = element;
       });
-      deleteFollowing(followDetails.id, otherUser.key);
+      deleteFollowing(followDetails.id, user.key);
 
       this.setState((prevState) => ({
         isFollowing: !prevState.isFollowing,
@@ -106,17 +119,85 @@ class UserHeader extends Component {
       }));
     }
     setTimeout(() => getFollowings(userId), 500);
+    setTimeout(() => getFollowers(otherUserId), 500);
+  };
+
+  handleOk = () => {
+    const { updateUser, user, userId, otherUser } = this.props;
+    const { value } = this.state;
+    const body = { avatar: value };
+    updateUser(userId, body, user.key);
+    user.user.avatar = value;
+    otherUser.avatar = value;
+    this.setState({
+      visible: false,
+      value
+    });
+  };
+
+  handleCancel = () => {
+    const { otherUser } = this.props;
+    this.setState({
+      visible: false,
+      value: otherUser.avatar
+    });
+  };
+
+  handleAvatar = () => {
+    this.setState({
+      visible: true
+    });
   };
 
   render() {
-    const { user, other } = this.props;
-    const { followerNumber, followingNumber, isFollowing } = this.state;
+    const { user, other, otherUser, followingN } = this.props;
+    const {
+      followerNumber,
+      followingNumber,
+      isFollowing,
+      visible,
+      value
+    } = this.state;
+    if (followingNumber !== followingN) {
+      this.setState({
+        followingNumber: followingN
+      });
+    }
+
     return (
       <div className="user-header-container">
         <div className="left">
           <div className="left-up">
-            <Avatar size={80}>{user.username.charAt(0).toUpperCase()}</Avatar>
-            <h1>{user.username}</h1>
+            <Avatar
+              src={images[value - 1].src}
+              className={!other && 'avatar'}
+              onClick={!other && this.handleAvatar}
+              size={80}
+            />
+            <Modal
+              title="AVATARS"
+              visible={visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <div>
+                <Radio.Group onChange={this.onChange} value={value}>
+                  {images.map(({ id, src, title }) => (
+                    <Radio value={id}>
+                      <img
+                        key={id}
+                        src={src}
+                        title={title}
+                        alt=""
+                        width="100"
+                        height="100"
+                      />
+                    </Radio>
+                  ))}
+                </Radio.Group>
+              </div>
+            </Modal>
+            <h1>{otherUser.username}</h1>
             <h3>{followerNumber} Followers</h3>
             <h3>{followingNumber} Followings</h3>
           </div>
