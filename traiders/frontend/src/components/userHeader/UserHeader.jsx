@@ -76,7 +76,7 @@ class UserHeader extends Component {
     } else {
       history.push('/login');
     }
-    setTimeout(getFollowings(userId), 1000);
+    setTimeout(() => getFollowings(userId), 500);
     this.setState((prevState) => ({
       isFollowing: !prevState.isFollowing,
       followerNumber: prevState.followerNumber + 1
@@ -105,7 +105,7 @@ class UserHeader extends Component {
         followerNumber: prevState.followerNumber - 1
       }));
     }
-    setTimeout(getFollowings(userId), 500);
+    setTimeout(() => getFollowings(userId), 500);
   };
 
   render() {
