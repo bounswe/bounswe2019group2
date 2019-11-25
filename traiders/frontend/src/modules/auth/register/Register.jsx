@@ -69,14 +69,11 @@ class Register extends Component {
             console.log('Error when fetch register\n', error)
           );
       } else {
-        console.log('blabla1');
         form.validateFields(
           ['username', 'email', 'first_name', 'last_name', 'password'],
 
           (errors, values) => {
-            console.log('blabla2');
             if (!errors) {
-              console.log('blabla3');
               postUserRegister({ ...values, is_trader, city, country });
             } else {
               // eslint-disable-next-line
