@@ -8,7 +8,7 @@ import {
 } from 'antd';
 import React from 'react';
 import { DeleteWithAuthorization } from '../../common/http/httpUtil';
-
+import history from '../../common/history';
 import { API } from '../../redux/apiConfig';
 import './comment.scss';
 
@@ -90,6 +90,14 @@ class Comment extends React.Component {
     }
   };
 
+  handleRoute = (event, authorURL) => {
+    const array = authorURL.split('/');
+    const userId = array[array.length - 2];
+    event.stopPropagation();
+    const url = `/profile/${userId}`;
+    history.push(url);
+  };
+
   handleCancel = () => {
     this.setState({
       visible: false
@@ -144,6 +152,7 @@ class Comment extends React.Component {
             author={author}
             avatar={
               <Avatar
+                onClick={(event) => this.handleRoute(event, authorURL)}
                 src="https://img.pngio.com/avatar-user-computer-icons-software-developer-avatar-png-png-computer-user-900_540.jpg"
                 alt={author}
               />
