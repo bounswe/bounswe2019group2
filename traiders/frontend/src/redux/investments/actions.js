@@ -66,7 +66,7 @@ function saveAssetList(list) {
 
 function saveCurrencyList(list) {
   return {
-    tyoe: SAVE_CURRENCY_LIST,
+    type: SAVE_CURRENCY_LIST,
     payload: list
   };
 }
@@ -162,7 +162,9 @@ export const getCurrencyList = () => {
   return (dispatch) => {
     GetWithUrl(`${API}/equipment/?category=currency`)
       .then((response) => response.json())
-      .then((response) => dispatch(saveCurrencyList(response)))
+      .then((res) => {
+        return dispatch(saveCurrencyList(res));
+      })
 
       .catch((error) =>
         // eslint-disable-next-line no-console

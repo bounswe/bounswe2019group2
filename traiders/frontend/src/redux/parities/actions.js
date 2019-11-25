@@ -4,14 +4,14 @@ import { GetWithUrl } from '../../common/http/httpUtil';
 /* Action Types */
 
 const SAVE_PARITY_LIST = 'SAVE_PARITY_LIST';
-const SAVE_CURRENCY_LIST = 'SAVE_CURRENCY_LIST';
+const SAVE_LIMITED_PARITY_LIST = 'SAVE_LIMITED_PARITY_LIST';
 const SAVE_ONE_PARITY = 'SAVE_ONE_PARITY';
 const CLEAR_PARITY_DATA = 'CLEAR_PARITY_DATA';
 
 export const actionTypes = {
   SAVE_PARITY_LIST,
   SAVE_ONE_PARITY,
-  SAVE_CURRENCY_LIST,
+  SAVE_LIMITED_PARITY_LIST,
   CLEAR_PARITY_DATA
 };
 
@@ -25,7 +25,7 @@ function clearParityData() {
 
 function saveCurrencyList(currencyList) {
   return {
-    type: SAVE_CURRENCY_LIST,
+    type: SAVE_LIMITED_PARITY_LIST,
     payload: currencyList
   };
 }

@@ -231,7 +231,7 @@ class MyInvestments extends Component {
     }
     const filteredList = [];
     currencyList.forEach((element) => {
-      filteredList.push(element.code);
+      filteredList.push(element.symbol);
     });
 
     return (

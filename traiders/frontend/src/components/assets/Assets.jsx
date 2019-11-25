@@ -95,7 +95,7 @@ class Assets extends Component {
     if (user) {
       filteredList = [];
       currencyList.forEach((element) => {
-        filteredList.push(element.code);
+        filteredList.push(element.symbol);
       });
     }
 
