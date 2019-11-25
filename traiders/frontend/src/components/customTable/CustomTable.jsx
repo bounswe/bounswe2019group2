@@ -8,6 +8,7 @@ const Row = (props) => {
   const { item } = props;
   // eslint-disable-next-line camelcase
   const { close, open, base_equipment, target_equipment } = item;
+
   const changeRate = (((close - open) / open) * 100).toFixed(4);
   const changeType = changeRate < 0 ? 'fall' : 'rise';
 

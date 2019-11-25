@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 import ParityChart from '../parityChart/ParityChart';
 import Page from '../page/Page';
@@ -61,18 +62,20 @@ class ParityPage extends Component {
   render() {
     const { oneParity } = this.props;
     const { limit, base, target, ma } = this.state;
+    const l1 = `/equipment/${target}`;
+    const l2 = `/equipment/${base}`;
     return (
       <Page>
-        <div className="container">
+        <div className="parity-container">
           <div className="up">
             Your prediction:
             <Button
-              type="default"
+              type="secondary"
               onClick={() => this.handlerPrd(1)}
               icon="arrow-up"
             />
             <Button
-              type="default"
+              type="secondary"
               onClick={() => this.handlerPrd(-1)}
               icon="arrow-down"
             />
@@ -86,8 +89,12 @@ class ParityPage extends Component {
               <Button onClick={() => this.handlerMA(100)}>MA100</Button>
               <Button onClick={() => this.handlerMA(200)}>MA200</Button>
             </div>
-            <div>
-              {oneParity && (
+            <div className="right">
+              <div className="link">
+                <Link to={l1}>{target} / </Link>
+                <Link to={l2}>{base}</Link>
+              </div>
+              {oneParity.length !== 0 && (
                 <ParityChart
                   base={base}
                   target={target}

@@ -182,7 +182,7 @@ class Article extends Component {
                 ))}
             </div>
             <div className="create-comment">
-              <AddComment />
+              <AddComment submitUrl="https://api.traiders.tk/comments/article/" />
             </div>
             <Modal
               title="DELETE"

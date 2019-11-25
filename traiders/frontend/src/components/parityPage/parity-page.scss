@@ -1,9 +1,11 @@
-.container {
+.parity-container {
   display: flex;
   flex-direction: column;
   width: 600px;
+  padding-top: 30px;
 
   .up {
+    padding-bottom: 20px;
     align-items: center;
     justify-content: center;
     align-content: center;
@@ -13,5 +15,21 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+
+    .right {
+      width: 100%;
+
+      .link {
+        background-color: white;
+        font-size: 20px;
+        padding: 0;
+        width: 730px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+      }
+    }
   }
 }

@@ -5,7 +5,8 @@ import AddComment from './AddComment';
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
-    article: state.article.currentArticle
+    article: state.article.currentArticle,
+    equipment: state.equipment.currentEquipment
   };
 };
 
