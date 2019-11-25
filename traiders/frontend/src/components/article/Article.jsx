@@ -82,8 +82,11 @@ class Article extends Component {
         DeleteWithAuthorization(url, user.key)
           // eslint-disable-next-line no-console
           .then((response) => console.log(response.url))
-          // eslint-disable-next-line no-console
-          .catch((error) => console.log('Errow while following\n', error));
+
+          .catch((error) =>
+            // eslint-disable-next-line no-console
+            console.log('Errow while unlike operation\n', error)
+          );
         setTimeout(() => getArticleWithAuthorization(id, user.key), 500);
       } else {
         alert('There is no like for this user.');
@@ -167,6 +170,7 @@ class Article extends Component {
       visible: false
     });
   };
+
   handleRoute = (event, authorURL) => {
     const array = authorURL.split('/');
     const userId = array[array.length - 2];
@@ -174,6 +178,7 @@ class Article extends Component {
     const url = `/profile/${userId}`;
     history.push(url);
   };
+
   render() {
     const { article, comments, user, followings } = this.props;
     const { visible, action } = this.state;

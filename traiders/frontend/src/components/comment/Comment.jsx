@@ -68,6 +68,7 @@ class Comment extends React.Component {
       }
     });
   };
+
   handleRoute = (event, authorURL) => {
     const array = authorURL.split('/');
     const userId = array[array.length - 2];
@@ -75,6 +76,7 @@ class Comment extends React.Component {
     const url = `/profile/${userId}`;
     history.push(url);
   };
+
   handleCancel = () => {
     this.setState({
       visible: false
