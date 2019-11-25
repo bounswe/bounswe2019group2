@@ -25,33 +25,36 @@ const CurrencyInfo = (props) => {
 
   return (
     <div className="currency-container" onClick={handleRoute}>
-      <div className="currency-name">
-        <div
-          onClick={(event) =>
-            handleRouteEquipment(event, base_equipment.symbol)
-          }
-          name={base_equipment.symbol}
-        >
-          {base_equipment.symbol}
+      {base_equipment && target_equipment && (
+        <div>
+          <div className="currency-name">
+            <div
+              onClick={(event) =>
+                handleRouteEquipment(event, base_equipment.symbol)
+              }
+            >
+              {base_equipment.symbol}
+            </div>
+            <div
+              name="TRY"
+              onClick={(event) =>
+                handleRouteEquipment(event, target_equipment.symbol)
+              }
+            >
+              / {target_equipment.symbol}
+            </div>
+          </div>
+          <div className="currency-price">{Number(data.ratio).toFixed(4)}</div>
+          <div className="currency-change-container">
+            <div className={`currency-change-arrow ${changeType}`}>
+              <Icon type={changeType} />
+            </div>
+            <div className={`currency-change-amount ${changeType}`}>
+              %{changeRate.toFixed(4)}
+            </div>
+          </div>
         </div>
-        <div
-          name="TRY"
-          onClick={(event) =>
-            handleRouteEquipment(event, target_equipment.symbol)
-          }
-        >
-          / {target_equipment.symbol}
-        </div>
-      </div>
-      <div className="currency-price">{Number(data.ratio).toFixed(4)}</div>
-      <div className="currency-change-container">
-        <div className={`currency-change-arrow ${changeType}`}>
-          <Icon type={changeType} />
-        </div>
-        <div className={`currency-change-amount ${changeType}`}>
-          %{changeRate.toFixed(4)}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
