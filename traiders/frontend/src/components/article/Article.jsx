@@ -167,7 +167,13 @@ class Article extends Component {
       visible: false
     });
   };
-
+  handleRoute = (event, authorURL) => {
+    const array = authorURL.split('/');
+    const userId = array[array.length - 2];
+    event.stopPropagation();
+    const url = `/profile/${userId}`;
+    history.push(url);
+  };
   render() {
     const { article, comments, user, followings } = this.props;
     const { visible, action } = this.state;
@@ -193,7 +199,12 @@ class Article extends Component {
               <div className="header-left-part">
                 <div className="user-related">
                   <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
-                  <div className="author-username">
+                  <div
+                    className="author-username"
+                    onClick={(event) =>
+                      this.handleRoute(event, article.author.url)
+                    }
+                  >
                     ({article.author.username})
                   </div>
                 </div>
