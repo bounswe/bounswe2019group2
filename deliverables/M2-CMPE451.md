@@ -337,8 +337,8 @@ According to political agenda, he tries to make predictions about the GBP.
 He visits the events page and reads an event about brexit.
 He remembers his article which is written 1 week earlier from this event.
 He sees that his prediction about GBP in his article becomes true and there are many likes and comments in his article.
-After Name sees the number of likes, he wonders the his follower number.
-He visits the his profile page and sees the increase in the follower number and becomes very happy.  
+After Name sees the number of likes and comments, he wonders his follower number.
+He visits his profile page and sees the increase in the follower number and becomes very happy.  
 **Preconditions**
 
 1. Uses a our mobile app.
