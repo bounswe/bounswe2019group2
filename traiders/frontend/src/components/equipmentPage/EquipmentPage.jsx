@@ -46,12 +46,13 @@ class EquipmentPage extends Component {
             {comments &&
               comments.map((comment) => (
                 <Comment
+                  submitUrl="https://api.traiders.tk/comments/equipment/"
                   author={comment.user.username}
                   content={comment.content}
                   createdAt={comment.created_at.substring(0, 10)}
                   image={comment.image}
                   commentId={comment.id}
-                  articleId={comment.article}
+                  equipment={comment.equipment}
                   authorURL={comment.user.url}
                 />
               ))}

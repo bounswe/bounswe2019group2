@@ -261,6 +261,7 @@ class Article extends Component {
               {comments &&
                 comments.map((comment) => (
                   <Comment
+                    submitUrl="https://api.traiders.tk/comments/article/"
                     author={comment.user.username}
                     content={comment.content}
                     createdAt={comment.created_at.substring(0, 10)}

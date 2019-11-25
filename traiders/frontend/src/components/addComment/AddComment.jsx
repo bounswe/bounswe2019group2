@@ -38,7 +38,8 @@ class AddComment extends Component {
       submitUrl,
       equipment,
       article,
-      getArticleComments
+      getArticleComments,
+      getEquipmentComments
     } = this.props;
     if (!user) {
       history.push('/login');
@@ -79,6 +80,7 @@ class AddComment extends Component {
         console.log('smt-wrong');
       }
       setTimeout(() => getArticleComments(article.id), 1000);
+      setTimeout(() => getEquipmentComments(equipment), 1000);
     }
   };
 

@@ -50,23 +50,44 @@ class Comment extends React.Component {
   };
 
   handleOk = () => {
-    const { user, commentId, articleId } = this.props;
+    const {
+      user,
+      commentId,
+      articleId,
+      submitUrl,
+      equipment,
+      getArticleComments,
+      getEquipmentComments
+    } = this.props;
 
-    const splittedArticle = articleId.split('/', 5)[4];
-
-    const url = `${API}/comments/article/${commentId}/?article=${splittedArticle}`;
-
-    DeleteWithAuthorization(url, user.key).then((response) => {
-      if (response.status === 204) {
-        // eslint-disable-next-line
-        alert('Succesfully deleted');
-        this.setState({
-          visible: false
-        });
-        // eslint-disable-next-line
-        window.location.reload();
-      }
-    });
+    if (submitUrl.includes('equipment')) {
+      const url = `${API}/comments/equipment/${commentId}/?equipment=${equipment}`;
+      DeleteWithAuthorization(url, user.key).then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line
+          alert('Succesfully deleted');
+          this.setState({
+            visible: false
+          });
+          // eslint-disable-next-line
+        }
+        setTimeout(() => getEquipmentComments(equipment), 1000);
+      });
+    } else if (submitUrl.includes('article')) {
+      const splittedArticle = articleId.split('/', 5)[4];
+      const url = `${API}/comments/article/${commentId}/?article=${splittedArticle}`;
+      DeleteWithAuthorization(url, user.key).then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line
+          alert('Succesfully deleted');
+          this.setState({
+            visible: false
+          });
+          // eslint-disable-next-line
+        }
+      });
+      setTimeout(() => getArticleComments(splittedArticle), 1000);
+    }
   };
 
   handleCancel = () => {
