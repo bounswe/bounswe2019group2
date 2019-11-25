@@ -23,6 +23,11 @@ function parityReducer(state = initialState, action) {
         ...state,
         currencyList: action.payload
       };
+    case actionTypes.CLEAR_PARITY_DATA:
+      return {
+        ...state,
+        oneParity: null
+      };
 
     default:
       return state;

@@ -6,14 +6,22 @@ import { GetWithUrl } from '../../common/http/httpUtil';
 const SAVE_PARITY_LIST = 'SAVE_PARITY_LIST';
 const SAVE_CURRENCY_LIST = 'SAVE_CURRENCY_LIST';
 const SAVE_ONE_PARITY = 'SAVE_ONE_PARITY';
+const CLEAR_PARITY_DATA = 'CLEAR_PARITY_DATA';
 
 export const actionTypes = {
   SAVE_PARITY_LIST,
   SAVE_ONE_PARITY,
-  SAVE_CURRENCY_LIST
+  SAVE_CURRENCY_LIST,
+  CLEAR_PARITY_DATA
 };
 
 /* Action Creators */
+
+function clearParityData() {
+  return {
+    type: CLEAR_PARITY_DATA
+  };
+}
 
 function saveCurrencyList(currencyList) {
   return {
@@ -55,6 +63,7 @@ export const getParities = () => {
 
 export const getOneParity = (base, target) => {
   return (dispatch) => {
+    dispatch(clearParityData());
     GetWithUrl(
       `${API}/parity/?base_equipment=${base}&target_equipment=${target}`
     )
