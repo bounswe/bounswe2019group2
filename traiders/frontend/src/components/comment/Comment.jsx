@@ -65,7 +65,7 @@ class Comment extends React.Component {
       DeleteWithAuthorization(url, user.key).then((response) => {
         if (response.status === 204) {
           // eslint-disable-next-line
-          alert('Succesfully deleted');
+          alert('Succesfully deleted.');
           this.setState({
             visible: false
           });
@@ -79,7 +79,7 @@ class Comment extends React.Component {
       DeleteWithAuthorization(url, user.key).then((response) => {
         if (response.status === 204) {
           // eslint-disable-next-line
-          alert('Succesfully deleted');
+          alert('Succesfully deleted.');
           this.setState({
             visible: false
           });
