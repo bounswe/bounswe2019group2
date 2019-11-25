@@ -137,7 +137,7 @@ export const postUserRegister = (body) => {
   return () => {
     PostWithUrlBody(`${API}/users/`, body)
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           // eslint-disable-next-line
           alert('Succesfully Registered.');
         } // else if (!response.ok) {
