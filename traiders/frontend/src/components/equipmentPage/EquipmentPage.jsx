@@ -7,13 +7,6 @@ import AddComment from '../addComment/AddCommentContainer';
 import './equipment-page.scss';
 
 class EquipmentPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      base: ''
-    };
-  }
-
   componentWillMount() {
     const { match, getParities } = this.props;
     const { base } = match.params;
