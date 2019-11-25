@@ -1,5 +1,5 @@
 import { API } from '../apiConfig';
-import { GetWithUrl } from '../../common/http/httpUtil';
+import { GetWithUrl, GetWithAuthorization } from '../../common/http/httpUtil';
 
 /* Action Types */
 
@@ -71,6 +71,21 @@ export const getArticles = () => {
       .then((response) => dispatch(saveArticleList(response)))
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while fetching articles\n', error));
+  };
+};
+
+export const getArticleWithAuthorization = (id, token) => {
+  return (dispatch) => {
+    GetWithAuthorization(`${API}/articles/${id}/`, token)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => {
+            return dispatch(saveSingleArticle(res));
+          });
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching article\n', error));
   };
 };
 
