@@ -103,6 +103,7 @@ class MyOrders extends Component {
       visibleBuyOrder: false
     });
   };
+
   handleSellOrder = () => {
     this.setState({
       visibleStopLossOrder: true
@@ -174,7 +175,6 @@ class MyOrders extends Component {
       history.push('/login');
     }
 
-    console.log(this.state);
     const filteredList = [];
     currencyList.forEach((element) => {
       filteredList.push(element.code);
