@@ -214,7 +214,7 @@ class MyInvestments extends Component {
     } = this.state;
     let newManualInvestmentList;
     let newOnlineInvestmentList;
-    if (user) {
+    if ((user, manualInvestments, onlineInvestments, profitLossList)) {
       newManualInvestmentList = this.mergeArrays(
         manualInvestments,
         profitLossList.manual_investments
@@ -343,7 +343,7 @@ class MyInvestments extends Component {
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
-                  this.handleSelectCurrency('onlineBaseAmount', value)
+                  this.handleSelectCurrency('onlineBaseCurrency', value)
                 }
                 style={{ width: 120 }}
               >
