@@ -198,7 +198,6 @@ class Register extends Component {
 
   handleCheckbox = (e) => {
     e.preventDefault();
-    console.log('hello world');
 
     this.setState((prevState) => ({
       isTrader: !prevState.isTrader
