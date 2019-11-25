@@ -12,15 +12,34 @@ class ParityPage extends Component {
     super(props);
     this.state = {
       limit: 30,
-      ma: 0
+      ma: 0,
+      predicted: false
     };
   }
 
   componentWillMount() {
-    const { match, getOneParity } = this.props;
+    const {
+      match,
+      getOneParity,
+      getPredictions,
+      predictionList,
+      user
+    } = this.props;
     const { base, target } = match.params;
 
     getOneParity(target, base);
+    getPredictions(target, base, user.key);
+    let list;
+    if (predictionList.length !== 0) {
+      console.log(this.state.predicted, predictionList);
+      list = predictionList.filter((element) => element.user === user);
+      if (list.length !== 0) {
+        this.setState({
+          predicted: true
+        });
+      }
+    }
+    console.log(this.state.predicted, predictionList);
   }
 
   handler = (len) => {
@@ -42,7 +61,11 @@ class ParityPage extends Component {
     };
     PostWithAuthorization(url, body, token)
       // eslint-disable-next-line no-console
-      .then((response) => console.log(response))
+      .then((response) => {
+        if (response.status === 200) {
+          this.setState({ predicted: true });
+        }
+      })
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Smt wrong \n', error));
   };
@@ -56,7 +79,7 @@ class ParityPage extends Component {
   render() {
     const { oneParity, match } = this.props;
     const { target, base } = match.params;
-    const { limit, ma } = this.state;
+    const { limit, ma, predicted } = this.state;
     const l1 = `/equipment/${target}`;
     const l2 = `/equipment/${base}`;
     return (
@@ -66,12 +89,12 @@ class ParityPage extends Component {
             <div className="up">
               Your prediction:
               <Button
-                type="secondary"
+                type={predicted && 'danger'}
                 onClick={() => this.handlerPrd(1)}
                 icon="arrow-up"
               />
               <Button
-                type="secondary"
+                type={predicted && 'danger'}
                 onClick={() => this.handlerPrd(-1)}
                 icon="arrow-down"
               />
