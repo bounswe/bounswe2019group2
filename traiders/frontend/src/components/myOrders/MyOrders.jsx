@@ -221,7 +221,7 @@ class MyOrders extends Component {
         >
           <div className="modal">
             <div className="base-equipment">
-              Base Equipment:
+              Buy from this:
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
@@ -233,8 +233,8 @@ class MyOrders extends Component {
                 {this.menu(filteredList)}
               </Select>
             </div>
-            <div className="target-equipment-online">
-              Target Equipment:
+            <div className="target-equipment">
+              Spend from this:
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
@@ -274,7 +274,7 @@ class MyOrders extends Component {
         >
           <div className="modal">
             <div className="base-equipment">
-              Base Equipment:
+              Sell from this:
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
@@ -285,8 +285,8 @@ class MyOrders extends Component {
                 {this.menu(filteredList)}
               </Select>
             </div>
-            <div className="target-equipment-online">
-              Target Equipment:
+            <div className="target-equipment">
+              Buy from this:
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>

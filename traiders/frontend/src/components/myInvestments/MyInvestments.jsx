@@ -281,7 +281,7 @@ class MyInvestments extends Component {
           <div className="modal">
             <div className="base-equipment">
               <Input
-                placeholder="Base equipment amount"
+                placeholder="Spent this amount"
                 type="number"
                 name="manualBaseAmount"
                 value={manualBaseAmount}
@@ -300,7 +300,7 @@ class MyInvestments extends Component {
             </div>
             <div className="target-equipment">
               <Input
-                placeholder="Target equipment amount"
+                placeholder="Bought this amount"
                 type="number"
                 name="manualTargetAmount"
                 value={manualTargetAmount}
@@ -334,7 +334,7 @@ class MyInvestments extends Component {
           <div className="modal">
             <div className="base-equipment">
               <Input
-                placeholder="Base equipment amount"
+                placeholder="Buy this amount"
                 type="number"
                 name="onlineBaseAmount"
                 value={onlineBaseAmount}
@@ -352,7 +352,7 @@ class MyInvestments extends Component {
               </Select>
             </div>
             <div className="target-equipment-online">
-              Target:
+              Spend from this asset:
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
