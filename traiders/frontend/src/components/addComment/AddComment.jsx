@@ -38,7 +38,8 @@ class AddComment extends Component {
       submitUrl,
       equipment,
       article,
-      getArticleComments
+      getArticleComments,
+      getEquipmentComments
     } = this.props;
     if (!user) {
       history.push('/login');
@@ -48,37 +49,59 @@ class AddComment extends Component {
       let body;
       if (submitUrl.includes('equipment')) {
         body = { content, equipment };
-      } else {
-        // eslint-disable-next-line
-
-        body = { content, article: article.url };
-      }
-
-      if (body) {
-        PostWithAuthorization(submitUrl, body, token)
-          .then((response) => {
-            if (response.status === 201 && image) {
-              response.json().then((res) => {
-                PatchUploadImage(res.url, image, token)
-                  // eslint-disable-next-line
-                  .then((response) => {
-                    // eslint-disable-next-line no-console
-                    console.log(response);
-                  })
-                  .catch((error) => {
-                    // eslint-disable-next-line no-console
-                    console.log('Smt wrong \n', error);
-                  });
-              });
-            }
-          })
+        if (body) {
+          PostWithAuthorization(submitUrl, body, token)
+            .then((response) => {
+              if (response.status === 201 && image) {
+                response.json().then((res) => {
+                  PatchUploadImage(res.url, image, token)
+                    // eslint-disable-next-line
+                    .then((response) => {
+                      // eslint-disable-next-line no-console
+                      console.log(response);
+                    })
+                    .catch((error) => {
+                      // eslint-disable-next-line no-console
+                      console.log('Smt wrong \n', error);
+                    });
+                });
+              }
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log('Smt wrong \n', error));
+        } else {
           // eslint-disable-next-line no-console
-          .catch((error) => console.log('Smt wrong \n', error));
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('smt-wrong');
+          console.log('smt-wrong');
+        }
+        setTimeout(() => getEquipmentComments(equipment), 1000);
+      } else if (submitUrl.includes('article')) {
+        body = { content, article: article.url };
+        if (body) {
+          PostWithAuthorization(submitUrl, body, token)
+            .then((response) => {
+              if (response.status === 201 && image) {
+                response.json().then((res) => {
+                  PatchUploadImage(res.url, image, token)
+                    // eslint-disable-next-line
+                    .then((response) => {
+                      // eslint-disable-next-line no-console
+                      console.log(response);
+                    })
+                    .catch((error) => {
+                      // eslint-disable-next-line no-console
+                      console.log('Smt wrong \n', error);
+                    });
+                });
+              }
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log('Smt wrong \n', error));
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('smt-wrong');
+        }
+        setTimeout(() => getArticleComments(article.id), 1000);
       }
-      setTimeout(() => getArticleComments(article.id), 1000);
     }
   };
 
