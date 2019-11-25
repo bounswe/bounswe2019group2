@@ -24,6 +24,10 @@
     justify-content: space-around;
     padding-left: 20px;
     width: 120%;
+
+    .avatar {
+      cursor: pointer;
+    }
   }
 
   .left-down {
