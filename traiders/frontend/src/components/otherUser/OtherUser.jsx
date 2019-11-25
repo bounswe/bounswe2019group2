@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { API } from '../../redux/apiConfig';
+import { GetWithUrl } from '../../common/http/httpUtil';
 import Page from '../page/Page';
 import UserHeader from '../userHeader/UserHeaderContainer';
 import UserSuccess from '../userSuccess/UserSuccessContainer';
@@ -9,25 +11,32 @@ class OtherUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      followingNumber: null
+      followings: []
     };
   }
-  componentDidMount() {
-    const { match, getOtherUser, getFollowings, followings } = this.props;
+
+  componentWillMount() {
+    const { match, getOtherUser, followings } = this.props;
     const { id } = match.params;
     getOtherUser(id);
-    getFollowings(id);
-    if (followings) {
-      const number = followings.length;
-      this.setState({
-        followingNumber: number
-      });
-    }
+    GetWithUrl(`${API}/following/?user_following=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => this.setState({ followings: res }));
+        }
+      })
+      .catch((error) =>
+        // eslint-disable-next-line no-console
+        console.log('Error while fetching followings\n', error)
+      );
+    // eslint-disable-next-line no-console
     console.log(followings);
   }
 
   render() {
     const { otherUser, user } = this.props;
+    const { followings } = this.state;
+    const followingNumber = followings.length;
     if (otherUser) {
       return (
         <Page>
@@ -35,8 +44,8 @@ class OtherUser extends Component {
             <div>
               <UserHeader
                 user={otherUser}
-                other={true}
-                followingN={this.state.followingNumber}
+                other
+                followingN={followingNumber}
                 handleFollow={this.handleFollow}
                 handleUnfollow={this.handleUnfollow}
                 otherUser={user}
@@ -48,9 +57,8 @@ class OtherUser extends Component {
           </div>
         </Page>
       );
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

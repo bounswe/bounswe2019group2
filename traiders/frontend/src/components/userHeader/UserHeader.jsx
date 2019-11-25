@@ -17,6 +17,7 @@ class UserHeader extends Component {
       isFollowing: null
     };
   }
+
   componentDidMount() {
     const {
       getFollowers,
@@ -29,9 +30,11 @@ class UserHeader extends Component {
       const array = user.url.split('/');
       const userId = array[array.length - 2];
       getFollowers(userId);
+      // eslint-disable-next-line no-console
+      console.log(userId);
     }
     const { followers, followingN } = this.props;
-    console.log(followingN);
+
     if (followers) {
       const followersN = followers.length;
       this.setState({
@@ -48,12 +51,12 @@ class UserHeader extends Component {
     let Following =
       followings &&
       followings.filter((element) => element.user_followed === user.url);
-    Following = Following.length !== 0 ? true : false;
+    Following = Following.length !== 0;
 
     this.setState({
       isFollowing: Following
     });
-
+    // eslint-disable-next-line no-console
     console.log(followings, followers);
   }
 
@@ -74,10 +77,10 @@ class UserHeader extends Component {
       history.push('/login');
     }
     setTimeout(getFollowings(userId), 1000);
-    this.setState({
-      isFollowing: !this.state.isFollowing,
-      followerNumber: this.state.followerNumber + 1
-    });
+    this.setState((prevState) => ({
+      isFollowing: !prevState.isFollowing,
+      followerNumber: prevState.followerNumber + 1
+    }));
   };
 
   handleUnfollow = () => {
@@ -97,27 +100,27 @@ class UserHeader extends Component {
       });
       deleteFollowing(followDetails.id, otherUser.key);
 
-      this.setState({
-        isFollowing: !this.state.isFollowing,
-        followerNumber: this.state.followerNumber - 1
-      });
+      this.setState((prevState) => ({
+        isFollowing: !prevState.isFollowing,
+        followerNumber: prevState.followerNumber - 1
+      }));
     }
-    setTimeout(getFollowings(userId), 1000);
+    setTimeout(getFollowings(userId), 500);
   };
 
   render() {
     const { user, other } = this.props;
-
+    const { followerNumber, followingNumber, isFollowing } = this.state;
     return (
       <div className="user-header-container">
         <div className="left">
           <div className="left-up">
             <Avatar size={80}>{user.username.charAt(0).toUpperCase()}</Avatar>
             <h1>{user.username}</h1>
-            <h3>{this.state.followerNumber} Followers</h3>
-            <h3>{this.state.followingNumber} Followings</h3>
+            <h3>{followerNumber} Followers</h3>
+            <h3>{followingNumber} Followings</h3>
           </div>
-          {this.state.isFollowing ? (
+          {isFollowing ? (
             <div className="left-down">
               {other && (
                 <Button
