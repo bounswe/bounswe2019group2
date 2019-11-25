@@ -91,50 +91,57 @@ class Assets extends Component {
     if (!user) {
       history.push('/login');
     }
-    const filteredList = [];
-    currencyList.forEach((element) => {
-      filteredList.push(element.code);
-    });
+    let filteredList = [];
+    if (user) {
+      filteredList = [];
+      currencyList.forEach((element) => {
+        filteredList.push(element.code);
+      });
+    }
 
     return (
-      <div className="assets-container">
-        <div className="assets-table">
-          <Table
-            dataSource={assets}
-            columns={assetsTableConstants}
-            title={() => 'MY ASSETS'}
-            bordered
-            rowKey="id"
-          />
-        </div>
-        <div className="add-assets">
-          <Button type="primary" onClick={this.handleAddAsset}>
-            Add Asset
-          </Button>
-        </div>
-        <Modal
-          title="ADD ASSET"
-          visible={visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <div className="modal">
-            <Input
-              placeholder="Please enter the amount"
-              type="number"
-              value={newAssetAmount}
-              onChange={this.changeValue}
-            />
-            <Select
-              defaultValue="TRY"
-              onChange={this.handleSelectCurrency}
-              style={{ width: 120 }}
+      <div>
+        {user && (
+          <div className="assets-container">
+            <div className="assets-table">
+              <Table
+                dataSource={assets}
+                columns={assetsTableConstants}
+                title={() => 'MY ASSETS'}
+                bordered
+                rowKey="id"
+              />
+            </div>
+            <div className="add-assets">
+              <Button type="primary" onClick={this.handleAddAsset}>
+                Add Asset
+              </Button>
+            </div>
+            <Modal
+              title="ADD ASSET"
+              visible={visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
             >
-              {/* eslint-disable-next-line no-use-before-define */}
-              {this.menu(filteredList)}
-            </Select>
+              <div className="modal">
+                <Input
+                  placeholder="Please enter the amount"
+                  type="number"
+                  value={newAssetAmount}
+                  onChange={this.changeValue}
+                />
+                <Select
+                  defaultValue="TRY"
+                  onChange={this.handleSelectCurrency}
+                  style={{ width: 120 }}
+                >
+                  {/* eslint-disable-next-line no-use-before-define */}
+                  {this.menu(filteredList)}
+                </Select>
+              </div>
+            </Modal>
           </div>
-        </Modal>
+        )}{' '}
       </div>
     );
   }

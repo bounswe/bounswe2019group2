@@ -149,10 +149,17 @@ export const buyOrderTableColumns = [
     dataIndex: 'base_equipment',
     key: 'baseEquipment'
   },
+
   {
     title: 'TARGET EQUIPMENT',
     dataIndex: 'target_equipment',
     key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
   },
   {
     title: 'BUY RATIO',
@@ -160,7 +167,7 @@ export const buyOrderTableColumns = [
     key: 'buyRatio'
   },
   {
-    title: 'BUY AMOUNT',
+    title: 'AMOUNT',
     dataIndex: 'buy_amount',
     key: 'buyAmount'
   }
@@ -172,10 +179,17 @@ export const stopLossOrderTableColumns = [
     dataIndex: 'base_equipment',
     key: 'baseEquipment'
   },
+
   {
     title: 'TARGET EQUIPMENT',
     dataIndex: 'target_equipment',
     key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
   },
   {
     title: 'SELL RATIO',
@@ -183,7 +197,7 @@ export const stopLossOrderTableColumns = [
     key: 'sellRatio'
   },
   {
-    title: 'SELL AMOUNT',
+    title: 'AMOUNT',
     dataIndex: 'sell_amount',
     key: 'sellAmount'
   }

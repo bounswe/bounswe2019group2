@@ -3,7 +3,7 @@ import { actionTypes } from './actions';
 const initialState = {
   parityList: [],
   currencyList: [],
-  oneParity: []
+  oneParity: null
 };
 
 function parityReducer(state = initialState, action) {
@@ -23,6 +23,7 @@ function parityReducer(state = initialState, action) {
         ...state,
         currencyList: action.payload
       };
+
     default:
       return state;
   }

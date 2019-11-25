@@ -5,7 +5,9 @@ const initialState = {
   onlineInvestments: null,
   assets: null,
   currencyList: null,
-  profitLossList: null
+  profitLossList: null,
+  buyOrderList: null,
+  stopLossOrderList: null
 };
 
 function investmentReducer(state = initialState, action) {
@@ -34,6 +36,16 @@ function investmentReducer(state = initialState, action) {
       return {
         ...state,
         profitLossList: action.payload
+      };
+    case actionTypes.SAVE_BUY_ORDER_LIST:
+      return {
+        ...state,
+        buyOrderList: action.payload
+      };
+    case actionTypes.SAVE_STOP_LOSS_ORDER_LIST:
+      return {
+        ...state,
+        stopLossOrderList: action.payload
       };
     default:
       return state;
