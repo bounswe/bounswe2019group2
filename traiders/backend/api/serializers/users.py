@@ -82,9 +82,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-
-        exclude = ['last_login', 'is_superuser', 'is_staff', 'is_active',
-                   'groups', 'user_permissions', 'email_verified']
+        fields = ["url", "country", "id", "username", "first_name", "last_name", "email",
+                  "date_joined", "is_trader", "iban", "is_trader", "city", "avatar", "is_private", "password"]
         read_only_fields = ['id', 'date_joined']
         extra_kwargs = {
             'password': {'write_only': True,  # password is never read

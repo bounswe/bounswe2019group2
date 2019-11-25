@@ -66,46 +66,48 @@ class ParityPage extends Component {
     const l2 = `/equipment/${base}`;
     return (
       <Page>
-        <div className="parity-container">
-          <div className="up">
-            Your prediction:
-            <Button
-              type="secondary"
-              onClick={() => this.handlerPrd(1)}
-              icon="arrow-up"
-            />
-            <Button
-              type="secondary"
-              onClick={() => this.handlerPrd(-1)}
-              icon="arrow-down"
-            />
-          </div>
-          <div className="down">
-            <div className="left">
-              <Button onClick={() => this.handler(1)}>Daily</Button>
-              <Button onClick={() => this.handler(30)}>Monthly</Button>
-              <Button onClick={() => this.handler(365)}>Yearly</Button>
-              <Button onClick={() => this.handlerMA(50)}>MA50</Button>
-              <Button onClick={() => this.handlerMA(100)}>MA100</Button>
-              <Button onClick={() => this.handlerMA(200)}>MA200</Button>
+        {oneParity && (
+          <div className="parity-container">
+            <div className="up">
+              Your prediction:
+              <Button
+                type="secondary"
+                onClick={() => this.handlerPrd(1)}
+                icon="arrow-up"
+              />
+              <Button
+                type="secondary"
+                onClick={() => this.handlerPrd(-1)}
+                icon="arrow-down"
+              />
             </div>
-            <div className="right">
-              <div className="link">
-                <Link to={l1}>{target} / </Link>
-                <Link to={l2}>{base}</Link>
+            <div className="down">
+              <div className="left">
+                <Button onClick={() => this.handler(1)}>Daily</Button>
+                <Button onClick={() => this.handler(30)}>Monthly</Button>
+                <Button onClick={() => this.handler(365)}>Yearly</Button>
+                <Button onClick={() => this.handlerMA(50)}>MA50</Button>
+                <Button onClick={() => this.handlerMA(100)}>MA100</Button>
+                <Button onClick={() => this.handlerMA(200)}>MA200</Button>
               </div>
-              {oneParity.length !== 0 && (
-                <ParityChart
-                  base={base}
-                  target={target}
-                  limit={limit}
-                  ma={ma}
-                  list={oneParity}
-                />
-              )}
+              <div className="right">
+                <div className="link">
+                  <Link to={l1}>{target} / </Link>
+                  <Link to={l2}>{base}</Link>
+                </div>
+                {oneParity.length !== 0 && (
+                  <ParityChart
+                    base={base}
+                    target={target}
+                    limit={limit}
+                    ma={ma}
+                    list={oneParity}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Page>
     );
   }

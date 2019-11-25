@@ -4,7 +4,8 @@ import Article from './Article';
 import {
   getArticle,
   getArticleAuthor,
-  getArticleComments
+  getArticleComments,
+  getArticleWithAuthorization
 } from '../../redux/article/actions';
 import {
   getFollowings,
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  getArticleWithAuthorization,
   getArticle,
   getArticleAuthor,
   getArticleComments,

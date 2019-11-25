@@ -33,48 +33,76 @@ class AddComment extends Component {
 
   handleSubmit = () => {
     const { content, image } = this.state;
-    const { user, submitUrl, equipment } = this.props;
+    const {
+      user,
+      submitUrl,
+      equipment,
+      article,
+      getArticleComments,
+      getEquipmentComments
+    } = this.props;
     if (!user) {
       history.push('/login');
-    }
-    const token = user.key;
-    // eslint-disable-next-line one-var
-    let body, article;
-    if (submitUrl.includes('equipment')) {
-      body = { content, equipment };
     } else {
-      // eslint-disable-next-line
-      const mainArticle = this.props.article;
-      article = mainArticle.url;
-      body = { content, article };
-    }
-
-    if (body) {
-      PostWithAuthorization(submitUrl, body, token)
-        .then((response) => {
-          if (response.status === 201 && image) {
-            response.json().then((res) => {
-              PatchUploadImage(res.url, image, token)
-                // eslint-disable-next-line
-                .then((response) => {
-                  // eslint-disable-next-line no-console
-                  console.log(response);
-                })
-                .catch((error) => {
-                  // eslint-disable-next-line no-console
-                  console.log('Smt wrong \n', error);
+      const token = user.key;
+      // eslint-disable-next-line one-var
+      let body;
+      if (submitUrl.includes('equipment')) {
+        body = { content, equipment };
+        if (body) {
+          PostWithAuthorization(submitUrl, body, token)
+            .then((response) => {
+              if (response.status === 201 && image) {
+                response.json().then((res) => {
+                  PatchUploadImage(res.url, image, token)
+                    // eslint-disable-next-line
+                    .then((response) => {
+                      // eslint-disable-next-line no-console
+                      console.log(response);
+                    })
+                    .catch((error) => {
+                      // eslint-disable-next-line no-console
+                      console.log('Smt wrong \n', error);
+                    });
                 });
-            });
-          }
-        })
-        // eslint-disable-next-line no-console
-        .catch((error) => console.log('Smt wrong \n', error));
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('smt-wrong');
+              }
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log('Smt wrong \n', error));
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('smt-wrong');
+        }
+        setTimeout(() => getEquipmentComments(equipment), 1000);
+      } else if (submitUrl.includes('article')) {
+        body = { content, article: article.url };
+        if (body) {
+          PostWithAuthorization(submitUrl, body, token)
+            .then((response) => {
+              if (response.status === 201 && image) {
+                response.json().then((res) => {
+                  PatchUploadImage(res.url, image, token)
+                    // eslint-disable-next-line
+                    .then((response) => {
+                      // eslint-disable-next-line no-console
+                      console.log(response);
+                    })
+                    .catch((error) => {
+                      // eslint-disable-next-line no-console
+                      console.log('Smt wrong \n', error);
+                    });
+                });
+              }
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log('Smt wrong \n', error));
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('smt-wrong');
+        }
+        setTimeout(() => getArticleComments(article.id), 1000);
+      }
     }
-    // eslint-disable-next-line
-    window.location.reload();
   };
 
   render() {

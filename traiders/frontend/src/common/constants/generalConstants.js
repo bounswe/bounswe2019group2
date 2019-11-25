@@ -100,6 +100,11 @@ export const manualInvestmentsTableColumns = [
     title: 'DATE',
     dataIndex: 'date',
     key: 'date'
+  },
+  {
+    title: 'TOTAL PROFIT/LOSS IN TRY',
+    dataIndex: 'profit',
+    key: 'profit'
   }
 ];
 
@@ -130,5 +135,70 @@ export const onlineInvestmentsTableColumns = [
     title: 'DATE',
     dataIndex: 'date',
     key: 'date'
+  },
+  {
+    title: 'TOTAL PROFIT/LOSS IN TRY',
+    dataIndex: 'profit',
+    key: 'profit'
+  }
+];
+
+export const buyOrderTableColumns = [
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
+    title: 'BUY RATIO',
+    dataIndex: 'buy_ratio',
+    key: 'buyRatio'
+  },
+  {
+    title: 'AMOUNT',
+    dataIndex: 'buy_amount',
+    key: 'buyAmount'
+  }
+];
+
+export const stopLossOrderTableColumns = [
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
+    title: 'SELL RATIO',
+    dataIndex: 'sell_ratio',
+    key: 'sellRatio'
+  },
+  {
+    title: 'AMOUNT',
+    dataIndex: 'sell_amount',
+    key: 'sellAmount'
   }
 ];

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,7 +41,7 @@ public class ParityAdapter extends RecyclerView.Adapter<ParityAdapter.CurrencyVi
         holder.textView_paritySymbol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ParityDetailsActivity.class).putExtra("parityUrl", parity.getUrl()));
+                context.startActivity(new Intent(context, ParityDetailsActivity.class).putExtra("parity", parity));
             }
         });
     }
