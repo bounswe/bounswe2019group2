@@ -33,41 +33,76 @@ class AddComment extends Component {
 
   handleSubmit = () => {
     const { content, image } = this.state;
-    const { user } = this.props;
+    const {
+      user,
+      submitUrl,
+      equipment,
+      article,
+      getArticleComments,
+      getEquipmentComments
+    } = this.props;
     if (!user) {
       history.push('/login');
-    }
-    // eslint-disable-next-line
-    const mainArticle = this.props.article;
-    const token = user.key;
-    const article = mainArticle.url;
-    const submitUrl = 'https://api.traiders.tk/comments/article/';
-    if ((content, article)) {
-      PostWithAuthorization(submitUrl, { content, article }, token)
-        .then((response) => {
-          if (response.status === 201 && image) {
-            response.json().then((res) => {
-              PatchUploadImage(res.url, image, token)
-                // eslint-disable-next-line
-                .then((response) => {
-                  // eslint-disable-next-line no-console
-                  console.log(response);
-                })
-                .catch((error) => {
-                  // eslint-disable-next-line no-console
-                  console.log('Smt wrong \n', error);
-                });
-            });
-          }
-        })
-        // eslint-disable-next-line no-console
-        .catch((error) => console.log('Smt wrong \n', error));
     } else {
-      // eslint-disable-next-line no-console
-      console.log('smt-wrong');
+      const token = user.key;
+      // eslint-disable-next-line one-var
+      let body;
+      if (submitUrl.includes('equipment')) {
+        body = { content, equipment };
+        if (body) {
+          PostWithAuthorization(submitUrl, body, token)
+            .then((response) => {
+              if (response.status === 201 && image) {
+                response.json().then((res) => {
+                  PatchUploadImage(res.url, image, token)
+                    // eslint-disable-next-line
+                    .then((response) => {
+                      // eslint-disable-next-line no-console
+                      console.log(response);
+                    })
+                    .catch((error) => {
+                      // eslint-disable-next-line no-console
+                      console.log('Smt wrong \n', error);
+                    });
+                });
+              }
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log('Smt wrong \n', error));
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('smt-wrong');
+        }
+        setTimeout(() => getEquipmentComments(equipment), 1000);
+      } else if (submitUrl.includes('article')) {
+        body = { content, article: article.url };
+        if (body) {
+          PostWithAuthorization(submitUrl, body, token)
+            .then((response) => {
+              if (response.status === 201 && image) {
+                response.json().then((res) => {
+                  PatchUploadImage(res.url, image, token)
+                    // eslint-disable-next-line
+                    .then((response) => {
+                      // eslint-disable-next-line no-console
+                      console.log(response);
+                    })
+                    .catch((error) => {
+                      // eslint-disable-next-line no-console
+                      console.log('Smt wrong \n', error);
+                    });
+                });
+              }
+            })
+            // eslint-disable-next-line no-console
+            .catch((error) => console.log('Smt wrong \n', error));
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('smt-wrong');
+        }
+        setTimeout(() => getArticleComments(article.id), 1000);
+      }
     }
-    // eslint-disable-next-line
-    window.location.reload();
   };
 
   render() {

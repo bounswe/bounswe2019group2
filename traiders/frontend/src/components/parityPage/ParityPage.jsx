@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 import ParityChart from '../parityChart/ParityChart';
 import Page from '../page/Page';
@@ -11,20 +12,14 @@ class ParityPage extends Component {
     super(props);
     this.state = {
       limit: 30,
-      base: '',
-      target: '',
       ma: 0
     };
   }
 
   componentWillMount() {
-    const { match } = this.props;
+    const { match, getOneParity } = this.props;
     const { base, target } = match.params;
-    this.setState({
-      base,
-      target
-    });
-    const { getOneParity } = this.props;
+
     getOneParity(target, base);
   }
 
@@ -36,8 +31,8 @@ class ParityPage extends Component {
   };
 
   handlerPrd = (pred) => {
-    const { user } = this.props;
-    const { base, target } = this.state;
+    const { user, match } = this.props;
+    const { base, target } = match.params;
     const token = user.key;
     const url = 'https://api.traiders.tk/prediction/';
     const body = {
@@ -59,46 +54,55 @@ class ParityPage extends Component {
   };
 
   render() {
-    const { oneParity } = this.props;
-    const { limit, base, target, ma } = this.state;
+    const { oneParity, match } = this.props;
+    const { target, base } = match.params;
+    const { limit, ma } = this.state;
+    const l1 = `/equipment/${target}`;
+    const l2 = `/equipment/${base}`;
     return (
       <Page>
-        <div className="container">
-          <div className="up">
-            Your prediction:
-            <Button
-              type="default"
-              onClick={() => this.handlerPrd(1)}
-              icon="arrow-up"
-            />
-            <Button
-              type="default"
-              onClick={() => this.handlerPrd(-1)}
-              icon="arrow-down"
-            />
-          </div>
-          <div className="down">
-            <div className="left">
-              <Button onClick={() => this.handler(1)}>Daily</Button>
-              <Button onClick={() => this.handler(30)}>Monthly</Button>
-              <Button onClick={() => this.handler(365)}>Yearly</Button>
-              <Button onClick={() => this.handlerMA(50)}>MA50</Button>
-              <Button onClick={() => this.handlerMA(100)}>MA100</Button>
-              <Button onClick={() => this.handlerMA(200)}>MA200</Button>
+        {oneParity && (
+          <div className="parity-container">
+            <div className="up">
+              Your prediction:
+              <Button
+                type="secondary"
+                onClick={() => this.handlerPrd(1)}
+                icon="arrow-up"
+              />
+              <Button
+                type="secondary"
+                onClick={() => this.handlerPrd(-1)}
+                icon="arrow-down"
+              />
             </div>
-            <div>
-              {oneParity && (
-                <ParityChart
-                  base={base}
-                  target={target}
-                  limit={limit}
-                  ma={ma}
-                  list={oneParity}
-                />
-              )}
+            <div className="down">
+              <div className="left">
+                <Button onClick={() => this.handler(1)}>Daily</Button>
+                <Button onClick={() => this.handler(30)}>Monthly</Button>
+                <Button onClick={() => this.handler(365)}>Yearly</Button>
+                <Button onClick={() => this.handlerMA(50)}>MA50</Button>
+                <Button onClick={() => this.handlerMA(100)}>MA100</Button>
+                <Button onClick={() => this.handlerMA(200)}>MA200</Button>
+              </div>
+              <div className="right">
+                <div className="link">
+                  <Link to={l1}>{target} / </Link>
+                  <Link to={l2}>{base}</Link>
+                </div>
+                {oneParity.length !== 0 && (
+                  <ParityChart
+                    base={base}
+                    target={target}
+                    limit={limit}
+                    ma={ma}
+                    list={oneParity}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Page>
     );
   }

@@ -36,7 +36,7 @@ const Navbar = (props) => {
             {navbarList}
           </Menu>
           {user ? (
-            <div>
+            <div className="buttons">
               <Link to="/profile">
                 <Button type="primary">Profile</Button>
               </Link>

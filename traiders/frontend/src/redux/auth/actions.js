@@ -2,18 +2,21 @@ import { API } from '../apiConfig';
 import {
   PostWithUrlBody,
   GetWithUrl,
-  DeleteWithAuthorization
+  DeleteWithAuthorization,
+  PatchWithAuthorization
 } from '../../common/http/httpUtil';
 
 /* Action Types */
 
 const SAVE_USER = 'SAVE_USER';
+const SAVE_OTHER_USER = 'SAVE_OTHER_USER';
 const SAVE_FOLLOWERS = 'SAVE_FOLLOWERS';
 const SAVE_FOLLOWINGS = 'SAVE_FOLLOWINGS';
 const LOGOUT = 'LOGOUT';
 
 export const actionTypes = {
   SAVE_USER,
+  SAVE_OTHER_USER,
   LOGOUT,
   SAVE_FOLLOWERS,
   SAVE_FOLLOWINGS
@@ -24,6 +27,12 @@ export const actionTypes = {
 function saveUser(user) {
   return {
     type: SAVE_USER,
+    payload: user
+  };
+}
+function saveOtherUser(user) {
+  return {
+    type: SAVE_OTHER_USER,
     payload: user
   };
 }
@@ -69,6 +78,33 @@ export const loginUser = (body) => {
   };
 };
 
+export const updateUser = (id, body, token) => {
+  return () => {
+    PatchWithAuthorization(`${API}/users/${id}`, body, token)
+      .then((response) => {
+        if (response.status === 200) {
+          // eslint-disable-next-line no-console
+          response.json().then((res) => console.log(res));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching followers\n', error));
+  };
+};
+
+export const getOtherUser = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/users/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => dispatch(saveOtherUser(res)));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching followers\n', error));
+  };
+};
+
 export const getFollowers = (id) => {
   return (dispatch) => {
     GetWithUrl(`${API}/following/?user_followed=${id}`)
@@ -109,25 +145,5 @@ export const deleteFollowing = (id, token) => {
       })
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while unfollowing\n', error));
-  };
-};
-
-export const postUserRegister = (body) => {
-  return () => {
-    PostWithUrlBody(`${API}/users/`, body)
-      .then((response) => {
-        if (!response.ok) {
-          // eslint-disable-next-line
-          response.text().then((text) => alert(text));
-        } else {
-          // eslint-disable-next-line
-          response.json().then((res) => alert(res.type, res.message));
-        }
-      })
-
-      .catch((error) =>
-        // eslint-disable-next-line no-console
-        console.log('Error when fetch register\n', error)
-      );
   };
 };

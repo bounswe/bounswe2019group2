@@ -9,10 +9,14 @@ import java.util.List;
 
 import tk.traiders.constants.LikeConstants;
 import tk.traiders.models.Like;
+import tk.traiders.utils.MarshallerUtils;
 
 public class LikeMarshaller {
 
     public static Like unmarshall(String response){
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         Like like = null;
 
@@ -35,6 +39,9 @@ public class LikeMarshaller {
     }
 
     public static List<Like> unmarshallList(String response) {
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         List<Like> likeList = new ArrayList<>();
 

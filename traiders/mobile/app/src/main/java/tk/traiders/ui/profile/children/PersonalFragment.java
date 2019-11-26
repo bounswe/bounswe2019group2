@@ -1,6 +1,7 @@
 package tk.traiders.ui.profile.children;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,9 +36,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import tk.traiders.MainActivity;
 import tk.traiders.R;
+import tk.traiders.constants.UserConstants;
+import tk.traiders.marshallers.FollowingMarshaller;
+import tk.traiders.models.Following;
 import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
 
@@ -49,6 +58,10 @@ public class PersonalFragment extends Fragment {
     private LinearLayout linearLayout_iban;
     private ImageView imageView_addPhotoProfile;
     private String URL;
+
+    private TextView textView_followersCount;
+    private TextView textView_followingCount;
+    private RequestQueue requestQueue;
 
     @Nullable
     @Override
@@ -64,7 +77,8 @@ public class PersonalFragment extends Fragment {
         linearLayout_iban = rootView.findViewById(R.id.personal_linearLayout_iban);
         imageView_addPhotoProfile = rootView.findViewById(R.id.imageView_addPhotoProfile);
 
-        URL = MainActivity.getUserURL(getActivity());
+        textView_followersCount = rootView.findViewById(R.id.textView_followerCount);
+        textView_followingCount = rootView.findViewById(R.id.textView_followingCount);
 
         imageView_addPhotoProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,20 +88,26 @@ public class PersonalFragment extends Fragment {
         });
 
 
-        RequestQueue queue = Volley.newRequestQueue(getParentFragment().getActivity());
+        requestQueue = Volley.newRequestQueue(getParentFragment().getActivity());
 
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        URL = MainActivity.getUserURL(getActivity());
 
         if(URL == null) {
             Toast.makeText(getActivity(), "Please log in to see this page!", Toast.LENGTH_SHORT).show();
-            return rootView;
-        }
+            textView_name_surname.setText("");
+            textView_country.setText("");
+            textView_username.setText("");
+            textView_email.setText("");
+            textView_iban.setText("");
 
-        if(!URL.contains("https")){
-            URL = URL.replace("http","https");
-        }
 
-        if (URL == null) {
-            Toast.makeText(getActivity(), "Please log in to see this page!", Toast.LENGTH_SHORT).show();
         } else {
 
             StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
@@ -117,9 +137,12 @@ public class PersonalFragment extends Fragment {
                         String city = jsonObject.getString("city");
                         String iban = jsonObject.getString("iban");
                         Boolean is_trader = jsonObject.getBoolean("is_trader");
+                        int avatardId = jsonObject.getInt(UserConstants.AVATAR);
+                        int avatarDrawableId = ChooseAvatarActivity.getAvatarDrawableId(avatardId);
 
+                        imageView_addPhotoProfile.setImageDrawable(ContextCompat.getDrawable(getContext(), avatarDrawableId));
                         textView_name_surname.setText(StringUtils.capitalize(first_name) + " " + StringUtils.capitalize(last_name));
-                        textView_country.setText(city + " ," + country);
+                        textView_country.setText(city + ", " + country);
                         textView_username.setText(username);
                         textView_email.setText(email);
                         if (is_trader) {
@@ -143,90 +166,75 @@ public class PersonalFragment extends Fragment {
                 }
             });
 
-            queue.add(request);
+            requestQueue.add(request);
 
-        }
+            Uri.Builder builderFollowers = Uri.parse("https://api.traiders.tk/following/").buildUpon();
+            builderFollowers.appendQueryParameter("user_followed", MainActivity.getUserID(getContext()));
 
-        return rootView;
-    }
+            String urlWithFiltersFollowers = builderFollowers.build().toString();
 
-    @Override
-    public void onResume() {
+            StringRequest followersRequest = new StringRequest(Request.Method.GET, urlWithFiltersFollowers, new Response.Listener<String>() {
 
-        RequestQueue queue = Volley.newRequestQueue(getParentFragment().getActivity());
-
-        String URL = MainActivity.getUserURL(getActivity());
-
-        if(URL == null) {
-            textView_name_surname.setText("");
-            textView_country.setText("");
-            textView_username.setText("");
-            textView_email.setText("");
-            textView_iban.setText("");
-            super.onResume();
-            return;
-        }
-
-        if(!URL.contains("https")){
-            URL = URL.replace("http","https");
-        }
-
-        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.d("response", response);
-                ArrayList<String> elements = new ArrayList<>();
-
-                try {
-
-                    String UTF8_response = null;
-
-                    try {
-                        UTF8_response = new String(response.getBytes("ISO-8859-1"), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-
-                        e.printStackTrace();
-                    }
-
-                    JSONObject jsonObject = new JSONObject(UTF8_response);
-                    String username = jsonObject.getString("username");
-                    String first_name = jsonObject.getString("first_name");
-                    String last_name = jsonObject.getString("last_name");
-                    String email = jsonObject.getString("email");
-                    String country = jsonObject.getJSONObject("country").getString("name");
-                    String city = jsonObject.getString("city");
-                    String iban = jsonObject.getString("iban");
-                    Boolean is_trader = jsonObject.getBoolean("is_trader");
-
-                    textView_name_surname.setText(StringUtils.capitalize(first_name) + " " + StringUtils.capitalize(last_name));
-                    textView_country.setText(city + ", " + country);
-                    textView_username.setText(username);
-                    textView_email.setText(email);
-                    if (is_trader) {
-                        textView_iban.setText(iban);
-                    } else {
-                        linearLayout_iban.setVisibility(View.GONE);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                @Override
+                public void onResponse(String response) {
+                    List<Following> followingList = FollowingMarshaller.unmarshallList(response);
+                    textView_followersCount.setText(Integer.toString(followingList.size()));
                 }
 
-            }
+            }, new Response.ErrorListener() {
 
-        }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "An error occured fetching followers count!", Toast.LENGTH_SHORT).show();
+                    error.printStackTrace();
+                }
+            }) {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("error",error.toString());
-            }
-        });
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = MainActivity.getAuthorizationHeader(getContext());
+                    return headers != null ? headers : super.getHeaders();
+                }
 
-        queue.add(request);
+            };
 
-        super.onResume();
+            requestQueue.add(followersRequest);
+
+            Uri.Builder builderFollowings = Uri.parse("https://api.traiders.tk/following/").buildUpon();
+            builderFollowings.appendQueryParameter("user_following", MainActivity.getUserID(getContext()));
+
+            String urlWithFiltersFollowings = builderFollowings.build().toString();
+
+            StringRequest followingsRequest = new StringRequest(Request.Method.GET, urlWithFiltersFollowings, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    List<Following> followingList = FollowingMarshaller.unmarshallList(response);
+                    textView_followingCount.setText(Integer.toString(followingList.size()));
+                }
+
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "An error occured fetching followings count!", Toast.LENGTH_SHORT).show();
+                    error.printStackTrace();
+                }
+            }) {
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = MainActivity.getAuthorizationHeader(getContext());
+                    return headers != null ? headers : super.getHeaders();
+                }
+
+            };
+
+            requestQueue.add(followingsRequest);
+
+
+
+        }
 
     }
 

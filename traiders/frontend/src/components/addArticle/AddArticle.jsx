@@ -47,16 +47,21 @@ class AddArticle extends Component {
     const { user } = this.props;
     const token = user.key;
     const url = 'https://api.traiders.tk/articles/';
+    let id;
     if (content && title) {
       PostWithAuthorization(url, { content, title }, token)
         .then((response) => {
           if (response.status === 201) {
             response.json().then((res) => {
+              id = res.id;
               PatchUploadImage(res.url, image, token)
                 .then((response) => {
-                  console.log(response);
+                  response
+                    .json()
+                    .then((res) => history.push(`/articles/${res.id}`));
                 })
                 .catch((error) => {
+                  history.push(`/articles/${id}`);
                   console.log('Smt wrong \n', error);
                 });
             });

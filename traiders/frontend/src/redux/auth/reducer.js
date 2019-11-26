@@ -3,7 +3,8 @@ import { actionTypes } from './actions';
 const initialState = {
   currentUser: null,
   followers: null,
-  followings: null
+  followings: null,
+  otherUser: null
 };
 
 function userReducer(state = initialState, action) {
@@ -12,6 +13,11 @@ function userReducer(state = initialState, action) {
       return {
         ...state,
         currentUser: action.payload
+      };
+    case actionTypes.SAVE_OTHER_USER:
+      return {
+        ...state,
+        otherUser: action.payload
       };
     case actionTypes.LOGOUT:
       return {

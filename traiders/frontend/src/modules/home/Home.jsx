@@ -11,7 +11,7 @@ const Home = (props) => {
   return (
     <Page>
       <div className="home-container">
-        <CurrencyTable />
+        <CurrencyTable base={null} />
         <ArticleList limit={articleLimit} history={history} />
       </div>
     </Page>

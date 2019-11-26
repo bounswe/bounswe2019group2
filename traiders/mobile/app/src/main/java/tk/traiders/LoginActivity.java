@@ -73,11 +73,15 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String token = jsonObject.getString("key");
                             String user =  jsonObject.getJSONObject("user").getString("url");
+                            String id =  jsonObject.getJSONObject("user").getString("id");
+
 
                             SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("token", token);
                             editor.putString("user", user);
+                            editor.putString("id", id);
+
                             editor.commit();
                             finish();
 

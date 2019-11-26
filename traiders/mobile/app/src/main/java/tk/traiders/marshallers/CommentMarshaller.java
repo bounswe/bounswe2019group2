@@ -11,10 +11,14 @@ import tk.traiders.constants.CommentConstants;
 import tk.traiders.models.Comment;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class CommentMarshaller {
 
     public static Comment unmarshall(String response){
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         Comment comment = null;
 
@@ -34,8 +38,10 @@ public class CommentMarshaller {
                 articleOrEquipmentUrl = commentAsJson.getString(CommentConstants.EQUIPMENT_URL);
             }
 
+            boolean isLiked = commentAsJson.getBoolean(CommentConstants.IS_LIKED);
+            int numLikes = commentAsJson.getInt(CommentConstants.NUM_LIKES);
 
-            comment = new Comment(id, url, created_at, content, author, articleOrEquipmentUrl);
+            comment = new Comment(id, url, created_at, content, author, articleOrEquipmentUrl, isLiked, numLikes);
 
 
         } catch (JSONException e) {
@@ -46,6 +52,8 @@ public class CommentMarshaller {
     }
 
     public static List<Comment> unmarshallList(String response) {
+
+        response = MarshallerUtils.convertToUTF8(response);
 
         List<Comment> commentList = new ArrayList<>();
 
