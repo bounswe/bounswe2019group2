@@ -70,6 +70,9 @@ export const loginUser = (body) => {
           response.json().then((res) => {
             dispatch(saveUser(res));
           });
+        } else {
+          // eslint-disable-next-line no-alert
+          alert('Wrong Credentials');
         }
       })
 

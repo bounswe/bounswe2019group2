@@ -230,9 +230,11 @@ class MyInvestments extends Component {
       history.push('/login');
     }
     const filteredList = [];
-    currencyList.forEach((element) => {
-      filteredList.push(element.symbol);
-    });
+    if (currencyList) {
+      currencyList.forEach((element) => {
+        filteredList.push(element.symbol);
+      });
+    }
 
     return (
       <div className="investment-part">

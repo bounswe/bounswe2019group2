@@ -13,7 +13,7 @@ const CurrencyInfo = (props) => {
   const changeType = changeRate < 0 ? 'fall' : 'rise';
 
   const handleRoute = () => {
-    const url = `/parity/${base_equipment.symbol}/TRY`;
+    const url = `/parity/${base_equipment.symbol}/${target_equipment.symbol}`;
     history.push(url);
   };
 
