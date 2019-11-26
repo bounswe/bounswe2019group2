@@ -15,10 +15,14 @@ import tk.traiders.models.Like;
 import tk.traiders.models.Parity;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class ParityMarshaller {
 
     public static Parity unmarshall(String response){
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         Parity parity = null;
 
@@ -48,6 +52,8 @@ public class ParityMarshaller {
     }
 
     public static List<Parity> unmarshallList(String response) {
+
+        response = MarshallerUtils.convertToUTF8(response);
 
         List<Parity> parityList = new ArrayList<>();
 

@@ -122,7 +122,7 @@ public class ViewEquipmentActivity extends AppCompatActivity {
                     {
                         Map<String, String>  params = new HashMap<String, String>();
                         params.put("content", comment);
-                        params.put("equipment", equipment.getUrl());
+                        params.put("equipment", equipment.getSymbol());
 
                         return params;
                     }
@@ -183,7 +183,13 @@ public class ViewEquipmentActivity extends AppCompatActivity {
                 Toast.makeText(ViewEquipmentActivity.this, "An error occured fetching comments", Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = MainActivity.getAuthorizationHeader(ViewEquipmentActivity.this);
+                return headers != null ? headers : super.getHeaders();
+            }
+        };
 
         requestQueue.add(request);
 

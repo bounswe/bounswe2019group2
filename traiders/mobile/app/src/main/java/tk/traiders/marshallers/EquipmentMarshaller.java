@@ -16,10 +16,14 @@ import tk.traiders.models.Equipment;
 import tk.traiders.models.Like;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class EquipmentMarshaller {
 
     public static Equipment unmarshall(String response){
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         Equipment equipment = null;
 
@@ -44,6 +48,9 @@ public class EquipmentMarshaller {
     }
 
     public static List<Equipment> unmarshallList(String response) {
+
+        response = MarshallerUtils.convertToUTF8(response);
+
 
         List<Equipment> equipmentList = new ArrayList<>();
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/imageView_userAvatar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        tools:src="@drawable/avatar_1"/>
+
+    <TextView
+        android:id="@+id/textView_username"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="64dp"
+        android:paddingStart="16dp"
+        android:gravity="center|start"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        tools:text="fiver6"/>
+
+    <Button
+        android:id="@+id/button_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:textColor="@color/white"
+        android:text="FOLLOW"
+        android:background="@android:color/holo_green_dark"/>
+
+    <Button
+        android:id="@+id/button_unfollow"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:textColor="@color/white"
+        android:text="UNFOLLOW"
+        android:background="@android:color/holo_red_dark"
+        android:visibility="gone"/>
+
+
+</LinearLayout>
