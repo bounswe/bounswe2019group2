@@ -319,7 +319,7 @@ The system shall support following equipments and possible conversions between t
 
 ## Scenario 1 (Mobile)
 
-### Kalper Pehpetoglu
+### Alperen Duymaz
 
 **Persona**
 * 29 years old
@@ -331,7 +331,7 @@ The system shall support following equipments and possible conversions between t
 
 
 **Story**
-* Kalper  graduated from university 5 years ago  and works as a banker.
+* Alperen graduated from university 5 years ago  and works as a banker.
 He uses our mobile application and he is our loyal user.
 He uses our mobile app everyday to see which articles are written by other users and which events are occured.
 He is interested in the state of EUR against Turkish Lira.
@@ -339,7 +339,7 @@ According to political agenda, he tries to make predictions about the EUR.
 He visits the events page and sees the coming events that will effect EUR.
 He remembers his article which is written almost 1 week earlier from these eventS.
 He sees that his prediction about EUR in his article becomes true and there are many likes and comments in his article.
-After Kalper sees the number of likes and comments, he wonders his follower number.
+After Alperen sees the number of likes and comments, he wonders his follower number.
 He visits his profile page and sees the increase in the follower number and becomes very happy.  
 **Preconditions**
 
