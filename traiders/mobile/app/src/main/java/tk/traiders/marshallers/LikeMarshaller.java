@@ -15,9 +15,6 @@ public class LikeMarshaller {
 
     public static Like unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Like like = null;
 
         try {
@@ -39,9 +36,6 @@ public class LikeMarshaller {
     }
 
     public static List<Like> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
-
 
         List<Like> likeList = new ArrayList<>();
 

@@ -20,9 +20,6 @@ public class CountryMarshaller {
 
     public static Country unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Country country = null;
 
         try {
@@ -41,8 +38,6 @@ public class CountryMarshaller {
     }
 
     public static List<Country> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
 
         List<Country> countryList = new ArrayList<>();
 
