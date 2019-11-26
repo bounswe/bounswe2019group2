@@ -336,7 +336,7 @@ He uses our mobile application and he is our loyal user.
 He uses our mobile app everyday to see which articles are written by other users and which events are occured.
 He is interested in the state of EUR against Turkish Lira.
 According to political agenda, he tries to make predictions about the EUR.
-He visits the events page and sees the coming events that will effect EUR.
+He visits the events page and filters for EUR based on country and importance level and then sees the coming events that will effect EUR. He starts to track these events so that he gets notified when the events happen.
 He remembers his article which is written almost 1 week earlier from these events.
 He sees that his prediction about EUR in his article becomes true and there are many likes and comments in his article.
 After Alperen sees the number of likes and comments, he wonders his follower number.
