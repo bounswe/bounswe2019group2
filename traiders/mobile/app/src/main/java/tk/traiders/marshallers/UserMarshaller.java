@@ -11,8 +11,6 @@ public class UserMarshaller {
 
     public static User unmarshall(String response) {
 
-        response = MarshallerUtils.convertToUTF8(response);
-
         User user = null;
 
         try {

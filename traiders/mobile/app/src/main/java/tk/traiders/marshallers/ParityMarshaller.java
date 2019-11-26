@@ -21,9 +21,6 @@ public class ParityMarshaller {
 
     public static Parity unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Parity parity = null;
 
         try {
@@ -52,8 +49,6 @@ public class ParityMarshaller {
     }
 
     public static List<Parity> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
 
         List<Parity> parityList = new ArrayList<>();
 
