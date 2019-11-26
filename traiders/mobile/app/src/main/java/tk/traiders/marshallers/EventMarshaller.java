@@ -16,9 +16,6 @@ public class EventMarshaller {
 
     public static Event unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Event event = null;
 
         try {
@@ -50,8 +47,6 @@ public class EventMarshaller {
     }
 
     public static List<Event> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
 
         List<Event> events = new ArrayList<>();
 

@@ -18,9 +18,6 @@ public class ArticleMarshaller {
 
     public static Article unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Article article = null;
 
         try {
@@ -48,10 +45,6 @@ public class ArticleMarshaller {
     }
 
     public static List<Article> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
-
-
 
         List<Article> articleList = new ArrayList<>();
 
