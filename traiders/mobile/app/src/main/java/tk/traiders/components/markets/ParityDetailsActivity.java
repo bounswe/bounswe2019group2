@@ -8,9 +8,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,9 +31,13 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import tk.traiders.MainActivity;
 import tk.traiders.R;
+import tk.traiders.components.article.ViewArticleActivity;
 import tk.traiders.marshallers.ParityMarshaller;
 import tk.traiders.models.Parity;
 import tk.traiders.utils.MarshallerUtils;
@@ -50,6 +59,12 @@ public class ParityDetailsActivity extends AppCompatActivity {
     private Button button_daily;
     private Button button_monthly;
     private Button button_yearly;
+
+    private TextView textView_expectation;
+    private ProgressBar seekBar_expectation;
+
+    private Button button_goup;
+    private Button button_godown;
 
     private RequestQueue requestQueue;
     private String BASE_URL = "https://api.traiders.tk/parity/";
@@ -78,6 +93,120 @@ public class ParityDetailsActivity extends AppCompatActivity {
         button_daily = findViewById(R.id.button_daily);
         button_monthly = findViewById(R.id.button_monthly);
         button_yearly = findViewById(R.id.button_yearly);
+
+        textView_expectation = findViewById(R.id.textView_expectation);
+        seekBar_expectation = findViewById(R.id.seekBar_expectation);
+
+        button_goup = findViewById(R.id.button_goup);
+        button_godown = findViewById(R.id.button_godown);
+
+        button_goup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                button_goup.setEnabled(false);
+                button_godown.setEnabled(false);
+
+
+                StringRequest postRequest = new StringRequest(Request.Method.POST, "https://api.traiders.tk/prediction/",
+                        new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response) {
+                                Toast.makeText(ParityDetailsActivity.this, "voted up", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // error
+                                Toast.makeText(ParityDetailsActivity.this, "An error occured voting up!", Toast.LENGTH_SHORT).show();
+                                error.printStackTrace();
+                                button_goup.setEnabled(true);
+                                button_godown.setEnabled(true);
+                            }
+                        }
+                ) {
+
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers = MainActivity.getAuthorizationHeader(ParityDetailsActivity.this);
+                        return headers != null ? headers : super.getHeaders();
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams()
+                    {
+                        Map<String, String>  params = new HashMap<String, String>();
+
+                        params.put("base_equipment", parity.getBaseEquipment().getSymbol());
+                        params.put("target_equipment", parity.getTargetEquipment().getSymbol());
+                        params.put("direction", "1");
+
+                        return params;
+                    }
+                };
+
+                requestQueue.add(postRequest);
+
+            }
+        });
+
+        button_godown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                button_godown.setEnabled(false);
+                button_goup.setEnabled(false);
+
+                StringRequest postRequest = new StringRequest(Request.Method.POST, "https://api.traiders.tk/prediction/",
+                        new Response.Listener<String>()
+                        {
+                            @Override
+                            public void onResponse(String response) {
+                                Toast.makeText(ParityDetailsActivity.this, "voted up", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // error
+                                Toast.makeText(ParityDetailsActivity.this, "An error occured voting up!", Toast.LENGTH_SHORT).show();
+                                error.printStackTrace();
+                                button_goup.setEnabled(true);
+                                button_godown.setEnabled(true);
+                            }
+                        }
+                ) {
+
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers = MainActivity.getAuthorizationHeader(ParityDetailsActivity.this);
+                        return headers != null ? headers : super.getHeaders();
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams()
+                    {
+                        Map<String, String>  params = new HashMap<String, String>();
+
+                        params.put("base_equipment", parity.getBaseEquipment().getSymbol());
+                        params.put("target_equipment", parity.getTargetEquipment().getSymbol());
+                        params.put("direction", "-1");
+
+                        return params;
+                    }
+                };
+
+                requestQueue.add(postRequest);
+
+            }
+        });
+
+        textView_expectation.setText("Expectation: %--");
+        seekBar_expectation.setProgress(0);
 
         button_hourly.setEnabled(false);
 

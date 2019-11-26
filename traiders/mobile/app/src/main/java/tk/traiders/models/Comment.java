@@ -8,14 +8,34 @@ public class Comment {
     private String content;
     private User author;
     private String articleOrEquipmentUrl;
+    private boolean isLiked;
+    private int numLlikes;
 
-    public Comment(String id, String url, String createdAt, String content, User author, String articleOrEquipmentUrl) {
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public int getNumLlikes() {
+        return numLlikes;
+    }
+
+    public void setNumLlikes(int numLlikes) {
+        this.numLlikes = numLlikes;
+    }
+
+    public Comment(String id, String url, String createdAt, String content, User author, String articleOrEquipmentUrl, boolean isLiked, int numLlikes) {
         this.id = id;
         this.url = url;
         this.createdAt = createdAt;
         this.content = content;
         this.author = author;
         this.articleOrEquipmentUrl = articleOrEquipmentUrl;
+        this.isLiked = isLiked;
+        this.numLlikes = numLlikes;
     }
 
     public String getId() {
@@ -70,5 +90,19 @@ public class Comment {
     public Comment setArticleOrEquipmentUrl(String articleOrEquipmentUrl) {
         this.articleOrEquipmentUrl = articleOrEquipmentUrl;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id='" + id + '\'' +
+                ", url='" + url + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", content='" + content + '\'' +
+                ", author=" + author +
+                ", articleOrEquipmentUrl='" + articleOrEquipmentUrl + '\'' +
+                ", isLiked=" + isLiked +
+                ", numLlikes=" + numLlikes +
+                '}';
     }
 }

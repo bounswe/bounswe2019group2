@@ -10,6 +10,7 @@ import React from 'react';
 import { DeleteWithAuthorization } from '../../common/http/httpUtil';
 import history from '../../common/history';
 import { API } from '../../redux/apiConfig';
+import images from '../../common/images';
 import './comment.scss';
 
 class Comment extends React.Component {
@@ -106,7 +107,15 @@ class Comment extends React.Component {
 
   render() {
     const { likes, dislikes, action } = this.state;
-    const { author, createdAt, content, image, user, authorURL } = this.props;
+    const {
+      author,
+      createdAt,
+      content,
+      image,
+      user,
+      authorURL,
+      avatarValue
+    } = this.props;
 
     const { visible } = this.state;
     const ownComment = user && authorURL ? user.user.url === authorURL : false;
@@ -153,7 +162,7 @@ class Comment extends React.Component {
             avatar={
               <Avatar
                 onClick={(event) => this.handleRoute(event, authorURL)}
-                src="https://img.pngio.com/avatar-user-computer-icons-software-developer-avatar-png-png-computer-user-900_540.jpg"
+                src={images[avatarValue - 1].src}
                 alt={author}
               />
             }

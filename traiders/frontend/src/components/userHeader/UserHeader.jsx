@@ -46,9 +46,11 @@ class UserHeader extends Component {
       getOtherUser(otherUserId);
       getFollowings(userId);
     }
-    this.setState({
-      value: otherUser.avatar
-    });
+    if (otherUser) {
+      this.setState({
+        value: otherUser.avatar
+      });
+    }
 
     let Following =
       followings &&
