@@ -318,7 +318,9 @@ The system shall support following equipments and possible conversions between t
 # User Scenarios
 
 ## Scenario 1 (Mobile)
-![Name](insert image URL here)
+
+### Kalper Pehpetoglu
+
 **Persona**
 * 29 years old
 * Graduated 5 years ago from the finance department.
@@ -329,24 +331,30 @@ The system shall support following equipments and possible conversions between t
 
 
 **Story**
-* Name  graduated from university 5 years ago  and works as a banker.
+* Kalper  graduated from university 5 years ago  and works as a banker.
 He uses our mobile application and he is our loyal user.
 He uses our mobile app everyday to see which articles are written by other users and which events are occured.
-He is interested in the state of GBP against Turkish Lira.
-According to political agenda, he tries to make predictions about the GBP.
-He visits the events page and reads an event about brexit.
-He remembers his article which is written 1 week earlier from this event.
-He sees that his prediction about GBP in his article becomes true and there are many likes and comments in his article.
-After Name sees the number of likes and comments, he wonders his follower number.
+He is interested in the state of EUR against Turkish Lira.
+According to political agenda, he tries to make predictions about the EUR.
+He visits the events page and sees the coming events that will effect EUR.
+He remembers his article which is written almost 1 week earlier from these eventS.
+He sees that his prediction about EUR in his article becomes true and there are many likes and comments in his article.
+After Kalper sees the number of likes and comments, he wonders his follower number.
 He visits his profile page and sees the increase in the follower number and becomes very happy.  
 **Preconditions**
 
 1. Uses a our mobile app.
 2. Already has an account
 3. Already has a verified e-mail
+4. Already published an article
+5. Already tracked several events 
 
 **Acceptance Criteria**
-
+1.1.3.1
+1.1.4.3, 1.1.4.4, 1.1.4.5
+1.1.5.1, 1.1.5.2, 1.1.5.3, 1.1.5.4
+1.2.1.1, 1.2.1.2
+1.2.4.5
 
 
 ## Scenario 2 (Web)
