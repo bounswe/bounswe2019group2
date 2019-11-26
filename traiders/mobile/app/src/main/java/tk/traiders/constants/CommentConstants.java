@@ -9,6 +9,8 @@ public class CommentConstants {
     public static final String AUTHOR = "user";
     public static final String ARTICLE_URL = "article";
     public static final String EQUIPMENT_URL = "equipment";
+    public static final String NUM_LIKES = "num_likes";
+    public static final String IS_LIKED = "is_liked";
 
 
 }
