@@ -45,6 +45,7 @@ class EquipmentPage extends Component {
                   commentId={comment.id}
                   equipment={comment.equipment}
                   authorURL={comment.user.url}
+                  avatarValue={comment.user.avatar}
                 />
               ))}
           </div>
