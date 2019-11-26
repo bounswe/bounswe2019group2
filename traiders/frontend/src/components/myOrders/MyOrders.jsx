@@ -176,9 +176,11 @@ class MyOrders extends Component {
     }
 
     const filteredList = [];
-    currencyList.forEach((element) => {
-      filteredList.push(element.symbol);
-    });
+    if (currencyList) {
+      currencyList.forEach((element) => {
+        filteredList.push(element.symbol);
+      });
+    }
     return (
       <div className="orders-container">
         <div className="buy-order-container">
