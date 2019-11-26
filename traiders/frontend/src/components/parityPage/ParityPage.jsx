@@ -6,6 +6,7 @@ import ParityChart from '../parityChart/ParityChart';
 import Page from '../page/Page';
 import './parity-page.scss';
 import { PostWithAuthorization } from '../../common/http/httpUtil';
+import history from '../../common/history';
 
 class ParityPage extends Component {
   constructor(props) {
@@ -28,18 +29,18 @@ class ParityPage extends Component {
     const { base, target } = match.params;
 
     getOneParity(target, base);
-    getPredictions(target, base, user.key);
-    let list;
-    if (predictionList.length !== 0) {
-      console.log(this.state.predicted, predictionList);
-      list = predictionList.filter((element) => element.user === user);
-      if (list.length !== 0) {
-        this.setState({
-          predicted: true
-        });
+    if (user) {
+      getPredictions(target, base, user.key);
+      let list;
+      if (predictionList.length !== 0) {
+        list = predictionList.filter((element) => element.user === user);
+        if (list.length !== 0) {
+          this.setState({
+            predicted: true
+          });
+        }
       }
     }
-    console.log(this.state.predicted, predictionList);
   }
 
   handler = (len) => {
@@ -52,22 +53,26 @@ class ParityPage extends Component {
   handlerPrd = (pred) => {
     const { user, match } = this.props;
     const { base, target } = match.params;
-    const token = user.key;
-    const url = 'https://api.traiders.tk/prediction/';
-    const body = {
-      base_equipment: base,
-      target_equipment: target,
-      direction: pred
-    };
-    PostWithAuthorization(url, body, token)
-      // eslint-disable-next-line no-console
-      .then((response) => {
-        if (response.status === 200) {
-          this.setState({ predicted: true });
-        }
-      })
-      // eslint-disable-next-line no-console
-      .catch((error) => console.log('Smt wrong \n', error));
+    if (user) {
+      const token = user.key;
+      const url = 'https://api.traiders.tk/prediction/';
+      const body = {
+        base_equipment: base,
+        target_equipment: target,
+        direction: pred
+      };
+      PostWithAuthorization(url, body, token)
+        // eslint-disable-next-line no-console
+        .then((response) => {
+          if (response.status === 200) {
+            this.setState({ predicted: true });
+          }
+        })
+        // eslint-disable-next-line no-console
+        .catch((error) => console.log('Smt wrong \n', error));
+    } else {
+      history.push('/login');
+    }
   };
 
   handlerMA = (len) => {
