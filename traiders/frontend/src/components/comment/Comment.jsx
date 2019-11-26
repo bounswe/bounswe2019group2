@@ -155,24 +155,26 @@ class Comment extends React.Component {
             </Button>
           </div>
         )}
-        <div className="main-comment">
-          <CommentAntd
-            actions={actions}
-            author={author}
-            avatar={
-              <Avatar
-                onClick={(event) => this.handleRoute(event, authorURL)}
-                src={images[avatarValue - 1].src}
-                alt={author}
-              />
-            }
-            content={content}
-            datetime={createdAt}
-          />
-          <div className="comment-image">
-            <img className="image" src={image} alt={image} width="200px" />
+        {images[avatarValue - 1] && (
+          <div className="main-comment">
+            <CommentAntd
+              actions={actions}
+              author={author}
+              avatar={
+                <Avatar
+                  onClick={(event) => this.handleRoute(event, authorURL)}
+                  src={images[avatarValue - 1].src}
+                  alt={author}
+                />
+              }
+              content={content}
+              datetime={createdAt}
+            />
+            <div className="comment-image">
+              <img className="image" src={image} alt={image} width="200px" />
+            </div>
           </div>
-        </div>
+        )}
         <Modal
           title="DELETE"
           visible={visible}
