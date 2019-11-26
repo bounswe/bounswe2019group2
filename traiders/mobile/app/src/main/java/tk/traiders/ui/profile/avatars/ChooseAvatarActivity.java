@@ -115,7 +115,7 @@ public class ChooseAvatarActivity extends AppCompatActivity {
 
     private void updateAvatar(int avatarId){
 
-        StringRequest patchRequest = new StringRequest(Request.Method.PATCH, URL,
+        StringRequest patchRequest = new StringRequest(Request.Method.PATCH, MainActivity.getUserURL(this),
                 new Response.Listener<String>()
                 {
                     @Override
@@ -128,7 +128,7 @@ public class ChooseAvatarActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ChooseAvatarActivity.this, "An error occured!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChooseAvatarActivity.this, "An error occured updating avatar!", Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
                     }
                 }
@@ -144,7 +144,7 @@ public class ChooseAvatarActivity extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("avatarId", Integer.toString(avatarId));
+                params.put("avatar", Integer.toString(avatarId));
                 return params;
             }
         };
