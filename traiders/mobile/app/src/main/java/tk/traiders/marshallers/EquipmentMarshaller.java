@@ -22,9 +22,6 @@ public class EquipmentMarshaller {
 
     public static Equipment unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Equipment equipment = null;
 
         try {
@@ -48,9 +45,6 @@ public class EquipmentMarshaller {
     }
 
     public static List<Equipment> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
-
 
         List<Equipment> equipmentList = new ArrayList<>();
 

@@ -17,9 +17,6 @@ public class CommentMarshaller {
 
     public static Comment unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Comment comment = null;
 
         try {
@@ -52,8 +49,6 @@ public class CommentMarshaller {
     }
 
     public static List<Comment> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
 
         List<Comment> commentList = new ArrayList<>();
 

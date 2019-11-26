@@ -20,9 +20,6 @@ public class FollowingMarshaller {
 
     public static Following unmarshall(String response){
 
-        response = MarshallerUtils.convertToUTF8(response);
-
-
         Following following = null;
 
         try {
@@ -46,8 +43,6 @@ public class FollowingMarshaller {
     }
 
     public static List<Following> unmarshallList(String response) {
-
-        response = MarshallerUtils.convertToUTF8(response);
 
         List<Following> followingList = new ArrayList<>();
 

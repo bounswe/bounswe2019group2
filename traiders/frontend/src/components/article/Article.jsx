@@ -286,6 +286,7 @@ class Article extends Component {
                     commentId={comment.id}
                     articleId={comment.article}
                     authorURL={comment.user.url}
+                    avatarValue={comment.user.avatar}
                   />
                 ))}
             </div>
