@@ -76,7 +76,7 @@ export const getOneParity = (base, target) => {
 
 export const getCurrencies = () => {
   return (dispatch) => {
-    GetWithUrl(`${API}/parity/?limit=6`)
+    GetWithUrl(`${API}/parity/latest/?limit=6`)
       .then((response) => response.json())
       .then((res) => dispatch(saveCurrencyList(res.results)))
 
