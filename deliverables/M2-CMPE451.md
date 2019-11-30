@@ -119,7 +119,7 @@ Team | Member | Work done    |
 | *Frontend* | **Muhammet Furkan Gök** | •  |
 | *Frontend* | **Alperen Kürşat Özkan** |  • Implement Comment component on article <br>   • Update on map component and location style issues   <br> • Attended front-end team code sessions. <br>  •Implementing Create Comment Component - Add Edit- Delete comment functionalities <br>  • Add logo to home page and configure home routing.  <br>  • Made reviews for web-front-end team commits.  • Add iban - password validations on register page <br>   • Add is Trader functionality on register page , bug fix on registration <br>   • Add Like Article Functionality <br> • Frontend comment avatar logo addition <br> • Frontend/bugfix on Delete comment equipment and re-rendering issues on comment both on article and comment on delete. <br> • Frontend/bugfix on Delete comment equipment and re-rendering issues on comment both on article and comment on delete. <br> • Frontend/bugfix related to follow / like buttons - Comment Add <br> • Implement Frontend/portfolio page basics. |
 | *Mobile* | **Fatih İver** | •  |
-| *Mobile* | **Ozgur Solak**  | •  |
+| *Mobile* | **Ozgur Solak**  | • Implement Stock Fragment  <br> • Implement Comment component on article <br> • Create Milestone Personna for Mobile Scenario <br> • Implement Crypto Fragment <br> • Implement write article functionality <br> • Add write article button to access from home page <br> • Implement Currency  Fragment basics <br> • Implement Metal Fragment Basics <br> • Implement Index  Fragment basics <br> |  
 
 
 # Requirements
