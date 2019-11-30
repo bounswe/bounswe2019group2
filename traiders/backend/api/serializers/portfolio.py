@@ -18,7 +18,6 @@ class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
             fields['name'].read_only = True
             fields['parities'].read_only = True
             fields['user'].read_only = True
-
         return fields
 
     class Meta:
