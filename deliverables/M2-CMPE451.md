@@ -11,33 +11,32 @@
     + [Group Members](#group-members)
     + [Customers](#customers)
 - [Requirements](#requirements)
-- [Table of Contents - Requirements](#table-of-contents---requirements)
-- [Glossary](#glossary)
-- [1. Functional Requirements](#1-functional-requirements)
-  * [1.1. User Requirements](#11-user-requirements)
-    + [1.1.1. Sign Up](#111-sign-up)
-    + [1.1.2. Sign In](#112-sign-in)
-    + [1.1.3. Profile](#113-profile)
-    + [1.1.4. Social Interactions and Communication](#114-social-interactions-and-communication)
-    + [1.1.5. Economic Events](#115-economic-events)
-    + [1.1.6. Portfolios](#116-portfolios)
-    + [1.1.7. Trading Equipment and Parities](#117-trading-equipment-and-parities)
-    + [1.1.8. Investments](#118-investments)
-    + [1.1.9. Profit/Loss](#119-profitloss)
-    + [1.1.10. Search](#1110-search)
-    + [1.1.11. Recommendations](#1111-recommendations)
-    + [1.1.12. Admin Panel](#1112-admin-panel)
-  * [1.2. System Requirements](#12-system-requirements)
-    + [1.2.1. Interactions](#121-interactions)
-    + [1.2.2. Recommendation](#122-recommendation)
-    + [1.2.3. Searching](#123-searching)
-    + [1.2.4. Trading Equipments and Parities](#124-trading-equipments-and-parities)
-- [2. Non-Functional Requirements](#2-non-functional-requirements)
-  * [2.1. Security](#21-security)
-  * [2.2. Performance](#22-performance)
-  * [2.3. Availability and Accessibility](#23-availability-and-accessibility)
-  * [2.4. Annotations](#24-annotations)
-- [Project plan](#project-plan)
+  * [Table of Contents - Requirements](#table-of-contents---requirements)
+  * [Glossary](#glossary)
+  * [1. Functional Requirements](#1-functional-requirements)
+    + [1.1. User Requirements](#11-user-requirements)
+      - [1.1.1. Sign Up](#111-sign-up)
+      - [1.1.2. Sign In](#112-sign-in)
+      - [1.1.3. Profile](#113-profile)
+      - [1.1.4. Social Interactions and Communication](#114-social-interactions-and-communication)
+      - [1.1.5. Economic Events](#115-economic-events)
+      - [1.1.6. Portfolios](#116-portfolios)
+      - [1.1.7. Trading Equipment and Parities](#117-trading-equipment-and-parities)
+      - [1.1.8. Investments](#118-investments)
+      - [1.1.9. Profit/Loss](#119-profitloss)
+      - [1.1.10. Search](#1110-search)
+      - [1.1.11. Recommendations](#1111-recommendations)
+      - [1.1.12. Admin Panel](#1112-admin-panel)
+    + [1.2. System Requirements](#12-system-requirements)
+      - [1.2.1. Interactions](#121-interactions)
+      - [1.2.2. Recommendation](#122-recommendation)
+      - [1.2.3. Searching](#123-searching)
+      - [1.2.4. Trading Equipments and Parities](#124-trading-equipments-and-parities)
+  * [2. Non-Functional Requirements](#2-non-functional-requirements)
+    + [2.1. Security](#21-security)
+    + [2.2. Performance](#22-performance)
+    + [2.3. Availability and Accessibility](#23-availability-and-accessibility)
+    + [2.4. Annotations](#24-annotations)
 - [User Scenarios](#user-scenarios)
   * [Scenario 1 (Mobile)](#scenario-1-mobile)
     + [Alperen Duymaz](#alperen-duymaz)
@@ -184,7 +183,7 @@ Team | Member | Work done    |
 
 # Requirements
 
-# Table of Contents - Requirements
+## Table of Contents - Requirements
 
  * [Glossary](#glossary)
    * [1. Functional Requirements](#1-functional-requirements)
@@ -212,7 +211,7 @@ Team | Member | Work done    |
       * [2.3. Availability and Accessibility](#23-availability-and-accessibility)
       * [2.4. Annotations](#24-annotations)
 
-# Glossary
+## Glossary
 Note: Aliases for terms are given in parentheses.
 
 * **Admin User:** An administrative user who can ban users and manage contents such as parities, articles, comments and economic events.
@@ -233,9 +232,9 @@ Note: Aliases for terms are given in parentheses.
 
 
 
-# 1. Functional Requirements
+## 1. Functional Requirements
 
-## 1.1. User Requirements
+### 1.1. User Requirements
 
 Before getting into user requirements it is necessary to define different user types of the system. The system has 4 types of users: **Guest**, **Basic User**, **Trading User (Trader)** and **Admin**. The roles of these user types are briefly explained in the [glossary](#glossary) and will be defined explicitly throughout the following requirements.
 
@@ -243,16 +242,16 @@ In this section, the word "user" will refer to any user of types **Basic User**,
 
 The reader is highly encouraged to read the [glossary](#glossary) before reading the requirements as the meanings of terms used in this document might differ from the common knowledge. The reader may also visit [[User Types]] to see a summary of "who can do what".
 
-### 1.1.1. Sign Up
+#### 1.1.1. Sign Up
   * **1.1.1.1.** Guests shall be able to sign up by providing their e-mail address, name, surname, location and choosing a [password](#glossary). If the guests wants to register as a trading user, they shall also provide [IBAN](https://en.wikipedia.org/wiki/International_Bank_Account_Number) of their bank account. Location information shall be given using Google Maps. 
 
   * **1.1.1.2.** Guests should be able to sign up with their Google account. 
 
-### 1.1.2. Sign In
+#### 1.1.2. Sign In
   * **1.1.2.1.** Users shall be able to sign in with their e-mail and password.
   * **1.1.2.2.** Users should be able to sign in with their Google account.
 
-### 1.1.3. Profile
+#### 1.1.3. Profile
   * **1.1.3.1.** Each user shall have a profile page.
   * **1.1.3.2.** Users' prediction success rate for each parity shall be visible on their profile page. There should be a lower limit to the number of predictions for the success rate to be visible on the profile page.
   * **1.1.3.3.** Users' portfolios shall be shown on their profile page.
@@ -261,7 +260,7 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
   * **1.1.3.6.** If a user profile is private, then the content produced by that user shall only be visible to its followers.
   * **1.1.3.7.** Prediction success rate shall be visible to all users and guests even if a user's profile is private.
 
-### 1.1.4. Social Interactions and Communication
+#### 1.1.4. Social Interactions and Communication
   * **1.1.4.1.** Users shall be able to follow each other. To follow a user who set his profile to be private, a follow request shall be sent first.
   * **1.1.4.2.** Users shall be able to deny the following requests came from other users. 
   * **1.1.4.3.** Users shall be able to share their ideas as an article.
@@ -269,25 +268,25 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
   * **1.1.4.5.** Users shall be able to rate articles of other users by clicking the "like" button.
   * **1.1.4.6.** Users shall be able to write comments about trading equipment. 
 
-### 1.1.5. Economic Events
+#### 1.1.5. Economic Events
   * **1.1.5.1.** Users and guests shall have an “Events” section. In this section, users and guests shall be able to view economic events as a table with columns: 'time', 'importance level', 'country base', 'actual', 'previous' and 'forecast'. [See example](https://www.investing.com/economic-calendar/).
   * **1.1.5.2.** Users and guests should be able to filter economic events by their importance level and country base.
   * **1.1.5.3.** Users and guests should be able to search for economic events.
   * **1.1.5.4.** Users shall be able to follow economic events. A user who is following an event should be notified after the event happened.
 
-### 1.1.6. Portfolios
+#### 1.1.6. Portfolios
   * **1.1.6.1.** Users shall have one or more portfolios. Empty portfolios may exist.
   * **1.1.6.2.** Users shall be able to rename their portfolios.
   * **1.1.6.3.** Users shall be able to add or remove parities from their portfolios.
   * **1.1.6.4.** Users shall be able to follow each other's portfolios. Followed portfolios shall be shown in user's portfolios section.
 
-### 1.1.7. Trading Equipment and Parities
+#### 1.1.7. Trading Equipment and Parities
   * **1.1.7.1.** Users and guests shall be able to view conversion ratio, previous close, percentage and amount change according to the previous close, day's range and moving averages for a parity.
   * **1.1.7.2.** Users and guests shall be able to read user comments about trading equipment.
   * **1.1.7.3.** Users shall be able to make predictions about the parities for the day. A prediction shall be either "will increase" or "will decrease". The result of the prediction is determined by comparing the last close and today's close of the ratio. 
   * **1.1.7.4.** Users shall be able to set alerts for certain ratios of parities. Users shall be notified when the target ratio is met.
 
-### 1.1.8. Investments
+#### 1.1.8. Investments
   * **1.1.8.1.** Users shall have a "My Investments" section which contains information about their assets that are physically held in the platform and also manual investments which they made outside of the platform. 
   * **1.1.8.2.** Users shall be able to enter manual investments.
   * **1.1.8.3.** Traders and basic users shall have to verify their e-mail address before making an investment.
@@ -296,27 +295,27 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
   * **1.1.8.6.** Traders shall be able to give buy orders for a desired ratio. When the current price goes below the desired ratio, the system shall make the buy automatically.
   * **1.1.8.7.** Traders shall be able to give stop/loss orders by specifying a maximum loss. The system shall automatically reverse the investment when the amount of lost goes above the maximum loss.
 
-### 1.1.9. Profit/Loss
+#### 1.1.9. Profit/Loss
   * **1.1.9.1.** Users shall have a profit/loss section. They shall be able to see their profit/loss amount in the currency of their choice. Users' manual investments and assets shall be both accounted when calculating their profit/loss.
   * **1.1.9.2.** Users and guests shall not be able to see the profit/loss of other users.
 
-### 1.1.10. Search
+#### 1.1.10. Search
   * **1.1.10.1.** Users and guests shall be able to search for trading equipment, parities and other users. The search algorithm shall consider all information available in user profiles (such as portfolios) and shall retrieve semantically similar results to the query.
   * **1.1.10.2.** Users and guests shall be able to filter users around a location when searching.
 
-### 1.1.11. Recommendations
+#### 1.1.11. Recommendations
   * **1.1.11.1.** Users shall receive article and trading equipment recommendations based on their investments, users and events they follow.
 
-### 1.1.12. Admin Panel
+#### 1.1.12. Admin Panel
    * **1.1.12.1.** Admins shall have an admin panel to administrate the platform.
    * **1.1.12.2.** Admins shall be able to add new trading equipment and parities.
    * **1.1.12.3.** Admins shall be able to ban or delete users. Banned users shall not be able to sign in.
    * **1.1.12.4.** Admins shall be able to delete articles and comments.
    * **1.1.12.5.** Admins shall be able to add or delete events.
 
-## 1.2. System Requirements
+### 1.2. System Requirements
 
-### 1.2.1. Interactions
+#### 1.2.1. Interactions
    * **1.2.1.1.** The system shall support sharing ideas as an article.
    * **1.2.1.2.** The system shall support commenting and rating ideas of other users.
    * **1.2.1.3.** The system shall support commenting about trading equipment.
@@ -324,17 +323,17 @@ The reader is highly encouraged to read the [glossary](#glossary) before reading
    * **1.2.1.5.** The system shall provide an alert mechanism which lets traders to get notified about certain levels of trading equipment.
    * **1.2.1.6.** The system shall provide an alert mechanism which lets users to get notified about other users activities, when they follow another user.
 
-### 1.2.2. Recommendation
+#### 1.2.2. Recommendation
    * **1.2.2.1.** The system shall provide a recommendation mechanism recommending articles, portfolio or trading equipment to the users based on their histories.
    * **1.2.2.2.** The system shall let users to make predictions about trading equipment.
 
-### 1.2.3. Searching
+#### 1.2.3. Searching
    * **1.2.3.1.** The system shall contain a searching mechanism that lets users to search users, trading equipment and economic events.
    * **1.2.3.2.** The searching mechanism shall consider all the information available in user profiles and trading equipment.
    * **1.2.3.3.** The system shall allow the semantic search which enables users to make a search by using user defined tags in order to make more specific search.
    * **1.2.3.4.** The system shall support location-based search.
 
-### 1.2.4. Trading Equipments and Parities
+#### 1.2.4. Trading Equipments and Parities
 The system shall support following equipments and possible conversions between them:
   * **1.2.4.1.** Trade indices such as S&P 500, Dow 30, DAX...
   * **1.2.4.2.** Stocks such as Apple, Alibaba, IBM...
@@ -346,20 +345,20 @@ The system shall support following equipments and possible conversions between t
   * **1.2.4.8.** Cryptocurrencies such as Bitcoin, Ethereum, XRP...
 
 
-# 2. Non-Functional Requirements 
+## 2. Non-Functional Requirements 
 
-## 2.1. Security
+### 2.1. Security
   * **2.1.1.** The website and the mobile application shall use secure HTTP ([HTTPS](https://en.wikipedia.org/wiki/HTTPS)) for all transfers.
   * **2.1.2.** The website shall be secure against [SQL injection](https://en.wikipedia.org/wiki/SQL_injection), [cross-site scripting](https://en.wikipedia.org/wiki/Cross-site_scripting), and [cross-site request forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) attacks.
   * **2.1.3.** User passwords shall be stored in the database using a secure hashing algorithm.
   * **2.1.4.** The system should backup weekly.
 
-## 2.2. Performance
+### 2.2. Performance
    * **2.2.1.** The system shall be able to handle 1000 HTTP requests per second.
    * **2.2.2.** The system shall be capable of serving 1000 users at the same time.
    * **2.2.3.** The system shall respond to search queries in less than 3 seconds.
 
-## 2.3. Availability and Accessibility
+### 2.3. Availability and Accessibility
    * **2.3.1.** The website and the mobile application shall be available in English.
    * **2.3.2.** The project should work on Safari 10 and above, Chrome 70 and above, Opera 60 and above, Firefox 60 and above.
    * **2.3.3.** The application shall work on Android 4.4 and later.
@@ -368,12 +367,9 @@ The system shall support following equipments and possible conversions between t
    * **2.3.6.** The project should contain auxiliary features for disabled people.
    * **2.3.7.** The system shall use [UTF-8](https://en.wikipedia.org/wiki/UTF-8) character encoding for all texts.
 
-## 2.4. Annotations
+### 2.4. Annotations
    * **2.4.1.** The [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/) and [W3C Web Annotation Protocol](https://www.w3.org/TR/annotation-protocol/) shall be used for annotations.
 
-
-
-# Project plan
 
 # User Scenarios
 
