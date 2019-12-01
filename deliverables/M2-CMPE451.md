@@ -16,13 +16,7 @@ For more detailed information and functionalities, refer to Requirements Section
 ## Project Status
 
 After CMPE352, we already had some standards that we have planned out.
-We had PR Templates, Issue Templates, related workflow and process rules, a procedure for taking over the work and sharing the responsibility.
-
-Through the first few weeks of the semester, things are working well in terms of workflow.
-Our team has 3 subgroups, namely Backend (3 people), Frontend(3 people) and Mobile(2 people).
-
-So far, we have managed to keep everything implemented in parallel with the help of priority oriented planning.
-We have:
+We kept applying our standards, such as PR Templates, Issue Templates, related workflow and process rules.
 
 - Our web project deployed at [traiders.tk](//traiders.tk),
 - API deployed at [api.traiders.tk](//api.traiders.tk),
@@ -30,16 +24,23 @@ We have:
 
 Thus everything is accessible.
 
-First few weeks almost always mean struggle, we tried to adapt to a new workload, losing a few members from last year,
-welcoming our new members, meeting and getting used to each other.
-The thing that mattered most to us is documentation and accessibility for all of the members.
-We have our API Documented, code commented and everything shared in several different features of GitHub (milestones, projects, wiki..).
-Occasionally we have updated our requirements, class diagram and we will continue doing so as needed.
-
-We are still using Travis for unit testing and code style checks.
+After the first milestone we noticed that we need better orientation for our goals.
+We were happy with our weekly meetings, but we needed more experimentation with the scheduling of tasks.
+We first tried out requirement based scheduling, subject by subject, which turned out to be a very microscopic approach.
+Then we decided to move to page-based implementations and specifying requirements.
+This worked out better.
+We implemented events, likes, following, articles, investments, iban validation, orders, and many required functionalities.
+Mainly, we have recommendation, search, google login, annotations remaining in the backend.
+Status of frontend and mobile is mostly similar to backend.
+We also used weekly milestones in each team to manage the internal expectations
+and have more concrete steps. These can be found under the issues of github.
+We also switched from travis to the testing system github actions provides.
 
 ## Moving Forward
-
+In the remaining weeks, we aim to complete all of the remaining requirements.
+Then we will test for system requirements mostly concerning our reliability and capacity.
+We will continue with the page-based implementation schedule, where we choose a page of the system,
+such as investments, and implement all of the related functionality in backend, frontend and mobile in the same week.
 
 # Deliverables
 
