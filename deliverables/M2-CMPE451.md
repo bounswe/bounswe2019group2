@@ -328,6 +328,8 @@ The system shall support following equipments and possible conversions between t
 
 ### Alperen Duymaz
 
+![Alperen Duymaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Alperen%20Duymaz.png?raw=true)
+
 **Persona**
 * 29 years old
 * Graduated 5 years ago from the finance department.
@@ -357,15 +359,16 @@ He visits his profile page and sees the increase in the follower number and beco
 5. Already tracked several events 
 
 **Acceptance Criteria**
-1.1.3.1
-1.1.4.3, 1.1.4.4, 1.1.4.5
-1.1.5.1, 1.1.5.2, 1.1.5.3, 1.1.5.4
-1.2.1.1, 1.2.1.2
-1.2.4.5
+1. 1.1.3.1
+2. 1.1.5.1, 1.1.5.2, 1.1.5.4
+3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
+4. 1.2.4.5
 
 
 ## Scenario 2 (Web)
 ### Aron Dacemoğlu
+
+![Aron Dacemoğlu](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Aron%20Dacemoglu.png?raw=true)
 
 **Persona**
 * 52 years old.
@@ -388,11 +391,16 @@ He visits his profile page and sees the increase in the follower number and beco
 1. Visits our website.
 
 **Acceptance Criteria**
+1. 1.1.1.1
+2. 1.1.2.1
+3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
+4. 1.1.4.4
+5. 1.1.4.1
 
 
 ## Scenario 3 (Web)
-### Name (Trader)
-![Name](insert image URL here)
+### Sarp Er (Trader)
+![Sarp Er](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Sarp%20Er.png?raw=true)
 
 **Persona**
 * 25 years old
@@ -403,7 +411,7 @@ He visits his profile page and sees the increase in the follower number and beco
 * Looking for news, expert opinions
 
 **Story**
-* Name recently graduated from university works as a project manager at a production facility.
+* Sarp recently graduated from university works as a project manager at a production facility.
 He comes to our website and logs in. 
 He is very curious about the state of the GBP, since he hears a lot about it in the news.
 He first visits the GBP/TRY page to check the history.
@@ -426,12 +434,12 @@ Luckily, in few minutes a new parity update happens, and his order gets triggere
 4. Already has an IBAN in the system
 
 **Acceptance Criteria**
-1.1.2.1
-1.1.3.1, 1.1.3.2, 1.1.3.7
-1.1.4.1, 1.1.4.6
-1.1.7.1, 1.1.7.2, 1.1.7.3
-1.1.8.1, 1.1.8.3, 1.1.8.4
-1.1.8.5, 1.1.8.6, 1.2.4.5
+1. 1.1.2.1
+2. 1.1.3.1, 1.1.3.2, 1.1.3.7
+3. 1.1.4.1, 1.1.4.6
+4. 1.1.7.1, 1.1.7.2, 1.1.7.3
+5. 1.1.8.1, 1.1.8.3, 1.1.8.4
+6. 1.1.8.5, 1.1.8.6, 1.2.4.5
 
 
 
