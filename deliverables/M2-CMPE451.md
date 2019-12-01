@@ -57,12 +57,13 @@ We are still using Travis for unit testing and code style checks.
 | 10- Deployment and Security      | In progress | As improvement needed | Deployment of the project and accesibility                                            |
 | 11- Web Project, Frontend        | In progress | Weekly                | Frontend project and accesibility                                                     |
 | 12- Mobile App                   | In progress | Weekly                | Mobile application and accesibility                                                   |
+| 13- Weekly Milestones                   | In progress | Weekly                | To increase efficiency and troughput in delivery                                                  |
 
 **1- GitHub Wiki:**
 We are updating our wiki page as needed, pushing meeting notes and keeping everything from requirements to group members updated on there.
 
 **2- GitHub Issues & PRs:**
-We still use our previous convention. All can be traced in the repo. Everyone creates their own issue, people should not be closing their issue without the review of at least 2 other people, preferably from the same team. Issue Templates and PR templates are used during the creation.
+We still use our previous convention. All can be traced in the repo. Everyone creates their own issue, people should not be closing their issue without the review of at least 2 other people, preferably from the same team. Issue Templates and PR templates are used during the creation. As a new thing, we left using Travis as our countinuous integration tool and we started to use GitHub Actions.
 
 **3- Meeting Notes:**
 Meeting notes are still accesible through wiki page.
@@ -72,11 +73,10 @@ We are always utilizing those to refer to action items, remember our agenda and 
 We have rarely updated our requirements so far, but we always keep reviewing them during the implementation phase.
 
 **5- Mockups:**
-In addition to our previous mockups, we have a new annotation mockup to stay in the same page with the customer. You can refer to the Mockup section for the annotation mockup.
+You can visit the [mockups section](https://github.com/bounswe/bounswe2019group2/wiki/Mockups) to see all the mockups we've done so far.
 
 **6- Design Diagrams:**
-We have updated our class diagram according to our implementation plan so far.
-We believe there will still be updated during the implementation as we figure out better ways of doing things.
+We believe there will still be updates during the implementation as we figure out better ways of doing things. You can find the class diagram in this [page](https://github.com/bounswe/bounswe2019group2/wiki/Class-Diagram). 
 
 **7- Project Plan:**
 Project plan can also be found below. As mentioned above, we have decided to take a requirement oriented approach.
@@ -89,10 +89,17 @@ Thus in the project plan, the tabs refer to our requirements. Each week we plan 
 [api.traiders.tk/docs](//api.traiders.tk/docs) [api.traiders.tk/redocs](//api.traiders.tk/redocs)
 
 **10- Deployment and Security:**
+We frequently deployed our application's latest version throughout the development process so that it would always be up to date
 
 **11- Web Project, Frontend:**
+Our web application is up and running at [traiders.tk](//traiders.tk). Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list events, list & follow users, list & view & comment (on) equipment, list & see details with charts for several parities in different category, add assets and make investment.
 
 **12- Mobile App:**
+The latest version of our mobile application will always be downloadable at [traiders.tk/mobile](//traiders.tk/mobile).
+Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & track events, list & follow users, list & view & comment (on) equipment, list & see details for several parities in different category.
+
+**13- Weekly Milestones:**
+We started to utilize milestone concept rather seeing it as just a delivery deadline. We try to set weekly or biweekly custom milestones to increase efficiency in delivery and ease the management of the project per domain like backend, frontend, etc.
 
 # Work Done by Each Member
 
