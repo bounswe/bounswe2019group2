@@ -19,3 +19,5 @@ admin.site.register(BuyOrder)
 admin.site.register(StopLossOrder)
 
 admin.site.register(Like)
+admin.site.register(Portfolio)
+admin.site.register(EquipmentPair)

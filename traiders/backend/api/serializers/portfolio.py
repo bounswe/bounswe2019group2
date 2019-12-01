@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Portfolio
+from ..models import Portfolio, EquipmentPair
 from django.contrib.auth.models import AnonymousUser
 
 
@@ -7,22 +7,20 @@ class IsFollowingField(serializers.BooleanField):
     def get_attribute(self, instance: Portfolio):
         return instance.followed_by.filter(pk=self.context['request'].user.pk).exists()
 
+class EquipmentPairSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EquipmentPair
+        fields = ['target_equipment', 'base_equipment', 'id']
+
 
 class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
     is_following = IsFollowingField()
-
-    def get_fields(self):
-        fields = super().get_fields()
-        view = self.context.get('view')
-        if view and self.context['request'].user != fields['user']:
-            fields['name'].read_only = True
-            fields['parities'].read_only = True
-            fields['user'].read_only = True
-        return fields
+    parities = EquipmentPairSerializer(many=True)
 
     class Meta:
         model = Portfolio
-        fields = ["name", "user", "followed_by", "parities"]
+        fields = ["url", "id", "name", "user", "parities", "is_following"]
+        read_only_fields = ["user"]
 
     def update(self, instance: Portfolio, validated_data: dict):
         is_following = validated_data.pop('is_following', None)
@@ -42,5 +40,13 @@ class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
             if self.context['request'].user not in followers:
                 raise serializers.ValidationError('You already do not follow this event.')
             instance.followed_by.remove(self.context['request'].user)
+        current_parities = validated_data.pop('parities', None)
+        if 'parities' in validated_data:
+            parities = []
+            for parity_data in current_parities:
+                eq_pair = EquipmentPair(**parity_data)
+                eq_pair.save()
+                parities.append(eq_pair)
+            instance.parities.set(parities)
 
         return super().update(instance, validated_data)

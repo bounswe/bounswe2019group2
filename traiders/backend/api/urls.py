@@ -13,7 +13,6 @@ router.register(r'parity/latest', ParityLatestViewSet, basename='parity-latest')
 router.register(r'parity', ParityViewSet, basename='parity')
 router.register(r'articles', ArticleViewSet, basename='article')
 router.register(r'likes', LikeViewSet, basename='like')
-
 router.register(r'following', FollowingViewSet, basename='following')
 router.register(r'comments/article', ArticleCommentViewSet, basename='articlecomment')
 router.register(r'comments/equipment', EquipmentCommentViewSet, basename='equipmentcomment')
@@ -25,6 +24,7 @@ router.register(r'onlineinvestment', OnlineInvestmentViewSet, basename='onlinein
 router.register(r'buyorder', BuyOrderViewSet, basename='buyorder')
 router.register(r'stoplossorder', StopLossOrderViewSet, basename='stoplossorder')
 router.register(r'profitloss', ProfitLossViewSet, basename='profitloss')
+router.register(r'portfolio', PortfolioViewSet, basename='portfolio')
 
 urlpatterns = [
     # documentation views
