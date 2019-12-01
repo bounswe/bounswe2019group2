@@ -29,11 +29,12 @@ We were happy with our weekly meetings, but we needed more experimentation with 
 We first tried out requirement based scheduling, subject by subject, which turned out to be a very microscopic approach.
 Then we decided to move to page-based implementations and specifying requirements.
 This worked out better.
-We implemented events, likes, following, articles, investments, iban validation, orders, and many required functionalities.
-Mainly, we have recommendation, search, google login, annotations remaining in the backend.
+
+We implemented **events**, **likes**, **following**, **articles**, **investments**, **iban validation**, **buy/sell orders**, and many other required functionalities.
+Mainly, we have **recommendation**, **search**, **google login**, **annotations** remaining in the backend.
 Status of frontend and mobile is mostly similar to backend.
 We also used weekly milestones in each team to manage the internal expectations
-and have more concrete steps. These can be found under the issues of github.
+and have more concrete steps. These can be found under the issues on github.
 We also switched from travis to the testing system github actions provides.
 
 ## Moving Forward
