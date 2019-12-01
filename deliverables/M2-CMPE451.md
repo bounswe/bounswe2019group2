@@ -121,7 +121,7 @@ We started to utilize milestone concept rather seeing it as just a delivery dead
 
 Team | Member | Work done    |
 | -------- | ------- | ----------- |
-| *Backend* | **Yunus Emre Inci** | • Implemented functionality for fetching live and historic parity data from AlphaVantage. • Added OpenIBAN support for IBAN validation. • Implemented tests for user prediction success feature. • Fixed various errors and reported bugs.  • Configured Github actions for CI. • Reviewed other team members' work. |
+| *Backend* | **Yunus Emre Inci** | • Implemented functionality for fetching live and historic parity data from AlphaVantage. <br> • Added OpenIBAN support for IBAN validation. <br> • Implemented tests for user prediction success feature. <br> • Fixed various errors and reported bugs. <br>  • Configured Github actions for CI. <br> • Reviewed other team members' work. |
 | *Backend* | **Harun Eren**  | •  |
 | *Backend* | **Mert Yuksekgonul** | •  Implemented Prediction endpoint. <br> • Implemented Events Endpoint. <br> • Implemented success rate endpoints. <br> • Implemented evaluation of the prediction results after the closure of the day. <br> • Implemented manual investments endpoints. <br> • Implemented online investments. <br> • Implemented assets of a user. <br> • Implemented signals for asset updates after an online investment. <br> • Implemented orders(buy order, stop/loss order). <br> • Implemented realization of orders after the related parity updated. <br> • Implemented profit/loss endpoints. <br> • Implemented comment likes and event following. <br> • Implemented tests for orders and investments, comment likes, parity/latest endpoint. <br> Code review and maintenance(bugfixes, updates for endpoint) for backend. <br>|
 | *Frontend* | **Dilruba Köse** |  • Implement UserHeader component <br> • Implement OtherUser component for controlling following functionality <br>   • Update profile page, for both current and other users and configure routing  <br>  • Implement UserSuccess component for prediction success table <br>  •Implement ParityChart Component <br>  • Implement Parity Page and configure routing <br>  • Implement Equipment Page and configure routing <br>  • Made reviews for web-front-end team commits. <br> • Attended front-end team code sessions. <br> |
@@ -352,17 +352,17 @@ The system shall support following equipments and possible conversions between t
 * He visits his profile page and sees the increase in the follower number and becomes very happy. 
  
 **Preconditions**
-**1.** Uses a our mobile app.
-**2.** Already has an account
-**3.** Already has a verified e-mail
-**4.** Already published an article
-**5.** Already tracked several events 
+1. Uses a our mobile app.
+2. Already has an account.
+3. Already has a verified e-mail.
+4. Already published an article.
+5. Already tracked several events.
 
 **Acceptance Criteria**
-**1.** 1.1.3.1
-**2.** 1.1.5.1, 1.1.5.2, 1.1.5.4
-**3.** 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
-**4.** 1.2.4.5
+1. 1.1.3.1
+2. 1.1.5.1, 1.1.5.2, 1.1.5.4
+3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
+4. 1.2.4.5
 
 ## Scenario 2 (Web)
 ### Aron Dacemoğlu
@@ -389,11 +389,11 @@ The system shall support following equipments and possible conversions between t
 1. Visits our website.
 
 **Acceptance Criteria**
-**1.** 1.1.1.1
-**2.** 1.1.2.1
-**3.** 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
-**4.** 1.1.4.4
-**5.** 1.1.4.1
+1. 1.1.1.1
+2. 1.1.2.1
+3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
+4. 1.1.4.4
+5. 1.1.4.1
 
 ## Scenario 3 (Web)
 ### Sarp Er (Trader)
@@ -425,18 +425,18 @@ The system shall support following equipments and possible conversions between t
 * Luckily, in few minutes a new parity update happens, and his order gets triggered.
 
 **Preconditions**
-**1.** Uses a web browser to visit our website
-**2.** Already has an account
-**3.** Already has a verified e-mail
-**4.** Already has an IBAN in the system
+1. Uses a web browser to visit our website
+2. Already has an account
+3. Already has a verified e-mail
+4. Already has an IBAN in the system
 
 **Acceptance Criteria**
-**1.** 1.1.2.1
-**2.** 1.1.3.1, 1.1.3.2, 1.1.3.7
-**3.** 1.1.4.1, 1.1.4.6
-**4.** 1.1.7.1, 1.1.7.2, 1.1.7.3
-**5.** 1.1.8.1, 1.1.8.3, 1.1.8.4
-**6.** 1.1.8.5, 1.1.8.6, 1.2.4.5
+1. 1.1.2.1
+2. 1.1.3.1, 1.1.3.2, 1.1.3.7
+3. 1.1.4.1, 1.1.4.6
+4. 1.1.7.1, 1.1.7.2, 1.1.7.3
+5. 1.1.8.1, 1.1.8.3, 1.1.8.4
+6. 1.1.8.5, 1.1.8.6, 1.2.4.5
 
 
 ## Evaluation of tools and managing the project
