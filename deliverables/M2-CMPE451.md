@@ -330,7 +330,6 @@ The system shall support following equipments and possible conversions between t
 ### Alperen Duymaz
 
 ![Alperen Duymaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Alperen%20Duymaz.png?raw=true)
-
 **Persona**
 * 29 years old
 * Graduated 5 years ago from the finance department.
@@ -339,36 +338,33 @@ The system shall support following equipments and possible conversions between t
 * Research and analyze economic issues.
 * Advise  individuals on economic topics.
 
-
 **Story**
 * Alperen graduated from university 5 years ago  and works as a banker.
-He uses our mobile application and he is our loyal user.
-He uses our mobile app everyday to see which articles are written by other users and which events are occured.
-He is interested in the state of EUR against Turkish Lira.
-According to political agenda, he tries to make predictions about the EUR.
-He visits the events page and filters for EUR based on country and importance level and then sees the coming events that will effect EUR. He starts to track these events so that he gets notified when the events happen.
-He remembers his article which is written almost 1 week earlier from these events.
-He sees that his prediction about EUR in his article becomes true and there are many likes and comments in his article.
-After Alperen sees the number of likes and comments, he wonders his follower number.
-He visits his profile page and sees the increase in the follower number and becomes very happy.  
+* He uses our mobile application and he is our loyal user.
+* He uses our mobile app everyday to see which articles are written by other users and which events are occured.
+* He is interested in the state of EUR against Turkish Lira.
+* According to political agenda, he tries to make predictions about the EUR.
+* He visits the events page and filters for EUR based on country and importance level and then sees the coming events that will effect EUR. He starts to track these events so that he gets notified when the events happen.
+* He remembers his article which is written almost 1 week earlier from these events.
+* He sees that his prediction about EUR in his article becomes true and there are many likes and comments in his article.
+* After Alperen sees the number of likes and comments, he wonders his follower number.
+* He visits his profile page and sees the increase in the follower number and becomes very happy. 
+ 
 **Preconditions**
-
-1. Uses a our mobile app.
-2. Already has an account
-3. Already has a verified e-mail
-4. Already published an article
-5. Already tracked several events 
+**1.** Uses a our mobile app.
+**2.** Already has an account
+**3.** Already has a verified e-mail
+**4.** Already published an article
+**5.** Already tracked several events 
 
 **Acceptance Criteria**
-1. 1.1.3.1
-2. 1.1.5.1, 1.1.5.2, 1.1.5.4
-3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
-4. 1.2.4.5
-
+**1.** 1.1.3.1
+**2.** 1.1.5.1, 1.1.5.2, 1.1.5.4
+**3.** 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
+**4.** 1.2.4.5
 
 ## Scenario 2 (Web)
 ### Aron Dacemoğlu
-
 ![Aron Dacemoğlu](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Aron%20Dacemoglu.png?raw=true)
 
 **Persona**
@@ -392,12 +388,11 @@ He visits his profile page and sees the increase in the follower number and beco
 1. Visits our website.
 
 **Acceptance Criteria**
-1. 1.1.1.1
-2. 1.1.2.1
-3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
-4. 1.1.4.4
-5. 1.1.4.1
-
+**1.** 1.1.1.1
+**2.** 1.1.2.1
+**3.** 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
+**4.** 1.1.4.4
+**5.** 1.1.4.1
 
 ## Scenario 3 (Web)
 ### Sarp Er (Trader)
@@ -413,41 +408,39 @@ He visits his profile page and sees the increase in the follower number and beco
 
 **Story**
 * Sarp recently graduated from university works as a project manager at a production facility.
-He comes to our website and logs in. 
-He is very curious about the state of the GBP, since he hears a lot about it in the news.
-He first visits the GBP/TRY page to check the history.
-Saw some potential, and wants to read more about the GBP equipment. Therefore he moves to the GBP page.
-There he sees a comment about the equipment. Scenario1Name's comment from a week earlier become true yesterday.
-He thinks that this could be a nice person to follow.
-Then he moves to the user page of Scenario1Name.
-He sees the success rate of the user and is very much impressed.
-He follows the user, and heads back to the parity page.
-He makes a prediction according to the user's comments.
-Then he heads to the investments. He first needs to add an asset.
-He adds asset, then makes an investment.
-In case of any quick changes, he puts an order.
-Luckily, in few minutes a new parity update happens, and his order gets triggered.
+* He comes to our website and logs in. 
+* He is very curious about the state of the GBP, since he hears a lot about it in the news.
+* He first visits the GBP/TRY page to check the history.
+* Saw some potential, and wants to read more about the GBP equipment. Therefore he moves to the GBP page.
+* There he sees a comment about the equipment. Scenario1Name's comment from a week earlier become true yesterday.
+* He thinks that this could be a nice person to follow.
+* Then he moves to the user page of Scenario1Name.
+* He sees the success rate of the user and is very much impressed.
+* He follows the user, and heads back to the parity page.
+* He makes a prediction according to the user's comments.
+* Then he heads to the investments. He first needs to add an asset.
+* He adds asset, then makes an investment.
+* In case of any quick changes, he puts an order.
+* Luckily, in few minutes a new parity update happens, and his order gets triggered.
 
 **Preconditions**
-1. Uses a web browser to visit our website
-2. Already has an account
-3. Already has a verified e-mail
-4. Already has an IBAN in the system
+**1.** Uses a web browser to visit our website
+**2.** Already has an account
+**3.** Already has a verified e-mail
+**4.** Already has an IBAN in the system
 
 **Acceptance Criteria**
-1. 1.1.2.1
-2. 1.1.3.1, 1.1.3.2, 1.1.3.7
-3. 1.1.4.1, 1.1.4.6
-4. 1.1.7.1, 1.1.7.2, 1.1.7.3
-5. 1.1.8.1, 1.1.8.3, 1.1.8.4
-6. 1.1.8.5, 1.1.8.6, 1.2.4.5
-
+**1.** 1.1.2.1
+**2.** 1.1.3.1, 1.1.3.2, 1.1.3.7
+**3.** 1.1.4.1, 1.1.4.6
+**4.** 1.1.7.1, 1.1.7.2, 1.1.7.3
+**5.** 1.1.8.1, 1.1.8.3, 1.1.8.4
+**6.** 1.1.8.5, 1.1.8.6, 1.2.4.5
 
 
 ## Evaluation of tools and managing the project
 
 ### Backend
-
 - **Amazon Web Services:** We use an AWS EC2 instance to deploy the backend side of our application.
 - **Django and Django Rest Framework:** We use Django Rest Framework on top of Django. As opposed to the practice application that we developed in CMPE352, we use DRF's viewsets and serializers more often. Together they enable automatic schema generation which helps to readily produce an extensive API documentation as we develop.
 - **Docker and Docker Compose:** All of our application services (nginx, database, WSGI server for backend, Node.js server for frontend) are containerized and configurable in the source code by using Dockerfiles. This helps us to define the environments in which our services run in the source code and also automate the deployment process.
@@ -460,7 +453,6 @@ Luckily, in few minutes a new parity update happens, and his order gets triggere
 - **PostgresSQL:** We think a relational database work better for our project as we will implement many components that tightly relate to each other.
 
 ### Frontend
-
 - **Amazon Web Services:** We use an AWS EC2 instance to deploy the frontend side of our application.
 - **React Javascript Framework:** The main framework to implement the Frontend side of the project.
 - **Eslint-stylelint** Eslint a tool which applies the rule for AIRBNB code style. It helps to achieve readability for the team.
