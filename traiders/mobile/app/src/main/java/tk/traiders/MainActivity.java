@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -20,10 +18,18 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import tk.traiders.components.article.WriteArticleActivity;
+import tk.traiders.components.event.EventFilterFragment;
+
 public class MainActivity extends AppCompatActivity implements NavController.OnDestinationChangedListener {
 
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
+    private static Map<String, String> headers = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +73,21 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         }
     }
 
-    public static boolean isUserLoggedIn(Context context){
+    public static Map<String, String> getAuthorizationHeader(Context context){
+        if(isUserLoggedIn(context)) {
+            headers.put("Authorization", "Token " + MainActivity.getAuthorizationToken(context));
+            return headers;
+        }
+        return null;
+    }
+
+    public static String getAuthorizationToken(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("auth", MODE_PRIVATE);
-        return sharedPreferences.getString("token", null) != null;
+        return sharedPreferences.getString("token", null);
+    }
+
+    public static boolean isUserLoggedIn(Context context){
+        return getAuthorizationToken(context) != null;
     }
 
     public static String getUserURL(Context context) {
@@ -77,41 +95,42 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         return sharedPreferences.getString("user", null);
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.clear();
-        MenuInflater inflater = getMenuInflater();
-        if(navController.getCurrentDestination().getId() == R.id.navigation_profile){
-            if(isUserLoggedIn(this)) {
-                inflater.inflate(R.menu.profile_menu_authorized, menu);
-            } else {
-                inflater.inflate(R.menu.profile_menu_unauthorized, menu);
-            }
-        }
-        return true;
+    public static String getUserID(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("auth", MODE_PRIVATE);
+        return sharedPreferences.getString("id", null);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        if(navController.getCurrentDestination().getId() == R.id.navigation_profile){
-            switch (item.getItemId()) {
-                case R.id.log_out:
-                    SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.remove("token");
-                    editor.remove("user");
-                    editor.apply();
-                    Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
-                    invalidateOptionsMenu();
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("token");
+                editor.remove("user");
+                editor.apply();
+                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+                invalidateOptionsMenu();
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+            case R.id.log_in:
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+            case R.id.write_article:
+                if (isUserLoggedIn(this)) {
+                    startActivity(new Intent(this, WriteArticleActivity.class));
+                } else {
+                    Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this, LoginActivity.class));
-                    return true;
-                case R.id.log_in:
-                    startActivity(new Intent(this, LoginActivity.class));
-                    return true;
-            }
+                }
+                return true;
+            case R.id.filter_events:
+                new EventFilterFragment().show(getSupportFragmentManager(), "EventFilterFragment");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
+
 }

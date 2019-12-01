@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".components.markets.ParityDetailsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView_base_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="BASE"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_ratio_"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_ratio_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="RATIO"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_target_"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView_base_"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_target_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TARGET"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView_ratio_"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_baseSymbol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_ratio"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_base_"
+            tools:text="USD" />
+
+        <TextView
+            android:id="@+id/textView_ratio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_targetSymbol"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView_baseSymbol"
+            app:layout_constraintTop_toBottomOf="@+id/textView_ratio_"
+            tools:text="5.7685" />
+
+        <TextView
+            android:id="@+id/textView_targetSymbol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView_ratio"
+            app:layout_constraintTop_toBottomOf="@+id/textView_target_"
+            tools:text="TRY" />
+
+        <TextView
+            android:id="@+id/textView_open_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="OPEN"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_high_"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_first" />
+
+        <TextView
+            android:id="@+id/textView_high_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="HIGH"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_low_"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView_open_"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_first" />
+
+        <TextView
+            android:id="@+id/textView_low_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LOW"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_close_"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView_high_"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_first" />
+
+        <TextView
+            android:id="@+id/textView_close_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="CLOSE"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView_low_"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_first" />
+
+        <View
+            android:id="@+id/view_space_first"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/primaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_ratio" />
+
+        <TextView
+            android:id="@+id/textView_open"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_high"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_open_"
+            tools:text="5.3454" />
+
+        <TextView
+            android:id="@+id/textView_high"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_low"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView_open"
+            app:layout_constraintTop_toBottomOf="@+id/textView_high_"
+            tools:text="5.6544" />
+
+        <TextView
+            android:id="@+id/textView_low"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView_close"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView_high"
+            app:layout_constraintTop_toBottomOf="@+id/textView_low_"
+            tools:text="5.1254" />
+
+        <TextView
+            android:id="@+id/textView_close"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/textView_low"
+            app:layout_constraintTop_toBottomOf="@+id/textView_close_"
+            tools:text="5.3490" />
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_hourly" />
+
+        <View
+            android:id="@+id/view_space_third"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/primaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+        <View
+            android:id="@+id/view_space_fourth"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/primaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_open" />
+
+        <Button
+            android:id="@+id/button_hourly"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="2dp"
+            android:background="@color/primaryLightColor"
+            android:text="HOURLY"
+            android:textColor="@color/white"
+
+            app:layout_constraintEnd_toStartOf="@+id/button_daily"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_fourth" />
+
+        <Button
+            android:id="@+id/button_daily"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="2dp"
+            android:background="@color/primaryLightColor"
+            android:text="DAILY"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/button_monthly"
+
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/button_hourly"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_fourth" />
+
+        <Button
+            android:id="@+id/button_monthly"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="2dp"
+            android:background="@color/primaryLightColor"
+            android:text="MONTHLY"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/button_yearly"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/button_daily"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_fourth" />
+
+        <Button
+            android:id="@+id/button_yearly"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="2dp"
+            android:background="@color/primaryLightColor"
+            android:text="YEARLY"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/button_monthly"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_fourth" />
+
+        <Button
+            android:id="@+id/button_godown"
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            android:text="GO DOWN"
+            android:textColor="@color/white"
+            android:background="@android:color/holo_red_light"
+            app:layout_constraintEnd_toStartOf="@+id/textView_expectation"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_third" />
+
+        <Button
+            android:id="@+id/button_goup"
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:text="GO UP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/textView_expectation"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_third" />
+
+        <TextView
+            android:id="@+id/textView_expectation"
+            android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:text="EXPECTATION: %75"
+            app:layout_constraintEnd_toStartOf="@+id/button_goup"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_godown"
+            app:layout_constraintTop_toBottomOf="@+id/view_space_third" />
+
+        <ProgressBar
+            android:id="@+id/seekBar_expectation"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:max="100"
+            android:progress="76"
+            app:layout_goneMarginTop="8dp"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/button_goup"
+            app:layout_constraintHorizontal_bias="0.624"
+            app:layout_constraintStart_toEndOf="@+id/button_godown"
+            app:layout_constraintTop_toBottomOf="@+id/textView_expectation" />
+
+
+        <View
+            android:id="@+id/view_space_fifth"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="8dp"
+            android:background="@color/primaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_godown" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

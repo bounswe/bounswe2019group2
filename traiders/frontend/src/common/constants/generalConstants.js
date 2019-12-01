@@ -2,7 +2,7 @@
 export const navbarOptions = [
   {
     name: 'SOCIAL',
-    url: '/',
+    url: '/social',
     id: 1
   },
   {
@@ -12,12 +12,193 @@ export const navbarOptions = [
   },
   {
     name: 'INVESTMENTS',
-    url: '/',
+    url: '/investments',
     id: 3
   },
   {
     name: 'PORTFOLIO',
     url: '/',
     id: 4
+  }
+];
+
+export const eventsTableColumns = [
+  {
+    title: 'Event', // Header of that column
+    dataIndex: 'event', // Which property of the data to read
+    key: 'event'
+  },
+  {
+    title: 'Country', // Header of that column
+    dataIndex: 'country.name', // Which property of the data to read
+    key: 'country'
+  },
+  {
+    title: 'Category', // Header of that column
+    dataIndex: 'category', // Which property of the data to read
+    key: 'cat'
+  },
+  {
+    title: 'Importance', // Header of that column
+    dataIndex: 'importance', // Which property of the data to read
+    key: 'importance'
+  },
+  {
+    title: 'Previous', // Header of that column
+    dataIndex: 'previous', // Which property of the data to read
+    key: 'prev'
+  },
+  {
+    title: 'Actual',
+    dataIndex: 'actual',
+    key: 'actual'
+  }
+];
+
+export const assetsTableConstants = [
+  {
+    title: 'AMOUNT',
+    dataIndex: 'amount',
+    key: 'amount'
+  },
+  {
+    title: 'EQUIPMENT',
+    dataIndex: 'equipment',
+    key: 'equipment'
+  },
+  {
+    title: 'ON HOLD FOR INVESTMENT',
+    dataIndex: 'on_hold_for_investment',
+    key: 'onhold'
+  }
+];
+
+export const manualInvestmentsTableColumns = [
+  {
+    title: 'BASE AMOUNT',
+    dataIndex: 'base_amount',
+    key: 'baseAmount'
+  },
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+  {
+    title: 'TARGET AMOUNT',
+    dataIndex: 'target_amount',
+    key: 'targetAmount'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
+    title: 'TOTAL PROFIT/LOSS IN TRY',
+    dataIndex: 'profit',
+    key: 'profit'
+  }
+];
+
+export const onlineInvestmentsTableColumns = [
+  {
+    title: 'BASE AMOUNT',
+    dataIndex: 'base_amount',
+    key: 'baseAmount'
+  },
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+  {
+    title: 'TARGET AMOUNT',
+    dataIndex: 'target_amount',
+    key: 'targetAmount'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
+    title: 'TOTAL PROFIT/LOSS IN TRY',
+    dataIndex: 'profit',
+    key: 'profit'
+  }
+];
+
+export const buyOrderTableColumns = [
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
+    title: 'BUY RATIO',
+    dataIndex: 'buy_ratio',
+    key: 'buyRatio'
+  },
+  {
+    title: 'AMOUNT',
+    dataIndex: 'buy_amount',
+    key: 'buyAmount'
+  }
+];
+
+export const stopLossOrderTableColumns = [
+  {
+    title: 'BASE EQUIPMENT',
+    dataIndex: 'base_equipment',
+    key: 'baseEquipment'
+  },
+
+  {
+    title: 'TARGET EQUIPMENT',
+    dataIndex: 'target_equipment',
+    key: 'targetEquipment'
+  },
+
+  {
+    title: 'DATE',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
+    title: 'SELL RATIO',
+    dataIndex: 'sell_ratio',
+    key: 'sellRatio'
+  },
+  {
+    title: 'AMOUNT',
+    dataIndex: 'sell_amount',
+    key: 'sellAmount'
   }
 ];

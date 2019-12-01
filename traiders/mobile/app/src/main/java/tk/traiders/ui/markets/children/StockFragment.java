@@ -10,14 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import tk.traiders.R;
+import tk.traiders.ui.markets.children.util.ParityFragment;
 
-public class StockFragment extends Fragment {
+public class StockFragment extends ParityFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_stock, container, false);
-        return rootView;
+    protected String getURL() {
+        return "https://api.traiders.tk/parity/latest?category=stock";
     }
 }

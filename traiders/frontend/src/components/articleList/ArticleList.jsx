@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Button } from 'antd';
 
 import './article-list.scss';
+import ArticleRow from './ArticleRow';
+import history from '../../common/history';
 
 class ArticleList extends Component {
   componentDidMount() {
@@ -8,26 +11,31 @@ class ArticleList extends Component {
     getArticles();
   }
 
+  handleClick = () => {
+    history.push('/create-article');
+  };
+
   render() {
-    const { articleList } = this.props;
+    const { articleList, limit } = this.props;
+    let filteredList = articleList;
+
+    if (limit) {
+      filteredList = filteredList
+        .filter((article) => article.image)
+        .slice(0, 7);
+    }
 
     return (
       <div className="article-list-container">
-        {articleList.map((article, index) => (
-          <div className="single-article">
-            <img
-              className="article-image"
-              src={article.image}
-              alt={article.image}
-            />
-            <div className="article">
-              <div className="article-title">{article.title}</div>
-              <div className={`article-content ${index}`}>
-                {article.content}
-              </div>
-            </div>
-          </div>
+        {filteredList.map((article) => (
+          <ArticleRow article={article} history={history} key={article.id} />
         ))}
+        <div className="create-article">
+          Would you like to share your knowledge with others?
+          <Button onClick={this.handleClick} type="primary">
+            Create Article
+          </Button>
+        </div>
       </div>
     );
   }

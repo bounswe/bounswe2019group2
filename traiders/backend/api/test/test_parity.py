@@ -10,25 +10,25 @@ class ParityViewsetTests(APITestCase):
         equipment1_data = {
             "symbol": "USD",
             "name": "US Dollars",
-            "category": "Currency"
+            "category": "currency"
         }
 
         equipment2_data = {
             "symbol": "EUR",
             "name": "Euros",
-            "category": "Currency"
+            "category": "currency"
         }
 
         equipment3_data = {
             "symbol": "TRY",
             "name": "Turkish Liras",
-            "category": "Currency"
+            "category": "currency"
         }
 
         equipment4_data = {
             "symbol": "BTC",
             "name": "Bitcoin",
-            "category": "Crypto"
+            "category": "crypto"
         }
 
         dollar = Equipment(**equipment1_data)
@@ -69,6 +69,11 @@ class ParityViewsetTests(APITestCase):
             "ratio": 0.000021
         }
 
+        for data in [parity1_data, parity2_data, parity3_data, parity4_data, parity5_data]:
+            for key in ['high', 'close', 'open', 'low']:
+                data[key] = data['ratio']
+            del data['ratio']
+
         eur_dollar = Parity(**parity1_data)
         dollar_try = Parity(**parity2_data)
         try_dollar = Parity(**parity3_data)
@@ -97,7 +102,7 @@ class ParityViewsetTests(APITestCase):
         self.assertEqual(len(parities), 1)
 
     def test_get_by_category(self):
-        response = self.client.get('/parity/', data={"category": "Crypto"})
+        response = self.client.get('/parity/', data={"category": "crypto"})
         self.assertEqual(response.status_code, 200)
         parities = response.data
         self.assertEqual(len(parities), 2)

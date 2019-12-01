@@ -1,17 +1,46 @@
 package tk.traiders.models;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
 
     private String url;
-    private String first_name;
-    private String last_name;
+    private String id;
+    private String username;
+    private String firstName;
+    private String lastName;
     private String email;
-    private LocalDateTime date_joined;
-    private boolean is_trader;
+    private String dateJoined;
+    private boolean trader;
     private String iban;
-    private String preferred_currency;
+    private String city;
+    private String country;
+    private boolean profilePrivate;
+    private int avatarId;
+
+    public int getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(int avatarId) {
+        this.avatarId = avatarId;
+    }
+
+    public User(String url, String id, String username, String firstName, String lastName, String email, String dateJoined, boolean trader, String iban, String city, String country, boolean profilePrivate, int avatarId) {
+        this.url = url;
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dateJoined = dateJoined;
+        this.trader = trader;
+        this.iban = iban;
+        this.city = city;
+        this.country = country;
+        this.profilePrivate = profilePrivate;
+        this.avatarId = avatarId;
+    }
 
     public String getUrl() {
         return url;
@@ -22,21 +51,39 @@ public class User {
         return this;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getId() {
+        return id;
     }
 
-    public User setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public User setId(String id) {
+        this.id = id;
         return this;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getUsername() {
+        return username;
     }
 
-    public User setLast_name(String last_name) {
-        this.last_name = last_name;
+    public User setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public User setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public User setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
@@ -49,21 +96,21 @@ public class User {
         return this;
     }
 
-    public LocalDateTime getDate_joined() {
-        return date_joined;
+    public String getDateJoined() {
+        return dateJoined;
     }
 
-    public User setDate_joined(LocalDateTime date_joined) {
-        this.date_joined = date_joined;
+    public User setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
         return this;
     }
 
-    public boolean isIs_trader() {
-        return is_trader;
+    public boolean isTrader() {
+        return trader;
     }
 
-    public User setIs_trader(boolean is_trader) {
-        this.is_trader = is_trader;
+    public User setTrader(boolean trader) {
+        this.trader = trader;
         return this;
     }
 
@@ -76,12 +123,30 @@ public class User {
         return this;
     }
 
-    public String getPreferred_currency() {
-        return preferred_currency;
+    public String getCity() {
+        return city;
     }
 
-    public User setPreferred_currency(String preferred_currency) {
-        this.preferred_currency = preferred_currency;
+    public User setCity(String city) {
+        this.city = city;
+        return this;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public User setCountry(String country) {
+        this.country = country;
+        return this;
+    }
+
+    public boolean isProfilePrivate() {
+        return profilePrivate;
+    }
+
+    public User setProfilePrivate(boolean profilePrivate) {
+        this.profilePrivate = profilePrivate;
         return this;
     }
 
@@ -89,14 +154,17 @@ public class User {
     public String toString() {
         return "User{" +
                 "url='" + url + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", date_joined=" + date_joined +
-                ", is_trader=" + is_trader +
+                ", dateJoined='" + dateJoined + '\'' +
+                ", trader=" + trader +
                 ", iban='" + iban + '\'' +
-                ", preferred_currency='" + preferred_currency + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", profilePrivate=" + profilePrivate +
+                ", avatarId=" + avatarId +
                 '}';
     }
-
 }

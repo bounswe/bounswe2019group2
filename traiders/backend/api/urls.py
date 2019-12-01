@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from .views import *
 
 router = DefaultRouter()
+router.register(r'users/success_rate', UserSuccessViewSet, basename='user-success')
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'token', TokenViewSet, basename='token')
 router.register(r'equipment', EquipmentViewSet, basename='equipment')
@@ -16,6 +17,14 @@ router.register(r'likes', LikeViewSet, basename='like')
 router.register(r'following', FollowingViewSet, basename='following')
 router.register(r'comments/article', ArticleCommentViewSet, basename='articlecomment')
 router.register(r'comments/equipment', EquipmentCommentViewSet, basename='equipmentcomment')
+router.register(r'events', EventViewSet, basename='event')
+router.register(r'prediction', PredictionViewSet, basename='prediction')
+router.register(r'manualinvestment', ManualInvestmentViewSet, basename='manualinvestment')
+router.register(r'asset', AssetViewSet, basename='asset')
+router.register(r'onlineinvestment', OnlineInvestmentViewSet, basename='onlineinvestment')
+router.register(r'buyorder', BuyOrderViewSet, basename='buyorder')
+router.register(r'stoplossorder', StopLossOrderViewSet, basename='stoplossorder')
+router.register(r'profitloss', ProfitLossViewSet, basename='profitloss')
 
 urlpatterns = [
     # documentation views
@@ -40,6 +49,9 @@ urlpatterns = [
 
     # Link to latest mobile application
     path('mobile/', latest_mobile_app),
+
+    # Email verification
+    path('verify/<int:pk>', verify_email, name='verify-email'),
 
     # all API ends
     *router.urls

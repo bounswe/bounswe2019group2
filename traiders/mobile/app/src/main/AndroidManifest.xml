@@ -5,8 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,8 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WritingArticle"></activity>
-        <activity android:name=".LocationActivity"></activity>
+        <activity android:name=".components.markets.ParityDetailsActivity" android:label="Parity Details"></activity>
+        <activity
+            android:name=".ui.profile.avatars.ChooseAvatarActivity"
+            android:label="Choose Avatar" />
+        <activity android:name=".components.equipment.ViewEquipmentActivity" />
+        <activity
+            android:name=".components.article.ViewArticleActivity"
+            android:label="Article" />
+        <activity
+            android:name=".components.article.WriteArticleActivity"
+            android:label="Write Article" />
+        <activity android:name=".LocationActivity" />
         <activity
             android:name=".SignUpActivity"
             android:label="Your credentials" />
@@ -37,7 +47,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCFb0EtvJaBvRSHRwO6KzN-9nxG2bIpMFE" />
-
     </application>
 
 </manifest>

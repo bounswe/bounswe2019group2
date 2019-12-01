@@ -3,22 +3,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+
 import ReduxStore from './common/ReduxStore';
 import './index.scss';
+import history from './common/history';
 
 import Routes from './routing';
 
 const rootElement = document.getElementById('root'); // eslint-disable-line no-undef
-
-// eslint-disable-next-line import/prefer-default-export
-export const history = createBrowserHistory({});
+const persistor = persistStore(ReduxStore.store);
 
 ReactDOM.render(
   <Provider store={ReduxStore.store}>
-    <Router history={history}>
-      <Route component={Routes} />
-    </Router>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router history={history}>
+        <Route component={Routes} />
+      </Router>
+    </PersistGate>
   </Provider>,
   rootElement
 );

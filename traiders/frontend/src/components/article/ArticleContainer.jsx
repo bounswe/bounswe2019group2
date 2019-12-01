@@ -1,18 +1,36 @@
 import { connect } from 'react-redux';
 
 import Article from './Article';
-import { getArticle, getArticleAuthor } from '../../redux/article/actions';
+import {
+  getArticle,
+  getArticleAuthor,
+  getArticleComments,
+  getArticleWithAuthorization
+} from '../../redux/article/actions';
+import {
+  getFollowings,
+  getFollowers,
+  deleteFollowing
+} from '../../redux/auth/actions';
 
 const mapStateToProps = (state) => {
   return {
     article: state.article.currentArticle,
-    author: state.article.author
+    author: state.article.author,
+    comments: state.article.commentsList,
+    user: state.user.currentUser,
+    followings: state.user.followings
   };
 };
 
 const mapDispatchToProps = {
+  getArticleWithAuthorization,
   getArticle,
-  getArticleAuthor
+  getArticleAuthor,
+  getArticleComments,
+  getFollowings,
+  getFollowers,
+  deleteFollowing
 };
 
 export default connect(

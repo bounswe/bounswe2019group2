@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
+import Logo from './Logo';
 import './navbar.scss';
 import { navbarOptions } from '../../common/constants/generalConstants';
 
@@ -27,11 +28,15 @@ const Navbar = (props) => {
     <div className="navbar-container">
       <Layout className="layout">
         <Header>
+          <div className="logo">
+            <Logo />
+          </div>
+
           <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
             {navbarList}
           </Menu>
           {user ? (
-            <div>
+            <div className="buttons">
               <Link to="/profile">
                 <Button type="primary">Profile</Button>
               </Link>

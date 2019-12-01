@@ -9,18 +9,18 @@ class ParityViewsetTests(APITestCase):
         equipment1_data = {
             "symbol": "USD",
             "name": "US Dollars",
-            "category": "Currency"
+            "category": "currency"
         }
 
         equipment2_data = {
             "symbol": "EUR",
             "name": "Euros",
-            "category": "Currency"
+            "category": "currency"
         }
         equipment3_data = {
             "symbol": "TRY",
             "name": "Turkish Liras",
-            "category": "Currency"
+            "category": "currency"
         }
 
         dollar = Equipment(**equipment1_data)

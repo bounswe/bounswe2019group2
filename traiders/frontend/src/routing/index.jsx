@@ -7,6 +7,20 @@ import Register from '../modules/auth/register/RegisterContainer';
 import UserProfile from '../components/userProfile/UserProfileContainer';
 import ChangePassword from '../components/changePassword/ChangePassword';
 import Article from '../modules/articleModule/ArticleModule';
+import NewArticle from '../modules/newArticle/NewArticle';
+import Social from '../modules/social/Social';
+import bomUtil from '../common/utils/bomUtil';
+import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
+import ParityPage from '../components/parityPage/ParityPageContainer';
+import EditArticle from '../modules/articleModule/EditArticleModule';
+import EquipmentPage from '../components/equipmentPage/EquipmentPageContainer';
+import Investments from '../modules/investments/InvestmentsModule';
+import OtherUser from '../components/otherUser/OtherUserContainer';
+
+const ACTION_TYPE = {
+  PUSH: 'PUSH',
+  POP: 'POP'
+};
 
 class Routes extends Component {
   constructor(props) {
@@ -14,6 +28,7 @@ class Routes extends Component {
 
     const { history } = props;
     this.unsubscribeFromHistory = history.listen(this.handleLocationChange);
+    this.handleLocationChange();
   }
 
   componentWillUnmount() {
@@ -22,21 +37,43 @@ class Routes extends Component {
     }
   }
 
-  render() {
+  handleLocationChange = () => {
+    const { history, location } = this.props;
+    const { action } = history;
+    const { hash } = location;
+
+    /*
+     NOTE: React router does not update scroll position after transitioning to another route.
+     This block scrolls to the beginning of the page after switching to new route.
+     */
+    if (!hash && action === ACTION_TYPE.PUSH) {
+      bomUtil.scrollToTop();
+    }
+  };
+
+  render = () => {
     return (
       <Suspense>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/profile" component={UserProfile} />
+          <Route exact path="/profile" component={UserProfile} />
+          <Route exact path="/profile/:id" component={OtherUser} />
+          <Route path="/updateprofile" component={UserProfileUpdate} />
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route exact path="/parity/:target/:base" component={ParityPage} />
           <Route path="/articles/:id" component={Article} />
+          <Route exact path="/equipment/:base" component={EquipmentPage} />
+          <Route path="/article/edit/:id" component={EditArticle} />
+          <Route path="/create-article" component={NewArticle} />
+          <Route path="/social" component={Social} />
+          <Route path="/investments" component={Investments} />
           <Route render={() => <h1>404 Page not found</h1>} />
         </Switch>
       </Suspense>
     );
-  }
+  };
 }
 
 export default Routes;

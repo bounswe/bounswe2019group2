@@ -14,7 +14,7 @@ class UserViewSetTests(APITestCase):
             'last_name': 'Smith',
             'email': 'me@marrysmith.com',
             'city': 'New York City',
-            'country': 'United States',
+            'country': 'US',
         }
 
         user = User(**data)
@@ -31,14 +31,14 @@ class UserViewSetTests(APITestCase):
             'last_name': 'Ryan',
             'email': 'ryan@army.com',
             'city': 'Washington D.C.',
-            'country': 'United States',
+            'country': 'US',
             'is_private': True
         }
         user = User(**data)
         user.set_password('fsfST4rf')
         user.save()
 
-    def test_create(self):
+    def test_create_with_country_name(self):
         url = reverse('user-list')
         password = 'g5Hs-s34'
         data = {
@@ -49,6 +49,30 @@ class UserViewSetTests(APITestCase):
             'password': password,
             'city': 'Birmingham',
             'country': 'United Kingdom'
+        }
+
+        response = self.client.post(url, data, format='json')
+
+        # test status code
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # test if created
+        del data['password']  # dont check equality of password because it is hashed
+        data['country'] = 'GB'  # filter works only with code
+        self.assertEqual(User.objects.filter(**data).count(), 1)
+        # test password separately
+        self.assertTrue(User.objects.get(**data).check_password(password))
+
+    def test_create_with_country_code(self):
+        url = reverse('user-list')
+        password = 'g5Hs-s34'
+        data = {
+            'username': 'john56',
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'email': 'johndoe@example.com',
+            'password': password,
+            'city': 'Birmingham',
+            'country': 'GB'
         }
 
         response = self.client.post(url, data, format='json')
@@ -157,13 +181,13 @@ class UserViewSetTests(APITestCase):
         # test status code
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_become_trader_with_iban(self):
+    def test_become_trader_with_valid_iban(self):
         pk = User.objects.get(username='marry48').pk
 
         url = reverse('user-detail', kwargs={'pk': pk})
         data = {
             'is_trader': True,
-            'iban': '1234567890123456789012345678901234'
+            'iban': 'DE89370400440532013000'
         }
 
         # without authentication
@@ -177,6 +201,22 @@ class UserViewSetTests(APITestCase):
         # test status code
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_become_trader_with_invalid_iban(self):
+        pk = User.objects.get(username='marry48').pk
+
+        url = reverse('user-detail', kwargs={'pk': pk})
+        data = {
+            'is_trader': True,
+            'iban': 'TR12341234123412341234123412341234'
+        }
+
+        # with authentication
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.patch(url, data, format='json')
+
+        # test status code
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_retrieve_user(self):
         user = User.objects.get(username='marry48')
 
@@ -187,7 +227,8 @@ class UserViewSetTests(APITestCase):
 
         expected_fields = {
             'url', 'username', 'first_name', 'last_name', 'email',
-            'date_joined', 'is_trader', 'iban', 'city', 'country', 'is_private'
+            'date_joined', 'is_trader', 'iban', 'city', 'country', 'is_private',
+            'avatar', 'id'
         }
 
         self.assertSetEqual(expected_fields, set(response.data.keys()))
@@ -239,4 +280,4 @@ class UserViewSetTests(APITestCase):
 
         self.assertEqual(User.objects.filter(username='marry48',
                                              city=data['city'],
-                                             country=data['country']).count(), 1)
+                                             country='TR').count(), 1)

@@ -5,7 +5,7 @@ import { getCurrencies } from '../../redux/parities/actions';
 
 const mapStateToProps = (state) => {
   return {
-    currencyList: state.parity.currencyList
+    currencyList: state.parity.limitedParityList
   };
 };
 

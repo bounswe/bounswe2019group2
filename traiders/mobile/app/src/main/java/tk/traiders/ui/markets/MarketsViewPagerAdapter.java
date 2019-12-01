@@ -9,7 +9,6 @@ import tk.traiders.ui.markets.children.CommodityFragment;
 import tk.traiders.ui.markets.children.CryptoFragment;
 import tk.traiders.ui.markets.children.CurrencyFragment;
 import tk.traiders.ui.markets.children.IndexFragment;
-import tk.traiders.ui.markets.children.ParityFragment;
 import tk.traiders.ui.markets.children.MetalFragment;
 import tk.traiders.ui.markets.children.StockFragment;
 
@@ -29,12 +28,10 @@ public class MarketsViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return new StockFragment();
             case 3:
-                return new ParityFragment();
-            case 4:
                 return new CryptoFragment();
-            case 5:
+            case 4:
                 return new IndexFragment();
-            case 6:
+            case 5:
                 return new CommodityFragment();
             default:
                 return null;
@@ -43,7 +40,7 @@ public class MarketsViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 7;
+        return 6;
     }
 
     @Nullable
@@ -57,12 +54,10 @@ public class MarketsViewPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return "Stock";
             case 3:
-                return "Parity";
-            case 4:
                 return "Crypto";
-            case 5:
+            case 4:
                 return "Index";
-            case 6:
+            case 5:
                 return "Commodity";
         }
         return super.getPageTitle(position);

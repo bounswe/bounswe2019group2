@@ -7,3 +7,7 @@ from .likes import LikeSerializer
 from .following import FollowingSerializer
 from .comment import ArticleCommentSerializer, EquipmentCommentSerializer
 from .portfolio import PortfolioSerializer
+from .event import EventSerializer
+from .prediction import PredictionSerializer
+from .investment import ManualInvestmentSerializer, AssetSerializer, OnlineInvestmentSerializer
+from .order import BuyOrderSerializer, StopLossOrderSerializer

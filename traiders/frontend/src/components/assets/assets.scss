@@ -1,0 +1,33 @@
+.assets-container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+
+  .ant-table-title {
+    background-color: white;
+  }
+
+  .ant-table-row {
+    background-color: white;
+  }
+
+  .add-assets {
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.modal {
+  display: flex;
+  justify-content: space-between;
+
+  .ant-input {
+    width: 250px;
+  }
+
+  .ant-dropdown-link {
+    display: flex;
+    align-items: center;
+  }
+}

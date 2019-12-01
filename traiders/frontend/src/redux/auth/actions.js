@@ -1,14 +1,25 @@
 import { API } from '../apiConfig';
-import { PostWithUrlBody } from '../../common/http/httpUtil';
+import {
+  PostWithUrlBody,
+  GetWithUrl,
+  DeleteWithAuthorization,
+  PatchWithAuthorization
+} from '../../common/http/httpUtil';
 
 /* Action Types */
 
 const SAVE_USER = 'SAVE_USER';
+const SAVE_OTHER_USER = 'SAVE_OTHER_USER';
+const SAVE_FOLLOWERS = 'SAVE_FOLLOWERS';
+const SAVE_FOLLOWINGS = 'SAVE_FOLLOWINGS';
 const LOGOUT = 'LOGOUT';
 
 export const actionTypes = {
   SAVE_USER,
-  LOGOUT
+  SAVE_OTHER_USER,
+  LOGOUT,
+  SAVE_FOLLOWERS,
+  SAVE_FOLLOWINGS
 };
 
 /* Action Creators */
@@ -19,10 +30,28 @@ function saveUser(user) {
     payload: user
   };
 }
+function saveOtherUser(user) {
+  return {
+    type: SAVE_OTHER_USER,
+    payload: user
+  };
+}
 
 export function logout() {
   return {
     type: LOGOUT
+  };
+}
+export function saveFollowers(list) {
+  return {
+    type: SAVE_FOLLOWERS,
+    payload: list
+  };
+}
+export function saveFollowings(list) {
+  return {
+    type: SAVE_FOLLOWINGS,
+    payload: list
   };
 }
 
@@ -38,7 +67,12 @@ export const loginUser = (body) => {
     PostWithUrlBody(`${API}/token/`, body)
       .then((response) => {
         if (response.status === 201) {
-          response.json().then((res) => dispatch(saveUser(res)));
+          response.json().then((res) => {
+            dispatch(saveUser(res));
+          });
+        } else {
+          // eslint-disable-next-line no-alert
+          alert('Wrong Credentials');
         }
       })
 
@@ -47,15 +81,72 @@ export const loginUser = (body) => {
   };
 };
 
-export const postUserRegister = (body) => {
+export const updateUser = (id, body, token) => {
   return () => {
-    PostWithUrlBody(`${API}/users/`, body)
-      // eslint-disable-next-line
-      .then(alert('Successfully registered'))
+    PatchWithAuthorization(`${API}/users/${id}`, body, token)
+      .then((response) => {
+        if (response.status === 200) {
+          // eslint-disable-next-line no-console
+          response.json().then((res) => console.log(res));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching followers\n', error));
+  };
+};
 
+export const getOtherUser = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/users/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => dispatch(saveOtherUser(res)));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching followers\n', error));
+  };
+};
+
+export const getFollowers = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/following/?user_followed=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => dispatch(saveFollowers(res)));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching followers\n', error));
+  };
+};
+
+export const getFollowings = (id) => {
+  return (dispatch) => {
+    GetWithUrl(`${API}/following/?user_following=${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => dispatch(saveFollowings(res)));
+        }
+      })
       .catch((error) =>
         // eslint-disable-next-line no-console
-        console.log('Error when fetch register\n', error)
+        console.log('Error while fetching followings\n', error)
       );
+  };
+};
+
+export const deleteFollowing = (id, token) => {
+  const url = `${API}/following/${id}/`;
+  return () => {
+    DeleteWithAuthorization(url, token)
+      .then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line no-console
+          response.json().then((res) => console.log(res));
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while unfollowing\n', error));
   };
 };
