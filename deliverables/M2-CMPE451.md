@@ -1,5 +1,56 @@
 # Table of Contents
 
+<!-- toc -->
+
+- [Executive Summary](#executive-summary)
+  * [Project Description](#project-description)
+  * [Project Status](#project-status)
+  * [Moving Forward](#moving-forward)
+- [Deliverables](#deliverables)
+- [Work Done by Each Member](#work-done-by-each-member)
+    + [Group Members](#group-members)
+    + [Customers](#customers)
+- [Requirements](#requirements)
+- [Table of Contents - Requirements](#table-of-contents---requirements)
+- [Glossary](#glossary)
+- [1. Functional Requirements](#1-functional-requirements)
+  * [1.1. User Requirements](#11-user-requirements)
+    + [1.1.1. Sign Up](#111-sign-up)
+    + [1.1.2. Sign In](#112-sign-in)
+    + [1.1.3. Profile](#113-profile)
+    + [1.1.4. Social Interactions and Communication](#114-social-interactions-and-communication)
+    + [1.1.5. Economic Events](#115-economic-events)
+    + [1.1.6. Portfolios](#116-portfolios)
+    + [1.1.7. Trading Equipment and Parities](#117-trading-equipment-and-parities)
+    + [1.1.8. Investments](#118-investments)
+    + [1.1.9. Profit/Loss](#119-profitloss)
+    + [1.1.10. Search](#1110-search)
+    + [1.1.11. Recommendations](#1111-recommendations)
+    + [1.1.12. Admin Panel](#1112-admin-panel)
+  * [1.2. System Requirements](#12-system-requirements)
+    + [1.2.1. Interactions](#121-interactions)
+    + [1.2.2. Recommendation](#122-recommendation)
+    + [1.2.3. Searching](#123-searching)
+    + [1.2.4. Trading Equipments and Parities](#124-trading-equipments-and-parities)
+- [2. Non-Functional Requirements](#2-non-functional-requirements)
+  * [2.1. Security](#21-security)
+  * [2.2. Performance](#22-performance)
+  * [2.3. Availability and Accessibility](#23-availability-and-accessibility)
+  * [2.4. Annotations](#24-annotations)
+- [Project plan](#project-plan)
+- [User Scenarios](#user-scenarios)
+  * [Scenario 1 (Mobile)](#scenario-1-mobile)
+    + [Alperen Duymaz](#alperen-duymaz)
+  * [Scenario 2 (Web)](#scenario-2-web)
+    + [Aron Dacemoğlu](#aron-dacemoglu)
+  * [Scenario 3 (Web)](#scenario-3-web)
+    + [Sarp Er (Trader)](#sarp-er-trader)
+- [Evaluation of tools and managing the project](#evaluation-of-tools-and-managing-the-project)
+  * [Backend](#backend)
+  * [Frontend](#frontend)
+  * [Mobile](#mobile)
+
+<!-- tocstop -->
 
 # Executive Summary
 
@@ -439,9 +490,9 @@ The system shall support following equipments and possible conversions between t
 6. 1.1.8.5, 1.1.8.6, 1.2.4.5
 
 
-## Evaluation of tools and managing the project
+# Evaluation of tools and managing the project
 
-### Backend
+## Backend
 - **Amazon Web Services:** We use an AWS EC2 instance to deploy the backend side of our application.
 - **Django and Django Rest Framework:** We use Django Rest Framework on top of Django. As opposed to the practice application that we developed in CMPE352, we use DRF's viewsets and serializers more often. Together they enable automatic schema generation which helps to readily produce an extensive API documentation as we develop.
 - **Docker and Docker Compose:** All of our application services (nginx, database, WSGI server for backend, Node.js server for frontend) are containerized and configurable in the source code by using Dockerfiles. This helps us to define the environments in which our services run in the source code and also automate the deployment process.
@@ -453,7 +504,7 @@ The system shall support following equipments and possible conversions between t
 - **Travis:** We use Travis CI for style checking and testing. It helps us maintain a clean and working codebase.
 - **PostgresSQL:** We think a relational database work better for our project as we will implement many components that tightly relate to each other.
 
-### Frontend
+## Frontend
 - **Amazon Web Services:** We use an AWS EC2 instance to deploy the frontend side of our application.
 - **React Javascript Framework:** The main framework to implement the Frontend side of the project.
 - **Eslint-stylelint** Eslint a tool which applies the rule for AIRBNB code style. It helps to achieve readability for the team.
@@ -463,7 +514,7 @@ The system shall support following equipments and possible conversions between t
 - **Redux:** Redux is a module which helps the data storing in React. In other words; it helps to fetch data from the api or post data to api in a more secure, consistent way.
 - **Visual Studio Code:** The IDE used to coding in React.js environment.
 
-### Mobile
+## Mobile
 - **Android Studio:** We use an Android Studio as our integrated development environment.
 - **Java:** We implement our requirements via Java programming language.
 - **Android Emulator:** Android emulator simulates Android devices on our computer so that we can test our application on a variety of devices and Android API levels without needing to have each physical device.
