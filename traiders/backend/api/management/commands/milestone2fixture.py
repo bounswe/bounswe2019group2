@@ -115,7 +115,7 @@ class Command(BaseCommand):
                     status=Following.ACCEPTED
                 )
 
-        #scenario 1
+        # scenario 1
 
         u1 = User(
             first_name='Alperen',
