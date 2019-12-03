@@ -92,7 +92,7 @@ class Assets extends Component {
       history.push('/login');
     }
     let filteredList = [];
-    if (user) {
+    if (currencyList) {
       filteredList = [];
       currencyList.forEach((element) => {
         filteredList.push(element.symbol);
