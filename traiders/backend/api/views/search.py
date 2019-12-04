@@ -30,14 +30,13 @@ class SearchViewSet(GenericViewSet):
 
     @staticmethod
     def find_closest(keyword, top_k=10):
-        words = keyword.split(" ")
+        words = keyword.split(' ')
         kws = []
         for word in words:
             kws.append((1, word))
-
-        res = rq.get(f'https://api.datamuse.com/words?ml={keyword}')
+        keyword = keyword.replace(' ', '+')
+        res = rq.get(f'https://api.datamuse.com/words?ml={keyword}&max={top_k}')
         similars = res.json()
-
         if res.status_code != 200:
             logger.log("Datamuse returned non-200")
             return kws
