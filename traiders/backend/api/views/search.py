@@ -34,13 +34,14 @@ class SearchViewSet(GenericViewSet):
         kws = []
         for word in words:
             kws.append((1, word))
-        keyword = keyword.replace(' ', '+')
-        res = rq.get(f'https://api.datamuse.com/words?ml={keyword}&max={top_k}')
-        similars = res.json()
+
+        res = rq.get('https://api.datamuse.com/words', params={'ml': keyword, 'max': top_k})
+
         if res.status_code != 200:
-            logger.log("Datamuse returned non-200")
+            logger.warning("Datamuse returned non-200")
             return kws
 
+        similars = res.json()
         if similars != []:
             max_score = similars[0]['score']
             for dct in similars[:top_k]:
