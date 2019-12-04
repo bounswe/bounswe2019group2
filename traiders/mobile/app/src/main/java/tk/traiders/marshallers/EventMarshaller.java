@@ -10,6 +10,7 @@ import java.util.List;
 import tk.traiders.constants.EventConstants;
 import tk.traiders.models.Event;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class EventMarshaller {
 

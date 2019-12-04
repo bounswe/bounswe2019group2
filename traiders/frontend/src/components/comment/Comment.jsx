@@ -1,10 +1,23 @@
-import { Comment as CommentAntd, Icon, Tooltip, Avatar } from 'antd';
+import {
+  Comment as CommentAntd,
+  Icon,
+  Tooltip,
+  Avatar,
+  Modal,
+  Button
+} from 'antd';
 import React from 'react';
+import { DeleteWithAuthorization } from '../../common/http/httpUtil';
+import history from '../../common/history';
+import { API } from '../../redux/apiConfig';
+import images from '../../common/images';
+import './comment.scss';
 
 class Comment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      visible: false,
       likes: 0,
       dislikes: 0,
       action: null
@@ -27,9 +40,85 @@ class Comment extends React.Component {
     });
   };
 
+  handleCancel = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
+  deleteComment = () => {
+    this.setState({ visible: true });
+  };
+
+  handleOk = () => {
+    const {
+      user,
+      commentId,
+      articleId,
+      submitUrl,
+      equipment,
+      getArticleComments,
+      getEquipmentComments
+    } = this.props;
+
+    if (submitUrl.includes('equipment')) {
+      const url = `${API}/comments/equipment/${commentId}/?equipment=${equipment}`;
+      DeleteWithAuthorization(url, user.key).then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line
+          alert('Succesfully deleted.');
+          this.setState({
+            visible: false
+          });
+          // eslint-disable-next-line
+        }
+        setTimeout(() => getEquipmentComments(equipment), 1000);
+      });
+    } else if (submitUrl.includes('article')) {
+      const splittedArticle = articleId.split('/', 5)[4];
+      const url = `${API}/comments/article/${commentId}/?article=${splittedArticle}`;
+      DeleteWithAuthorization(url, user.key).then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line
+          alert('Succesfully deleted.');
+          this.setState({
+            visible: false
+          });
+          // eslint-disable-next-line
+        }
+      });
+      setTimeout(() => getArticleComments(splittedArticle), 1000);
+    }
+  };
+
+  handleRoute = (event, authorURL) => {
+    const array = authorURL.split('/');
+    const userId = array[array.length - 2];
+    event.stopPropagation();
+    const url = `/profile/${userId}`;
+    history.push(url);
+  };
+
+  handleCancel = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     const { likes, dislikes, action } = this.state;
-    const { author, createdAt, content, image } = this.props;
+    const {
+      author,
+      createdAt,
+      content,
+      image,
+      user,
+      authorURL,
+      avatarValue
+    } = this.props;
+
+    const { visible } = this.state;
+    const ownComment = user && authorURL ? user.user.url === authorURL : false;
     const actions = [
       <span key="comment-basic-like">
         <Tooltip title="Like">
@@ -54,22 +143,48 @@ class Comment extends React.Component {
     ];
 
     return (
-      <div>
-        <CommentAntd
-          actions={actions}
-          author={author}
-          avatar={
-            <Avatar
-              src="https://img.pngio.com/avatar-user-computer-icons-software-developer-avatar-png-png-computer-user-900_540.jpg"
-              alt={author}
+      <div className="comment-container">
+        {ownComment && (
+          <div className="own-part">
+            <Button
+              type="danger"
+              onClick={this.deleteComment}
+              className="button-style"
+            >
+              <Icon type="delete" className="icon-style" />
+            </Button>
+          </div>
+        )}
+        {images[avatarValue - 1] && (
+          <div className="main-comment">
+            <CommentAntd
+              actions={actions}
+              author={author}
+              avatar={
+                <Avatar
+                  onClick={(event) => this.handleRoute(event, authorURL)}
+                  src={images[avatarValue - 1].src}
+                  alt={author}
+                />
+              }
+              content={content}
+              datetime={createdAt}
             />
-          }
-          content={content}
-          datetime={createdAt}
-        />
-        <div className="comment-image">
-          <img className="image" src={image} alt={image} width="200px" />
-        </div>
+            <div className="comment-image">
+              <img className="image" src={image} alt={image} width="200px" />
+            </div>
+          </div>
+        )}
+        <Modal
+          title="DELETE"
+          visible={visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <div className="alert-container">
+            Are you sure? There is no way to recover this action!
+          </div>
+        </Modal>
       </div>
     );
   }

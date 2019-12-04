@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Icon } from 'antd';
 
 import { API } from '../../redux/apiConfig';
 import './article.scss';
@@ -9,14 +9,15 @@ import {
 } from '../../common/http/httpUtil';
 import history from '../../common/history';
 
-import Comment from '../comment/Comment';
+import Comment from '../comment/CommentContainer';
 import AddComment from '../addComment/AddCommentContainer';
 
 class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      action: null
     };
   }
 
@@ -24,48 +25,115 @@ class Article extends Component {
     const {
       id,
       getArticle,
+      getArticleWithAuthorization,
       getArticleComments,
       getFollowings,
       getFollowers,
       user
     } = this.props;
-    getArticle(id);
-    getArticleComments(id);
+
     if (user) {
       const array = user.user.url.split('/');
       const userId = array[array.length - 2];
       getFollowings(userId);
       getFollowers(userId);
+      getArticleWithAuthorization(id, user.key);
+    } else {
+      getArticle(id);
     }
+    getArticleComments(id);
   }
 
-  handleFollow = () => {
-    const { user, article } = this.props;
-    // eslint-disable-next-line camelcase
-    const user_followed = article.author.url;
-    const url = `${API}/following/`;
+  handleLike = () => {
+    const { user, id, getArticleWithAuthorization } = this.props;
+    const url = `${API}/likes/`;
+    // eslint-disable-next-line
+    const article = this.props.article.url;
+    // eslint-disable-next-line
+    const articleLike = this.props.article.like;
+    if (user) {
+      if (!articleLike) {
+        PostWithAuthorization(url, { article }, user.key)
+          // eslint-disable-next-line no-console
+          .then((response) => console.log(response))
+          // eslint-disable-next-line no-console
+          .catch((error) => console.log('Errow while like operation\n', error));
+        setTimeout(() => getArticleWithAuthorization(id, user.key), 500);
+      } else {
+        // eslint-disable-next-line
+        alert("You've already liked this article!");
+      }
+      getArticleWithAuthorization(id, user.key);
+    } else {
+      history.push('/login');
+    }
+  };
+
+  handleDislike = () => {
+    const { user, id, getArticleWithAuthorization } = this.props;
+    // eslint-disable-next-line
+    const articleLike = this.props.article.like;
 
     if (user) {
+      if (articleLike && articleLike.user === user.user.url) {
+        const likeArray = articleLike.url.split('/');
+        const likeId = likeArray[likeArray.length - 2];
+        const url = `${API}/likes/${likeId}/`;
+        DeleteWithAuthorization(url, user.key)
+          // eslint-disable-next-line no-console
+          .then((response) => console.log(response.url))
+
+          .catch((error) =>
+            // eslint-disable-next-line no-console
+            console.log('Errow while unlike operation\n', error)
+          );
+        setTimeout(() => getArticleWithAuthorization(id, user.key), 500);
+      } else {
+        alert('There is no like for this user.');
+      }
+    } else {
+      history.push('/login');
+    }
+  };
+
+  handleFollow = () => {
+    const { user, article, getFollowings } = this.props;
+    if (user) {
+      // eslint-disable-next-line camelcase
+      const user_followed = article.author.url;
+      const url = `${API}/following/`;
+      const array = user.user.url.split('/');
+      const userId = array[array.length - 2];
+
       PostWithAuthorization(url, { user_followed }, user.key)
         // eslint-disable-next-line no-console
         .then((response) => console.log(response))
         // eslint-disable-next-line no-console
         .catch((error) => console.log('Errow while following\n', error));
+      setTimeout(() => getFollowings(userId), 500);
     } else {
       history.push('/login');
     }
   };
 
   handleUnfollow = () => {
-    const { user, article, deleteFollowing, followings } = this.props;
+    const {
+      user,
+      article,
+      deleteFollowing,
+      followings,
+      getFollowings
+    } = this.props;
     const { author } = article;
-
+    const array = user.user.url.split('/');
+    const userId = array[array.length - 2];
     const followDetails =
       article &&
       followings &&
       followings.filter((element) => element.user_followed === author.url);
 
     deleteFollowing(followDetails[0].id, user.key);
+    setTimeout(() => getFollowings(userId), 500);
   };
 
   editArticle = () => {
@@ -103,13 +171,22 @@ class Article extends Component {
     });
   };
 
+  handleRoute = (event, authorURL) => {
+    const array = authorURL.split('/');
+    const userId = array[array.length - 2];
+    event.stopPropagation();
+    const url = `/profile/${userId}`;
+    history.push(url);
+  };
+
   render() {
     const { article, comments, user, followings } = this.props;
-    const { visible } = this.state;
+    const { visible, action } = this.state;
 
     const ownArticle = user && article && user.user.url === article.author.url;
 
     const isFollowing =
+      user &&
       article &&
       followings &&
       followings.filter(
@@ -117,7 +194,8 @@ class Article extends Component {
       );
 
     const following = isFollowing ? isFollowing.length !== 0 : false;
-
+    // eslint-disable-next-line
+    console.log(followings);
     return (
       <div>
         {(article && (
@@ -127,7 +205,12 @@ class Article extends Component {
               <div className="header-left-part">
                 <div className="user-related">
                   <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
-                  <div className="author-username">
+                  <div
+                    className="author-username"
+                    onClick={(event) =>
+                      this.handleRoute(event, article.author.url)
+                    }
+                  >
                     ({article.author.username})
                   </div>
                 </div>
@@ -162,21 +245,53 @@ class Article extends Component {
               />
             </div>
             <pre className="article-content">{article.content}</pre>
+            <div className="article-like">
+              <h4>Number of Likes: {article.num_likes}</h4>
+
+              <Button
+                style={{ paddingLeft: 12, cursor: 'auto' }}
+                onClick={this.handleLike}
+              >
+                <Icon
+                  type="like"
+                  theme={action === 'liked' ? 'filled' : 'outlined'}
+                  onClick={this.handleLike}
+                />
+              </Button>
+              <Button
+                onClick={this.handleDislike}
+                style={{ paddingLeft: 12, cursor: 'auto' }}
+              >
+                <Icon
+                  type="dislike"
+                  theme={action === 'disliked' ? 'filled' : 'outlined'}
+                  onClick={this.handleDislike}
+                />
+              </Button>
+            </div>
             <div className="written-by" />
             <div className="article-comment">
+              <div className="comment-header-div">
+                <h2 className="comment-header">COMMENTS</h2>
+              </div>
+
               {comments &&
                 comments.map((comment) => (
                   <Comment
+                    submitUrl="https://api.traiders.tk/comments/article/"
                     author={comment.user.username}
                     content={comment.content}
                     createdAt={comment.created_at.substring(0, 10)}
                     image={comment.image}
-                    key={comment.id}
+                    commentId={comment.id}
+                    articleId={comment.article}
+                    authorURL={comment.user.url}
+                    avatarValue={comment.user.avatar}
                   />
                 ))}
             </div>
             <div className="create-comment">
-              <AddComment />
+              <AddComment submitUrl="https://api.traiders.tk/comments/article/" />
             </div>
             <Modal
               title="DELETE"

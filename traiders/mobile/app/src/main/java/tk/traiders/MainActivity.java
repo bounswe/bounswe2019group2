@@ -95,6 +95,11 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         return sharedPreferences.getString("user", null);
     }
 
+    public static String getUserID(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("auth", MODE_PRIVATE);
+        return sharedPreferences.getString("id", null);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

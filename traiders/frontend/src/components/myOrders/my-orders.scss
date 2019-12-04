@@ -1,0 +1,39 @@
+.orders-container {
+  .buy-order-container {
+    .table {
+      padding: 20px 0;
+
+      .ant-table-title {
+        background-color: white;
+      }
+
+      .ant-table-row {
+        background-color: white;
+      }
+    }
+
+    .button {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .stop-loss-order-container {
+    .table {
+      padding: 20px 0;
+
+      .ant-table-title {
+        background-color: white;
+      }
+
+      .ant-table-row {
+        background-color: white;
+      }
+    }
+
+    .button {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

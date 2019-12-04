@@ -1,0 +1,107 @@
+.custom-table-container {
+  &:hover {
+    cursor: pointer;
+  }
+
+  .table-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: rgb(194, 189, 189);
+    padding: 40px;
+
+    width: 540px;
+    height: 64px;
+
+    border-bottom: 1px solid #eee;
+  }
+
+  .parity-details {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+
+    .parity-symbols {
+      display: flex;
+
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+        'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica,
+        Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol';
+      font-size: 1rem;
+      font-weight: 700;
+
+      .base-equipment {
+        margin-right: 3px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .target-equipment {
+        margin-left: 3px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .parity-names {
+      font-weight: 400;
+      font-size: 0.8rem;
+      overflow: hidden;
+      font-family: Muli, Helvetica Neue, sans-serif;
+    }
+  }
+
+  .parity-ratio {
+    display: flex;
+    align-items: center;
+
+    font-weight: 700;
+    font-family: Muli, Helvetica Neue, sans-serif;
+  }
+
+  .change-details {
+    display: flex;
+    flex-direction: column;
+
+    font-weight: 700;
+    font-family: Muli, Helvetica Neue, sans-serif;
+
+    .change-amount {
+      &.rise {
+        color: green;
+      }
+
+      &.fall {
+        color: red;
+      }
+    }
+
+    .change-ratio {
+      display: flex;
+
+      &.rise {
+        color: green;
+      }
+
+      &.fall {
+        color: red;
+      }
+
+      .anticon {
+        display: flex;
+        align-items: center;
+      }
+
+      .change-rate {
+        align-items: center;
+        margin-left: 5px;
+      }
+    }
+  }
+}

@@ -18,7 +18,13 @@
     "react/destructuring-assignment": ["error"],
     "arrow-parens": ["error"],
     "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
     "react/jsx-wrap-multilines": "off",
+    "camelcase": "off",
+    "no-alert": "off",
+    "no-undef": "off",
+    "react/jsx-curly-newline": "off",
     "quotes": [
       2,
       "single",

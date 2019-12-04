@@ -126,6 +126,7 @@ public class ViewArticleActivity extends AppCompatActivity {
                     protected Map<String, String> getParams()
                     {
                         Map<String, String>  params = new HashMap<String, String>();
+
                         params.put("content", comment);
                         params.put("article", article.getUrl());
 
@@ -199,7 +200,13 @@ public class ViewArticleActivity extends AppCompatActivity {
                 Toast.makeText(ViewArticleActivity.this, "An error occured fetching comments", Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = MainActivity.getAuthorizationHeader(ViewArticleActivity.this);
+                return headers != null ? headers : super.getHeaders();
+            }
+        };
 
         requestQueue.add(request);
 

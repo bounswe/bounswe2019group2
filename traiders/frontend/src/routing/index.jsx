@@ -11,8 +11,13 @@ import NewArticle from '../modules/newArticle/NewArticle';
 import Social from '../modules/social/Social';
 import bomUtil from '../common/utils/bomUtil';
 import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
+import ParityPage from '../components/parityPage/ParityPageContainer';
 import EditArticle from '../modules/articleModule/EditArticleModule';
 import Portfolio from '../components/portfolio/PortfolioContainer';
+import EquipmentPage from '../components/equipmentPage/EquipmentPageContainer';
+import Investments from '../modules/investments/InvestmentsModule';
+import OtherUser from '../components/otherUser/OtherUserContainer';
+
 const ACTION_TYPE = {
   PUSH: 'PUSH',
   POP: 'POP'
@@ -52,16 +57,20 @@ class Routes extends Component {
       <Suspense>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/profile" component={UserProfile} />
+          <Route exact path="/profile" component={UserProfile} />
+          <Route exact path="/profile/:id" component={OtherUser} />
           <Route path="/updateprofile" component={UserProfileUpdate} />
           <Route path="/changepassword" component={ChangePassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route exact path="/parity/:target/:base" component={ParityPage} />
           <Route path="/articles/:id" component={Article} />
+          <Route exact path="/equipment/:base" component={EquipmentPage} />
           <Route path="/article/edit/:id" component={EditArticle} />
           <Route path="/create-article" component={NewArticle} />
           <Route path="/social" component={Social} />
           <Route path="/portfolio" component={Portfolio} />
+          <Route path="/investments" component={Investments} />
           <Route render={() => <h1>404 Page not found</h1>} />
         </Switch>
       </Suspense>
