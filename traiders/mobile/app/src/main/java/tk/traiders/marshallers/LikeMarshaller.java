@@ -9,6 +9,7 @@ import java.util.List;
 
 import tk.traiders.constants.LikeConstants;
 import tk.traiders.models.Like;
+import tk.traiders.utils.MarshallerUtils;
 
 public class LikeMarshaller {
 

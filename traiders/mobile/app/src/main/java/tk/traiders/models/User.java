@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private String url;
+    private String id;
     private String username;
     private String firstName;
     private String lastName;
@@ -15,9 +16,19 @@ public class User implements Serializable {
     private String city;
     private String country;
     private boolean profilePrivate;
+    private int avatarId;
 
-    public User(String url, String username, String firstName, String lastName, String email, String dateJoined, boolean trader, String iban, String city, String country, boolean profilePrivate) {
+    public int getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(int avatarId) {
+        this.avatarId = avatarId;
+    }
+
+    public User(String url, String id, String username, String firstName, String lastName, String email, String dateJoined, boolean trader, String iban, String city, String country, boolean profilePrivate, int avatarId) {
         this.url = url;
+        this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,6 +39,7 @@ public class User implements Serializable {
         this.city = city;
         this.country = country;
         this.profilePrivate = profilePrivate;
+        this.avatarId = avatarId;
     }
 
     public String getUrl() {
@@ -36,6 +48,15 @@ public class User implements Serializable {
 
     public User setUrl(String url) {
         this.url = url;
+        return this;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public User setId(String id) {
+        this.id = id;
         return this;
     }
 
@@ -137,12 +158,13 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", dateJoined=" + dateJoined +
+                ", dateJoined='" + dateJoined + '\'' +
                 ", trader=" + trader +
                 ", iban='" + iban + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 ", profilePrivate=" + profilePrivate +
+                ", avatarId=" + avatarId +
                 '}';
     }
 }

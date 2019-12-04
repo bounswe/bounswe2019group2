@@ -54,7 +54,7 @@ class EquipmentCommentViewSetTests(APITestCase):
 
         data = {
             'content': 'thank you, user2',
-            'equipment': reverse('equipment-detail', kwargs={'pk': self.equipment.pk})
+            'equipment': self.equipment.symbol
         }
 
         # test without token
@@ -128,8 +128,22 @@ class EquipmentCommentViewSetTests(APITestCase):
         # listing without equipment filter is not allowed
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_list_with_filter(self):
+    def test_list_with_id_filter(self):
         url = f"{reverse('equipmentcomment-list')}?equipment={self.equipment.pk}"
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        comments = response.data
+        self.assertEqual(len(comments), 1)  # check the number of equipments returned
+
+        expected_fields = {'content', 'equipment', 'url', 'created_at', 'image', 'user', 'id',
+                           'is_liked', 'liked_by', 'num_likes'}
+
+        self.assertSetEqual(set(comments[0].keys()), expected_fields)
+
+    def test_list_with_symbol_filter(self):
+        url = f"{reverse('equipmentcomment-list')}?equipment={self.equipment.symbol}"
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

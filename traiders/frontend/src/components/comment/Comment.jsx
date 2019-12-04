@@ -8,8 +8,9 @@ import {
 } from 'antd';
 import React from 'react';
 import { DeleteWithAuthorization } from '../../common/http/httpUtil';
-
+import history from '../../common/history';
 import { API } from '../../redux/apiConfig';
+import images from '../../common/images';
 import './comment.scss';
 
 class Comment extends React.Component {
@@ -50,23 +51,52 @@ class Comment extends React.Component {
   };
 
   handleOk = () => {
-    const { user, commentId, articleId } = this.props;
+    const {
+      user,
+      commentId,
+      articleId,
+      submitUrl,
+      equipment,
+      getArticleComments,
+      getEquipmentComments
+    } = this.props;
 
-    const splittedArticle = articleId.split('/', 5)[4];
+    if (submitUrl.includes('equipment')) {
+      const url = `${API}/comments/equipment/${commentId}/?equipment=${equipment}`;
+      DeleteWithAuthorization(url, user.key).then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line
+          alert('Succesfully deleted.');
+          this.setState({
+            visible: false
+          });
+          // eslint-disable-next-line
+        }
+        setTimeout(() => getEquipmentComments(equipment), 1000);
+      });
+    } else if (submitUrl.includes('article')) {
+      const splittedArticle = articleId.split('/', 5)[4];
+      const url = `${API}/comments/article/${commentId}/?article=${splittedArticle}`;
+      DeleteWithAuthorization(url, user.key).then((response) => {
+        if (response.status === 204) {
+          // eslint-disable-next-line
+          alert('Succesfully deleted.');
+          this.setState({
+            visible: false
+          });
+          // eslint-disable-next-line
+        }
+      });
+      setTimeout(() => getArticleComments(splittedArticle), 1000);
+    }
+  };
 
-    const url = `${API}/comments/article/${commentId}/?article=${splittedArticle}`;
-
-    DeleteWithAuthorization(url, user.key).then((response) => {
-      if (response.status === 204) {
-        // eslint-disable-next-line
-        alert('Succesfully deleted');
-        this.setState({
-          visible: false
-        });
-        // eslint-disable-next-line
-        window.location.reload();
-      }
-    });
+  handleRoute = (event, authorURL) => {
+    const array = authorURL.split('/');
+    const userId = array[array.length - 2];
+    event.stopPropagation();
+    const url = `/profile/${userId}`;
+    history.push(url);
   };
 
   handleCancel = () => {
@@ -77,7 +107,15 @@ class Comment extends React.Component {
 
   render() {
     const { likes, dislikes, action } = this.state;
-    const { author, createdAt, content, image, user, authorURL } = this.props;
+    const {
+      author,
+      createdAt,
+      content,
+      image,
+      user,
+      authorURL,
+      avatarValue
+    } = this.props;
 
     const { visible } = this.state;
     const ownComment = user && authorURL ? user.user.url === authorURL : false;
@@ -117,23 +155,26 @@ class Comment extends React.Component {
             </Button>
           </div>
         )}
-        <div className="main-comment">
-          <CommentAntd
-            actions={actions}
-            author={author}
-            avatar={
-              <Avatar
-                src="https://img.pngio.com/avatar-user-computer-icons-software-developer-avatar-png-png-computer-user-900_540.jpg"
-                alt={author}
-              />
-            }
-            content={content}
-            datetime={createdAt}
-          />
-          <div className="comment-image">
-            <img className="image" src={image} alt={image} width="200px" />
+        {images[avatarValue - 1] && (
+          <div className="main-comment">
+            <CommentAntd
+              actions={actions}
+              author={author}
+              avatar={
+                <Avatar
+                  onClick={(event) => this.handleRoute(event, authorURL)}
+                  src={images[avatarValue - 1].src}
+                  alt={author}
+                />
+              }
+              content={content}
+              datetime={createdAt}
+            />
+            <div className="comment-image">
+              <img className="image" src={image} alt={image} width="200px" />
+            </div>
           </div>
-        </div>
+        )}
         <Modal
           title="DELETE"
           visible={visible}

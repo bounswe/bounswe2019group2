@@ -7,6 +7,9 @@ import parityReducer from '../redux/parities/reducer';
 import articleReducer from '../redux/article/reducer';
 import eventsReducer from '../redux/events/reducer';
 import investmentReducer from '../redux/investments/reducer';
+import equipmentReducer from '../redux/equipment/reducer';
+import successReducer from '../redux/success/reducer';
+import predictionReducer from '../redux/prediction/reducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -14,7 +17,10 @@ const rootReducer = combineReducers({
   parity: parityReducer,
   article: articleReducer,
   events: eventsReducer,
-  investment: investmentReducer
+  investment: investmentReducer,
+  equipment: equipmentReducer,
+  success: successReducer,
+  prediction: predictionReducer
 });
 
 export default rootReducer;
