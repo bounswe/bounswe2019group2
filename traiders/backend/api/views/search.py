@@ -76,22 +76,22 @@ class SearchViewSet(GenericViewSet):
 
         for kw in keywords:
 
-            q_article = Q(content__contains=kw[1]) | Q(author__username__contains=kw[1]) | Q(title__contains=kw[1])
+            q_article = Q(content__icontains=kw[1]) | Q(author__username__icontains=kw[1]) | Q(title__icontains=kw[1])
             q_article = q_article & ~Q(id__in=a_keys)
 
             articles.extend(self.iterate_and_add(Article.objects.filter(q_article)[:MAX_ITEMS],
                                                  ArticleSerializer,
                                                  context,
                                                  a_keys))
-            q_event = Q(event__contains=kw[1]) | Q(country__contains=kw[1]) | Q(category__contains=kw[1])
+            q_event = Q(event__icontains=kw[1]) | Q(country__icontains=kw[1]) | Q(category__icontains=kw[1])
             q_event = q_event & ~Q(id__in=ev_keys)
             events.extend(self.iterate_and_add(Event.objects.filter(q_event)[:MAX_ITEMS],
                                                EventSerializer,
                                                context,
                                                ev_keys))
 
-            q_parity = Q(base_equipment__name__contains=kw[1]) | Q(target_equipment__name__contains=kw[1])
-            q_parity = q_parity | Q(base_equipment__symbol__contains=kw[1]) | Q(target_equipment__symbol__contains=kw[1])
+            q_parity = Q(base_equipment__name__icontains=kw[1]) | Q(target_equipment__name__icontains=kw[1])
+            q_parity = q_parity | Q(base_equipment__symbol__icontains=kw[1]) | Q(target_equipment__symbol__icontains=kw[1])
             q_parity = q_parity & ~Q(id__in=p_keys)
 
             parities.extend(self.iterate_and_add(Parity.objects.filter(q_parity)[:MAX_ITEMS],
@@ -99,7 +99,7 @@ class SearchViewSet(GenericViewSet):
                                                  context,
                                                  p_keys))
 
-            q_equipment = Q(name__contains=kw[1]) | Q(symbol__contains=kw[1])
+            q_equipment = Q(name__icontains=kw[1]) | Q(symbol__icontains=kw[1])
             q_equipment = q_equipment & ~Q(id__in=eq_keys)
 
             equipments.extend(self.iterate_and_add(Equipment.objects.filter(q_equipment)[:MAX_ITEMS],
@@ -107,7 +107,7 @@ class SearchViewSet(GenericViewSet):
                                                    context,
                                                    eq_keys))
 
-            q_user = Q(username__contains=kw[1]) | Q(first_name__contains=kw[1]) | Q(last_name__contains=kw[1])
+            q_user = Q(username__icontains=kw[1]) | Q(first_name__icontains=kw[1]) | Q(last_name__icontains=kw[1])
             q_user = q_user & ~Q(id__in=u_keys)
 
             users.extend(self.iterate_and_add(User.objects.filter(q_user)[:MAX_ITEMS],
