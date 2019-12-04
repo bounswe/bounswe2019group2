@@ -36,6 +36,13 @@ function articleReducer(state = initialState, action) {
         ...state,
         currentComment: action.payload
       };
+    case actionTypes.CLEAR_ARTICLE_DATA:
+      return {
+        ...state,
+        currentArticle: null,
+        commentsList: null
+      };
+
     default:
       return state;
   }

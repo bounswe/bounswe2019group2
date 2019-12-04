@@ -2,7 +2,9 @@ package tk.traiders.ui.profile.avatars;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -113,7 +115,7 @@ public class ChooseAvatarActivity extends AppCompatActivity {
 
     private void updateAvatar(int avatarId){
 
-        StringRequest patchRequest = new StringRequest(Request.Method.PATCH, URL,
+        StringRequest patchRequest = new StringRequest(Request.Method.PATCH, MainActivity.getUserURL(this),
                 new Response.Listener<String>()
                 {
                     @Override
@@ -126,7 +128,7 @@ public class ChooseAvatarActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ChooseAvatarActivity.this, "An error occured!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChooseAvatarActivity.this, "An error occured updating avatar!", Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
                     }
                 }
@@ -142,12 +144,45 @@ public class ChooseAvatarActivity extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("avatarId", Integer.toString(avatarId));
+                params.put("avatar", Integer.toString(avatarId));
                 return params;
             }
         };
 
         requestQueue.add(patchRequest);
 
+    }
+
+    public static int getAvatarDrawableId(int avatar_id){
+        int avatar_drawable_id;
+
+        if(avatar_id == 1){
+            avatar_drawable_id = R.drawable.avatar_1;
+        } else if(avatar_id == 2) {
+            avatar_drawable_id = R.drawable.avatar_2;
+        } else if(avatar_id == 3) {
+            avatar_drawable_id = R.drawable.avatar_3;
+        } else if(avatar_id == 4) {
+            avatar_drawable_id = R.drawable.avatar_4;
+        } else if(avatar_id == 5) {
+            avatar_drawable_id = R.drawable.avatar_5;
+        } else if(avatar_id == 6) {
+            avatar_drawable_id = R.drawable.avatar_6;
+        } else if(avatar_id == 7) {
+            avatar_drawable_id = R.drawable.avatar_7;
+        } else if(avatar_id == 8) {
+            avatar_drawable_id = R.drawable.avatar_8;
+        } else if(avatar_id == 9) {
+            avatar_drawable_id = R.drawable.avatar_9;
+        } else if(avatar_id == 10) {
+            avatar_drawable_id = R.drawable.avatar_10;
+        } else if(avatar_id == 11) {
+            avatar_drawable_id = R.drawable.avatar_11;
+        } else if(avatar_id == 12) {
+            avatar_drawable_id = R.drawable.avatar_12;
+        } else {
+            avatar_drawable_id = R.drawable.avatar_1;
+        }
+        return avatar_drawable_id;
     }
 }

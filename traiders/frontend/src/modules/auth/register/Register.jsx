@@ -3,9 +3,12 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 import fetch from 'cross-fetch';
 
+import { API } from '../../../redux/apiConfig';
+import { PostWithUrlBody } from '../../../common/http/httpUtil';
 import MapContainer from '../../../components/map/MapContainer';
 import './register.scss';
 import Page from '../../../components/page/Page';
+import history from '../../../common/history';
 
 class Register extends Component {
   constructor(props) {
@@ -16,15 +19,14 @@ class Register extends Component {
       // eslint-disable-next-line
       isTrader: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { postUserRegister, form } = this.props;
+    const { form } = this.props;
     const { city, country } = this.state;
     // eslint-disable-next-line
-    const { is_trader } = this.state.isTrader;
+    const is_trader = this.state.isTrader;
     const passValue = form.getFieldValue('password');
     const ibanValue = form.getFieldValue('iban');
 
@@ -47,7 +49,31 @@ class Register extends Component {
 
                 (errors, values) => {
                   if (!errors) {
-                    postUserRegister({ ...values, is_trader, city, country });
+                    PostWithUrlBody(`${API}/users/`, {
+                      ...values,
+                      is_trader,
+                      city,
+                      country
+                    })
+                      .then((response) => {
+                        if (response.status === 201) {
+                          // eslint-disable-next-line
+                          history.push('/login');
+                        } // else if (!response.ok) {
+                        // eslint-disable-next-line
+                        //response.text().then((text) => alert(text));}
+                        else {
+                          // eslint-disable-next-line
+                          response
+                            .json()
+                            .then((res) => alert(res.type, res.message));
+                        }
+                      })
+
+                      .catch((error) =>
+                        // eslint-disable-next-line no-console
+                        console.log('Error when fetch register\n', error)
+                      );
                   } else {
                     // eslint-disable-next-line
                     alert(
@@ -71,11 +97,33 @@ class Register extends Component {
           );
       } else {
         form.validateFields(
-          ['username', 'password', 'email', 'first_name', 'last_name'],
+          ['username', 'email', 'first_name', 'last_name', 'password'],
 
           (errors, values) => {
             if (!errors) {
-              postUserRegister({ ...values, is_trader, city, country });
+              PostWithUrlBody(`${API}/users/`, {
+                ...values,
+                is_trader,
+                city,
+                country
+              })
+                .then((response) => {
+                  if (response.status === 201) {
+                    // eslint-disable-next-line
+                    history.push('/login');
+                  } // else if (!response.ok) {
+                  // eslint-disable-next-line
+                  //response.text().then((text) => alert(text));}
+                  else {
+                    // eslint-disable-next-line
+                    response.json().then((res) => alert(res.type, res.message));
+                  }
+                })
+
+                .catch((error) =>
+                  // eslint-disable-next-line no-console
+                  console.log('Error when fetch register\n', error)
+                );
             } else {
               // eslint-disable-next-line
               alert(
@@ -151,11 +199,9 @@ class Register extends Component {
   handleCheckbox = (e) => {
     e.preventDefault();
 
-    if (e.target.checked) {
-      this.setState({ isTrader: true });
-    } else if (e.target.unchecked) {
-      this.setState({ isTrader: false });
-    }
+    this.setState((prevState) => ({
+      isTrader: !prevState.isTrader
+    }));
   };
 
   render() {
@@ -192,15 +238,11 @@ class Register extends Component {
             </Form.Item>
             <Form.Item help="Password should be between 8-15 characters and include a big letter 'A - Z' and a number between 0-9!">
               {getFieldDecorator('password', {
-                validateTrigger: 'onChange',
                 rules: [
                   {
                     required: true,
                     message:
                       "Password should be between 8-15 characters and include a big letter 'A - Z' and a number between 0-9!"
-                  },
-                  {
-                    validator: this.validateToNextPassword
                   }
                 ]
               })(
@@ -217,7 +259,6 @@ class Register extends Component {
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('confirm', {
-                validateTrigger: 'onChange',
                 rules: [
                   {
                     required: false,
@@ -274,21 +315,16 @@ class Register extends Component {
                 ]
               })(<Input type="text" placeholder="Last Name" />)}
             </Form.Item>
-            <Form.Item>
-              {getFieldDecorator('isTrader', {
-                valuePropName: 'unchecked',
-                initialValue: false
-              })(
-                <Checkbox onChange={this.handleCheckbox}>
-                  I want to have a Trader Account
-                </Checkbox>
-              )}
-            </Form.Item>
+
+            <Checkbox onChange={this.handleCheckbox}>
+              I want to have a Trader Account
+            </Checkbox>
+
             {isTrader && (
               <Form.Item>
                 {getFieldDecorator('iban', {
                   rules: [
-                    { required: true, message: 'Please enter your IBAN!' }
+                    { required: false, message: 'Please enter your IBAN!' }
                   ]
                 })(<Input type="text" placeholder="IBAN" />)}
               </Form.Item>

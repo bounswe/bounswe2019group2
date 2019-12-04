@@ -16,6 +16,7 @@ import tk.traiders.models.Equipment;
 import tk.traiders.models.Like;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
+import tk.traiders.utils.MarshallerUtils;
 
 public class EquipmentMarshaller {
 

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import tk.traiders.constants.UserConstants;
 import tk.traiders.models.User;
+import tk.traiders.utils.MarshallerUtils;
 
 public class UserMarshaller {
 
@@ -17,6 +18,7 @@ public class UserMarshaller {
             JSONObject userAsJson = new JSONObject(response);
 
             String url = userAsJson.getString(UserConstants.URL);
+            String id = userAsJson.getString(UserConstants.ID);
             String username = userAsJson.getString(UserConstants.USERNAME);
             String firstName = userAsJson.getString(UserConstants.FIRST_NAME);
             String lastName = userAsJson.getString(UserConstants.LAST_NAME);
@@ -27,8 +29,9 @@ public class UserMarshaller {
             String city = userAsJson.getString(UserConstants.CITY);
             String country = userAsJson.getString(UserConstants.COUNTRY);
             boolean profilePrivate = userAsJson.getBoolean(UserConstants.IS_PRIVATE);
+            int avatarId = userAsJson.getInt(UserConstants.AVATAR);
 
-            user = new User(url, username, firstName, lastName, email, dateJoined, trader, iban, city, country, profilePrivate);
+            user = new User(url, id, username, firstName, lastName, email, dateJoined, trader, iban, city, country, profilePrivate, avatarId);
 
         } catch (JSONException e) {
             e.printStackTrace();

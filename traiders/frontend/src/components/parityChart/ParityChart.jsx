@@ -45,16 +45,15 @@ class ParityChart extends Component {
     const title = `${target}/${base}`;
     const { CanvasJSChart } = CanvasJSReact;
     let datas = [];
+
     if (ma === 0) {
       datas = this.createList(limit, list);
     } else {
       datas = this.createListMa(ma, list);
     }
+
     const options = {
       theme: 'light2',
-      title: {
-        text: title
-      },
       axisY: {
         title,
         includeZero: false
