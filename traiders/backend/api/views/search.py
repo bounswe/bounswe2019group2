@@ -44,9 +44,8 @@ class SearchViewSet(GenericViewSet):
         if similars != []:
             max_score = similars[0]['score']
             for dct in similars[:top_k]:
-                kws.append((dct['score']/max_score, dct['word']))
+                kws.append((dct['score'] / max_score, dct['word']))
         return kws
-
 
     @staticmethod
     def iterate_and_add(kw_objects, serializer, context):
@@ -80,10 +79,10 @@ class SearchViewSet(GenericViewSet):
             events.extend(self.iterate_and_add(Event.objects.filter(event__contains=kw[1])[:MAX_ITEMS],
                                                EventSerializer,
                                                context))
-            parities.extend(self.iterate_and_add(Parity.objects.filter(Q(base_equipment__name__contains=kw[1]) |
-                                                 Q(target_equipment__name__contains=kw[1]))[:MAX_ITEMS],
-                                                 ParitySerializer,
-                                                 context))
+            parities.extend(self.iterate_and_add(Parity.objects.filter(
+                Q(base_equipment__name__contains=kw[1]) | Q(target_equipment__name__contains=kw[1]))[:MAX_ITEMS],
+                ParitySerializer,
+                context))
             equipments.extend(self.iterate_and_add(Equipment.objects.filter(name__contains=kw[1])[:MAX_ITEMS],
                                                    EquipmentSerializer,
                                                    context))
