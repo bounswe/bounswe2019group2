@@ -1,52 +1,64 @@
-from rest_framework import serializers
-from ..models import Portfolio, EquipmentPair
-from django.contrib.auth.models import AnonymousUser
+from rest_framework import serializers, exceptions
+from ..models import Portfolio, PortfolioItem, Equipment
+from ..serializers import UserSerializer
 
 
 class IsFollowingField(serializers.BooleanField):
     def get_attribute(self, instance: Portfolio):
         return instance.followed_by.filter(pk=self.context['request'].user.pk).exists()
 
-class EquipmentPairSerializer(serializers.ModelSerializer):
+
+class PortfolioItemSerializer(serializers.HyperlinkedModelSerializer):
+    target_equipment = serializers.CharField(source='target_equipment.symbol')
+    base_equipment = serializers.CharField(source='base_equipment.symbol')
+
+    def create(self, validated_data):
+        if validated_data['portfolio'].user != self.context['request'].user:
+            raise exceptions.PermissionDenied("Cant add items to others' portfolios")
+
+        def _find_equipment(data):
+            return Equipment.objects.filter(**data).first()
+
+        for key in ['base_equipment', 'target_equipment']:
+            validated_data[key] = _find_equipment(validated_data[key])
+
+        return PortfolioItem.objects.create(**validated_data)
+
     class Meta:
-        model = EquipmentPair
-        fields = ['target_equipment', 'base_equipment', 'id']
+        model = PortfolioItem
+        fields = ['url', 'target_equipment', 'base_equipment', 'portfolio', 'id']
 
 
 class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
-    is_following = IsFollowingField()
-    parities = EquipmentPairSerializer(many=True)
+    is_following = IsFollowingField(required=False)
+    user = UserSerializer(read_only=True)
+    portfolio_items = PortfolioItemSerializer(many=True, read_only=True)
 
     class Meta:
         model = Portfolio
-        fields = ["url", "id", "name", "user", "parities", "is_following"]
-        read_only_fields = ["user"]
+        fields = ["url", "id", "name", "user", "is_following", "portfolio_items"]
+        read_only_fields = ["user", "portfolio_items"]
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)
 
     def update(self, instance: Portfolio, validated_data: dict):
         is_following = validated_data.pop('is_following', None)
-
-        if isinstance(self.context['request'].user, AnonymousUser):
-            raise serializers.ValidationError('A guest user cannot follow a portfolio. '
-                                              'Please login to perform this action.')
-
+        name = validated_data.pop('name', None)
+        user = instance.user
         followers = instance.followed_by.all()
         if is_following is True:
-            if self.context['request'].user in followers:
-                raise serializers.ValidationError('You already follow this event.')
-            if self.context['request'].user in followers:
+            if self.context['request'].user == user:
                 raise serializers.ValidationError('A user cannot follow his/her own portfolio.')
-            instance.followed_by.add(self.context['request'].user)
-        elif is_following is False:
             if self.context['request'].user not in followers:
-                raise serializers.ValidationError('You already do not follow this event.')
-            instance.followed_by.remove(self.context['request'].user)
-        current_parities = validated_data.pop('parities', None)
-        if 'parities' in validated_data:
-            parities = []
-            for parity_data in current_parities:
-                eq_pair = EquipmentPair(**parity_data)
-                eq_pair.save()
-                parities.append(eq_pair)
-            instance.parities.set(parities)
+                instance.followed_by.add(self.context['request'].user)
+        elif is_following is False:
+            if self.context['request'].user in followers:
+                instance.followed_by.remove(self.context['request'].user)
+
+        # another user cannot change the name of portfolio
+        if name is not None and name != instance.name and self.context['request'].user != user:
+            raise serializers.ValidationError("A user cannot update the name of another user's portfolio.")
 
         return super().update(instance, validated_data)

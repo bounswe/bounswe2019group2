@@ -2,8 +2,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
-from ..models import Portfolio
-from ..serializers import PortfolioSerializer
+from ..models import Portfolio, PortfolioItem
+from ..serializers import PortfolioSerializer, PortfolioItemSerializer
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from rest_framework import status
@@ -31,4 +31,20 @@ class PortfolioViewSet(mixins.CreateModelMixin,
     def check_object_permissions(self, request, portfolio):
         # Another user can only retrieve; cannot delete
         if (self.action == 'create' or self.action == 'destroy') and request.user != portfolio.user:
+            raise PermissionDenied
+
+
+class PortfolioItemViewSet(mixins.CreateModelMixin,
+                           mixins.RetrieveModelMixin,
+                           mixins.ListModelMixin,
+                           mixins.DestroyModelMixin,
+                           GenericViewSet):
+    serializer_class = PortfolioItemSerializer
+    queryset = PortfolioItem.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def check_object_permissions(self, request, item):
+        # Another user can only retrieve; cannot delete
+        if self.action == 'destroy' and request.user != item.portfolio.user:
             raise PermissionDenied

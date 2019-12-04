@@ -3,19 +3,19 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from ..models import User, Portfolio, EquipmentPair, Equipment
+from ..models import User, Portfolio, PortfolioItem, Equipment
 
 
-class ArticleViewSetTests(APITestCase):
+class PortfolioViewSetTests(APITestCase):
     def setUp(self):
-        user_data = {
+        self.user_data = {
             'username': 'investorNYC',
             'first_name': 'Jesse',
             'last_name': 'Kean',
             'email': 'jk@newyork.com',
         }
 
-        self.user = User(**user_data)
+        self.user = User(**self.user_data)
         self.user.set_password('A7b8CdjK')
         self.user.save()
         # create a token for the test user
@@ -58,29 +58,41 @@ class ArticleViewSetTests(APITestCase):
         self.euro.save()
         self.lira.save()
 
-        self.equipment_pair = EquipmentPair()
-        self.equipment_pair.base_equipment = self.euro
-        self.equipment_pair.target_equipment = self.dollar
-
-        self.equipment_pair2 = EquipmentPair
-        self.equipment_pair2.base_equipment = self.euro
-        self.equipment_pair2.target_equipment = self.lira
-
         data = {
             'name': 'My Portfolio',
-            'user': self.user,
-            'parities': self.equipment_pair,
+            'user': self.user
         }
         self.portfolio = Portfolio(**data)
         self.portfolio.save()
 
+        data2 = {
+            'name': 'My Portfolio2',
+            'user': self.user
+        }
+        self.portfolio2 = Portfolio(**data2)
+        self.portfolio2.save()
+
+        data = {
+            'base_equipment': self.lira,
+            'target_equipment': self.dollar,
+            'portfolio': self.portfolio,
+        }
+        self.portfolio_item = PortfolioItem(**data)
+        self.portfolio_item.save()
+
+        data2 = {
+            'base_equipment': self.euro,
+            'target_equipment': self.lira,
+            'portfolio': self.portfolio,
+        }
+        self.portfolio_item2 = PortfolioItem(**data2)
+        self.portfolio_item2.save()
 
     def test_create(self):
         url = reverse('portfolio-list')
 
         data = {
-            'name': 'Important Currencies',
-            'parities': self.equipment_pair2,
+            'name': 'Important Currencies'
         }
 
         # test without token
@@ -105,34 +117,76 @@ class ArticleViewSetTests(APITestCase):
         # test with different user
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
         response = self.client.patch(url, {'name': name}, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         # test with correct user
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
         response = self.client.patch(url, {'name': name}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_update_parities(self):
+    def test_add_parity(self):
         pk = self.portfolio.pk
-        url = reverse('portfolio-detail', kwargs={'pk': pk})
-        parities = self.equipment_pair2
+        data = {
+            'base_equipment': self.euro.symbol,
+            'target_equipment': self.dollar.symbol,
+            'portfolio': reverse('portfolio-detail', kwargs={'pk': pk}),
+        }
+        url = reverse('portfolioitem-list')
 
         # test without token
-        response = self.client.patch(url, {'parities': parities}, format='json')
+        response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         # test with different user
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
-        response = self.client.patch(url, {'parities': parities}, format='json')
+        response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
         # test with correct user
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
-        response = self.client.patch(url, {'parities': parities}, format='json')
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_follow(self):
+        pk = self.portfolio.pk
+        url = reverse('portfolio-detail', kwargs={'pk': pk})
+
+        # test without token
+        response = self.client.patch(url, {'is_following': True}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # test with different user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
+        response = self.client.patch(url, {'is_following': True}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+        # test with correct user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.patch(url, {'is_following': True}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_delete_parity(self):
+        pk = self.portfolio_item.pk
+        url = reverse('portfolioitem-detail', kwargs={'pk': pk})
+        print(pk)
+        print(url)
+
+        # test without token
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # test with different user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        # test with correct user
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
     def test_delete(self):
-        pk = self.portfolio.pk
+        pk = self.portfolio2.pk
         url = reverse('portfolio-detail', kwargs={'pk': pk})
 
         # test without token
@@ -155,16 +209,6 @@ class ArticleViewSetTests(APITestCase):
         response = self.client.get(url)
 
         expected_fields = {
-            'url', 'user', 'name', 'parities', 'followed_by', 'id'
+            'url', 'user', 'name', 'portfolio_items', 'is_following', 'id'
         }
         self.assertSetEqual(expected_fields, set(response.data.keys()))
-
-    def test_list(self):
-        url = reverse('portfolio-list')
-        response = self.client.get(url)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        portfolios = response.data
-        self.assertEqual(len(portfolios), 2)  # check the number of articles returned
-
