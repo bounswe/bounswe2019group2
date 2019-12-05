@@ -2,6 +2,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
+
+from ..filters import PortfolioFilterSet
 from ..models import Portfolio, PortfolioItem
 from ..serializers import PortfolioSerializer, PortfolioItemSerializer
 from rest_framework.exceptions import PermissionDenied
@@ -18,10 +20,11 @@ class PortfolioViewSet(mixins.CreateModelMixin,
     serializer_class = PortfolioSerializer
     queryset = Portfolio.objects.all()
     filter_backends = [DjangoFilterBackend]
+    filterset_class = PortfolioFilterSet
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def list(self, request, *args, **kwargs):
-        if 'user' not in request.query_params:
+        if 'user' not in request.query_params and 'followed_by' not in request.query_params:
             return Response({
                 'user': 'Please provide a user to see his/her portfolios'
             }, status=status.HTTP_400_BAD_REQUEST)

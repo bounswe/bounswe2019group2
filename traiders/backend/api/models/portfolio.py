@@ -3,7 +3,6 @@ from .users import User
 from .equipment import Equipment
 
 
-
 class Portfolio(models.Model):
     name = models.CharField(max_length=64, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, related_name='portfolios')
