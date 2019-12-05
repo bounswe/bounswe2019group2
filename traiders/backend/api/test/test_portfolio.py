@@ -88,6 +88,8 @@ class PortfolioViewSetTests(APITestCase):
         self.portfolio_item2 = PortfolioItem(**data2)
         self.portfolio_item2.save()
 
+        self.portfolio.followed_by.add(self.user)
+
     def test_create(self):
         url = reverse('portfolio-list')
 
@@ -212,3 +214,37 @@ class PortfolioViewSetTests(APITestCase):
             'url', 'user', 'name', 'portfolio_items', 'is_following', 'id'
         }
         self.assertSetEqual(expected_fields, set(response.data.keys()))
+
+    def test_list_without_filter(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        url = reverse('portfolio-list')
+        response = self.client.get(url)
+
+        # to list portfolios, followed_by or user is needed
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_list_with_filter_by_user(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        url = f"{reverse('portfolio-list')}?user={self.user.pk}"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        portfolios = response.data
+        self.assertEqual(len(portfolios), 2)  # check the number of articles returned
+
+        expected_fields = {
+            'url', 'user', 'name', 'portfolio_items', 'is_following', 'id'
+        }
+        self.assertSetEqual(set(portfolios[0].keys()), expected_fields)
+
+    def test_list_with_filter_by_followed_by(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        url = f"{reverse('portfolio-list')}?followed_by={self.user.pk}"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        portfolios = response.data
+        self.assertEqual(len(portfolios), 1)  # check the number of articles returned
+
+        expected_fields = {
+            'url', 'user', 'name', 'portfolio_items', 'is_following', 'id'
+        }
+        self.assertSetEqual(set(portfolios[0].keys()), expected_fields)
