@@ -46,6 +46,8 @@ class EquipmentPage extends Component {
                   equipment={comment.equipment}
                   authorURL={comment.user.url}
                   avatarValue={comment.user.avatar}
+                  numberofLikes={comment.num_likes}
+                  isLiked={comment.is_liked}
                 />
               ))}
           </div>
