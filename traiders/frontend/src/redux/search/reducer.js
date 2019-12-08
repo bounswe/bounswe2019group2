@@ -12,6 +12,10 @@ function searchReducer(state = initialState, action) {
         searchResult: action.payload
       };
 
+    case actionTypes.CLEAR_RESULT_DATA:
+      return {
+        searchResult: null
+      };
     default:
       return state;
   }
