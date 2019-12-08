@@ -39,8 +39,9 @@ export const getSearchResult = (searchContent) => {
       .then((response) =>
         response.json().then((res) => dispatch(saveSearchResult(res)))
       )
-      // eslint-disable-next-line no-console
+
       .catch((error) =>
+        // eslint-disable-next-line no-console
         console.log('Error while fetching search result\n', error)
       );
   };
