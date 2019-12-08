@@ -1,15 +1,16 @@
 import React from 'react';
 
 import './article-list.scss';
+import history from '../../common/history';
 
 const ArticleRow = (props) => {
   const handleClick = (e) => {
     e.preventDefault();
-    const { article, history } = props;
+    const { article } = props;
     const { author } = article;
 
     if (author) {
-      history.push(`articles/${article.id}`);
+      history.push(`/articles/${article.id}`);
     }
   };
 
