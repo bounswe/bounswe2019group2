@@ -6,6 +6,7 @@ RUN npm install -g serve
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
+ENV NODE_OPTIONS --max_old_space_size=4096
 
 COPY package.json /app/package.json
 RUN npm install
