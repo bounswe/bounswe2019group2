@@ -1,5 +1,8 @@
-.container {
+.profile-container {
   display: flex;
-  justify-content: space-between;
-  width: 300px;
+  flex-direction: column;
+  margin: 20px;
+  width: 80%;
+
+  border-radius: 2px;
 }

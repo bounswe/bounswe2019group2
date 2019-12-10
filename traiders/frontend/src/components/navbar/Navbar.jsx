@@ -1,12 +1,14 @@
 import React from 'react';
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
+import history from '../../common/history';
 import Logo from './Logo';
 import './navbar.scss';
 import { navbarOptions } from '../../common/constants/generalConstants';
 
 const { Header } = Layout;
+const { Search } = Input;
 
 const Navbar = (props) => {
   const navbarList = navbarOptions.map((element) => {
@@ -24,6 +26,11 @@ const Navbar = (props) => {
 
   const { user } = props;
 
+  const onSearch = (value) => {
+    const url = `/search/${value}`;
+    history.push(url);
+  };
+
   return (
     <div className="navbar-container">
       <Layout className="layout">
@@ -31,6 +38,12 @@ const Navbar = (props) => {
           <div className="logo">
             <Logo />
           </div>
+
+          <Search
+            placeholder="Type to search"
+            onSearch={onSearch}
+            style={{ width: 300 }}
+          />
 
           <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
             {navbarList}

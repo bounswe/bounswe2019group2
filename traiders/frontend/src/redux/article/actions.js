@@ -160,3 +160,19 @@ export const getArticleComments = (id) => {
       );
   };
 };
+
+export const getArticleCommentsWithAuthorization = (id, token) => {
+  return (dispatch) => {
+    dispatch(clearArticleData());
+    GetWithAuthorization(`${API}/comments/article/?article=${id}`, token)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((res) => {
+            return dispatch(saveArticleComments(res));
+          });
+        }
+      })
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while fetching article\n', error));
+  };
+};

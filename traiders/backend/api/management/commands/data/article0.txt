@@ -1,0 +1,23 @@
+https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS4kDrt5RbGqkKaa0PsP3eURhUhn5X66-5mNT1vgphYILLsiVD3
+My Evolution on Asset Allocation
+Earlier this week I wrote about how holding can be one of the hardest aspects of investing. Anyone can buy or sell but holding takes discipline. I promised a follow-up to discuss how I handle this.
+
+To offer a potential solution I’m going to walk you through my evolution on how I’ve come to think about asset allocation over the years.
+
+Concepts such as thinking long-term, buy and hold, value investing, and index funds were the proverbial light bulb ideas that made sense to me right away.
+
+As I learned about other investment strategies over time I began to realize how important the behavioral and emotional aspects were for the entire process. Behavior trumps all because even the greatest portfolio or strategy in the world does you no good if you can’t get yourself or your investors to stick with it. An interest in behavioral psychology led me to study more about financial history and market trends.
+
+In a previous role in the institutional world, my firm had a subscription to Ned Davis Research. Davis has one of the more underrated minds and track records in the business. My colleague at the time was a quant who I helped systematically go through most of NDR’s models and trading systems. After months and months of work, we discovered that the majority of the performance from these models could be explained by a single variable — trend.
+
+This is an oversimplification but if the trend was positive (based on some fairly simple rules), these models were in stocks and if the trend was negative the models would go to bonds or cash. Since stocks go up the majority of the time, the majority of the time these models were fully invested. But when trends broke to the downside, they got out.
+
+As I became more interested in the idea of trends and momentum in the markets I began to read work from people and firms such as Cliff Asness (and his team at AQR), Wes Gray (and his team at Alpha Architect), Meb Faber, and Gary Antonacci (see the bottom of the post for some reading material from this group).
+
+Momentum is based on the idea that assets that have performed relatively well (poorly) recently will continue to perform well (poorly) going forward, at least for a short period of time. The basis for this as an investment strategy is that the pendulum tends to swing too far in either direction because prices often dislocate from fundamentals. The historical data and research show that trends have existed pretty much everywhere in financial markets – stocks, bonds, currencies, commodities, etc.
+
+The behavioral explanation for trends comes from our laundry list of biases. Research shows that investors hold onto losing stocks too long in hopes they’ll come back to their original price while selling their winners too early. Investors also anchor to recent results, so initially, markets underreact to news, events or data releases.
+
+On the flip side, once things become apparent, investors enter a herd mentality and overreact, causing an overshoot to the upside. Fear, greed, overconfidence and the confirmation bias can lead investors to pile into winning areas of the market after they’ve risen or pile out after they’ve fallen.
+
+In many ways, momentum investing acts as a counterweight to value investing, which is based on the long-term reversion to the mean. They just operate on different time frames.
