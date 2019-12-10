@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -48,6 +50,7 @@ import tk.traiders.models.Following;
 import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
 
+
 public class PersonalFragment extends Fragment {
 
     private TextView textView_name_surname;
@@ -58,7 +61,7 @@ public class PersonalFragment extends Fragment {
     private LinearLayout linearLayout_iban;
     private ImageView imageView_addPhotoProfile;
     private String URL;
-
+    private Button mode_button;
     private TextView textView_followersCount;
     private TextView textView_followingCount;
     private RequestQueue requestQueue;
@@ -87,6 +90,8 @@ public class PersonalFragment extends Fragment {
             }
         });
 
+        mode_button = rootView.findViewById(R.id.button_mode);
+
 
         requestQueue = Volley.newRequestQueue(getParentFragment().getActivity());
 
@@ -106,10 +111,13 @@ public class PersonalFragment extends Fragment {
             textView_username.setText("");
             textView_email.setText("");
             textView_iban.setText("");
+            //making button inactive
+            mode_button.setVisibility(View.INVISIBLE);
 
 
         } else {
 
+            mode_button.setVisibility(View.VISIBLE);
             StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
 
                 @Override
@@ -137,6 +145,8 @@ public class PersonalFragment extends Fragment {
                         String city = jsonObject.getString("city");
                         String iban = jsonObject.getString("iban");
                         Boolean is_trader = jsonObject.getBoolean("is_trader");
+                        Boolean is_private = jsonObject.getBoolean("is_private");
+
                         int avatardId = jsonObject.getInt(UserConstants.AVATAR);
                         int avatarDrawableId = ChooseAvatarActivity.getAvatarDrawableId(avatardId);
 
@@ -150,6 +160,14 @@ public class PersonalFragment extends Fragment {
                         } else {
                             linearLayout_iban.setVisibility(View.GONE);
                         }
+                        if(is_private)
+                        {
+                            mode_button.setText("public");
+                        }
+                        else {
+                            mode_button.setText("private");
+                        }
+
 
 
                     } catch (JSONException e) {
@@ -164,9 +182,89 @@ public class PersonalFragment extends Fragment {
                 public void onErrorResponse(VolleyError error) {
                     Log.d("error",error.toString());
                 }
-            });
+            }){
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = MainActivity.getAuthorizationHeader(getContext());
+                    return headers != null ? headers : super.getHeaders();
+                }
+
+            };
 
             requestQueue.add(request);
+
+
+            mode_button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+
+                    JSONObject body = new JSONObject();
+
+                    if(mode_button.getText().equals("public"))
+                    {
+
+                        mode_button.setText("private");
+                        try {
+
+                            body.put("is_private",false );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else{
+
+                        mode_button.setText("public");
+                        try {
+
+                            body.put("is_private",true );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    JsonObjectRequest patchRequest = new JsonObjectRequest(com.android.volley.Request.Method.PATCH, URL, body,
+                            new com.android.volley.Response.Listener<JSONObject>()
+                            {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    String url = null;
+
+                                    try {
+                                        url = response.getString("url");
+                                        Toast.makeText(getActivity(), "Changed mode succesfully", Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+
+                                }
+                            },
+                            new com.android.volley.Response.ErrorListener()
+                            {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getActivity(), "Something is  wrong", Toast.LENGTH_SHORT).show();
+                                    error.printStackTrace();
+                                }
+                            }
+                    ){
+
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String>  params = new HashMap<String, String>();
+                            params.put("Content-Type", "application/json");
+                            params.put("Authorization", "Token " + MainActivity.getAuthorizationToken(getContext()));
+                            return params;
+                        }
+                    };
+                    requestQueue.add(patchRequest);
+
+                }
+            });
 
             Uri.Builder builderFollowers = Uri.parse("https://api.traiders.tk/following/").buildUpon();
             builderFollowers.appendQueryParameter("user_followed", MainActivity.getUserID(getContext()));

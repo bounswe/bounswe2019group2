@@ -60,6 +60,18 @@
             android:textColor="@color/white"
             android:fontFamily="sans-serif"/>
 
+        <Button
+            android:id="@+id/button_mode"
+            android:layout_width="60sp"
+            android:layout_height="30sp"
+            android:background="@color/grey"
+            android:text="public"
+            android:layout_marginLeft="320sp"
+            android:layout_marginTop="15sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#5e4351"
+            />
+
 
     </RelativeLayout>
 
