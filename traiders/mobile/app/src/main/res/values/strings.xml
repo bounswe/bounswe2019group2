@@ -2,6 +2,7 @@
 
     <string name="app_name">Traiders</string>
 
+    <string name="title_search">Search</string>
     <string name="title_portfolio">Portfolio</string>
     <string name="title_markets">Markets</string>
     <string name="title_investments">Investments</string>
