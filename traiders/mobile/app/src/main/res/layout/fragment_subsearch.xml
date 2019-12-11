@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="64dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editText_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:hint="search for ..."/>
+
+            <ImageView
+                android:id="@+id/imageView_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:scaleType="center"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_search_24dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_search_articles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:text="Articles"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:text="Found: "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textView_search_articlesCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" --- "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <ImageView
+                android:id="@+id/imageView_search_articles"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:scaleType="fitEnd"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerView_search_articles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_search_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:text="Events"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:text="Found: "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textView_search_eventsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" --- "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <ImageView
+                android:id="@+id/imageView_search_events"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:scaleType="fitEnd"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerView_search_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_search_users"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:text="Users"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:text="Found: "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textView_search_usersCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" --- "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <ImageView
+                android:id="@+id/imageView_search_users"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:scaleType="fitEnd"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerView_search_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_search_equipment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:text="Equipment"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:text="Found: "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textView_search_equipmentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" --- "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <ImageView
+                android:id="@+id/imageView_search_equipment"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:scaleType="fitEnd"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerView_search_equipment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_search_parities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:text="Parities"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:gravity="start"
+                android:text="Found: "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textView_search_parityCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" --- "
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textColor="@android:color/darker_gray" />
+
+            <ImageView
+                android:id="@+id/imageView_search_parity"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:scaleType="fitEnd"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_keyboard_arrow_down_24dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recylerView_search_parity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
