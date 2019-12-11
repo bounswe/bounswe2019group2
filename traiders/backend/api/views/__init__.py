@@ -13,3 +13,4 @@ from .investment import ManualInvestmentViewSet, AssetViewSet, OnlineInvestmentV
 from .order import BuyOrderViewSet, StopLossOrderViewSet
 from .verify_email import verify_email
 from .search import SearchViewSet
+from .recommendation import RecommendationViewSet

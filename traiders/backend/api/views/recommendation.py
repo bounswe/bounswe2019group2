@@ -3,6 +3,7 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins, status
 from django.db.models import Q
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers
 import requests as rq
@@ -15,11 +16,12 @@ MAX_ITEMS = 5
 logger = logging.getLogger(__name__)
 
 
-class SearchViewSet(GenericViewSet):
+class RecommendationViewSet(GenericViewSet):
     """
     View searching a given string
     """
     filter_backends = [DjangoFilterBackend]
+    permission_classes = (IsAuthenticated,)
 
     class serializer_class(serializers.Serializer):  # this is just for schema generation, not used
         base_equipment = EquipmentSerializer()
@@ -51,11 +53,17 @@ class SearchViewSet(GenericViewSet):
     @staticmethod
     def iterate_and_add(kw_objects, serializer, context, keys):
         objects = serializer(kw_objects, many=True, context=context).data
+
         keys.update([o["id"] for o in objects])
         return objects
 
     def list(self, request):
-        params = request.query_params
+        main_keywords = []
+        req_user = request.user
+
+        # Made predictions about
+        past_predictions = Prediction.objects.all().filter(user=self.request.user)
+
 
         if ('keyword' not in request.query_params) or request.query_params["keyword"] == "":
             return Response({
@@ -67,7 +75,7 @@ class SearchViewSet(GenericViewSet):
         keywords = self.find_closest(params["keyword"])
 
         # Sort by relevance
-        keywords = sorted(keywords, key=lambda x: x[0])
+        keywords = sorted(keywords, key=lambda x: -x[0])
         articles, a_keys = list(), set()
         events, ev_keys = list(), set()
         parities, p_keys = list(), set()
