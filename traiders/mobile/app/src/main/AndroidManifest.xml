@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".components.markets.ParityDetailsActivity" android:label="Parity Details"></activity>
+        <activity
+            android:name=".components.markets.ParityDetailsActivity"
+            android:label="Parity Details" />
         <activity
             android:name=".ui.profile.avatars.ChooseAvatarActivity"
             android:label="Choose Avatar" />
