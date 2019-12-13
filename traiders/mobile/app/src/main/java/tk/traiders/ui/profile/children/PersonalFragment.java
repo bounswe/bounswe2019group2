@@ -231,20 +231,20 @@ public class PersonalFragment extends Fragment {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     String url = null;
-                                    String mode ;
+                                    String mode_to_log ;
                                     if( mode_button.getText().equals("public"))
                                     {
-                                        mode = "private";
+                                        mode_to_log = "private";
                                     }
                                     else
                                     {
-                                        mode = "public";
+                                        mode_to_log = "public";
                                     }
 
                                     try {
                                         url = response.getString("url");
 
-                                        Toast.makeText(getActivity(), "Changed mode succesfully to "+mode, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Changed mode succesfully to "+mode_to_log, Toast.LENGTH_SHORT).show();
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
