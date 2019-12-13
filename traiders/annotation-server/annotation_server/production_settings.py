@@ -15,7 +15,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'db',
+        'HOST': 'annotation_db',
         'PORT': '5432',
         'NAME': 'postgres',
         'USER': 'postgres',
