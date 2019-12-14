@@ -5,21 +5,24 @@ import OtherUser from './OtherUser';
 import {
   getFollowings,
   deleteFollowing,
-  getOtherUser
+  getOtherUser,
+  getFollowers
 } from '../../redux/auth/actions';
 
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
     otherUser: state.user.otherUser,
-    followings: state.user.followings
+    followings: state.user.followings,
+    followers: state.user.followers
   };
 };
 
 const mapDispatchToProps = {
   getFollowings,
   deleteFollowing,
-  getOtherUser
+  getOtherUser,
+  getFollowers
 };
 
 export default connect(

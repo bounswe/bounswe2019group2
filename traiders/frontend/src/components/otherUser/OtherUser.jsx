@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { API } from '../../redux/apiConfig';
-import { GetWithUrl } from '../../common/http/httpUtil';
 import Page from '../page/Page';
 import UserHeader from '../userHeader/UserHeaderContainer';
 import UserSuccess from '../userSuccess/UserSuccessContainer';
@@ -11,44 +10,67 @@ class OtherUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      followings: []
+      followings: [],
+      followingNumber: 0,
+      followers: [],
+      followerNumber: 0
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { match, getOtherUser } = this.props;
     const { id } = match.params;
     getOtherUser(id);
-    GetWithUrl(`${API}/following/?user_following=${id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          response.json().then((res) => this.setState({ followings: res }));
-        }
-      })
-      .catch((error) =>
+    fetch(`${API}/following/?user_following=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ followings: data });
         // eslint-disable-next-line no-console
-        console.log('Error while fetching followings\n', error)
-      );
+        this.setState((prevState) => ({
+          followingNumber: prevState.followings.length
+        }));
+      })
+      // eslint-disable-next-line no-console
+      .catch(console.log);
+    fetch(`${API}/following/?user_followed=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ followers: data });
+        // eslint-disable-next-line no-console
+        this.setState((prevState) => ({
+          followerNumber: prevState.followers.length
+        }));
+      })
+      // eslint-disable-next-line no-console
+      .catch(console.log);
   }
 
   render() {
     const { otherUser, user } = this.props;
     const { match } = this.props;
     const { id } = match.params;
-    const { followings } = this.state;
-    const followingNumber = followings.length;
-    const array = user.user.url.split('/');
-    const userId = array[array.length - 2];
+    const { followingNumber, followerNumber } = this.state;
+    let User;
+    let Key;
+    if (user) {
+      User = user.user;
+      Key = user.key;
+    } else {
+      User = null;
+      Key = null;
+    }
     if (otherUser) {
       return (
         <Page>
           <div className="other-profile-container">
             <div>
               <UserHeader
-                userId={userId}
+                user={User}
+                userKey={Key}
                 other
                 followingN={followingNumber}
-                otherUserId={id}
+                followerN={followerNumber}
+                otherUser={otherUser}
               />
             </div>
             <div>
@@ -58,7 +80,7 @@ class OtherUser extends Component {
         </Page>
       );
     }
-    return null;
+    return 'user not found';
   }
 }
 
