@@ -9,17 +9,21 @@
       text-align: center;
     }
   }
+
   .tab-content {
     text-align: center;
+
     .left {
       float: left;
       color: blue;
+
       .list-content {
         &:hover {
           cursor: pointer;
         }
       }
     }
+
     .right {
       .button-style {
         padding: 2px 2px;

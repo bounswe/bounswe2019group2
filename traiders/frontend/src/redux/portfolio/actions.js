@@ -72,7 +72,7 @@ export const getPortfoliosUserFollowedWithAuthorization = (id, token) => {
           });
         }
       })
-      // eslint-disable-next-line no-console
+
       .catch((error) =>
         // eslint-disable-next-line no-console
         console.log('Error while fetching portfolios\n', error)

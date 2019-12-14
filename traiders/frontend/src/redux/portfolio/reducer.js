@@ -29,6 +29,11 @@ function portfolioReducer(state = initialState, action) {
         ...state,
         followedPortfolioList: action.payload
       };
+    case actionTypes.CLEAR_PORTFOLIO_DATA:
+      return {
+        ...state,
+        portfolioList: null
+      };
     default:
       return state;
   }

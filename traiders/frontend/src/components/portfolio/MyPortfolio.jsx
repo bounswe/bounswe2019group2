@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Tabs, Button, Modal, Select, Input, Icon } from 'antd';
 
-import Page from '../page/Page';
 import { API } from '../../redux/apiConfig';
 import {
   PostWithAuthorization,
@@ -25,9 +24,8 @@ class Portfolio extends Component {
       portfolioTargetCurrency: 'TRY',
       visiblePortfolioEquipment: false,
       visiblePortfolio: false,
-      visibleDeletePortfolio: false,
-      portfolioName: null,
-      isFollowing: false
+
+      portfolioName: null
     };
   }
 
@@ -37,7 +35,6 @@ class Portfolio extends Component {
       user,
       getPortfoliosUserOwnsWithAuthorization
     } = this.props;
-    const { panes } = this.state;
 
     if (user) {
       const array = user.user.url.split('/');
@@ -56,7 +53,7 @@ class Portfolio extends Component {
   };
 
   addToPanes = () => {
-    const { portfolioList, user } = this.props;
+    const { portfolioList } = this.props;
     const { panes } = this.state;
     // this.clearPanes();
     if (portfolioList) {
@@ -67,7 +64,8 @@ class Portfolio extends Component {
           url: portfolio.url,
           isFollowing: portfolio.is_following,
           userOwns: portfolio.user.url,
-          content: portfolio.portfolio_items
+          content: portfolio.portfolio_items,
+          key: portfolio.url
         })
       );
     }
@@ -94,11 +92,10 @@ class Portfolio extends Component {
     });
   };
 
-  handleAddItem = (id) => {
+  handleAddItem = () => {
     this.setState({
       visiblePortfolioEquipment: true
     });
-    console.log(`${id} `);
   };
 
   handleOkPortfolio = () => {
@@ -121,7 +118,10 @@ class Portfolio extends Component {
           }
         })
         .catch(() => alert('error while adding portfolio'));
-
+      setTimeout(
+        () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
+        1000
+      );
       window.location.reload();
     }
   };
@@ -147,7 +147,10 @@ class Portfolio extends Component {
       })
       .catch(() => alert('error while adding portfolio equipment'));
     this.clearPanes();
-    window.location.reload();
+    setTimeout(
+      () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
+      1000
+    );
   };
 
   handleCancelEquipment = () => {
@@ -158,7 +161,6 @@ class Portfolio extends Component {
 
   handleDeletePortfolio = (id) => {
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
-    const { panes } = this.state;
     if (user) {
       const url = `${API}/portfolio/${id}`;
       const array = user.user.url.split('/');
@@ -177,14 +179,14 @@ class Portfolio extends Component {
         window.location.reload();
       });
     }
-    console.log(id);
   };
 
   deletePortfolioItem = (e) => {
     const { id } = e.target;
+    // eslint-disable-next-line
     console.log(id);
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
-    const { panes } = this.state;
+
     if (user) {
       const url = `${API}/portfolioitem/${id}`;
       const array = user.user.url.split('/');
@@ -198,7 +200,7 @@ class Portfolio extends Component {
         }
         setTimeout(
           () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
-          4000
+          1000
         );
       });
     }
@@ -262,7 +264,7 @@ class Portfolio extends Component {
           if (response.status === 204) {
             // eslint-disable-next-line
           }
-          this.setState({ isFollowing: true });
+
           setTimeout(
             () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
             1000
@@ -290,7 +292,7 @@ class Portfolio extends Component {
           if (response.status === 204) {
             // eslint-disable-next-line
           }
-          this.setState({ isFollowing: true });
+
           setTimeout(
             () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
             1000
@@ -303,7 +305,7 @@ class Portfolio extends Component {
 
   render() {
     const { TabPane } = Tabs;
-    const { user, currencyList, portfolios } = this.props;
+    const { user, currencyList } = this.props;
     const {
       visiblePortfolioEquipment,
       visiblePortfolio,
@@ -311,6 +313,7 @@ class Portfolio extends Component {
       panes,
       activeKey
     } = this.state;
+    // eslint-disable-next-line
     console.log(panes);
 
     if (!user) {
@@ -453,18 +456,20 @@ class Portfolio extends Component {
                                     )}
                                   </div>
                                 )}
-                                <Button
-                                  className="item-add-button"
-                                  type="primary"
-                                  onClick={() => this.handleAddItem(pane.id)}
-                                >
-                                  Add Equipment
-                                </Button>
                               </div>
                             )}
                           </div>
                         );
                       })}
+                    {pane.userOwns === user.user.url && (
+                      <Button
+                        className="item-add-button"
+                        type="primary"
+                        onClick={() => this.handleAddItem(pane.id)}
+                      >
+                        Add Equipment
+                      </Button>
+                    )}
                   </div>
                 </TabPane>
               );
