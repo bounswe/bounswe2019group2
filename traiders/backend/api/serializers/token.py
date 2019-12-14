@@ -94,6 +94,3 @@ class TokenSerializer(serializers.Serializer):
         validated_data['user'].save()
         token, _ = Token.objects.get_or_create(**validated_data)
         return token
-
-
-
