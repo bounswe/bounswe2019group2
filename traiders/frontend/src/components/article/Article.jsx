@@ -181,6 +181,24 @@ class Article extends Component {
     history.push(url);
   };
 
+  handleEvent = (event) => {
+    console.log(event);
+    if (event.type === 'mousedown') {
+      console.log('mousedown');
+    } else {
+      console.log('mouseup');
+    }
+  };
+
+  handleAnnotation = () => {
+    const selected = window.getSelection();
+
+    const startIndex = selected.baseOffset;
+    const lastIndex = selected.extentOffset;
+    console.log('start', startIndex);
+    console.log('end', lastIndex);
+  };
+
   render() {
     const { article, comments, user, followings } = this.props;
     const { visible, action } = this.state;
@@ -196,116 +214,123 @@ class Article extends Component {
       );
 
     const following = isFollowing ? isFollowing.length !== 0 : false;
-    // eslint-disable-next-line
-    console.log(followings);
+
     return (
-      <div>
+      <div className="main-div">
         {(article && (
-          <div className="article-container">
-            <div className="article-title">{article.title}</div>
-            <div className="article-header">
-              <div className="header-left-part">
-                <div className="user-related">
-                  <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
-                  <div
-                    className="author-username"
-                    onClick={(event) =>
-                      this.handleRoute(event, article.author.url)
-                    }
-                  >
-                    ({article.author.username})
+          <div className="article-page-container">
+            <div className="article-container">
+              <div className="article-title">{article.title}</div>
+              <div className="article-header">
+                <div className="header-left-part">
+                  <div className="user-related">
+                    <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
+                    <div
+                      className="author-username"
+                      onClick={(event) =>
+                        this.handleRoute(event, article.author.url)
+                      }
+                    >
+                      ({article.author.username})
+                    </div>
+                  </div>
+                  <div className="article-related">
+                    {article.created_at.substring(0, 10)}
+                    {!following ? (
+                      <Button onClick={this.handleFollow} disabled={ownArticle}>
+                        Follow
+                      </Button>
+                    ) : (
+                      <Button onClick={this.handleUnfollow}>Unfollow</Button>
+                    )}
                   </div>
                 </div>
-                <div className="article-related">
-                  {article.created_at.substring(0, 10)}
-                  {!following ? (
-                    <Button onClick={this.handleFollow} disabled={ownArticle}>
-                      Follow
+                {ownArticle && (
+                  <div className="header-right-part">
+                    <Button type="primary" onClick={this.editArticle}>
+                      Edit
                     </Button>
-                  ) : (
-                    <Button onClick={this.handleUnfollow}>Unfollow</Button>
-                  )}
-                </div>
+                    <Button type="danger" onClick={this.deleteArticle}>
+                      Delete
+                    </Button>
+                  </div>
+                )}
               </div>
-              {ownArticle && (
-                <div className="header-right-part">
-                  <Button type="primary" onClick={this.editArticle}>
-                    Edit
-                  </Button>
-                  <Button type="danger" onClick={this.deleteArticle}>
-                    Delete
-                  </Button>
-                </div>
-              )}
-            </div>
 
-            <div className="article-image-container">
-              <img
-                className="article-image"
-                src={article.image}
-                alt={article.image}
-              />
-            </div>
-            <pre className="article-content">{article.content}</pre>
-            <div className="article-like">
-              <h4>Number of Likes: {article.num_likes}</h4>
-
-              <Button
-                style={{ paddingLeft: 12, cursor: 'auto' }}
-                onClick={this.handleLike}
+              <div className="article-image-container">
+                <img
+                  className="article-image"
+                  src={article.image}
+                  alt={article.image}
+                />
+              </div>
+              <pre
+                className="article-content"
+                onMouseUp={this.handleAnnotation}
               >
-                <Icon
-                  type="like"
-                  theme={action === 'liked' ? 'filled' : 'outlined'}
+                {article.content}
+              </pre>
+              <div className="article-like">
+                <h4>Number of Likes: {article.num_likes}</h4>
+
+                <Button
+                  style={{ paddingLeft: 12, cursor: 'auto' }}
                   onClick={this.handleLike}
-                />
-              </Button>
-              <Button
-                onClick={this.handleDislike}
-                style={{ paddingLeft: 12, cursor: 'auto' }}
-              >
-                <Icon
-                  type="dislike"
-                  theme={action === 'disliked' ? 'filled' : 'outlined'}
-                  onClick={this.handleDislike}
-                />
-              </Button>
-            </div>
-            <div className="written-by" />
-            <div className="article-comment">
-              <div className="comment-header-div">
-                <h2 className="comment-header">COMMENTS</h2>
-              </div>
-
-              {comments &&
-                comments.map((comment) => (
-                  <Comment
-                    submitUrl="https://api.traiders.tk/comments/article/"
-                    author={comment.user.username}
-                    content={comment.content}
-                    createdAt={comment.created_at.substring(0, 10)}
-                    image={comment.image}
-                    commentId={comment.id}
-                    articleId={comment.article}
-                    authorURL={comment.user.url}
-                    avatarValue={comment.user.avatar}
-                    numberofLikes={comment.num_likes}
+                >
+                  <Icon
+                    type="like"
+                    theme={action === 'liked' ? 'filled' : 'outlined'}
+                    onClick={this.handleLike}
                   />
-                ))}
-            </div>
-            <div className="create-comment">
-              <AddComment submitUrl="https://api.traiders.tk/comments/article/" />
-            </div>
-            <Modal
-              title="DELETE"
-              visible={visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
-            >
-              <div>
-                Are you sure? There is no way you to recover this action!
+                </Button>
+                <Button
+                  onClick={this.handleDislike}
+                  style={{ paddingLeft: 12, cursor: 'auto' }}
+                >
+                  <Icon
+                    type="dislike"
+                    theme={action === 'disliked' ? 'filled' : 'outlined'}
+                    onClick={this.handleDislike}
+                  />
+                </Button>
               </div>
-            </Modal>
+              <div className="written-by" />
+              <div className="article-comment">
+                <div className="comment-header-div">
+                  <h2 className="comment-header">COMMENTS</h2>
+                </div>
+
+                {comments &&
+                  comments.map((comment) => (
+                    <Comment
+                      submitUrl="https://api.traiders.tk/comments/article/"
+                      author={comment.user.username}
+                      content={comment.content}
+                      createdAt={comment.created_at.substring(0, 10)}
+                      image={comment.image}
+                      commentId={comment.id}
+                      articleId={comment.article}
+                      authorURL={comment.user.url}
+                      avatarValue={comment.user.avatar}
+                      numberofLikes={comment.num_likes}
+                    />
+                  ))}
+              </div>
+              <div className="create-comment">
+                <AddComment submitUrl="https://api.traiders.tk/comments/article/" />
+              </div>
+              <Modal
+                title="DELETE"
+                visible={visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+              >
+                <div>
+                  Are you sure? There is no way you to recover this action!
+                </div>
+              </Modal>
+            </div>
+            <div className="annotation-container"></div>
           </div>
         )) ||
           'Loading'}
