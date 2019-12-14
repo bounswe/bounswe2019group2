@@ -1,16 +1,16 @@
 import { connect } from 'react-redux';
 
-import Portfolio from './Portfolio';
-import { getCurrencyList } from '../../redux/investments/actions';
+import Portfolio from './FollowedPortfolio';
+import { getPortfoliosUserFollowedWithAuthorization } from '../../redux/portfolio/actions';
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
-    currencyList: state.investment.currencyList
+    portfolioList: state.portfolio.followedPortfolioList
   };
 };
 
 const mapDispatchToProps = {
-  getCurrencyList
+  getPortfoliosUserFollowedWithAuthorization
 };
 
 export default connect(

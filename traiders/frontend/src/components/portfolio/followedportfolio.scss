@@ -1,0 +1,24 @@
+.main-div {
+  .portfolio-header-div {
+    background-color: #001529;
+
+    .portfolio-header {
+      color: white;
+      font-family: medium-content-serif-font, Georgia, Cambria,
+        'Times New Roman', Times, serif;
+      text-align: center;
+    }
+  }
+  .tab-content {
+    text-align: center;
+    .left {
+      float: left;
+      color: blue;
+      .list-content {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
