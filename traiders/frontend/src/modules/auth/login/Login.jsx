@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 
+import GoogleSignIn from '../googlesign/GoogleSignIn';
 import './login.scss';
 import Page from '../../../components/page/Page';
 import history from '../../../common/history';
@@ -88,6 +89,7 @@ const Login = (props) => {
       ) : (
         <Link to="/">Go to home page</Link>
       )}
+      <GoogleSignIn></GoogleSignIn>
     </Page>
   );
 };
