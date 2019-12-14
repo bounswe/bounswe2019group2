@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Icon } from 'antd';
+import { Button, Modal, Icon, Input } from 'antd';
 
 import { API } from '../../redux/apiConfig';
 import './article.scss';
@@ -17,7 +17,11 @@ class Article extends Component {
     super(props);
     this.state = {
       visible: false,
-      action: null
+      action: null,
+      showAnnotationTab: false,
+      annotationContent: null,
+      firstIndex: null,
+      lastIndex: null
     };
   }
 
@@ -181,27 +185,33 @@ class Article extends Component {
     history.push(url);
   };
 
-  handleEvent = (event) => {
-    console.log(event);
-    if (event.type === 'mousedown') {
-      console.log('mousedown');
-    } else {
-      console.log('mouseup');
-    }
+  handleAnnotationInput = (event) => {
+    this.setState({
+      annotationContent: event.target.value
+    });
   };
 
   handleAnnotation = () => {
     const selected = window.getSelection();
+    if (selected.baseNode.data === selected.extentNode.data) {
+      this.setState({
+        showAnnotationTab: true,
+        firstIndex: selected.baseOffset,
+        lastIndex: selected.extentOffset
+      });
+    }
+  };
 
-    const startIndex = selected.baseOffset;
-    const lastIndex = selected.extentOffset;
-    console.log('start', startIndex);
-    console.log('end', lastIndex);
+  submitAnnotation = () => {
+    const { firstIndex, lastIndex } = this.state;
+
+    console.log('Annotating from index ' + firstIndex + ' to ' + lastIndex);
+    console.log(this.state.annotationContent);
   };
 
   render() {
     const { article, comments, user, followings } = this.props;
-    const { visible, action } = this.state;
+    const { visible, action, showAnnotationTab } = this.state;
 
     const ownArticle = user && article && user.user.url === article.author.url;
 
@@ -313,6 +323,7 @@ class Article extends Component {
                       authorURL={comment.user.url}
                       avatarValue={comment.user.avatar}
                       numberofLikes={comment.num_likes}
+                      key={comment.user.username}
                     />
                   ))}
               </div>
@@ -330,7 +341,36 @@ class Article extends Component {
                 </div>
               </Modal>
             </div>
-            <div className="annotation-container"></div>
+            {showAnnotationTab && (
+              <div className="annotation-container">
+                {!user ? (
+                  <div className="signin-warning">
+                    <div className="warning-text">
+                      Sign in to start annotating
+                    </div>
+                    <Button
+                      type="primary"
+                      onClick={() => history.push('/login')}
+                    >
+                      LOGIN
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="add-annotation-container">
+                    <div className="add-annotate-title">ANNOTATE</div>
+                    <Input.TextArea
+                      placeholder="Type here to annotate"
+                      onChange={this.handleAnnotationInput}
+                    />
+                    <div className="annotation-submit-button">
+                      <Button type="primary" onClick={this.submitAnnotation}>
+                        Submit
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )) ||
           'Loading'}

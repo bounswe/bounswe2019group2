@@ -122,6 +122,34 @@
       width: 400px;
 
       border-left: 1px solid gray;
+
+      display: flex;
+
+      padding: 20px;
+
+      .add-annotation-container {
+        width: 100%;
+
+        .add-annotate-title {
+          color: green;
+        }
+
+        .ant-input {
+          height: auto;
+          min-height: 60px;
+          width: 100%;
+        }
+      }
+
+      .signin-warning {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .warning-text {
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
