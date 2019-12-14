@@ -13,6 +13,7 @@ import bomUtil from '../common/utils/bomUtil';
 import UserProfileUpdate from '../components/userProfileUpdate/UserProfileUpdate';
 import ParityPage from '../components/parityPage/ParityPageContainer';
 import EditArticle from '../modules/articleModule/EditArticleModule';
+import Portfolio from '../components/portfolio/Portfolios';
 import EquipmentPage from '../components/equipmentPage/EquipmentPageContainer';
 import Investments from '../modules/investments/InvestmentsModule';
 import OtherUser from '../components/otherUser/OtherUserContainer';
@@ -69,6 +70,7 @@ class Routes extends Component {
           <Route path="/article/edit/:id" component={EditArticle} />
           <Route path="/create-article" component={NewArticle} />
           <Route path="/social" component={Social} />
+          <Route path="/portfolios" component={Portfolio} />
           <Route path="/investments" component={Investments} />
           <Route exact path="/search/:content" component={SearchModule} />
           <Route render={() => <h1>404 Page not found</h1>} />
