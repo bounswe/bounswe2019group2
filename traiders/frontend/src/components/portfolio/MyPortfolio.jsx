@@ -30,6 +30,7 @@ class Portfolio extends Component {
       isFollowing: false
     };
   }
+
   componentDidMount() {
     const {
       getCurrencyList,
@@ -57,7 +58,7 @@ class Portfolio extends Component {
   addToPanes = () => {
     const { portfolioList, user } = this.props;
     const { panes } = this.state;
-    //this.clearPanes();
+    // this.clearPanes();
     if (portfolioList) {
       portfolioList.map((portfolio) =>
         panes.push({
@@ -71,11 +72,13 @@ class Portfolio extends Component {
       );
     }
   };
+
   clearPanes = () => {
     this.setState({
       panes: []
     });
   };
+
   menu = (list) => {
     return list.map((element, index) => (
       // eslint-disable-next-line react/no-array-index-key
@@ -84,6 +87,7 @@ class Portfolio extends Component {
       </Option>
     ));
   };
+
   handleAddPortfolio = () => {
     this.setState({
       visiblePortfolio: true
@@ -94,8 +98,9 @@ class Portfolio extends Component {
     this.setState({
       visiblePortfolioEquipment: true
     });
-    console.log(id + ' ');
+    console.log(`${id} `);
   };
+
   handleOkPortfolio = () => {
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
     const { portfolioName } = this.state;
@@ -120,6 +125,7 @@ class Portfolio extends Component {
       window.location.reload();
     }
   };
+
   handleOkEquipment = (portfolioUrl) => {
     const { portfoliBaseCurrency, portfolioTargetCurrency } = this.state;
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
@@ -149,6 +155,7 @@ class Portfolio extends Component {
       visiblePortfolioEquipment: false
     });
   };
+
   handleDeletePortfolio = (id) => {
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
     const { panes } = this.state;
@@ -172,8 +179,9 @@ class Portfolio extends Component {
     }
     console.log(id);
   };
+
   deletePortfolioItem = (e) => {
-    const id = e.target.id;
+    const { id } = e.target;
     console.log(id);
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
     const { panes } = this.state;
@@ -195,11 +203,13 @@ class Portfolio extends Component {
       });
     }
   };
+
   handleCancelPortfolio = () => {
     this.setState({
       visiblePortfolio: false
     });
   };
+
   changeValue = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -229,6 +239,7 @@ class Portfolio extends Component {
 
     return newList;
   };
+
   changeValue = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -263,6 +274,7 @@ class Portfolio extends Component {
       }
     }
   };
+
   handleUnfollow = (id, isFollowing) => {
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
 
@@ -288,6 +300,7 @@ class Portfolio extends Component {
       }
     }
   };
+
   render() {
     const { TabPane } = Tabs;
     const { user, currencyList, portfolios } = this.props;
@@ -296,14 +309,10 @@ class Portfolio extends Component {
       visiblePortfolio,
       portfolioName,
       panes,
-      isFollowing
+      activeKey
     } = this.state;
     console.log(panes);
 
-    let newPortfolioList = [];
-    if (user && portfolios) {
-      newPortfolioList = this.mergeArrays(portfolios, newPortfolioList);
-    }
     if (!user) {
       history.push('/login');
     }
@@ -327,11 +336,11 @@ class Portfolio extends Component {
           <Tabs
             hideAdd
             onChange={this.onChange}
-            activeKey={this.state.activeKey}
+            activeKey={activeKey}
             type="editable-card"
             onEdit={this.handleDeletePortfolio}
           >
-            {this.state.panes.map((pane) => {
+            {panes.map((pane) => {
               return (
                 <TabPane tab={pane.name} key={pane.id}>
                   <Modal
@@ -395,9 +404,7 @@ class Portfolio extends Component {
                                   )
                                 }
                               >
-                                {item.base_equipment +
-                                  '/' +
-                                  item.target_equipment}
+                                {`${item.base_equipment}/${item.target_equipment}`}
                               </li>
                             </div>
                             {pane.userOwns === user.user.url && (
@@ -412,7 +419,7 @@ class Portfolio extends Component {
                                     <Icon
                                       className="icon-style"
                                       type="delete"
-                                    ></Icon>
+                                    />
                                   </Button>
                                 </div>
                                 {pane.userOwns !== user.user.url && (
@@ -480,7 +487,7 @@ class Portfolio extends Component {
                   name="portfolioName"
                   value={portfolioName}
                   onChange={this.changeValue}
-                ></Input>
+                />
               </div>
             </div>
           </Modal>

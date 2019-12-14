@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
 
-import Page from '../../components/page/Page';
-import MyPortfolios from '../../components/portfolio/MyPortfolioContainer';
-import FollowedPortfolios from '../../components/portfolio/FollowedPortfolioContainer';
+import Page from '../page/Page';
+import MyPortfolios from './MyPortfolioContainer';
+import FollowedPortfolios from './FollowedPortfolioContainer';
 import './portfolios.scss';
+
 class Portfolios extends Component {
   constructor(props) {
     super(props);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tabs, Select } from 'antd';
+import { Tabs } from 'antd';
 
 import history from '../../common/history';
 import './followedportfolio.scss';
@@ -14,13 +14,9 @@ class Portfolio extends Component {
       panes
     };
   }
+
   componentDidMount() {
-    const {
-      user,
-      portfolioList,
-      getPortfoliosUserFollowedWithAuthorization
-    } = this.props;
-    const { panes } = this.state;
+    const { user, getPortfoliosUserFollowedWithAuthorization } = this.props;
 
     if (user) {
       const array = user.user.url.split('/');
@@ -37,9 +33,9 @@ class Portfolio extends Component {
   };
 
   addToPanes = () => {
-    const { portfolioList, user } = this.props;
+    const { portfolioList } = this.props;
     const { panes } = this.state;
-    //this.clearPanes();
+    // this.clearPanes();
     if (portfolioList) {
       portfolioList.map((portfolio) =>
         panes.push({
@@ -53,6 +49,7 @@ class Portfolio extends Component {
       );
     }
   };
+
   clearPanes = () => {
     this.setState({
       panes: []
@@ -77,7 +74,8 @@ class Portfolio extends Component {
   render() {
     const { TabPane } = Tabs;
     const { user } = this.props;
-    const { panes } = this.state;
+    const { panes, activeKey } = this.state;
+    // eslint-disable-next-line
     console.log(panes);
 
     if (!user) {
@@ -93,10 +91,10 @@ class Portfolio extends Component {
           <Tabs
             hideAdd
             onChange={this.onChange}
-            activeKey={this.state.activeKey}
+            activeKey={activeKey}
             type="editable-card"
           >
-            {this.state.panes.map((pane) => {
+            {panes.map((pane) => {
               return (
                 <TabPane tab={pane.name} key={pane.id}>
                   <div className="tab-content">
@@ -118,9 +116,7 @@ class Portfolio extends Component {
                                   )
                                 }
                               >
-                                {item.base_equipment +
-                                  '/' +
-                                  item.target_equipment}
+                                {`${item.base_equipment}/${item.target_equipment}`}
                               </li>
                             </div>
                           </div>

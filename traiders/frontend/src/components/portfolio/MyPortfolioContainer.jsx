@@ -7,6 +7,7 @@ import {
   getPortfolio,
   getPortfolioEquipments
 } from '../../redux/portfolio/actions';
+
 const mapStateToProps = (state) => {
   return {
     user: state.user.currentUser,
