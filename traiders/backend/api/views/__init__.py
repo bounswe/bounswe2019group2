@@ -12,5 +12,6 @@ from .prediction import PredictionViewSet
 from .investment import ManualInvestmentViewSet, AssetViewSet, OnlineInvestmentViewSet, ProfitLossViewSet
 from .order import BuyOrderViewSet, StopLossOrderViewSet
 from .verify_email import verify_email
+from .portfolio import PortfolioViewSet, PortfolioItemViewSet
 from .search import SearchViewSet
 from .recommendation import RecommendationViewSet
