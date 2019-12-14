@@ -5,7 +5,6 @@ from django.db.models import Count, Avg
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers
-from rest_framework.decorators import action
 
 from ..models import User, Following, Prediction, Equipment
 from ..serializers import EquipmentSerializer, UserSerializer
@@ -32,11 +31,6 @@ class UserViewSet(mixins.CreateModelMixin,
                                                                          user_followed=user,
                                                                          status=Following.ACCEPTED).exists():
                 raise PermissionDenied("User profile is private. Please request to follow")
-
-    @action(detail=False, methods=['GET'])
-    def me(self, request):
-        self.kwargs['pk'] = request.user.pk
-        return self.retrieve(request)
 
 
 class UserSuccessViewSet(GenericViewSet):
