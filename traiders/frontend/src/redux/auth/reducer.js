@@ -24,6 +24,11 @@ function userReducer(state = initialState, action) {
         ...state,
         currentUser: null
       };
+    case actionTypes.CLEAR_OTHER_USER:
+      return {
+        ...state,
+        otherUser: null
+      };
     case actionTypes.SAVE_FOLLOWINGS:
       return {
         ...state,

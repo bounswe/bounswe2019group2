@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Avatar, Icon, Button, Modal, Radio } from 'antd';
+import { Avatar, Button, Modal, Radio } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { API } from '../../redux/apiConfig';
@@ -13,52 +13,52 @@ class UserHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      followingNumber: null,
-      followerNumber: null,
+      followingNumber: 0,
+      followerNumber: 0,
       isFollowing: null,
       visible: false,
-      value: 1
+      value: 1,
+      isPrivate: null
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const {
-      getFollowers,
       getFollowings,
-      userId,
+      user,
       followings,
-      otherUserId,
-      getOtherUser,
       otherUser,
-      followers,
-      followingN
+      followingN,
+      followerN
     } = this.props;
-    getFollowers(otherUserId);
-    // eslint-disable-next-line no-console
-    if (followers) {
-      const followersN = followers.length;
-      this.setState({
-        followingNumber: followingN,
-        followerNumber: followersN
-      });
+
+    this.setState({
+      followingNumber: followingN,
+      followerNumber: followerN
+    });
+    if (user) {
+      getFollowings(user.id);
     }
-    if (otherUserId) {
-      getOtherUser(otherUserId);
-      getFollowings(userId);
-    }
+    let Following;
     if (otherUser) {
       this.setState({
-        value: otherUser.avatar
+        value: otherUser.avatar,
+        isPrivate: otherUser.is_private
+      });
+      Following =
+        followings &&
+        followings.filter((element) => element.user_followed === otherUser.url);
+    }
+    if (Following) {
+      Following = Following.length !== 0;
+      this.setState({
+        isFollowing: Following
+      });
+    } else {
+      this.setState({
+        isFollowing: false
       });
     }
-
-    let Following =
-      followings &&
-      followings.filter((element) => element.user_followed === otherUser.url);
-    Following = Following.length !== 0;
-    this.setState({
-      isFollowing: Following
-    });
   }
 
   onChange = (e) => {
@@ -73,15 +73,14 @@ class UserHeader extends Component {
       user,
       otherUser,
       getFollowings,
-      userId,
       getFollowers,
-      otherUserId
+      userKey
     } = this.props;
     // eslint-disable-next-line camelcase
     const user_followed = otherUser.url;
     const url = `${API}/following/`;
     if (user) {
-      PostWithAuthorization(url, { user_followed }, user.key)
+      PostWithAuthorization(url, { user_followed }, userKey)
         // eslint-disable-next-line no-console
         .then((response) => console.log(response))
         // eslint-disable-next-line no-console
@@ -89,8 +88,10 @@ class UserHeader extends Component {
     } else {
       history.push('/login');
     }
-    setTimeout(() => getFollowings(userId), 500);
-    setTimeout(() => getFollowers(otherUserId), 500);
+    if (user) {
+      setTimeout(() => getFollowings(user.id), 500);
+    }
+    setTimeout(() => getFollowers(otherUser.id), 500);
     this.setState((prevState) => ({
       isFollowing: !prevState.isFollowing,
       followerNumber: prevState.followerNumber + 1
@@ -104,32 +105,43 @@ class UserHeader extends Component {
       deleteFollowing,
       getFollowings,
       followings,
-      userId,
       getFollowers,
-      otherUserId
+      userKey
     } = this.props;
     if (followings) {
       let followDetails;
       followings.forEach((element) => {
         if (element.user_followed === otherUser.url) followDetails = element;
       });
-      deleteFollowing(followDetails.id, user.key);
+      deleteFollowing(followDetails.id, userKey);
 
       this.setState((prevState) => ({
         isFollowing: !prevState.isFollowing,
         followerNumber: prevState.followerNumber - 1
       }));
     }
-    setTimeout(() => getFollowings(userId), 500);
-    setTimeout(() => getFollowers(otherUserId), 500);
+    if (user) {
+      setTimeout(() => getFollowings(user.id), 500);
+    }
+    setTimeout(() => getFollowers(otherUser.id), 500);
+  };
+
+  handlePrivacy = () => {
+    const { updateUser, user, userKey, otherUser } = this.props;
+    const body = { is_private: !user.is_private };
+    otherUser.is_private = !otherUser.is_private;
+    this.setState({
+      isPrivate: otherUser.is_private
+    });
+    updateUser(user.id, body, userKey);
   };
 
   handleOk = () => {
-    const { updateUser, user, userId, otherUser } = this.props;
+    const { updateUser, user, userKey, otherUser } = this.props;
     const { value } = this.state;
     const body = { avatar: value };
-    updateUser(userId, body, user.key);
-    user.user.avatar = value;
+    updateUser(user.id, body, userKey);
+    user.avatar = value;
     otherUser.avatar = value;
     this.setState({
       visible: false,
@@ -152,18 +164,22 @@ class UserHeader extends Component {
   };
 
   render() {
-    const { user, other, otherUser, followingN } = this.props;
+    const { user, other, otherUser } = this.props;
     const {
       followerNumber,
       followingNumber,
       isFollowing,
       visible,
-      value
+      value,
+      isPrivate
     } = this.state;
-    if (followingNumber !== followingN) {
-      this.setState({
-        followingNumber: followingN
-      });
+    let style = null;
+    if (other) {
+      style = { cursor: 'default', pointerEvents: 'none' };
+    }
+    if (!otherUser) {
+      history.push('/login');
+      return <div />;
     }
 
     return (
@@ -199,9 +215,11 @@ class UserHeader extends Component {
                 </Radio.Group>
               </div>
             </Modal>
-            <h1>{otherUser.username}</h1>
-            <h3>{followerNumber} Followers</h3>
-            <h3>{followingNumber} Followings</h3>
+            <div className="info">
+              <h2>{otherUser.username}</h2>
+              <h4>{followerNumber} Followers</h4>
+              <h4>{followingNumber} Followings</h4>
+            </div>
           </div>
           {isFollowing ? (
             <div className="left-down">
@@ -232,25 +250,43 @@ class UserHeader extends Component {
           )}
         </div>
         <div className="right">
-          {user.is_private ? (
+          {isPrivate ? (
             <div className="right-up">
-              <Icon type="lock" style={{ fontSize: '26px' }} />
-              Private
+              <Button
+                ghost
+                onClick={!other && this.handlePrivacy}
+                type="default"
+                icon="lock"
+                size={14}
+                style={style}
+              >
+                Private
+              </Button>
             </div>
           ) : (
             <div className="right-up">
-              <Icon type="unlock" style={{ fontSize: '26px' }} />
-              Public
+              <Button
+                ghost
+                onClick={!other && this.handlePrivacy}
+                type="default"
+                icon="unlock"
+                size={14}
+                style={style}
+              >
+                Public
+              </Button>
             </div>
           )}
+
           {other ? null : (
             <div className="right-down">
-              <Icon type="edit" style={{ fontSize: '26px' }} />
               <Link
                 className="update-link"
                 to={{ pathname: '/updateprofile', state: { user } }}
               >
-                Edit
+                <Button ghost type="default" icon="edit" size={14}>
+                  Edit
+                </Button>
               </Link>
             </div>
           )}

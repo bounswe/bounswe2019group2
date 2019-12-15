@@ -6,6 +6,11 @@ const initialState = {
 
 function predictionReducer(state = initialState, action) {
   switch (action.type) {
+    case actionTypes.CLEAR_PREDICTION_DATA:
+      return {
+        ...state,
+        predictionList: []
+      };
     case actionTypes.SAVE_PREDICTION_LIST:
       return {
         ...state,

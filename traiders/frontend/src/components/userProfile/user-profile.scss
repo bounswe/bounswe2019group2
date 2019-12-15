@@ -1,8 +1,19 @@
 .profile-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 20px;
   width: 80%;
-
   border-radius: 2px;
+
+  .profile-left {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-right {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
 }
