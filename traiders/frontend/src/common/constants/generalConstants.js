@@ -55,6 +55,9 @@ export const eventsTableColumns = [
   }
 ];
 
+export const GoogleClientID =
+  '729799288738-fe0gs3ahsru0ecfn242gvtq5m83rog57.apps.googleusercontent.com';
+
 export const assetsTableConstants = [
   {
     title: 'AMOUNT',

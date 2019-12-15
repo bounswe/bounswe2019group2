@@ -3,6 +3,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 
 import GoogleLogin from 'react-google-login';
+import { GoogleClientID } from '../../../common/constants/generalConstants';
 
 import './login.scss';
 import Page from '../../../components/page/Page';
@@ -91,7 +92,7 @@ const Login = (props) => {
               </a>
               <div className="google-signin">
                 <GoogleLogin
-                  clientId="729799288738-fe0gs3ahsru0ecfn242gvtq5m83rog57.apps.googleusercontent.com"
+                  clientId={GoogleClientID}
                   buttonText="LOGIN WITH GOOGLE"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}
