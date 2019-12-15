@@ -81,6 +81,25 @@ export const loginUser = (body) => {
   };
 };
 
+export const loginUserWithGoogle = (body) => {
+  return (dispatch) => {
+    PostWithUrlBody(`${API}/token/`, body)
+      .then((response) => {
+        if (response.status === 201) {
+          response.json().then((res) => {
+            dispatch(saveUser(res));
+          });
+        } else {
+          // eslint-disable-next-line no-alert
+          alert('An error occured during login with Google!');
+        }
+      })
+
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while logging\n', error));
+  };
+};
+
 export const updateUser = (id, body, token) => {
   return () => {
     PatchWithAuthorization(`${API}/users/${id}`, body, token)

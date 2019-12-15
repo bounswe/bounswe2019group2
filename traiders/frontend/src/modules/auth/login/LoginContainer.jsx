@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { loginUser } from '../../../redux/auth/actions';
+import { loginUser, loginUserWithGoogle } from '../../../redux/auth/actions';
 import Login from './Login';
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  loginUser
+  loginUser,
+  loginUserWithGoogle
 };
 
 export default connect(

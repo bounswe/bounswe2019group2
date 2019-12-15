@@ -2,7 +2,8 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 
-import GoogleSignIn from '../googlesign/GoogleSignIn';
+import GoogleLogin from 'react-google-login';
+
 import './login.scss';
 import Page from '../../../components/page/Page';
 import history from '../../../common/history';
@@ -25,6 +26,20 @@ const Login = (props) => {
     });
   };
 
+  const responseGoogle = (response) => {
+    const { loginUserWithGoogle } = props;
+    if (response) {
+      const accessToken = response.Zi.access_token;
+      if (accessToken) {
+        console.log(accessToken);
+        const body = {
+          access_token: accessToken
+        };
+        loginUserWithGoogle(body);
+      }
+    }
+  };
+  console.log(props.user);
   return (
     <Page>
       {!user || !user.user ? (
@@ -75,6 +90,14 @@ const Login = (props) => {
               <a className="login-form-forgot" href="1">
                 Forgot password
               </a>
+              <div className="google-signin">
+                <GoogleLogin
+                  clientId="729799288738-fe0gs3ahsru0ecfn242gvtq5m83rog57.apps.googleusercontent.com"
+                  buttonText="LOGIN WITH GOOGLE"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                />
+              </div>
               <Button
                 type="primary"
                 htmlType="submit"
@@ -89,7 +112,6 @@ const Login = (props) => {
       ) : (
         <Link to="/">Go to home page</Link>
       )}
-      <GoogleSignIn></GoogleSignIn>
     </Page>
   );
 };
