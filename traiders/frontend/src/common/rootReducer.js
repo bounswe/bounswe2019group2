@@ -11,6 +11,7 @@ import equipmentReducer from '../redux/equipment/reducer';
 import successReducer from '../redux/success/reducer';
 import predictionReducer from '../redux/prediction/reducer';
 import searchReducer from '../redux/search/reducer';
+import portfolioReducer from '../redux/portfolio/reducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   equipment: equipmentReducer,
   success: successReducer,
   prediction: predictionReducer,
-  search: searchReducer
+  search: searchReducer,
+  portfolio: portfolioReducer
 });
 
 export default rootReducer;
