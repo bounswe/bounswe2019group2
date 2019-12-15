@@ -134,10 +134,17 @@
           color: green;
         }
 
-        .ant-input {
-          height: auto;
-          min-height: 60px;
-          width: 100%;
+        .add-text-container {
+          .ant-input {
+            height: auto;
+            min-height: 60px;
+            width: 100%;
+            margin-bottom: 5px;
+          }
+        }
+
+        .add-image-container {
+          margin-bottom: 5px;
         }
       }
 

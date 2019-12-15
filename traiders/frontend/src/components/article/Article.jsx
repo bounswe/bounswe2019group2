@@ -25,7 +25,8 @@ class Article extends Component {
       showAnnotationTab: false,
       annotationContent: null,
       firstIndex: null,
-      lastIndex: null
+      lastIndex: null,
+      annotationImageUrl: null
     };
   }
 
@@ -209,10 +210,36 @@ class Article extends Component {
     }
   };
 
-  submitAnnotation = () => {
+  submitAnnotationText = () => {
     const { firstIndex, lastIndex, annotationContent } = this.state;
     const { article, user, getArticleAnnotations } = this.props;
     console.log(this.props);
+    const body = { type: 'TextualBody', value: annotationContent };
+    const target = {
+      source: article.url,
+      selector: {
+        value: `char=${firstIndex},${lastIndex}`
+      }
+    };
+    const { url } = user.user;
+
+    PostWithUrlBody(ANNOTATION_URL, { body, target, url })
+      .then((response) => console.log(response))
+      .catch((error) => console.log('Error while adding annotation', error));
+
+    setTimeout(() => getArticleAnnotations(), 1000);
+  };
+
+  submitAnnotationImage = () => {
+    const {
+      firstIndex,
+      lastIndex,
+      annotationContent,
+      annotationImageUrl
+    } = this.state;
+    const { article, user, getArticleAnnotations } = this.props;
+    console.log(this.state);
+
     const body = { type: 'TextualBody', value: annotationContent };
     const target = {
       source: article.url,
@@ -377,13 +404,38 @@ class Article extends Component {
                   </div>
                 ) : (
                   <div className="add-annotation-container">
-                    <div className="add-annotate-title">ANNOTATE</div>
-                    <Input.TextArea
-                      placeholder="Type here to annotate"
-                      onChange={this.handleAnnotationInput}
-                    />
+                    <div className="add-annotate-title">TEXT MESSAGE</div>
+                    <div className="add-text-container">
+                      <Input.TextArea
+                        placeholder="Type here to annotate"
+                        onChange={this.handleAnnotationInput}
+                      />
+                    </div>
                     <div className="annotation-submit-button">
-                      <Button type="primary" onClick={this.submitAnnotation}>
+                      <Button
+                        type="primary"
+                        onClick={this.submitAnnotationText}
+                      >
+                        Submit
+                      </Button>
+                    </div>
+                    <div className="add-annotation-image">IMAGE MESSAGE</div>
+                    <div className="add-image-container">
+                      <Input
+                        type="file"
+                        className="form-control"
+                        aria-describedby="basic-addon1"
+                        accept="image/png, image/jpeg"
+                        onChange={(event) =>
+                          this.handleFileUpload(event, this.saveUrl)
+                        }
+                      />
+                    </div>
+                    <div className="annotation-submit-button">
+                      <Button
+                        type="primary"
+                        onClick={this.submitAnnotationImage}
+                      >
                         Submit
                       </Button>
                     </div>
@@ -397,5 +449,39 @@ class Article extends Component {
       </div>
     );
   }
+
+  handleFileUpload = (event, saveUrl) => {
+    const file = event.target.files[0];
+
+    const path = `${file.lastModified}-${file.name}`;
+    //Create a storage ref
+    var storageRef = firebase.storage().ref(path);
+
+    //Upload file
+    var task = storageRef.put(file);
+
+    //Update progress
+    task.on(
+      'state_changed',
+      function progress(snapshot) {
+        let percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('File upload... ', percentage);
+      },
+      function error(err) {
+        console.log('Error when uploading file', err);
+      },
+      function complete() {
+        console.log('File upload completed on path: ');
+        task.snapshot.ref.getDownloadURL().then((url) => saveUrl(url));
+      }
+    );
+  };
+
+  saveUrl = (url) => {
+    this.setState({
+      annotationImageUrl: url
+    });
+  };
 }
 export default Article;
