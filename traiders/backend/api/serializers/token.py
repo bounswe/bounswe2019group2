@@ -19,8 +19,10 @@ class TokenSerializer(serializers.Serializer):
                                      write_only=True,
                                      required=False,
                                      style={'input_type': 'password'})
-    google_auth_code = serializers.CharField(label='Google authCode',
+    google_auth_code = serializers.CharField(label='Google auth code',
                                              required=False)
+    access_token = serializers.CharField(label='Google access token',
+                                         required=False)
 
     key = serializers.CharField(read_only=True)
     user = UserSerializer(read_only=True)
@@ -38,7 +40,7 @@ class TokenSerializer(serializers.Serializer):
 
         return {'user': user}
 
-    def validate_auth_code(self, auth_code):
+    def get_access_token(self, auth_code):
         data = {
             'grant_type': 'authorization_code',
             'client_id': settings.GOOGLE_OAUTH_ID,
@@ -50,14 +52,17 @@ class TokenSerializer(serializers.Serializer):
         response = rq.post('https://www.googleapis.com/oauth2/v4/token', json=data)
 
         try:
-            params = {
-                'access_token': response.json()['access_token']
-            }
+            return response.json()['access_token']
         except Exception as e:
             logger.exception(f'Failed to get access_token from google, '
                              f'status={response.status_code}'
                              f'message={response.text}')
             raise serializers.ValidationError('Could not get access_token')
+
+    def get_or_create_user(self, access_token):
+        params = {
+            'access_token': access_token
+        }
 
         response = rq.get('https://www.googleapis.com/userinfo/v2/me', params=params)
 
@@ -86,9 +91,12 @@ class TokenSerializer(serializers.Serializer):
             return self.validate_username_password(username, password)
         elif 'google_auth_code' in attrs:
             auth_code = attrs.get('google_auth_code')
-            return self.validate_auth_code(auth_code)
+            access_token = self.get_access_token(auth_code)
+            return self.get_or_create_user(access_token)
+        elif 'access_token' in attrs:
+            return self.get_or_create_user(attrs['access_token'])
         else:
-            raise serializers.ValidationError('Either provide username and password or google_auth_code')
+            raise serializers.ValidationError('Provide one: username and password or google_auth_code or access_token')
 
     def create(self, validated_data):
         validated_data['user'].save()
