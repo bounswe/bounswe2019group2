@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Modal, Icon, Input } from 'antd';
+import * as firebase from 'firebase';
 
 import { API } from '../../redux/apiConfig';
 import './article.scss';
@@ -7,10 +8,13 @@ import {
   PostWithAuthorization,
   DeleteWithAuthorization
 } from '../../common/http/httpUtil';
-import history from '../../common/history';
+import { GetWithUrl, PostWithUrlBody } from '../../common/http/httpUtil';
 
+import history from '../../common/history';
 import Comment from '../comment/CommentContainer';
 import AddComment from '../addComment/AddCommentContainer';
+
+const ANNOTATION_URL = 'https://annotation.traiders.tk/annotations/';
 
 class Article extends Component {
   constructor(props) {
@@ -34,8 +38,11 @@ class Article extends Component {
       getArticleCommentsWithAuthorization,
       getFollowings,
       getFollowers,
-      user
+      user,
+      getArticleAnnotations
     } = this.props;
+
+    getArticleAnnotations();
 
     if (user) {
       const array = user.user.url.split('/');
@@ -203,10 +210,23 @@ class Article extends Component {
   };
 
   submitAnnotation = () => {
-    const { firstIndex, lastIndex } = this.state;
+    const { firstIndex, lastIndex, annotationContent } = this.state;
+    const { article, user, getArticleAnnotations } = this.props;
+    console.log(this.props);
+    const body = { type: 'TextualBody', value: annotationContent };
+    const target = {
+      source: article.url,
+      selector: {
+        value: `char=${firstIndex},${lastIndex}`
+      }
+    };
+    const { url } = user.user;
 
-    console.log('Annotating from index ' + firstIndex + ' to ' + lastIndex);
-    console.log(this.state.annotationContent);
+    PostWithUrlBody(ANNOTATION_URL, { body, target, url })
+      .then((response) => console.log(response))
+      .catch((error) => console.log('Error while adding annotation', error));
+
+    setTimeout(() => getArticleAnnotations(), 1000);
   };
 
   render() {

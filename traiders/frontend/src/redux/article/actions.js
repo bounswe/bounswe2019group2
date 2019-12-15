@@ -1,4 +1,4 @@
-import { API } from '../apiConfig';
+import { API, ANNOTATION_URL } from '../apiConfig';
 import { GetWithUrl, GetWithAuthorization } from '../../common/http/httpUtil';
 
 /* Action Types */
@@ -9,6 +9,8 @@ const SAVE_ARTICLE_AUTHOR = 'SAVE_ARTICLE_AUTHOR';
 const SAVE_ARTICLE_COMMENTS = 'SAVE_ARTICLE_COMMENTS';
 const SAVE_SINGLE_COMMENT = 'SAVE_SINGLE_COMMENT';
 const CLEAR_ARTICLE_DATA = 'CLEAR_ARTICLE_DATA';
+const SAVE_ARTICLE_ANNOTATIONS = 'SAVE_ARTICLE_ANNOTATIONS';
+const CLEAR_ARTICLE_ANNOTATIONS = 'CLEAR_ARTICLE_ANNOTATIONS';
 
 export const actionTypes = {
   SAVE_ARTICLE_LIST,
@@ -16,10 +18,25 @@ export const actionTypes = {
   SAVE_ARTICLE_AUTHOR,
   SAVE_ARTICLE_COMMENTS,
   SAVE_SINGLE_COMMENT,
-  CLEAR_ARTICLE_DATA
+  CLEAR_ARTICLE_DATA,
+  SAVE_ARTICLE_ANNOTATIONS,
+  CLEAR_ARTICLE_ANNOTATIONS
 };
 
 /* Action Creators */
+
+function clearArticleAnnotations() {
+  return {
+    type: CLEAR_ARTICLE_ANNOTATIONS
+  };
+}
+
+function saveArticleAnnotations(annotationList) {
+  return {
+    type: SAVE_ARTICLE_ANNOTATIONS,
+    payload: annotationList
+  };
+}
 
 function clearArticleData() {
   return {
@@ -67,7 +84,9 @@ export const actionCreators = {
   saveSingleArticle,
   saveArticleAuthor,
   saveArticleComments,
-  saveSingleComment
+  saveSingleComment,
+  saveArticleAnnotations,
+  clearArticleAnnotations
 };
 
 /* Api Call Functions */
@@ -79,6 +98,19 @@ export const getArticles = () => {
       .then((response) => dispatch(saveArticleList(response)))
       // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while fetching articles\n', error));
+  };
+};
+
+export const getArticleAnnotations = () => {
+  return (dispatch) => {
+    dispatch(clearArticleAnnotations());
+    GetWithUrl(`${ANNOTATION_URL}`)
+      .then((response) => response.json())
+      .then((response) => dispatch(saveArticleAnnotations(response)))
+      // eslint-disable-next-line no-console
+      .catch((error) =>
+        console.log('Error while fetching annotations\n', error)
+      );
   };
 };
 

@@ -6,7 +6,8 @@ import {
   getArticleAuthor,
   getArticleComments,
   getArticleWithAuthorization,
-  getArticleCommentsWithAuthorization
+  getArticleCommentsWithAuthorization,
+  getArticleAnnotations
 } from '../../redux/article/actions';
 import {
   getFollowings,
@@ -32,7 +33,8 @@ const mapDispatchToProps = {
   getFollowings,
   getFollowers,
   deleteFollowing,
-  getArticleCommentsWithAuthorization
+  getArticleCommentsWithAuthorization,
+  getArticleAnnotations
 };
 
 export default connect(
