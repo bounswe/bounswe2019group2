@@ -31,7 +31,6 @@ const Login = (props) => {
     if (response) {
       const accessToken = response.Zi.access_token;
       if (accessToken) {
-        console.log(accessToken);
         const body = {
           access_token: accessToken
         };
@@ -39,7 +38,7 @@ const Login = (props) => {
       }
     }
   };
-  console.log(props.user);
+
   return (
     <Page>
       {!user || !user.user ? (
