@@ -74,10 +74,12 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
         selector = FragmentSelector.objects.create(**selector_data)
         target = AnnotationTarget.objects.create(selector=selector, **target_data)
 
+        creator = validated_data.get('creator')
+
         # create annotation
-        return Annotation.objects.create(body=body, target=target)
+        return Annotation.objects.create(body=body, target=target, creator=creator)
 
     class Meta:
         model = Annotation
-        fields = ['context', 'url', 'type', 'created',  'body', 'target']
+        fields = ['context', 'url', 'type', 'created', 'body', 'target', 'creator']
         read_only_fields = ['created']

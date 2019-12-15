@@ -29,4 +29,4 @@ class Annotation(models.Model):
     body = models.OneToOneField(AnnotationBody, on_delete=models.CASCADE)
     type = 'Annotation'
     created = models.DateTimeField(auto_now_add=True)
-
+    creator = models.URLField(null=True, blank=True)

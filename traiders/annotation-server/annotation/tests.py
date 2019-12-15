@@ -21,7 +21,7 @@ class Img2ImgAnnotationRetrieveTest(APITestCase):
 
         annotation = response.data
 
-        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target'})
+        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target', 'creator'})
         self.assertDictEqual(annotation['body'], {
             'type': 'Image',
             'id': self.annotation.body.identifier
@@ -63,7 +63,7 @@ class Img2TexAnnotationRetrieveTest(APITestCase):
 
         annotation = response.data
 
-        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target'})
+        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target', 'creator'})
         self.assertDictEqual(annotation['body'], {
             'type': 'Image',
             'id': self.annotation.body.identifier
@@ -99,7 +99,7 @@ class Tex2ImgAnnotationRetrieveTest(APITestCase):
 
         annotation = response.data
 
-        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target'})
+        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target', 'creator'})
         self.assertDictEqual(annotation['body'], {
             'type': 'TextualBody',
             'value': self.annotation.body.value
@@ -129,7 +129,7 @@ class Tex2TexAnnotationRetrieveTest(APITestCase):
 
         annotation = response.data
 
-        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target'})
+        self.assertSetEqual(set(annotation.keys()), {'@context', 'id', 'type', 'created', 'body', 'target', 'creator'})
         self.assertDictEqual(annotation['body'], {
             'type': 'TextualBody',
             'value': self.annotation.body.value
@@ -237,3 +237,29 @@ class Img2ImgAnnotationCreateTest(APITestCase):
         annotation = Annotation.objects.first()
         self.assertEqual(annotation.body.identifier, 'http://example.org/image')
         self.assertEqual(annotation.target.selector.value, 'xywh=0,0,55,60')
+
+
+class Tex2TexWithCreatorAnnotationCreateTest(APITestCase):
+    def test_create(self):
+        data = {
+            'body': {
+                'type': 'TextualBody',
+                'value': 'some comment',
+            },
+            'target': {
+                'source': 'http://example.org/article/1',
+                'selector': {
+                    'value': 'char=55,60'
+                }
+            },
+            'creator': 'https://example.org/users/1'
+        }
+
+        response = self.client.post(reverse('annotation-list'), data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        annotation = Annotation.objects.first()
+        self.assertEqual(annotation.body.value, 'some comment')
+        self.assertEqual(annotation.target.selector.value, 'char=55,60')
+        self.assertEqual(annotation.creator, 'https://example.org/users/1')
