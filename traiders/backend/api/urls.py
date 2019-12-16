@@ -27,7 +27,7 @@ router.register(r'search', SearchViewSet, basename='search')
 router.register(r'profitloss', ProfitLossViewSet, basename='profitloss')
 router.register(r'portfolio', PortfolioViewSet, basename='portfolio')
 router.register(r'portfolioitem', PortfolioItemViewSet, basename='portfolioitem')
-
+router.register(r'notification', NotificationViewSet, basename='notification')
 
 urlpatterns = [
     # documentation views

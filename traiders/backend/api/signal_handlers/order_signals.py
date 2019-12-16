@@ -2,7 +2,8 @@ import logging
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save
 from django.db import transaction
-from ..models import BuyOrder, Parity, StopLossOrder, Asset, OnlineInvestment
+from django.urls import reverse
+from ..models import BuyOrder, Parity, StopLossOrder, Asset, OnlineInvestment, Notification
 import decimal
 
 logger = logging.getLogger(__name__)
@@ -36,11 +37,18 @@ def handle_orders(sender, instance: Parity, created, **kwargs):
         base_asset.amount = base_asset.serializable_value('amount') + buy_amount
         base_asset.on_hold_for_investment = base_asset.serializable_value('on_hold_for_investment') - buy_amount
         base_asset.save()
-        OnlineInvestment.objects.create(base_equipment=base_eq,
-                                        user=user,
-                                        target_equipment=target_eq,
-                                        base_amount=buy_amount,
-                                        target_amount=target_amount)
+        investment = OnlineInvestment.objects.create(base_equipment=base_eq,
+                                                     user=user,
+                                                     target_equipment=target_eq,
+                                                     base_amount=buy_amount,
+                                                     target_amount=target_amount)
+        pk = investment.pk
+        url = reverse('onlineinvestment-detail', kwargs={'pk': pk})
+        Notification.objects.create(user=user,
+                                    message="Your buy order in case the parity " + target_eq.symbol + "/" + base_eq.symbol
+                                            + " becomes lower than " + str(ratio) + " has been processed.",
+                                    reference_obj="BuyOrder",
+                                    reference_url=url)
 
         order.delete()
 
@@ -62,4 +70,11 @@ def handle_orders(sender, instance: Parity, created, **kwargs):
                                                      user=user,
                                                      base_amount=sell_amount,
                                                      target_amount=target_amount)
+        pk = investment.pk
+        url = reverse('onlineinvestment-detail', kwargs={'pk': pk})
+        Notification.objects.create(user=user,
+                                    message="Your stop-loss order for " + target_eq.symbol + "/" + base_eq.symbol
+                                            + " has been processed.",
+                                    reference_obj="StopLossOrder",
+                                    reference_url=url)
         order.delete()

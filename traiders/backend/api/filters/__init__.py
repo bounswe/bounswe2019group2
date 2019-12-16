@@ -7,3 +7,4 @@ from .investment import ManualInvestmentFilterSet, OnlineInvestmentFilterSet
 from .order import BuyOrderFilterSet, StopLossOrderFilterSet
 from .equipment import EquipmentFilterSet
 from .portfolio import PortfolioFilterSet
+from .notification import NotificationFilterSet
