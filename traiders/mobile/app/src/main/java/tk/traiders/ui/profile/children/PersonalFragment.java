@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,9 +70,9 @@ public class PersonalFragment extends Fragment {
     private ListView listView ;
     private TextView textView_followingCount;
     private RequestQueue requestQueue;
-    private ArrayList<String> listItems=new ArrayList<String>();
-    private ArrayAdapter<String> adapter;
-
+    private String userId;
+    private  String URL_SuccessRate;
+    private TextView successTextView;
 
     @Nullable
     @Override
@@ -99,14 +100,12 @@ public class PersonalFragment extends Fragment {
 
         mode_button = rootView.findViewById(R.id.button_mode);
 
-        listView = (ListView) rootView.findViewById(R.id.success_rate_listView);
-
-
-        adapter = new ArrayAdapter<String>(getContext(), R.layout.row_list,listItems);
+        successTextView =  rootView.findViewById(R.id.personal_success_rate);
 
 
 
         requestQueue = Volley.newRequestQueue(getParentFragment().getActivity());
+
 
         return rootView;
     }
@@ -116,10 +115,8 @@ public class PersonalFragment extends Fragment {
         super.onResume();
 
         URL = MainActivity.getUserURL(getActivity());
-        String userId = MainActivity.getUserID(this.getContext());
-
-
-        String URL_SuccessRate = "https://api.traiders.tk/users/success_rate/?user="+userId ;
+        userId = MainActivity.getUserID(this.getContext());
+        URL_SuccessRate = "https://api.traiders.tk/users/success_rate/?user="+userId ;
 
         if(URL == null) {
             Toast.makeText(getActivity(), "Please log in to see this page!", Toast.LENGTH_SHORT).show();
@@ -211,58 +208,59 @@ public class PersonalFragment extends Fragment {
             requestQueue.add(request);
 
             // Burası Success Rate Request Atma ile ilgili Baslangıç
-
-            System.out.println("URL_SUccessRate: "+URL_SuccessRate);
             StringRequest requestSuccessRate = new StringRequest(Request.Method.GET, URL_SuccessRate, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.d("response", response);
-
-
-                    JSONArray jsonarray = null;
-                    JSONObject base_equipment=null;
-                    JSONObject target_equipment=null;
+                    JSONArray jsonarray =null;
+                    JSONObject jsonobject=null;
                     String success_rate=null;
                     String base_equipment_name = null;
                     String target_equipment_name = null;
+                    StringBuilder builder = new StringBuilder();
                     try {
                         jsonarray = new JSONArray(response);
+                        System.out.println(jsonarray.length());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     for (int i = 0; i < jsonarray.length(); i++) {
-                        JSONObject jsonobject = null;
                         try {
                             jsonobject = jsonarray.getJSONObject(i);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         try {
-                             base_equipment = jsonobject.getJSONObject("base_equipment");
-                             base_equipment_name =  base_equipment.getString("name");
-                             System.out.println("base_equipment_name: "+base_equipment_name);
+                            base_equipment_name = jsonobject.getJSONObject("base_equipment").getString("name");
+                            System.out.println("base_equipment_name: " + base_equipment_name);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         try {
-                            target_equipment = jsonobject.getJSONObject("target_equipment");
-                            target_equipment_name =  target_equipment.getString("name");
-                            System.out.println("target_equipment_name: "+target_equipment_name);
+                            target_equipment_name = jsonobject.getJSONObject("target_equipment").getString("name");
+                            System.out.println("target_equipment_name: " + target_equipment_name);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         try {
-                             success_rate = jsonobject.getString("success_rate");
+                            success_rate = jsonobject.getString("success_rate");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        String showData = base_equipment_name+"/"+target_equipment_name+": "+success_rate;
-                        adapter.add(showData);
-                    }
-                    listView.setAdapter(adapter);
+                        String showData = base_equipment_name + "/" + target_equipment_name + ": " + success_rate;
+                        System.out.println("Show DATA: " + showData);
+
+                        builder.append(showData + "\n");
+
+
+                    } // for un son u
+
+                    successTextView.setText(builder.toString());
+
 
                 }
+
 
             }, new Response.ErrorListener() {
 
@@ -279,6 +277,8 @@ public class PersonalFragment extends Fragment {
                 }
 
             };
+
+
 
             requestQueue.add(requestSuccessRate);
 
@@ -451,4 +451,5 @@ public class PersonalFragment extends Fragment {
             inflater.inflate(R.menu.profile_menu_unauthorized, menu);
         }
     }
+
 }
