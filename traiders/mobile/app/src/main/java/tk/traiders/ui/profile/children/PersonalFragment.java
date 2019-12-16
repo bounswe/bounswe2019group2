@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,6 +65,7 @@ public class PersonalFragment extends Fragment {
     private String URL;
     private Button mode_button;
     private TextView textView_followersCount;
+    private ListView listView ;
     private TextView textView_followingCount;
     private RequestQueue requestQueue;
 
@@ -92,6 +95,8 @@ public class PersonalFragment extends Fragment {
 
         mode_button = rootView.findViewById(R.id.button_mode);
 
+        //listView.findViewById(R.id.personal_listView_success_rate);
+
 
         requestQueue = Volley.newRequestQueue(getParentFragment().getActivity());
 
@@ -103,6 +108,10 @@ public class PersonalFragment extends Fragment {
         super.onResume();
 
         URL = MainActivity.getUserURL(getActivity());
+        String userId = MainActivity.getUserID(this.getContext());
+
+
+        String URL_SuccessRate = "https://api.traiders.tk/users/success_rate/?user="+userId ;
 
         if(URL == null) {
             Toast.makeText(getActivity(), "Please log in to see this page!", Toast.LENGTH_SHORT).show();
@@ -119,7 +128,6 @@ public class PersonalFragment extends Fragment {
 
             mode_button.setVisibility(View.VISIBLE);
             StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-
                 @Override
                 public void onResponse(String response) {
                     Log.d("response", response);
@@ -193,6 +201,74 @@ public class PersonalFragment extends Fragment {
             };
 
             requestQueue.add(request);
+
+            // Burası Success Rate Request Atma ile ilgili Baslangıç
+
+            System.out.println("URL_SUccessRate: "+URL_SuccessRate);
+            StringRequest requestSuccessRate = new StringRequest(Request.Method.GET, URL_SuccessRate, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("response", response);
+
+
+                    JSONArray jsonarray = null;
+                    String base_equipment=null;
+                    String target_equipment=null;
+                    String success_rate=null;
+                    try {
+                        jsonarray = new JSONArray(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        JSONObject jsonobject = null;
+                        try {
+                            jsonobject = jsonarray.getJSONObject(i);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                             base_equipment = jsonobject.getString("base_equipment");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                             target_equipment = jsonobject.getString("target_equipment");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                             success_rate = jsonobject.getString("success_rate");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("Base Equipment: "+base_equipment);
+                        System.out.println("Target Equipment: "+target_equipment);
+                        System.out.println("Success Rate: "+success_rate);
+                    }
+
+                }
+
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error",error.toString());
+                }
+            }){
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = MainActivity.getAuthorizationHeader(getContext());
+                    return headers != null ? headers : super.getHeaders();
+                }
+
+            };
+
+            requestQueue.add(requestSuccessRate);
+
+
+            //Burası Success Rate  Son **********************
 
 
             mode_button.setOnClickListener(new View.OnClickListener() {
