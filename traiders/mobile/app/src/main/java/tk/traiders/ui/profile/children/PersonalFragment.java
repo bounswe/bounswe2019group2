@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +69,9 @@ public class PersonalFragment extends Fragment {
     private ListView listView ;
     private TextView textView_followingCount;
     private RequestQueue requestQueue;
+    private ArrayList<String> listItems=new ArrayList<String>();
+    private ArrayAdapter<String> adapter;
+
 
     @Nullable
     @Override
@@ -95,7 +99,11 @@ public class PersonalFragment extends Fragment {
 
         mode_button = rootView.findViewById(R.id.button_mode);
 
-        //listView.findViewById(R.id.personal_listView_success_rate);
+        listView = (ListView) rootView.findViewById(R.id.success_rate_listView);
+
+
+        adapter = new ArrayAdapter<String>(getContext(), R.layout.row_list,listItems);
+
 
 
         requestQueue = Volley.newRequestQueue(getParentFragment().getActivity());
@@ -212,9 +220,11 @@ public class PersonalFragment extends Fragment {
 
 
                     JSONArray jsonarray = null;
-                    String base_equipment=null;
-                    String target_equipment=null;
+                    JSONObject base_equipment=null;
+                    JSONObject target_equipment=null;
                     String success_rate=null;
+                    String base_equipment_name = null;
+                    String target_equipment_name = null;
                     try {
                         jsonarray = new JSONArray(response);
                     } catch (JSONException e) {
@@ -228,12 +238,17 @@ public class PersonalFragment extends Fragment {
                             e.printStackTrace();
                         }
                         try {
-                             base_equipment = jsonobject.getString("base_equipment");
+                             base_equipment = jsonobject.getJSONObject("base_equipment");
+                             base_equipment_name =  base_equipment.getString("name");
+                             System.out.println("base_equipment_name: "+base_equipment_name);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         try {
-                             target_equipment = jsonobject.getString("target_equipment");
+                            target_equipment = jsonobject.getJSONObject("target_equipment");
+                            target_equipment_name =  target_equipment.getString("name");
+                            System.out.println("target_equipment_name: "+target_equipment_name);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -242,10 +257,10 @@ public class PersonalFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        System.out.println("Base Equipment: "+base_equipment);
-                        System.out.println("Target Equipment: "+target_equipment);
-                        System.out.println("Success Rate: "+success_rate);
+                        String showData = base_equipment_name+"/"+target_equipment_name+": "+success_rate;
+                        adapter.add(showData);
                     }
+                    listView.setAdapter(adapter);
 
                 }
 
