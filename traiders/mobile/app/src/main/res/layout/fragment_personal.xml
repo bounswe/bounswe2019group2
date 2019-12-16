@@ -284,6 +284,43 @@
                         android:background="@color/grey" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/personal_linearLayout_success_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Success Rate"
+                        android:textColor="@color/headings"
+
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/personal_textView_success_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        tools:text="TR32 4000 3333 4543 2334 4554 34" />
+
+                    <View
+
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />
+
+                </LinearLayout>
+
+
+
 
 
             </LinearLayout>
