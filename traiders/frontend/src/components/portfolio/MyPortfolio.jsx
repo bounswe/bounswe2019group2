@@ -40,7 +40,6 @@ class Portfolio extends Component {
       const array = user.user.url.split('/');
       const userId = array[array.length - 2];
       getPortfoliosUserOwnsWithAuthorization(userId, user.key);
-      this.addToPanes();
     }
 
     getCurrencyList();
@@ -50,31 +49,6 @@ class Portfolio extends Component {
     event.stopPropagation();
     const url = `/parity/${baseSymbol}/${targetSymbol}`;
     history.push(url);
-  };
-
-  addToPanes = () => {
-    const { portfolioList } = this.props;
-    const { panes } = this.state;
-    // this.clearPanes();
-    if (portfolioList) {
-      portfolioList.map((portfolio) =>
-        panes.push({
-          name: portfolio.name,
-          id: portfolio.id,
-          url: portfolio.url,
-          isFollowing: portfolio.is_following,
-          userOwns: portfolio.user.url,
-          content: portfolio.portfolio_items,
-          key: portfolio.url
-        })
-      );
-    }
-  };
-
-  clearPanes = () => {
-    this.setState({
-      panes: []
-    });
   };
 
   menu = (list) => {
@@ -118,11 +92,13 @@ class Portfolio extends Component {
           }
         })
         .catch(() => alert('error while adding portfolio'));
+      this.setState({
+        visiblePortfolio: false
+      });
       setTimeout(
         () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
         1000
       );
-      window.location.reload();
     }
   };
 
@@ -146,7 +122,9 @@ class Portfolio extends Component {
         }
       })
       .catch(() => alert('error while adding portfolio equipment'));
-    this.clearPanes();
+    this.setState({
+      visiblePortfolioEquipment: false
+    });
     setTimeout(
       () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
       1000
@@ -176,7 +154,6 @@ class Portfolio extends Component {
           () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
           1000
         );
-        window.location.reload();
       });
     }
   };
@@ -305,7 +282,7 @@ class Portfolio extends Component {
 
   render() {
     const { TabPane } = Tabs;
-    const { user, currencyList } = this.props;
+    const { user, currencyList, portfolioList } = this.props;
     const {
       visiblePortfolioEquipment,
       visiblePortfolio,
@@ -343,137 +320,138 @@ class Portfolio extends Component {
             type="editable-card"
             onEdit={this.handleDeletePortfolio}
           >
-            {panes.map((pane) => {
-              return (
-                <TabPane tab={pane.name} key={pane.id}>
-                  <Modal
-                    title="ADD PORTFOLIO ITEM"
-                    visible={visiblePortfolioEquipment}
-                    onOk={() => this.handleOkEquipment(pane.url)}
-                    onCancel={this.handleCancelEquipment}
-                    destroyOnClose="true"
-                  >
-                    <div className="modal">
-                      <div className="base-equipment">
-                        Base Equipment
-                        <Select
-                          defaultValue="TRY"
-                          onChange={(value) =>
-                            this.handleSelectCurrency(
-                              'portfoliBaseCurrency',
-                              value
-                            )
-                          }
-                          style={{ width: 120 }}
-                        >
-                          {/* eslint-disable-next-line no-use-before-define */}
-                          {this.menu(filteredList)}
-                        </Select>
+            {portfolioList &&
+              portfolioList.map((pane) => {
+                return (
+                  <TabPane tab={pane.name} key={pane.id}>
+                    <Modal
+                      title="ADD PORTFOLIO ITEM"
+                      visible={visiblePortfolioEquipment}
+                      onOk={() => this.handleOkEquipment(pane.url)}
+                      onCancel={this.handleCancelEquipment}
+                      destroyOnClose="true"
+                    >
+                      <div className="modal">
+                        <div className="base-equipment">
+                          Base Equipment
+                          <Select
+                            defaultValue="TRY"
+                            onChange={(value) =>
+                              this.handleSelectCurrency(
+                                'portfoliBaseCurrency',
+                                value
+                              )
+                            }
+                            style={{ width: 120 }}
+                          >
+                            {/* eslint-disable-next-line no-use-before-define */}
+                            {this.menu(filteredList)}
+                          </Select>
+                        </div>
+                        <div className="target-equipment">
+                          Target Equipment
+                          <Select
+                            defaultValue="TRY"
+                            onChange={(value) =>
+                              this.handleSelectCurrency(
+                                'portfolioTargetCurrency',
+                                value
+                              )
+                            }
+                            style={{ width: 120 }}
+                          >
+                            {/* eslint-disable-next-line no-use-before-define */}
+                            {this.menu(filteredList)}
+                          </Select>
+                        </div>
                       </div>
-                      <div className="target-equipment">
-                        Target Equipment
-                        <Select
-                          defaultValue="TRY"
-                          onChange={(value) =>
-                            this.handleSelectCurrency(
-                              'portfolioTargetCurrency',
-                              value
-                            )
-                          }
-                          style={{ width: 120 }}
-                        >
-                          {/* eslint-disable-next-line no-use-before-define */}
-                          {this.menu(filteredList)}
-                        </Select>
-                      </div>
-                    </div>
-                  </Modal>
-                  <div className="tab-content">
-                    {' '}
-                    {pane.content &&
-                      pane.content.map((item) => {
-                        return (
-                          <div className="item-container">
-                            <div className="left">
-                              {' '}
-                              <li
-                                id={item.id}
-                                className="list-content"
-                                onClick={(event) =>
-                                  this.handleRoute(
-                                    event,
-                                    item.base_equipment,
-                                    item.target_equipment
-                                  )
-                                }
-                              >
-                                {`${item.base_equipment}/${item.target_equipment}`}
-                              </li>
-                            </div>
-                            {pane.userOwns === user.user.url && (
-                              <div>
-                                <div className="right">
-                                  <Button
-                                    id={item.id}
-                                    type="danger"
-                                    className="button-style"
-                                    onClick={this.deletePortfolioItem}
-                                  >
-                                    <Icon
-                                      className="icon-style"
-                                      type="delete"
-                                    />
-                                  </Button>
-                                </div>
-                                {pane.userOwns !== user.user.url && (
-                                  <div>
-                                    {!pane.isFollowing ? (
-                                      <Button
-                                        type="default"
-                                        icon="plus"
-                                        onClick={() =>
-                                          this.handleFollow(
-                                            pane.id,
-                                            pane.isFollowing
-                                          )
-                                        }
-                                      >
-                                        Follow
-                                      </Button>
-                                    ) : (
-                                      <Button
-                                        type="default"
-                                        icon="plus"
-                                        onClick={() =>
-                                          this.handleUnfollow(
-                                            pane.id,
-                                            pane.isFollowing
-                                          )
-                                        }
-                                      >
-                                        Unfollow
-                                      </Button>
-                                    )}
-                                  </div>
-                                )}
+                    </Modal>
+                    <div className="tab-content">
+                      {' '}
+                      {pane.portfolio_items &&
+                        pane.portfolio_items.map((item) => {
+                          return (
+                            <div className="item-container">
+                              <div className="left">
+                                {' '}
+                                <li
+                                  id={item.id}
+                                  className="list-content"
+                                  onClick={(event) =>
+                                    this.handleRoute(
+                                      event,
+                                      item.base_equipment,
+                                      item.target_equipment
+                                    )
+                                  }
+                                >
+                                  {`${item.base_equipment}/${item.target_equipment}`}
+                                </li>
                               </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    {pane.userOwns === user.user.url && (
-                      <Button
-                        className="item-add-button"
-                        type="primary"
-                        onClick={() => this.handleAddItem(pane.id)}
-                      >
-                        Add Equipment
-                      </Button>
-                    )}
-                  </div>
-                </TabPane>
-              );
-            })}
+                              {pane.user.url === user.user.url && (
+                                <div>
+                                  <div className="right">
+                                    <Button
+                                      id={item.id}
+                                      type="danger"
+                                      className="button-style"
+                                      onClick={this.deletePortfolioItem}
+                                    >
+                                      <Icon
+                                        className="icon-style"
+                                        type="delete"
+                                      />
+                                    </Button>
+                                  </div>
+                                  {pane.user.url !== user.user.url && (
+                                    <div>
+                                      {!pane.is_following ? (
+                                        <Button
+                                          type="default"
+                                          icon="plus"
+                                          onClick={() =>
+                                            this.handleFollow(
+                                              pane.id,
+                                              pane.is_following
+                                            )
+                                          }
+                                        >
+                                          Follow
+                                        </Button>
+                                      ) : (
+                                        <Button
+                                          type="default"
+                                          icon="plus"
+                                          onClick={() =>
+                                            this.handleUnfollow(
+                                              pane.id,
+                                              pane.is_following
+                                            )
+                                          }
+                                        >
+                                          Unfollow
+                                        </Button>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      {pane.user.url === user.user.url && (
+                        <Button
+                          className="item-add-button"
+                          type="primary"
+                          onClick={() => this.handleAddItem(pane.id)}
+                        >
+                          Add Equipment
+                        </Button>
+                      )}
+                    </div>
+                  </TabPane>
+                );
+              })}
           </Tabs>
         </div>
         <div>
