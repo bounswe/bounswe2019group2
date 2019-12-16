@@ -1,6 +1,7 @@
 package tk.traiders.components.article;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,7 @@ import java.util.Map;
 import tk.traiders.LoginActivity;
 import tk.traiders.MainActivity;
 import tk.traiders.R;
+import tk.traiders.components.annotation.AnnotationFragment;
 import tk.traiders.components.article.adapters.CommentAdapter;
 import tk.traiders.marshallers.ArticleMarshaller;
 import tk.traiders.marshallers.CommentMarshaller;
@@ -121,7 +123,12 @@ public class ViewArticleActivity extends AppCompatActivity {
                             max = Math.max(0, Math.max(selStart, selEnd));
                         }
                         // Perform your definition lookup with the selected text
-                        final CharSequence selectedText = textView_content.getText().subSequence(min, max);
+                        final String selectedText = textView_content.getText().subSequence(min, max).toString();
+
+
+                        FragmentManager fm = getSupportFragmentManager();
+                        AnnotationFragment annotationFragment = AnnotationFragment.newInstance(selectedText, article.getUrl(), MainActivity.getUserURL(ViewArticleActivity.this), min, max );
+                        annotationFragment.show(fm, "fragment_annotation");
                         // Finish and close the ActionMode
                         mode.finish();
                         return true;
