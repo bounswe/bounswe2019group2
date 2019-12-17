@@ -38,7 +38,8 @@ import java.util.Map;
 
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity
+        implements View.OnClickListener, Response.Listener<String>, Response.ErrorListener {
 
     private EditText editText_username;
     private EditText editText_password;
@@ -69,18 +70,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        signInButton  = findViewById(R.id.sign_in_google_button);
+        signInButton = findViewById(R.id.sign_in_google_button);
         String s=null;
-        findViewById(R.id.sign_in_google_button).setOnClickListener(this);
+        signInButton.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestProfile()
                 .requestServerAuthCode("729799288738-fe0gs3ahsru0ecfn242gvtq5m83rog57.apps.googleusercontent.com")
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-
     }
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -120,17 +120,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
+            String authCode = account.getServerAuthCode();
 
-            System.out.println("User Server Auth Code:  "+  account.getRequestedScopes());
+            StringRequest postRequest =
+                    new StringRequest(Request.Method.POST, URL, this, this) {
+                        @Override
+                        protected Map<String, String> getParams()
+                        {
+                            Map<String, String>  params = new HashMap<String, String>();
+                            params.put("google_auth_code", authCode);
 
-            System.out.println("User Server Auth Code:  "+ account.getServerAuthCode());
+                            return params;
+                        }
+                    };
+
+            requestQueue.add(postRequest);
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Error: ", "signInResult:failed code=" + e.getMessage());
-
         }
     }
 
@@ -144,49 +153,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onResponse(String response) {
+        // response
+        Log.d("Response", response);
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            String token = jsonObject.getString("key");
+            String user =  jsonObject.getJSONObject("user").getString("url");
+            String id =  jsonObject.getJSONObject("user").getString("id");
+
+            SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("token", token);
+            editor.putString("user", user);
+            editor.putString("id", id);
+            editor.commit();
+
+            finish();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        // error
+        error.printStackTrace();
+        Toast.makeText(LoginActivity.this, "Username or password is wrong!", Toast.LENGTH_SHORT).show();
+    }
+
     public void LoginClick(View view) {
         final String username = editText_username.getText().toString();
         final String password = editText_password.getText().toString();
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String token = jsonObject.getString("key");
-                            String user =  jsonObject.getJSONObject("user").getString("url");
-                            String id =  jsonObject.getJSONObject("user").getString("id");
-
-
-                            SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("token", token);
-                            editor.putString("user", user);
-                            editor.putString("id", id);
-
-                            editor.commit();
-                            finish();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        error.printStackTrace();
-                        Toast.makeText(LoginActivity.this, "Username or password is wrong!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        ) {
+        StringRequest postRequest =
+                new StringRequest(Request.Method.POST, URL, this, this) {
             @Override
             protected Map<String, String> getParams()
             {
