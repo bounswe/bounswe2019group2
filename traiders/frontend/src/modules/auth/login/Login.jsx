@@ -2,6 +2,9 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 
+import GoogleLogin from 'react-google-login';
+import { GoogleClientID } from '../../../common/constants/generalConstants';
+
 import './login.scss';
 import Page from '../../../components/page/Page';
 import history from '../../../common/history';
@@ -22,6 +25,19 @@ const Login = (props) => {
         loginUser(values);
       }
     });
+  };
+
+  const responseGoogle = (response) => {
+    const { loginUserWithGoogle } = props;
+    if (response) {
+      const accessToken = response.Zi.access_token;
+      if (accessToken) {
+        const body = {
+          access_token: accessToken
+        };
+        loginUserWithGoogle(body);
+      }
+    }
   };
 
   return (
@@ -74,6 +90,14 @@ const Login = (props) => {
               <a className="login-form-forgot" href="1">
                 Forgot password
               </a>
+              <div className="google-signin">
+                <GoogleLogin
+                  clientId={GoogleClientID}
+                  buttonText="LOGIN WITH GOOGLE"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                />
+              </div>
               <Button
                 type="primary"
                 htmlType="submit"
