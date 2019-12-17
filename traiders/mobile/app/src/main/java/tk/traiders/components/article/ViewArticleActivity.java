@@ -27,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +37,11 @@ import tk.traiders.MainActivity;
 import tk.traiders.R;
 import tk.traiders.components.annotation.AnnotationFragment;
 import tk.traiders.components.article.adapters.CommentAdapter;
+import tk.traiders.marshallers.AnnotationMarshaller;
 import tk.traiders.marshallers.ArticleMarshaller;
 import tk.traiders.marshallers.CommentMarshaller;
 import tk.traiders.marshallers.LikeMarshaller;
+import tk.traiders.models.Annotation;
 import tk.traiders.models.Article;
 import tk.traiders.models.Comment;
 
@@ -46,6 +49,7 @@ public class ViewArticleActivity extends AppCompatActivity {
 
     private static final String URL_COMMENTS = "https://api.traiders.tk/comments/article/";
     private static final String URL_LIKES = "https://api.traiders.tk/likes/";
+    private static final String URL_ANNOTATIONS = "https://annotation.traiders.tk/annotations/";
 
 
     private Article article = null;
@@ -231,7 +235,42 @@ public class ViewArticleActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        fetchComments();
+    }
+
+    private void fetchAnnotations(){
+
+        StringRequest request = new StringRequest(Request.Method.GET, URL_ANNOTATIONS, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                List<Annotation> annotationList = AnnotationMarshaller.unmarshallList(response);
+                List<Annotation> filteredAnnotationList = new ArrayList<>();
+                for(Annotation annotation: annotationList){
+                    if(annotation != null){
+                        if(annotation.getTarget().getSource().equals(ViewArticleActivity.this.article.getUrl())){
+                            filteredAnnotationList.add(annotation);
+                        }
+                    }
+                }
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ViewArticleActivity.this, "An error occured fetching annotations", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = MainActivity.getAuthorizationHeader(ViewArticleActivity.this);
+                return headers != null ? headers : super.getHeaders();
+            }
+        };
+
+        requestQueue.add(request);
+
 
     }
 
@@ -293,6 +332,8 @@ public class ViewArticleActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         article = ArticleMarshaller.unmarshall(response);
                         invalidateOptionsMenu();
+                        fetchComments();
+                        fetchAnnotations();
                     }
                 },
                 new Response.ErrorListener()
