@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'antd';
+import ReactTooltip from 'react-tooltip';
 
 import { SEARCH_RESULTS_TABLES_COLUMNS } from '../../common/constants/generalConstants';
-import Page from '../../components/page/Page';
+import Page from '../page/Page';
 import ArticleRow from '../articleList/ArticleRow';
 import history from '../../common/history';
 import './recommendation.scss';
 
-const Recommendation = ({
-  searchContent,
-  getRecommendationResult,
-  recommendationResult
-}) => {
+const Recommendation = ({ getRecommendationResult, recommendationResult }) => {
   const [selectedTab, setSelectedTab] = useState('articles');
-  searchContent = 'TR';
+  const searchContent = 'TR';
   useEffect(() => {
     getRecommendationResult(searchContent);
   }, [getRecommendationResult, searchContent]);
-
   const parities =
     recommendationResult &&
     recommendationResult.parities.map((parity) => ({
@@ -43,6 +39,7 @@ const Recommendation = ({
               <Button onClick={() => setSelectedTab('events')}>EVENTS</Button>
               <Button onClick={() => setSelectedTab('users')}>USERS</Button>
             </div>
+
             <div className="search-result-table">
               {selectedTab === 'equipments' && (
                 <Table
@@ -51,6 +48,9 @@ const Recommendation = ({
                   bordered
                   rowKey="id"
                   onRowClick={(row) => history.push(`/equipment/${row.symbol}`)}
+                  expandedRowRender={(row) => (
+                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                  )}
                 />
               )}
               {selectedTab === 'events' && (
@@ -59,6 +59,9 @@ const Recommendation = ({
                   columns={SEARCH_RESULTS_TABLES_COLUMNS.eventsTable}
                   bordered
                   rowKey="id"
+                  expandedRowRender={(row) => (
+                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                  )}
                 />
               )}
               {selectedTab === 'users' && (
@@ -68,6 +71,9 @@ const Recommendation = ({
                   bordered
                   rowKey="id"
                   onRowClick={(row) => history.push(`/profile/${row.id}`)}
+                  expandedRowRender={(row) => (
+                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                  )}
                 />
               )}
               {selectedTab === 'parities' && (
@@ -81,12 +87,18 @@ const Recommendation = ({
                       `/parity/${row.base_equipment.symbol}/${row.target_equipment.symbol}`
                     )
                   }
+                  expandedRowRender={(row) => (
+                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                  )}
                 />
               )}
               {selectedTab === 'articles' && (
                 <div className="article-list-container">
                   {recommendationResult.articles.map((article) => (
-                    <ArticleRow article={article} key={article.id} />
+                    <p data-tip={article.title} data-for="oneArticle">
+                      <ArticleRow article={article} key={article.id} />
+                      <ReactTooltip id="oneArticle" type="error" />
+                    </p>
                   ))}
                 </div>
               )}
