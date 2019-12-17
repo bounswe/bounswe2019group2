@@ -15,6 +15,9 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -105,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.log_out:
+                GoogleSignInClient client = GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build());
+                client.signOut();
                 SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("token");
