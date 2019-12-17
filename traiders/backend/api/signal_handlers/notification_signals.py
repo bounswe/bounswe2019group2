@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 @transaction.atomic
 def article_post(sender, instance: Article, **kwargs):
     author = instance.author
-    followers = Following.objects.filter(user_followed=author)
+    followers = Following.objects.filter(user_followed=author, status=Following.ACCEPTED)
     pk = instance.pk
     url = reverse('article-detail', kwargs={'pk': pk})
 
