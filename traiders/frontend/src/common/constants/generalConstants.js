@@ -6,8 +6,8 @@ export const navbarOptions = [
     id: 1
   },
   {
-    name: 'MARKETS',
-    url: '/',
+    name: 'RECOMMENDATION',
+    url: '/recommendations',
     id: 2
   },
   {

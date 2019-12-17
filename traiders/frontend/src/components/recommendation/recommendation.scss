@@ -1,0 +1,83 @@
+.search-result-container {
+  padding: 20px 0;
+  width: 700px;
+
+  .tab-buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ant-table-row {
+    background-color: white;
+  }
+}
+
+.article-list-container {
+  width: 600px;
+
+  .single-article {
+    padding-bottom: 20px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .article-container {
+      display: flex;
+
+      .article-image {
+        width: 120px;
+        height: 120px;
+
+        margin-right: 24px;
+        margin-left: 24px;
+      }
+
+      .article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 120px;
+        width: 400px;
+        overflow: hidden;
+
+        .article-title {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          font-size: 14px;
+
+          font-weight: 600;
+          font-family: medium-content-sans-serif-font, 'Lucida Grande',
+            'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif !important;
+
+          color: rgba(0, 0, 0, 0.84);
+        }
+
+        .article-first-part {
+          align-items: center;
+          font-size: 11px;
+          font-weight: 300;
+
+          font-family: medium-content-sans-serif-font, 'Lucida Grande',
+            'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif !important;
+
+          color: rgba(0, 0, 0, 0.54);
+        }
+
+        .author-related {
+          font-size: 12px;
+          font-weight: 600;
+
+          font-family: medium-content-sans-serif-font, 'Lucida Grande',
+            'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif !important;
+        }
+      }
+    }
+  }
+
+  .create-article {
+    display: flex;
+    justify-content: space-between;
+  }
+}
