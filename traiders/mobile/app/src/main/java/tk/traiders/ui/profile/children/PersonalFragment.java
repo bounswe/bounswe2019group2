@@ -9,9 +9,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,8 +67,12 @@ public class PersonalFragment extends Fragment {
     private String URL;
     private Button mode_button;
     private TextView textView_followersCount;
+    private ListView listView ;
     private TextView textView_followingCount;
     private RequestQueue requestQueue;
+    private String userId;
+    private  String URL_SuccessRate;
+    private TextView successTextView;
 
     @Nullable
     @Override
@@ -92,8 +100,12 @@ public class PersonalFragment extends Fragment {
 
         mode_button = rootView.findViewById(R.id.button_mode);
 
+        successTextView =  rootView.findViewById(R.id.personal_success_rate);
+
+
 
         requestQueue = Volley.newRequestQueue(getParentFragment().getActivity());
+
 
         return rootView;
     }
@@ -103,6 +115,8 @@ public class PersonalFragment extends Fragment {
         super.onResume();
 
         URL = MainActivity.getUserURL(getActivity());
+        userId = MainActivity.getUserID(this.getContext());
+        URL_SuccessRate = "https://api.traiders.tk/users/success_rate/?user="+userId ;
 
         if(URL == null) {
             Toast.makeText(getActivity(), "Please log in to see this page!", Toast.LENGTH_SHORT).show();
@@ -119,7 +133,6 @@ public class PersonalFragment extends Fragment {
 
             mode_button.setVisibility(View.VISIBLE);
             StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-
                 @Override
                 public void onResponse(String response) {
                     Log.d("response", response);
@@ -193,6 +206,84 @@ public class PersonalFragment extends Fragment {
             };
 
             requestQueue.add(request);
+
+            // Burası Success Rate Request Atma ile ilgili Baslangıç
+            StringRequest requestSuccessRate = new StringRequest(Request.Method.GET, URL_SuccessRate, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("response", response);
+                    JSONArray jsonarray =null;
+                    JSONObject jsonobject=null;
+                    String success_rate=null;
+                    String base_equipment_name = null;
+                    String target_equipment_name = null;
+                    StringBuilder builder = new StringBuilder();
+                    try {
+                        jsonarray = new JSONArray(response);
+                        System.out.println(jsonarray.length());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        try {
+                            jsonobject = jsonarray.getJSONObject(i);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            base_equipment_name = jsonobject.getJSONObject("base_equipment").getString("name");
+                            System.out.println("base_equipment_name: " + base_equipment_name);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            target_equipment_name = jsonobject.getJSONObject("target_equipment").getString("name");
+                            System.out.println("target_equipment_name: " + target_equipment_name);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            success_rate = jsonobject.getString("success_rate");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        String showData = base_equipment_name + "/" + target_equipment_name + ": " + success_rate;
+                        System.out.println("Show DATA: " + showData);
+
+                        builder.append(showData + "\n");
+
+
+                    } // for un son u
+
+                    successTextView.setText(builder.toString());
+
+
+                }
+
+
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error",error.toString());
+                }
+            }){
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = MainActivity.getAuthorizationHeader(getContext());
+                    return headers != null ? headers : super.getHeaders();
+                }
+
+            };
+
+
+
+            requestQueue.add(requestSuccessRate);
+
+
+            //Burası Success Rate  Son **********************
 
 
             mode_button.setOnClickListener(new View.OnClickListener() {
@@ -360,4 +451,5 @@ public class PersonalFragment extends Fragment {
             inflater.inflate(R.menu.profile_menu_unauthorized, menu);
         }
     }
+
 }
