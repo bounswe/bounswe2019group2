@@ -52,13 +52,12 @@ class RecommendationViewSet(GenericViewSet):
     @staticmethod
     def iterate_and_add(kw_objects, serializer, context, keys, all_objects, msgs):
         objects = serializer(kw_objects, many=True, context=context).data
-        if objects != list():
-            for i in range(len(objects)):
-                idx = objects[i]["id"]
-                if idx not in all_objects:
-                    all_objects[idx] = objects[i]
-                    all_objects[idx]["messages"] = list()
-                all_objects[idx]["messages"].extend(list(msgs))
+        for i in range(len(objects)):
+            idx = objects[i]["id"]
+            if idx not in all_objects:
+                all_objects[idx] = objects[i]
+                all_objects[idx]["messages"] = list()
+            all_objects[idx]["messages"].extend(list(msgs))
         keys.update([o["id"] for o in objects])
         return objects
 
@@ -225,5 +224,7 @@ class RecommendationViewSet(GenericViewSet):
         all_objects["users"] = sorted(users.values(), key=lambda x: -len(x["messages"]))
         all_objects["equipments"] = sorted(equipments.values(), key=lambda x: -len(x["messages"]))
         all_objects["parities"] = sorted(parities.values(), key=lambda x: -len(x["messages"]))
-
+        for k, v in all_objects.items():
+            for o in v:
+                o["messages"] = list(set(o["messages"]))
         return Response(all_objects)
