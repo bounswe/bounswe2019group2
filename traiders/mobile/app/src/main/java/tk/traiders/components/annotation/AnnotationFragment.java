@@ -1,6 +1,7 @@
 package tk.traiders.components.annotation;
 
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -48,13 +49,6 @@ public class AnnotationFragment extends DialogFragment {
     private int startIndex;
     private int endIndex;
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
-    }
-
     public AnnotationFragment() {
     }
 
@@ -75,6 +69,14 @@ public class AnnotationFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_annotation, container);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getDialog().setCanceledOnTouchOutside(true);
+
     }
 
     @Override
@@ -121,7 +123,7 @@ public class AnnotationFragment extends DialogFragment {
 
                 try {
                     jsonObject.put("body", new JSONObject().put("type", "TextualBody").put("value", value));
-                    jsonObject.put("target", new JSONObject().put("source", articleUrl).put("selector", new JSONObject().put("value", "char=" + startIndex + ", " + endIndex)));
+                    jsonObject.put("target", new JSONObject().put("source", articleUrl).put("selector", new JSONObject().put("value", "char=" + startIndex + "," + endIndex)));
                     jsonObject.put("creator", userUrl);
                 } catch (JSONException e) {
                     e.printStackTrace();

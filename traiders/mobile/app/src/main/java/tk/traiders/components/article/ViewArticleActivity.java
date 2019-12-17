@@ -1,13 +1,17 @@
 package tk.traiders.components.article;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,6 +69,8 @@ public class ViewArticleActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private EditText editText_comment;
     private ImageView imageView_comment;
+
+    private List<Pair<Integer, Integer>> pairs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,6 +258,24 @@ public class ViewArticleActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+
+                SpannableString contentAsSpannableString = new SpannableString(article.getContent());
+
+                for(Annotation annotation: filteredAnnotationList) {
+                    if(!annotation.getBody().getType().equals("TextualBody")){
+                        continue;
+                    }
+                    String value = annotation.getTarget().getSelector().getValue();
+                    int indexOfEqualSign = value.indexOf("=");
+                    int indexOfComma = value.indexOf(",");
+                    int startIndex = Integer.valueOf(value.substring(indexOfEqualSign + 1, indexOfComma));
+                    int endIndex = Integer.valueOf(value.substring(indexOfComma + 1));
+                    pairs.add(new Pair<>(startIndex, endIndex));
+                    contentAsSpannableString.setSpan(new BackgroundColorSpan(Color.YELLOW), startIndex, endIndex, 0);
+                }
+
+                textView_content.setText(contentAsSpannableString);
             }
 
         }, new Response.ErrorListener() {
