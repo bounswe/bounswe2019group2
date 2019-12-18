@@ -5,6 +5,8 @@
   padding-top: 30px;
 
   .up {
+    display: flex;
+    flex-direction: row;
     padding-bottom: 20px;
     align-items: center;
     justify-content: center;
@@ -23,8 +25,17 @@
         background-color: white;
         font-size: 20px;
         padding: 0;
-        width: 730px;
+        width: 576px;
         height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+      }
+
+      .chart {
+        padding: 0;
+        width: 576px;
         display: flex;
         align-items: center;
         justify-content: center;

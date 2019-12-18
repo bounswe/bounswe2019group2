@@ -12,10 +12,7 @@ import {
 
 const mapStateToProps = (state) => {
   return {
-    followings: state.user.followings,
-    followers: state.user.followers,
-    user: state.user.currentUser,
-    otherUser: state.user.otherUser
+    followings: state.user.followings
   };
 };
 

@@ -8,10 +8,9 @@ class Portfolio extends Component {
   constructor(props) {
     super(props);
     this.newTabIndex = 0;
-    const panes = [];
+
     this.state = {
-      activeKey: null,
-      panes
+      activeKey: null
     };
   }
 
@@ -22,7 +21,6 @@ class Portfolio extends Component {
       const array = user.user.url.split('/');
       const userId = array[array.length - 2];
       getPortfoliosUserFollowedWithAuthorization(userId, user.key);
-      this.addToPanes();
     }
   }
 
@@ -30,30 +28,6 @@ class Portfolio extends Component {
     event.stopPropagation();
     const url = `/parity/${baseSymbol}/${targetSymbol}`;
     history.push(url);
-  };
-
-  addToPanes = () => {
-    const { portfolioList } = this.props;
-    const { panes } = this.state;
-    // this.clearPanes();
-    if (portfolioList) {
-      portfolioList.map((portfolio) =>
-        panes.push({
-          name: portfolio.name,
-          id: portfolio.id,
-          url: portfolio.url,
-          isFollowing: portfolio.is_following,
-          userOwns: portfolio.user.url,
-          content: portfolio.portfolio_items
-        })
-      );
-    }
-  };
-
-  clearPanes = () => {
-    this.setState({
-      panes: []
-    });
   };
 
   onChange = (activeKey) => {
@@ -73,10 +47,8 @@ class Portfolio extends Component {
 
   render() {
     const { TabPane } = Tabs;
-    const { user } = this.props;
-    const { panes, activeKey } = this.state;
-    // eslint-disable-next-line
-    console.log(panes);
+    const { user, portfolioList } = this.props;
+    const { activeKey } = this.state;
 
     if (!user) {
       history.push('/login');
@@ -94,38 +66,39 @@ class Portfolio extends Component {
             activeKey={activeKey}
             type="editable-card"
           >
-            {panes.map((pane) => {
-              return (
-                <TabPane tab={pane.name} key={pane.id}>
-                  <div className="tab-content">
-                    {' '}
-                    {pane.content &&
-                      pane.content.map((item) => {
-                        return (
-                          <div className="item-container">
-                            <div className="left">
-                              {' '}
-                              <li
-                                id={item.id}
-                                className="list-content"
-                                onClick={(event) =>
-                                  this.handleRoute(
-                                    event,
-                                    item.base_equipment,
-                                    item.target_equipment
-                                  )
-                                }
-                              >
-                                {`${item.base_equipment}/${item.target_equipment}`}
-                              </li>
+            {portfolioList &&
+              portfolioList.map((pane) => {
+                return (
+                  <TabPane tab={pane.name} key={pane.id}>
+                    <div className="tab-content">
+                      {' '}
+                      {pane.portfolio_items &&
+                        pane.portfolio_items.map((item) => {
+                          return (
+                            <div className="item-container">
+                              <div className="left">
+                                {' '}
+                                <li
+                                  id={item.id}
+                                  className="list-content"
+                                  onClick={(event) =>
+                                    this.handleRoute(
+                                      event,
+                                      item.base_equipment,
+                                      item.target_equipment
+                                    )
+                                  }
+                                >
+                                  {`${item.base_equipment}/${item.target_equipment}`}
+                                </li>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </TabPane>
-              );
-            })}
+                          );
+                        })}
+                    </div>
+                  </TabPane>
+                );
+              })}
           </Tabs>
         </div>
       </div>
