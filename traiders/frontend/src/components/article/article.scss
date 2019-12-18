@@ -104,6 +104,10 @@
           'Times New Roman', Times, serif;
         color: rgba(0, 0, 0, 0.84);
         font-weight: 400;
+
+        .highligted-text {
+          background-color: yellow !important;
+        }
       }
 
       .comment-header-div {

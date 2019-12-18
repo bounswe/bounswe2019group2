@@ -23,10 +23,13 @@ class Article extends Component {
       visible: false,
       action: null,
       showAnnotationTab: false,
+      showAddingAnnotation: true,
       annotationContent: null,
       firstIndex: null,
       lastIndex: null,
-      annotationImageUrl: null
+      annotationImageUrl: null,
+      htmlContent: null,
+      currentAnnotation: null
     };
   }
 
@@ -40,7 +43,9 @@ class Article extends Component {
       getFollowings,
       getFollowers,
       user,
-      getArticleAnnotations
+      getArticleAnnotations,
+      annotationList,
+      article
     } = this.props;
 
     getArticleAnnotations();
@@ -55,6 +60,24 @@ class Article extends Component {
     } else {
       getArticle(id);
       getArticleComments(id);
+    }
+
+    let filteredAnnotations;
+
+    if (annotationList && article) {
+      filteredAnnotations = annotationList.filter(
+        (annotation) => annotation.target.source === article.url
+      );
+    }
+    console.log(filteredAnnotations);
+
+    if (filteredAnnotations) {
+      this.setState({
+        htmlContent: this.handleCreatingHighlightedContent(
+          article.content,
+          filteredAnnotations
+        )
+      });
     }
   }
 
@@ -210,10 +233,41 @@ class Article extends Component {
     }
   };
 
+  handleClickRange = (e) => {
+    if (e.target.id) {
+      this.setState({
+        showAddingAnnotation: false
+      });
+      const { annotationList } = this.props;
+      let annotation = annotationList.filter(
+        (element) => element.id === e.target.id
+      );
+
+      annotation = annotation[0];
+      const { creator, created } = annotation;
+      let userId = creator.split('/')[creator.split('/').length - 2];
+      GetWithUrl(`https://api.traiders.tk/users/${userId}`)
+        .then((response) =>
+          response.json().then((res) =>
+            this.setState({
+              currentAnnotation: {
+                value: annotation.body.value,
+                date: created,
+                user: res
+              }
+            })
+          )
+        )
+        .catch((error) =>
+          console.log('Error while fetching annotation owner', error)
+        );
+    }
+  };
+
   submitAnnotationText = () => {
     const { firstIndex, lastIndex, annotationContent } = this.state;
     const { article, user, getArticleAnnotations } = this.props;
-    console.log(this.props);
+
     const body = { type: 'TextualBody', value: annotationContent };
     const target = {
       source: article.url,
@@ -223,7 +277,7 @@ class Article extends Component {
     };
     const { url } = user.user;
 
-    PostWithUrlBody(ANNOTATION_URL, { body, target, url })
+    PostWithUrlBody(ANNOTATION_URL, { body, target, creator: url })
       .then((response) => console.log(response))
       .catch((error) => console.log('Error while adding annotation', error));
 
@@ -231,16 +285,10 @@ class Article extends Component {
   };
 
   submitAnnotationImage = () => {
-    const {
-      firstIndex,
-      lastIndex,
-      annotationContent,
-      annotationImageUrl
-    } = this.state;
+    const { firstIndex, lastIndex, annotationImageUrl } = this.state;
     const { article, user, getArticleAnnotations } = this.props;
-    console.log(this.state);
 
-    const body = { type: 'TextualBody', value: annotationContent };
+    const body = { type: 'Image', id: annotationImageUrl };
     const target = {
       source: article.url,
       selector: {
@@ -249,7 +297,7 @@ class Article extends Component {
     };
     const { url } = user.user;
 
-    PostWithUrlBody(ANNOTATION_URL, { body, target, url })
+    PostWithUrlBody(ANNOTATION_URL, { body, target, creator: url })
       .then((response) => console.log(response))
       .catch((error) => console.log('Error while adding annotation', error));
 
@@ -257,8 +305,15 @@ class Article extends Component {
   };
 
   render() {
+    console.log(this.state);
     const { article, comments, user, followings } = this.props;
-    const { visible, action, showAnnotationTab } = this.state;
+    const {
+      visible,
+      action,
+      showAnnotationTab,
+      showAddingAnnotation,
+      currentAnnotation
+    } = this.state;
 
     const ownArticle = user && article && user.user.url === article.author.url;
 
@@ -325,8 +380,14 @@ class Article extends Component {
                 className="article-content"
                 onMouseUp={this.handleAnnotation}
               >
-                {article.content}
+                <div
+                  onClick={this.handleClickRange}
+                  dangerouslySetInnerHTML={{
+                    __html: this.state.htmlContent
+                  }}
+                ></div>
               </pre>
+
               <div className="article-like">
                 <h4>Number of Likes: {article.num_likes}</h4>
 
@@ -383,9 +444,7 @@ class Article extends Component {
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
               >
-                <div>
-                  Are you sure? There is no way you to recover this action!
-                </div>
+                <div>Are you sure? There is no way to recover this action!</div>
               </Modal>
             </div>
             {showAnnotationTab && (
@@ -403,43 +462,59 @@ class Article extends Component {
                     </Button>
                   </div>
                 ) : (
-                  <div className="add-annotation-container">
-                    <div className="add-annotate-title">TEXT MESSAGE</div>
-                    <div className="add-text-container">
-                      <Input.TextArea
-                        placeholder="Type here to annotate"
-                        onChange={this.handleAnnotationInput}
-                      />
-                    </div>
-                    <div className="annotation-submit-button">
-                      <Button
-                        type="primary"
-                        onClick={this.submitAnnotationText}
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                    <div className="add-annotation-image">IMAGE MESSAGE</div>
-                    <div className="add-image-container">
-                      <Input
-                        type="file"
-                        className="form-control"
-                        aria-describedby="basic-addon1"
-                        accept="image/png, image/jpeg"
-                        onChange={(event) =>
-                          this.handleFileUpload(event, this.saveUrl)
-                        }
-                      />
-                    </div>
-                    <div className="annotation-submit-button">
-                      <Button
-                        type="primary"
-                        onClick={this.submitAnnotationImage}
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                  </div>
+                  <>
+                    {showAddingAnnotation ? (
+                      <div className="add-annotation-container">
+                        <div className="add-annotate-title">TEXT MESSAGE</div>
+                        <div className="add-text-container">
+                          <Input.TextArea
+                            placeholder="Type here to annotate"
+                            onChange={this.handleAnnotationInput}
+                          />
+                        </div>
+                        <div className="annotation-submit-button">
+                          <Button
+                            type="primary"
+                            onClick={this.submitAnnotationText}
+                          >
+                            Submit
+                          </Button>
+                        </div>
+                        <div className="add-annotation-image">
+                          IMAGE MESSAGE
+                        </div>
+                        <div className="add-image-container">
+                          <Input
+                            type="file"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
+                            accept="image/png, image/jpeg"
+                            onChange={(event) =>
+                              this.handleFileUpload(event, this.saveUrl)
+                            }
+                          />
+                        </div>
+                        <div className="annotation-submit-button">
+                          <Button
+                            type="primary"
+                            onClick={this.submitAnnotationImage}
+                          >
+                            Submit
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        {currentAnnotation && currentAnnotation.user && (
+                          <div className="annotation-details">
+                            <div>{currentAnnotation.value}</div>
+                            <div>{currentAnnotation.date}</div>
+                            <div>{currentAnnotation.user.username}</div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -482,6 +557,28 @@ class Article extends Component {
     this.setState({
       annotationImageUrl: url
     });
+  };
+
+  handleAnnotationHighlight = (content) => {
+    return <div className="content">{content}</div>;
+  };
+
+  handleCreatingHighlightedContent = (article, annotationList) => {
+    let articleWithHtml = article;
+    if (annotationList) {
+      annotationList.forEach((annotation) => {
+        console.log(annotation.body.value);
+        let eqIndex = annotation.target.selector.value.indexOf('=') + 1;
+        let ranges = annotation.target.selector.value
+          .substring(eqIndex)
+          .split(',');
+        let substring = article.substring(ranges[0], ranges[1]);
+        let htmlContent = `<span id=${annotation.id} style='background-color: green; cursor:pointer; refName="span"'>${substring}</span>`;
+        articleWithHtml = articleWithHtml.replace(substring, htmlContent);
+      });
+    }
+    console.log(articleWithHtml);
+    return articleWithHtml;
   };
 }
 export default Article;
