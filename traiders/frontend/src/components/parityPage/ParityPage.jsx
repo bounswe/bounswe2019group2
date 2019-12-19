@@ -56,7 +56,7 @@ class ParityPage extends Component {
   };
 
   handlerPrd = (pred) => {
-    const { user, match } = this.props;
+    const { user, match, getPredictions } = this.props;
     const { base, target } = match.params;
     if (user) {
       const token = user.key;
@@ -74,6 +74,7 @@ class ParityPage extends Component {
         })
         // eslint-disable-next-line no-console
         .catch((error) => console.log('Smt wrong \n', error));
+      setTimeout(() => getPredictions(target, base, user.key), 1000);
     } else {
       history.push('/login');
     }

@@ -8,12 +8,19 @@ import ArticleRow from '../articleList/ArticleRow';
 import history from '../../common/history';
 import './recommendation.scss';
 
-const Recommendation = ({ getRecommendationResult, recommendationResult }) => {
+const Recommendation = ({
+  getRecommendationResult,
+  recommendationResult,
+  user
+}) => {
   const [selectedTab, setSelectedTab] = useState('articles');
-  const searchContent = 'TR';
+  if (!user) {
+    history.push('/login');
+  }
+  const key = user.key;
   useEffect(() => {
-    getRecommendationResult(searchContent);
-  }, [getRecommendationResult, searchContent]);
+    getRecommendationResult(key);
+  }, [getRecommendationResult, key]);
   const parities =
     recommendationResult &&
     recommendationResult.parities.map((parity) => ({
@@ -49,7 +56,13 @@ const Recommendation = ({ getRecommendationResult, recommendationResult }) => {
                   rowKey="id"
                   onRowClick={(row) => history.push(`/equipment/${row.symbol}`)}
                   expandedRowRender={(row) => (
-                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                    <p style={{ margin: 0 }}>
+                      {row.messages.map((message) => (
+                        <div>
+                          <p>{message}</p>
+                        </div>
+                      ))}
+                    </p>
                   )}
                 />
               )}
@@ -60,7 +73,13 @@ const Recommendation = ({ getRecommendationResult, recommendationResult }) => {
                   bordered
                   rowKey="id"
                   expandedRowRender={(row) => (
-                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                    <p style={{ margin: 0 }}>
+                      {row.messages.map((message) => (
+                        <div>
+                          <p>{message}</p>
+                        </div>
+                      ))}
+                    </p>
                   )}
                 />
               )}
@@ -72,7 +91,13 @@ const Recommendation = ({ getRecommendationResult, recommendationResult }) => {
                   rowKey="id"
                   onRowClick={(row) => history.push(`/profile/${row.id}`)}
                   expandedRowRender={(row) => (
-                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                    <p style={{ margin: 0 }}>
+                      {row.messages.map((message) => (
+                        <div>
+                          <p>{message}</p>
+                        </div>
+                      ))}
+                    </p>
                   )}
                 />
               )}
@@ -88,17 +113,32 @@ const Recommendation = ({ getRecommendationResult, recommendationResult }) => {
                     )
                   }
                   expandedRowRender={(row) => (
-                    <p style={{ margin: 0 }}>{row.symbol}</p>
+                    <p style={{ margin: 0 }}>
+                      {row.messages.map((message) => (
+                        <div>
+                          <p>{message}</p>
+                        </div>
+                      ))}
+                    </p>
                   )}
                 />
               )}
               {selectedTab === 'articles' && (
                 <div className="article-list-container">
                   {recommendationResult.articles.map((article) => (
-                    <p data-tip={article.title} data-for="oneArticle">
-                      <ArticleRow article={article} key={article.id} />
-                      <ReactTooltip id="oneArticle" type="error" />
-                    </p>
+                    <div>
+                      <p
+                        data-tip={article.messages.map((m) => m + '\n')}
+                        data-for="oneArticle"
+                      >
+                        <ArticleRow article={article} key={article.id} />
+                      </p>
+                      <ReactTooltip
+                        id="oneArticle"
+                        role="example"
+                        className="customeTheme"
+                      />
+                    </div>
                   ))}
                 </div>
               )}

@@ -5,7 +5,8 @@ import { getRecommendationResult } from '../../redux/recommendation/actions';
 
 const mapStateToProps = (state) => {
   return {
-    recommendationResult: state.recommendation.recommendationResult
+    recommendationResult: state.recommendation.recommendationResult,
+    user: state.user.currentUser
   };
 };
 

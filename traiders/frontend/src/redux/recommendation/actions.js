@@ -1,5 +1,5 @@
 import { API } from '../apiConfig';
-import { GetWithUrl } from '../../common/http/httpUtil';
+import { GetWithAuthorization } from '../../common/http/httpUtil';
 
 /* Action Types */
 
@@ -32,10 +32,10 @@ export const actionCreators = {
 
 /* Api Call Functions */
 
-export const getRecommendationResult = (searchContent) => {
+export const getRecommendationResult = (token) => {
   return (dispatch) => {
     dispatch(clearResultData);
-    GetWithUrl(`${API}/search?keyword=${searchContent}`)
+    GetWithAuthorization(`${API}/recommendation`, token)
       .then((response) =>
         response.json().then((res) => dispatch(saveRecommendationResult(res)))
       )
