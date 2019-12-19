@@ -17,7 +17,7 @@ const Recommendation = ({
   if (!user) {
     history.push('/login');
   }
-  const key = user.key;
+  const { key } = user;
   useEffect(() => {
     getRecommendationResult(key);
   }, [getRecommendationResult, key]);
@@ -128,16 +128,12 @@ const Recommendation = ({
                   {recommendationResult.articles.map((article) => (
                     <div>
                       <p
-                        data-tip={article.messages.map((m) => m + '\n')}
+                        data-tip={article.messages.map((m) => `${m}\n`)}
                         data-for="oneArticle"
                       >
                         <ArticleRow article={article} key={article.id} />
                       </p>
-                      <ReactTooltip
-                        id="oneArticle"
-                        role="example"
-                        className="customeTheme"
-                      />
+                      <ReactTooltip id="oneArticle" className="customeTheme" />
                     </div>
                   ))}
                 </div>
