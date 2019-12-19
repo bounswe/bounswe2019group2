@@ -65,6 +65,7 @@ const Row = (props) => {
 
 const CustomTable = (props) => {
   const { parityList } = props;
+
   const parities =
     parityList &&
     // eslint-disable-next-line react/no-array-index-key

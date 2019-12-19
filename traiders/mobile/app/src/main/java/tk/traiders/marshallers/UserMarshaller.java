@@ -1,9 +1,14 @@
 package tk.traiders.marshallers;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tk.traiders.constants.UserConstants;
+import tk.traiders.models.Event;
 import tk.traiders.models.User;
 import tk.traiders.utils.MarshallerUtils;
 
@@ -38,6 +43,23 @@ public class UserMarshaller {
         }
 
         return user;
+
+    }
+
+    public static List<User> unmarshallList(String response) {
+
+        List<User> users = new ArrayList<>();
+
+        try {
+            JSONArray usersAsJson = new JSONArray(response);
+            for(int i = 0; i < usersAsJson.length(); i++){
+                users.add(unmarshall(usersAsJson.getString(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return users;
 
     }
 }

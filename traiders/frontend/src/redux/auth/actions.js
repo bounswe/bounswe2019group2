@@ -13,13 +13,15 @@ const SAVE_OTHER_USER = 'SAVE_OTHER_USER';
 const SAVE_FOLLOWERS = 'SAVE_FOLLOWERS';
 const SAVE_FOLLOWINGS = 'SAVE_FOLLOWINGS';
 const LOGOUT = 'LOGOUT';
+const CLEAR_OTHER_USER = 'CLEAR_OTHER_USER';
 
 export const actionTypes = {
   SAVE_USER,
   SAVE_OTHER_USER,
   LOGOUT,
   SAVE_FOLLOWERS,
-  SAVE_FOLLOWINGS
+  SAVE_FOLLOWINGS,
+  CLEAR_OTHER_USER
 };
 
 /* Action Creators */
@@ -34,6 +36,11 @@ function saveOtherUser(user) {
   return {
     type: SAVE_OTHER_USER,
     payload: user
+  };
+}
+function clearOtherUser() {
+  return {
+    type: CLEAR_OTHER_USER
   };
 }
 
@@ -81,6 +88,25 @@ export const loginUser = (body) => {
   };
 };
 
+export const loginUserWithGoogle = (body) => {
+  return (dispatch) => {
+    PostWithUrlBody(`${API}/token/`, body)
+      .then((response) => {
+        if (response.status === 201) {
+          response.json().then((res) => {
+            dispatch(saveUser(res));
+          });
+        } else {
+          // eslint-disable-next-line no-alert
+          alert('An error occured during login with Google!');
+        }
+      })
+
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while logging\n', error));
+  };
+};
+
 export const updateUser = (id, body, token) => {
   return () => {
     PatchWithAuthorization(`${API}/users/${id}`, body, token)
@@ -97,6 +123,7 @@ export const updateUser = (id, body, token) => {
 
 export const getOtherUser = (id) => {
   return (dispatch) => {
+    dispatch(clearOtherUser());
     GetWithUrl(`${API}/users/${id}`)
       .then((response) => {
         if (response.status === 200) {

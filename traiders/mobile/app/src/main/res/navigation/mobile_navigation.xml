@@ -6,10 +6,10 @@
     app:startDestination="@+id/navigation_investments">
 
     <fragment
-        android:id="@+id/navigation_portfolio"
-        android:name="tk.traiders.ui.portfolio.PortfolioFragment"
-        android:label="@string/title_portfolio"
-        tools:layout="@layout/fragment_portfolio" />
+        android:id="@+id/navigation_search"
+        android:name="tk.traiders.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_markets"

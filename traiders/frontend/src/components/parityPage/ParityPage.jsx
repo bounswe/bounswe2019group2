@@ -14,11 +14,12 @@ class ParityPage extends Component {
     this.state = {
       limit: 30,
       ma: 0,
-      predicted: false
+      predicted: false,
+      prediction: null
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const {
       match,
       getOneParity,
@@ -31,12 +32,16 @@ class ParityPage extends Component {
     getOneParity(target, base);
     if (user) {
       getPredictions(target, base, user.key);
+
       let list;
       if (predictionList.length !== 0) {
-        list = predictionList.filter((element) => element.user === user);
+        list = predictionList.filter(
+          (element) => element.user === user.user.url
+        );
         if (list.length !== 0) {
           this.setState({
-            predicted: true
+            predicted: true,
+            prediction: list[0].direction
           });
         }
       }
@@ -62,10 +67,9 @@ class ParityPage extends Component {
         direction: pred
       };
       PostWithAuthorization(url, body, token)
-        // eslint-disable-next-line no-console
         .then((response) => {
-          if (response.status === 200) {
-            this.setState({ predicted: true });
+          if (response.status === 201) {
+            this.setState({ predicted: true, prediction: pred });
           }
         })
         // eslint-disable-next-line no-console
@@ -84,24 +88,37 @@ class ParityPage extends Component {
   render() {
     const { oneParity, match } = this.props;
     const { target, base } = match.params;
-    const { limit, ma, predicted } = this.state;
+    const { limit, ma, predicted, prediction } = this.state;
     const l1 = `/equipment/${target}`;
     const l2 = `/equipment/${base}`;
+    let style;
+    let type1 = 'default';
+    let type2 = 'default';
+    if (predicted) {
+      style = { pointerEvents: 'none', cursor: 'not-allowed' };
+      if (prediction === 1) {
+        type1 = 'primary';
+      } else {
+        type2 = 'primary';
+      }
+    }
     return (
       <Page>
         {oneParity && (
           <div className="parity-container">
             <div className="up">
-              Your prediction:
+              <div style={{ pointerEvents: 'none' }}>Your prediction:</div>
               <Button
-                type={predicted && 'danger'}
+                style={style}
                 onClick={() => this.handlerPrd(1)}
                 icon="arrow-up"
+                type={type1}
               />
               <Button
-                type={predicted && 'danger'}
+                style={style}
                 onClick={() => this.handlerPrd(-1)}
                 icon="arrow-down"
+                type={type2}
               />
             </div>
             <div className="down">
@@ -118,15 +135,17 @@ class ParityPage extends Component {
                   <Link to={l1}>{target} / </Link>
                   <Link to={l2}>{base}</Link>
                 </div>
-                {oneParity.length !== 0 && (
-                  <ParityChart
-                    base={base}
-                    target={target}
-                    limit={limit}
-                    ma={ma}
-                    list={oneParity}
-                  />
-                )}
+                <div className="chart">
+                  {oneParity.length !== 0 && (
+                    <ParityChart
+                      base={base}
+                      target={target}
+                      limit={limit}
+                      ma={ma}
+                      list={oneParity}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
