@@ -21,12 +21,22 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     padding-left: 20px;
-    width: 120%;
+    width: 110%;
 
     .avatar {
       cursor: pointer;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 80%;
+      pointer-events: none;
+      padding-left: 20px;
     }
   }
 
@@ -43,7 +53,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
-  padding: 12px;
+  padding: 30px;
 
   .right-up {
     display: flex;

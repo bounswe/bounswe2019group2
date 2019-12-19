@@ -27,6 +27,7 @@ class Article extends Component {
       getArticle,
       getArticleWithAuthorization,
       getArticleComments,
+      getArticleCommentsWithAuthorization,
       getFollowings,
       getFollowers,
       user
@@ -38,10 +39,11 @@ class Article extends Component {
       getFollowings(userId);
       getFollowers(userId);
       getArticleWithAuthorization(id, user.key);
+      getArticleCommentsWithAuthorization(id, user.key);
     } else {
       getArticle(id);
+      getArticleComments(id);
     }
-    getArticleComments(id);
   }
 
   handleLike = () => {
@@ -287,6 +289,7 @@ class Article extends Component {
                     articleId={comment.article}
                     authorURL={comment.user.url}
                     avatarValue={comment.user.avatar}
+                    numberofLikes={comment.num_likes}
                   />
                 ))}
             </div>

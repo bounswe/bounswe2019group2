@@ -15,6 +15,9 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         bottomNavigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_portfolio, R.id.navigation_markets, R.id.navigation_investments, R.id.navigation_social, R.id.navigation_profile)
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_search,
+                R.id.navigation_markets, R.id.navigation_investments, R.id.navigation_social, R.id.navigation_profile)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -105,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.log_out:
+                GoogleSignInClient client = GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build());
+                client.signOut();
                 SharedPreferences sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("token");

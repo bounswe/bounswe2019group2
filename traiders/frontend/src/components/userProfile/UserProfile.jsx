@@ -1,84 +1,88 @@
-import React from 'react';
-import { Form, Icon, Input, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 
-import './user-profile.scss';
 import Page from '../page/Page';
+import { API } from '../../redux/apiConfig';
+import UserHeader from '../userHeader/UserHeaderContainer';
+import UserSuccess from '../userSuccess/UserSuccessContainer';
+import history from '../../common/history';
+import './user-profile.scss';
 
-const UserProfile = (props) => {
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 }
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 16 }
+class UserProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      followings: [],
+      followingNumber: 0,
+      followers: [],
+      followerNumber: 0
+    };
+  }
+
+  componentDidMount() {
+    const { user } = this.props;
+    if (user) {
+      const array = user.user.url.split('/');
+      const id = array[array.length - 2];
+      fetch(`${API}/following/?user_following=${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          this.setState({ followings: data });
+          // eslint-disable-next-line no-console
+          this.setState((prevState) => ({
+            followingNumber: prevState.followings.length
+          }));
+        })
+        // eslint-disable-next-line no-console
+        .catch(console.log);
+
+      fetch(`${API}/following/?user_followed=${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          this.setState({ followers: data });
+          // eslint-disable-next-line no-console
+          this.setState((prevState) => ({
+            followerNumber: prevState.followers.length
+          }));
+        })
+        // eslint-disable-next-line no-console
+        .catch(console.log);
     }
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  }
 
-  const { user } = props;
+  render() {
+    const { user } = this.props;
+    const { followingNumber, followerNumber } = this.state;
+    if (!user) {
+      history.push('/login');
+      return <div />;
+    }
 
-  return (
-    <Page>
-      {user ? (
-        <Form
-          onSubmit={handleSubmit}
-          {...formItemLayout}
-          className="update-form"
-        >
-          <Form.Item label="Username">
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              defaultValue={user.user.username}
-              readOnly
-            />
-          </Form.Item>
-          <Form.Item label="Email">
-            <Input
-              prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="text"
-              defaultValue={user.user.email}
-              readOnly
-            />
-          </Form.Item>
-          <Form.Item label="First Name">
-            <Input type="text" defaultValue={user.user.first_name} />
-          </Form.Item>
-          <Form.Item label="Last Name:">
-            <Input type="text" defaultValue={user.user.last_name} />
-          </Form.Item>
-          <Form.Item label="IBAN">
-            <Input type="text" defaultValue={user.user.iban} />
-          </Form.Item>
-          <Form.Item label="Location">
-            <Input
-              readOnly
-              type="text"
-              defaultValue={`${user.user.city}/${user.user.country}`}
-            />
-          </Form.Item>
-          <Form.Item>
-            <div className="container">
-              <Link to="/changepassword">Change Password!</Link>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="update-form-button"
-              >
-                Update
-              </Button>
+    if (followingNumber && followerNumber) {
+      return (
+        <Page>
+          <div className="profile-container">
+            <div className="profile-left">
+              <div>
+                <UserHeader
+                  user={user.user}
+                  userKey={user.key}
+                  other={false}
+                  followingN={followingNumber}
+                  followerN={followerNumber}
+                  otherUser={user.user}
+                />
+              </div>
+              <div>
+                <UserSuccess id={user.user.id} />
+              </div>
             </div>
-          </Form.Item>
-        </Form>
-      ) : (
-        <div>:)</div>
-      )}
-    </Page>
-  );
-};
+            <div className="profile-right">notifications</div>
+          </div>
+        </Page>
+      );
+    }
+    return <div>waiting...</div>;
+  }
+}
 
 export default UserProfile;

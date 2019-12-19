@@ -67,7 +67,7 @@ class SearchViewSet(GenericViewSet):
         keywords = self.find_closest(params["keyword"])
 
         # Sort by relevance
-        keywords = sorted(keywords, key=lambda x: x[0])
+        keywords = sorted(keywords, key=lambda x: -x[0])
         articles, a_keys = list(), set()
         events, ev_keys = list(), set()
         parities, p_keys = list(), set()

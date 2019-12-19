@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 
 import Comment from './Comment';
-import { getArticleComments } from '../../redux/article/actions';
+import {
+  getArticleComments,
+  getArticleCommentsWithAuthorization
+} from '../../redux/article/actions';
 import { getEquipmentComments } from '../../redux/equipment/actions';
 
 const mapStateToProps = (state) => {
@@ -13,5 +16,9 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { getArticleComments, getEquipmentComments }
+  {
+    getArticleComments,
+    getEquipmentComments,
+    getArticleCommentsWithAuthorization
+  }
 )(Comment);

@@ -4,12 +4,20 @@ import { GetWithAuthorization } from '../../common/http/httpUtil';
 /* Action Types */
 
 const SAVE_PREDICTION_LIST = 'SAVE_PREDICTION_LIST';
+const CLEAR_PREDICTION_DATA = 'CLEAR_PREDICTION_DATA';
 
 export const actionTypes = {
-  SAVE_PREDICTION_LIST
+  SAVE_PREDICTION_LIST,
+  CLEAR_PREDICTION_DATA
 };
 
 /* Action Creators */
+
+function clearPredictionData() {
+  return {
+    type: CLEAR_PREDICTION_DATA
+  };
+}
 
 function savePredictionList(predictionList) {
   return {
@@ -26,8 +34,9 @@ export const actionCreator = {
 
 export const getPredictions = (base, target, token) => {
   return (dispatch) => {
+    dispatch(clearPredictionData());
     GetWithAuthorization(
-      `${API}/prediction/?base_equipment=${base}&target_equipment=${target},`,
+      `${API}/prediction/?base_equipment=${target}&target_equipment=${base}`,
       token
     )
       .then((response) => response.json())

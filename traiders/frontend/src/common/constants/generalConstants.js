@@ -17,7 +17,7 @@ export const navbarOptions = [
   },
   {
     name: 'PORTFOLIO',
-    url: '/',
+    url: '/portfolios',
     id: 4
   }
 ];
@@ -54,6 +54,9 @@ export const eventsTableColumns = [
     key: 'actual'
   }
 ];
+
+export const GoogleClientID =
+  '729799288738-fe0gs3ahsru0ecfn242gvtq5m83rog57.apps.googleusercontent.com';
 
 export const assetsTableConstants = [
   {
@@ -202,3 +205,100 @@ export const stopLossOrderTableColumns = [
     key: 'sellAmount'
   }
 ];
+
+export const SEARCH_RESULTS_TABLES_COLUMNS = {
+  equipmentsTable: [
+    {
+      title: 'Symbol',
+      dataIndex: 'symbol',
+      key: 'symbol'
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name'
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category'
+    }
+  ],
+  eventsTable: [
+    {
+      title: 'Event', // Header of that column
+      dataIndex: 'event', // Which property of the data to read
+      key: 'event'
+    },
+    {
+      title: 'Country', // Header of that column
+      dataIndex: 'country.name', // Which property of the data to read
+      key: 'country'
+    },
+    {
+      title: 'Category', // Header of that column
+      dataIndex: 'category', // Which property of the data to read
+      key: 'cat'
+    },
+    {
+      title: 'Importance', // Header of that column
+      dataIndex: 'importance', // Which property of the data to read
+      key: 'importance'
+    },
+    {
+      title: 'Previous', // Header of that column
+      dataIndex: 'previous', // Which property of the data to read
+      key: 'prev'
+    },
+    {
+      title: 'Actual',
+      dataIndex: 'actual',
+      key: 'actual'
+    }
+  ],
+  paritiesTable: [
+    {
+      title: 'Base Equipment',
+      dataIndex: 'base_equipment.symbol',
+      key: 'baseEquipment'
+    },
+    {
+      title: 'Target Equipment',
+      dataIndex: 'target_equipment.symbol',
+      key: 'targetEquipment'
+    },
+    {
+      title: 'Daily High',
+      dataIndex: 'high',
+      key: 'dailyHigh'
+    },
+    {
+      title: 'Daily Low',
+      dataIndex: 'low',
+      key: 'dailyLow'
+    },
+    {
+      title: 'Ratio',
+      dataIndex: 'ratio',
+      key: 'ratio'
+    },
+    {
+      title: 'Exact Date Time',
+      dataIndex: 'date',
+      key: 'data'
+    }
+  ],
+  usersTable: [
+    { title: 'Name', dataIndex: 'first_name', key: 'firstName' },
+    {
+      title: 'Surname',
+      dataIndex: 'last_name',
+      key: 'lastName'
+    },
+    {
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username'
+    }
+  ]
+};

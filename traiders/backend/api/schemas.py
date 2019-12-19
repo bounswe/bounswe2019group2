@@ -10,7 +10,10 @@ class AutoSchema(openapi.AutoSchema):
         operation = super().get_operation(path, method)
 
         # add tags for grouping
-        operation['tags'] = [self.view.basename]
+        try:
+            operation['tags'] = [self.view.basename]
+        except AttributeError:
+            pass
 
         return operation
 

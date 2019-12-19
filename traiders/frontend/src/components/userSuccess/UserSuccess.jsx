@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class UserSuccess extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { id, getParities } = this.props;
     getParities(id);
   }
@@ -15,8 +15,7 @@ class UserSuccess extends Component {
       const link = `/parity/${base_equipment.symbol}/${target_equipment.symbol}`;
       return (
         <div>
-          <h1>Success Rates</h1>
-          <div className="table-row">
+          <div style={{ cursor: 'default' }} className="table-row">
             <div className="parity-details">
               <div className="parity-symbols">
                 <Link to={link}>
@@ -35,12 +34,17 @@ class UserSuccess extends Component {
       );
     };
     const { parityList } = this.props;
-    if (parityList) {
+    if (parityList.length) {
       const parities =
         parityList &&
         // eslint-disable-next-line react/no-array-index-key
         parityList.map((element, index) => <Row item={element} key={index} />);
-      return <div className="custom-table-container">{parities}</div>;
+      return (
+        <div className="custom-table-container">
+          <h2 style={{ cursor: 'default' }}>Success Rates</h2>
+          {parities}
+        </div>
+      );
     }
     return null;
   }

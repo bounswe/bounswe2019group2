@@ -1,6 +1,21 @@
 version: "3"
 
 services:
+  annotation_db:
+    image: postgres:11
+    volumes:
+      - annotation_dbdata:/var/lib/postgresql/data
+
+  annotation_server:
+    depends_on:
+      - annotation_db
+    build: ./annotation-server
+    volumes:
+      - static:/static
+      - annotation_migrations:/app/annotation/migrations
+    env_file:
+      - ~/annotation_env
+
   backend:
     depends_on:
       - db
@@ -45,3 +60,6 @@ volumes:
   dbdata:
   media:
   migrations:
+  annotation_dbdata:
+  annotation_static:
+  annotation_migrations:
