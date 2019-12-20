@@ -8,4 +8,3 @@ django-filter==2.2.0
 django-cors-headers==3.1.1
 django-countries==5.5
 requests==2.22.0
-django-rest-framework-social-oauth2==1.1.0
