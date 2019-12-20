@@ -7,6 +7,7 @@ import UserSuccess from '../userSuccess/UserSuccessContainer';
 import history from '../../common/history';
 import './user-profile.scss';
 import Portfolios from '../portfolio/MyPortfolioContainer';
+
 class UserProfile extends Component {
   constructor(props) {
     super(props);
