@@ -169,10 +169,28 @@ def test_retrieve(self):
     response = self.client.get(url)
 
     expected_fields = {
-        'url', 'user', 'message', 'reference_obj', 'reference_url', 'id'
+        'url', 'user', 'message', 'reference_obj', 'reference_url', 'seen', 'id'
     }
     self.assertSetEqual(expected_fields, set(response.data.keys()))
 
+def test_update(self):
+    data = {
+        "user": self.user2,
+        "message": "There are news and updates about the event you have followed.",
+        "reference_obj": "Event",
+        "reference_url": "https://www.google.com/",
+    }
+    notification = Notification(**data)
+    notification.save()
+    pk = notification.pk
+    url = reverse('notification-detail', kwargs={'pk': pk})
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+    self.client.patch(url, {'seen': True}, format='json')
+
+    expected_fields = {
+        'url', 'user', 'message', 'reference_obj', 'reference_url', 'id'
+    }
+    self.assertSetEqual(expected_fields, set(response.data.keys()))
 
 def test_list_without_filter(self):
     url = reverse('article-list')
@@ -221,6 +239,6 @@ def test_list_with_filter_by_user(self):
     self.assertEqual(len(notifications), 2)  # check the number of notifications returned
 
     expected_fields = {
-        'url', 'user', 'reference_url', 'reference_obj', 'message', 'id'
+        'url', 'user', 'reference_url', 'reference_obj', 'message', 'seen', 'id'
     }
     self.assertSetEqual(set(notifications[0].keys()), expected_fields)

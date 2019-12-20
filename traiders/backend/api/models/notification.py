@@ -7,3 +7,4 @@ class Notification(models.Model):
     message = models.TextField(blank=False, max_length=200)
     reference_obj = models.TextField(blank=False, max_length=200)
     reference_url = models.URLField(blank=False)
+    seen = models.BooleanField(default=False)
