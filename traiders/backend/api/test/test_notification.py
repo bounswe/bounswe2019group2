@@ -154,93 +154,65 @@ class NotificationViewSetTests(APITestCase):
         self.assertEqual("BuyOrder", notification.reference_obj)
         self.assertEqual(self.user, notification.user)
 
+    def test_retrieve(self):
+        data = {
+            "user": self.user,
+            "message": "There are news and updates about the event you have followed.",
+            "reference_obj": "Event",
+            "reference_url": "https://www.google.com/",
+        }
+        notification = Notification(**data)
+        notification.save()
+        pk = notification.pk
+        url = reverse('notification-detail', kwargs={'pk': pk})
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        response = self.client.get(url)
 
-def test_retrieve(self):
-    data = {
-        "user": self.user,
-        "message": "There are news and updates about the event you have followed.",
-        "reference_obj": "Event",
-        "reference_url": "https://www.google.com/",
-    }
-    notification = Notification(**data)
-    notification.save()
-    pk = notification.pk
-    url = reverse('notification-detail', kwargs={'pk': pk})
-    response = self.client.get(url)
+        expected_fields = {
+            'url', 'user', 'message', 'reference_obj', 'reference_url', 'seen', 'id'
+        }
+        self.assertSetEqual(expected_fields, set(response.data.keys()))
 
-    expected_fields = {
-        'url', 'user', 'message', 'reference_obj', 'reference_url', 'seen', 'id'
-    }
-    self.assertSetEqual(expected_fields, set(response.data.keys()))
+    def test_update(self):
+        data = {
+            "user": self.user2,
+            "message": "There are news and updates about the event you have followed.",
+            "reference_obj": "Event",
+            "reference_url": "https://www.google.com/",
+        }
+        notification = Notification(**data)
+        notification.save()
+        pk = notification.pk
+        url = reverse('notification-detail', kwargs={'pk': pk})
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
+        self.client.patch(url, {'seen': True}, format='json')
 
+        notification.refresh_from_db()
+        self.assertEqual(notification.seen, True)
 
-def test_update(self):
-    data = {
-        "user": self.user2,
-        "message": "There are news and updates about the event you have followed.",
-        "reference_obj": "Event",
-        "reference_url": "https://www.google.com/",
-    }
-    notification = Notification(**data)
-    notification.save()
-    pk = notification.pk
-    url = reverse('notification-detail', kwargs={'pk': pk})
-    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
-    self.client.patch(url, {'seen': True}, format='json')
+    def test_list_with_filter_by_user(self):
+        url = reverse('article-list')
 
-    expected_fields = {
-        'url', 'user', 'message', 'reference_obj', 'reference_url', 'id'
-    }
-    self.assertSetEqual(expected_fields, set(response.data.keys()))
+        data1 = {
+            'title': 'American Economy',
+            'content': 'It is predicted that American economy in the third quarter..',
+        }
+        data2 = {
+            'title': 'British Economy',
+            'content': 'It is predicted that British economy in the third quarter..',
+        }
 
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
+        self.client.post(url, data1, format='json')
+        self.client.post(url, data2, format='json')
 
-def test_list_without_filter(self):
-    url = reverse('article-list')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
+        response = self.client.get(reverse('notification-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        notifications = response.data
+        self.assertEqual(len(notifications), 2)  # check the number of notifications returned
 
-    data1 = {
-        'title': 'American Economy',
-        'content': 'It is predicted that American economy in the third quarter..',
-    }
-    data2 = {
-        'title': 'British Economy',
-        'content': 'It is predicted that British economy in the third quarter..',
-    }
-
-    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
-    self.client.post(url, data1, format='json')
-    self.client.post(url, data2, format='json')
-    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth2_key)
-    url = reverse('notification-list')
-    response = self.client.get(url)
-
-    # to list portfolios, user is needed
-    self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-
-def test_list_with_filter_by_user(self):
-    url = reverse('article-list')
-
-    data1 = {
-        'title': 'American Economy',
-        'content': 'It is predicted that American economy in the third quarter..',
-    }
-    data2 = {
-        'title': 'British Economy',
-        'content': 'It is predicted that British economy in the third quarter..',
-    }
-
-    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
-    self.client.post(url, data1, format='json')
-    self.client.post(url, data2, format='json')
-
-    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth2_key)
-    url = f"{reverse('notification-list')}?user={self.user.pk}"
-    response = self.client.get(url)
-    self.assertEqual(response.status_code, status.HTTP_200_OK)
-    notifications = response.data
-    self.assertEqual(len(notifications), 2)  # check the number of notifications returned
-
-    expected_fields = {
-        'url', 'user', 'reference_url', 'reference_obj', 'message', 'seen', 'id'
-    }
-    self.assertSetEqual(set(notifications[0].keys()), expected_fields)
+        expected_fields = {
+            'url', 'user', 'reference_url', 'reference_obj', 'message', 'seen', 'id'
+        }
+        self.assertSetEqual(set(notifications[0].keys()), expected_fields)
