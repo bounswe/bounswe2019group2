@@ -47,7 +47,12 @@ class Article extends Component {
   }
 
   handleLike = () => {
-    const { user, id, getArticleWithAuthorization } = this.props;
+    const {
+      user,
+      id,
+      getArticleWithAuthorization,
+      getArticleCommentsWithAuthorization
+    } = this.props;
     const url = `${API}/likes/`;
     // eslint-disable-next-line
     const article = this.props.article.url;
@@ -61,18 +66,28 @@ class Article extends Component {
           // eslint-disable-next-line no-console
           .catch((error) => console.log('Errow while like operation\n', error));
         setTimeout(() => getArticleWithAuthorization(id, user.key), 500);
+        setTimeout(
+          () => getArticleCommentsWithAuthorization(id, user.key),
+          500
+        );
       } else {
         // eslint-disable-next-line
         alert("You've already liked this article!");
       }
       getArticleWithAuthorization(id, user.key);
+      getArticleCommentsWithAuthorization(id, user.key);
     } else {
       history.push('/login');
     }
   };
 
   handleDislike = () => {
-    const { user, id, getArticleWithAuthorization } = this.props;
+    const {
+      user,
+      id,
+      getArticleWithAuthorization,
+      getArticleCommentsWithAuthorization
+    } = this.props;
     // eslint-disable-next-line
     const articleLike = this.props.article.like;
 
@@ -90,6 +105,10 @@ class Article extends Component {
             console.log('Errow while unlike operation\n', error)
           );
         setTimeout(() => getArticleWithAuthorization(id, user.key), 500);
+        setTimeout(
+          () => getArticleCommentsWithAuthorization(id, user.key),
+          500
+        );
       } else {
         alert('There is no like for this user.');
       }
