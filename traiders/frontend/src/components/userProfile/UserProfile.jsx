@@ -12,9 +12,9 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       followings: [],
-      followingNumber: 0,
+      followingNumber: null,
       followers: [],
-      followerNumber: 0
+      followerNumber: null
     };
   }
 
@@ -56,8 +56,7 @@ class UserProfile extends Component {
       history.push('/login');
       return <div />;
     }
-
-    if (followingNumber && followerNumber) {
+    if (followingNumber != null && followerNumber != null) {
       return (
         <Page>
           <div className="profile-container">
