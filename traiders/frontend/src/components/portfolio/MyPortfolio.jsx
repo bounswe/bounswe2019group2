@@ -375,6 +375,7 @@ class Portfolio extends Component {
             activeKey={activeKey}
             type="editable-card"
             onEdit={this.handleDeletePortfolio}
+            size="small"
           >
             {portfolioList &&
               portfolioList.map((pane) => {
@@ -445,20 +446,18 @@ class Portfolio extends Component {
                                 </li>
                               </div>
                               {pane.user.url === user.user.url && (
-                                <div>
-                                  <div className="right">
-                                    <Button
-                                      id={item.id}
-                                      type="danger"
-                                      className="button-style"
-                                      onClick={this.deletePortfolioItem}
-                                    >
-                                      <Icon
-                                        className="icon-style"
-                                        type="delete"
-                                      />
-                                    </Button>
-                                  </div>
+                                <div className="right">
+                                  <Button
+                                    id={item.id}
+                                    type="danger"
+                                    className="button-style"
+                                    onClick={this.deletePortfolioItem}
+                                  >
+                                    <Icon
+                                      className="icon-style"
+                                      type="delete"
+                                    />
+                                  </Button>
                                 </div>
                               )}
                             </div>
