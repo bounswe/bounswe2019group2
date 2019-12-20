@@ -18,5 +18,6 @@ class NotificationViewSet(mixins.RetrieveModelMixin,
 
     def check_object_permissions(self, request, notification):
         # Another user cannot
-        if (self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update') and request.user != notification.user:
+        if (
+                self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update') and request.user != notification.user:
             raise PermissionDenied

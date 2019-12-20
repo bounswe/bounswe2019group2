@@ -173,6 +173,7 @@ def test_retrieve(self):
     }
     self.assertSetEqual(expected_fields, set(response.data.keys()))
 
+
 def test_update(self):
     data = {
         "user": self.user2,
@@ -191,6 +192,7 @@ def test_update(self):
         'url', 'user', 'message', 'reference_obj', 'reference_url', 'id'
     }
     self.assertSetEqual(expected_fields, set(response.data.keys()))
+
 
 def test_list_without_filter(self):
     url = reverse('article-list')
