@@ -18,6 +18,7 @@ import EquipmentPage from '../components/equipmentPage/EquipmentPageContainer';
 import Investments from '../modules/investments/InvestmentsModule';
 import OtherUser from '../components/otherUser/OtherUserContainer';
 import SearchModule from '../modules/searchModule/SearchModule';
+import Recommendation from '../components/recommendation/RecommendationContainer';
 
 const ACTION_TYPE = {
   PUSH: 'PUSH',
@@ -72,6 +73,7 @@ class Routes extends Component {
           <Route path="/social" component={Social} />
           <Route path="/portfolios" component={Portfolio} />
           <Route path="/investments" component={Investments} />
+          <Route path="/recommendations" component={Recommendation} />
           <Route exact path="/search/:content" component={SearchModule} />
           <Route render={() => <h1>404 Page not found</h1>} />
         </Switch>
