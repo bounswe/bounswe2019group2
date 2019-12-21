@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity
         //if user logged in before
         if(account != null)
         {
-            System.out.println("buraya mı giriyo acaba");
+
         }
         else
         {
@@ -114,6 +114,10 @@ public class LoginActivity extends AppCompatActivity
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+        }
+        else
+            {
+            System.out.println("there is a error in onActivityResult");
         }
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
