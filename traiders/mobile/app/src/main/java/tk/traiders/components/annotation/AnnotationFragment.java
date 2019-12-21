@@ -136,6 +136,7 @@ public class AnnotationFragment extends DialogFragment {
                             public void onResponse(JSONObject response) {
                                 Toast.makeText(getContext(), "Annotated!", Toast.LENGTH_SHORT).show();
                                 dismiss();
+                                getActivity().recreate();
                             }
                         }, new Response.ErrorListener() {
 

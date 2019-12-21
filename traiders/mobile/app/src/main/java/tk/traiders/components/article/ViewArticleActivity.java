@@ -40,6 +40,7 @@ import tk.traiders.LoginActivity;
 import tk.traiders.MainActivity;
 import tk.traiders.R;
 import tk.traiders.components.annotation.AnnotationFragment;
+import tk.traiders.components.annotation.ShowAnnotationsFragment;
 import tk.traiders.components.article.adapters.CommentAdapter;
 import tk.traiders.marshallers.AnnotationMarshaller;
 import tk.traiders.marshallers.ArticleMarshaller;
@@ -94,12 +95,9 @@ public class ViewArticleActivity extends AppCompatActivity {
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                // Remove the "select all" option
                 menu.removeItem(android.R.id.selectAll);
-                // Remove the "cut" option
                 menu.removeItem(android.R.id.cut);
-                // Remove the "copy all" option
-                menu.removeItem(android.R.id.copy);
+                menu.removeItem(android.R.id.shareText);
                 return true;
             }
 
@@ -110,6 +108,28 @@ public class ViewArticleActivity extends AppCompatActivity {
 
                 // Here is an example MenuItem
                 menu.add(0, 99, 0, "Annotate");
+
+                int min = 0;
+                int max = textView_content.getText().length();
+                if (textView_content.isFocused()) {
+                    final int selStart = textView_content.getSelectionStart();
+                    final int selEnd = textView_content.getSelectionEnd();
+
+                    min = Math.max(0, Math.min(selStart, selEnd));
+                    max = Math.max(0, Math.max(selStart, selEnd));
+                }
+
+                int numberOfAnnotations = 0;
+
+                for(Pair<Integer, Integer> pair: pairs){
+                    if(pair.first <= min && max <= pair.second){
+                        numberOfAnnotations++;
+                    }
+                }
+
+                if(numberOfAnnotations > 0) {
+                    menu.add(0, 100, 0, "Show Annotations");
+                }
                 return true;
             }
 
@@ -142,6 +162,25 @@ public class ViewArticleActivity extends AppCompatActivity {
                         // Finish and close the ActionMode
                         mode.finish();
                         return true;
+                    case 100:
+                        int min1 = 0;
+                        int max1 = textView_content.getText().length();
+                        if (textView_content.isFocused()) {
+                            final int selStart = textView_content.getSelectionStart();
+                            final int selEnd = textView_content.getSelectionEnd();
+
+                            min1 = Math.max(0, Math.min(selStart, selEnd));
+                            max1 = Math.max(0, Math.max(selStart, selEnd));
+                        }
+                        // Perform your definition lookup with the selected text
+
+                        ShowAnnotationsFragment showAnnotationsFragment = ShowAnnotationsFragment.newInstance(article.getUrl(),min1, max1);
+                        showAnnotationsFragment.show(getSupportFragmentManager(), "fragment_show_annotation");
+                        // Finish and close the ActionMode
+                        mode.finish();
+
+                        break;
+
                     default:
                         break;
                 }
