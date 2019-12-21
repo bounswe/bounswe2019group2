@@ -8,3 +8,8 @@ class NotificationSerializer(serializers.HyperlinkedModelSerializer):
         model = Notification
         fields = ["url", "user", "message", "reference_obj", "reference_url", "seen", "id"]
         read_only_fields = ["url", "user", "message", "reference_obj", "reference_url", "id"]
+        extra_kwargs = {
+            'seen': {
+                'required': True
+            }
+        }
