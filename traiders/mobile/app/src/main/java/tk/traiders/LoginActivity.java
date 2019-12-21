@@ -198,6 +198,7 @@ public class LoginActivity extends AppCompatActivity
             {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("username", username);
+
                 params.put("password", password);
 
                 return params;
