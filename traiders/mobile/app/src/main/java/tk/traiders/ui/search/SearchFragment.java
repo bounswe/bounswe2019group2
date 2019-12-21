@@ -13,7 +13,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import tk.traiders.R;
-import tk.traiders.ui.portfolio.PortfolioViewPagerAdapter;
 
 public class SearchFragment extends Fragment {
 
