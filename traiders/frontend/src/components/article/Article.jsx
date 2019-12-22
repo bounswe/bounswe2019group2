@@ -6,9 +6,10 @@ import { API } from '../../redux/apiConfig';
 import './article.scss';
 import {
   PostWithAuthorization,
-  DeleteWithAuthorization
+  DeleteWithAuthorization,
+  GetWithUrl,
+  PostWithUrlBody
 } from '../../common/http/httpUtil';
-import { GetWithUrl, PostWithUrlBody } from '../../common/http/httpUtil';
 
 import history from '../../common/history';
 import Comment from '../comment/CommentContainer';
@@ -213,7 +214,7 @@ class Article extends Component {
           showAddingAnnotation: true
         });
       }
-      let substring = selected.baseNode.data.substring(firstIndex, lastIndex);
+      const substring = selected.baseNode.data.substring(firstIndex, lastIndex);
       firstIndex = article.content.indexOf(substring);
       lastIndex = firstIndex + substring.length;
       this.setState({
@@ -237,7 +238,7 @@ class Article extends Component {
       const source = annotation.body.id;
 
       const { creator, created } = annotation;
-      let userId = creator.split('/')[creator.split('/').length - 2];
+      const userId = creator.split('/')[creator.split('/').length - 2];
       GetWithUrl(`https://api.traiders.tk/users/${userId}`)
         .then((response) =>
           response.json().then((res) =>
@@ -391,7 +392,7 @@ class Article extends Component {
                       filteredAnnotations
                     )
                   }}
-                ></div>
+                />
               </pre>
 
               <div className="article-like">
@@ -526,7 +527,8 @@ class Article extends Component {
                                 <img
                                   className="image"
                                   src={currentAnnotation.source}
-                                ></img>
+                                  alt={currentAnnotation.source}
+                                />
                               </div>
                               <div>{currentAnnotation.date}</div>
                               <div>{currentAnnotation.user.username}</div>
@@ -550,17 +552,17 @@ class Article extends Component {
     const file = event.target.files[0];
 
     const path = `${file.lastModified}-${file.name}`;
-    //Create a storage ref
-    var storageRef = firebase.storage().ref(path);
+    // Create a storage ref
+    const storageRef = firebase.storage().ref(path);
 
-    //Upload file
-    var task = storageRef.put(file);
+    // Upload file
+    const task = storageRef.put(file);
 
-    //Update progress
+    // Update progress
     task.on(
       'state_changed',
       function progress(snapshot) {
-        let percentage =
+        const percentage =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('File upload... ', percentage);
       },
@@ -585,16 +587,16 @@ class Article extends Component {
     console.log(annotationList);
     if (annotationList) {
       annotationList.forEach((annotation) => {
-        let eqIndex = annotation.target.selector.value.indexOf('=') + 1;
-        let ranges = annotation.target.selector.value
+        const eqIndex = annotation.target.selector.value.indexOf('=') + 1;
+        const ranges = annotation.target.selector.value
           .substring(eqIndex)
           .split(',');
-        let substring = article.substring(ranges[0], ranges[1]);
+        const substring = article.substring(ranges[0], ranges[1]);
         if (annotation.body.value) {
-          let htmlContent = `<span type="TextualBody" id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
+          const htmlContent = `<span type="TextualBody" id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
           articleWithHtml = articleWithHtml.replace(substring, htmlContent);
         } else {
-          let htmlContent = `<span type="Image" value=${annotation.body.id} id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
+          const htmlContent = `<span type="Image" value=${annotation.body.id} id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
           articleWithHtml = articleWithHtml.replace(substring, htmlContent);
         }
       });
