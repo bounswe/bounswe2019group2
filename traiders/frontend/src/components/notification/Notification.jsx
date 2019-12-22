@@ -18,8 +18,8 @@ class Notification extends Component {
     PatchWithAuthorization(url, body, user.key)
       // eslint-disable-next-line no-console
       .then((response) => console.log(response))
-      // eslint-disable-next-line no-console
       .catch((error) =>
+        // eslint-disable-next-line no-console
         console.log('Errow while changing notification\n', error)
       );
   };
@@ -30,7 +30,7 @@ class Notification extends Component {
       // eslint-disable-next-line camelcase
       const { message, reference_url, seen, url } = item;
       const array = reference_url.split('/');
-      const link = array[array.length - 3] + '/' + array[array.length - 2];
+      const link = `${array[array.length - 3]}/${array[array.length - 2]}`;
       let style = { cursor: 'default', backgroundColor: '#ADD8E6' };
       if (seen) {
         style = { cursor: 'default', backgroundColor: '#c2bdbd' };
@@ -56,9 +56,7 @@ class Notification extends Component {
       const notifications =
         notificationList &&
         // eslint-disable-next-line react/no-array-index-key
-        notificationList.map((element, index) => (
-          <Row item={element} key={index} />
-        ));
+        notificationList.map((element) => <Row item={element} />);
       return (
         <div className="custom-table-container">
           <h2 style={{ cursor: 'default' }}>Notifications</h2>

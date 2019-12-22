@@ -15,6 +15,7 @@ const Navbar = (props) => {
   if (user) getNotifications(user.key);
   let size = 0;
   if (notificationList) {
+    // eslint-disable-next-line
     notificationList.map((n) => (n.seen ? null : size++));
   }
   const navbarList = navbarOptions.map((element) => {
