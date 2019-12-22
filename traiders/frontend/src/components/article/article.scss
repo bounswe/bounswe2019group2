@@ -161,6 +161,16 @@
           margin-right: 10px;
         }
       }
+
+      .annotation-detail-container {
+        .annotation-details {
+          .annotation-image {
+            .image {
+              width: 200px;
+            }
+          }
+        }
+      }
     }
   }
 }

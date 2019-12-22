@@ -43,9 +43,7 @@ class Article extends Component {
       getFollowings,
       getFollowers,
       user,
-      getArticleAnnotations,
-      annotationList,
-      article
+      getArticleAnnotations
     } = this.props;
 
     getArticleAnnotations();
@@ -60,24 +58,6 @@ class Article extends Component {
     } else {
       getArticle(id);
       getArticleComments(id);
-    }
-
-    let filteredAnnotations;
-
-    if (annotationList && article) {
-      filteredAnnotations = annotationList.filter(
-        (annotation) => annotation.target.source === article.url
-      );
-    }
-    console.log(filteredAnnotations);
-
-    if (filteredAnnotations) {
-      this.setState({
-        htmlContent: this.handleCreatingHighlightedContent(
-          article.content,
-          filteredAnnotations
-        )
-      });
     }
   }
 
@@ -224,26 +204,38 @@ class Article extends Component {
 
   handleAnnotation = () => {
     const selected = window.getSelection();
+    const { article } = this.props;
     if (selected.baseNode.data === selected.extentNode.data) {
+      let firstIndex = selected.baseOffset;
+      let lastIndex = selected.extentOffset;
+      if (lastIndex - firstIndex) {
+        this.setState({
+          showAddingAnnotation: true
+        });
+      }
+      let substring = selected.baseNode.data.substring(firstIndex, lastIndex);
+      firstIndex = article.content.indexOf(substring);
+      lastIndex = firstIndex + substring.length;
       this.setState({
         showAnnotationTab: true,
-        firstIndex: selected.baseOffset,
-        lastIndex: selected.extentOffset
+        firstIndex,
+        lastIndex
       });
     }
   };
 
   handleClickRange = (e) => {
-    if (e.target.id) {
+    const { id } = e.target;
+    if (id) {
       this.setState({
         showAddingAnnotation: false
       });
       const { annotationList } = this.props;
-      let annotation = annotationList.filter(
-        (element) => element.id === e.target.id
-      );
-
+      let annotation = annotationList.filter((element) => element.id === id);
       annotation = annotation[0];
+      const type = annotation.body.value ? 'TextualBody' : 'Image';
+      const source = annotation.body.id;
+
       const { creator, created } = annotation;
       let userId = creator.split('/')[creator.split('/').length - 2];
       GetWithUrl(`https://api.traiders.tk/users/${userId}`)
@@ -252,8 +244,10 @@ class Article extends Component {
             this.setState({
               currentAnnotation: {
                 value: annotation.body.value,
-                date: created,
-                user: res
+                date: new Date(created).toLocaleString(),
+                user: res,
+                type,
+                source
               }
             })
           )
@@ -305,8 +299,7 @@ class Article extends Component {
   };
 
   render() {
-    console.log(this.state);
-    const { article, comments, user, followings } = this.props;
+    const { article, comments, user, followings, annotationList } = this.props;
     const {
       visible,
       action,
@@ -315,7 +308,17 @@ class Article extends Component {
       currentAnnotation
     } = this.state;
 
+    console.log(currentAnnotation);
+
     const ownArticle = user && article && user.user.url === article.author.url;
+
+    let filteredAnnotations = [];
+
+    if (annotationList && article) {
+      filteredAnnotations = annotationList.filter(
+        (annotation) => annotation.target.source === article.url
+      );
+    }
 
     const isFollowing =
       user &&
@@ -383,7 +386,10 @@ class Article extends Component {
                 <div
                   onClick={this.handleClickRange}
                   dangerouslySetInnerHTML={{
-                    __html: this.state.htmlContent
+                    __html: this.handleCreatingHighlightedContent(
+                      article.content,
+                      filteredAnnotations
+                    )
                   }}
                 ></div>
               </pre>
@@ -504,13 +510,28 @@ class Article extends Component {
                         </div>
                       </div>
                     ) : (
-                      <div>
-                        {currentAnnotation && currentAnnotation.user && (
+                      <div className="annotation-detail-container">
+                        {currentAnnotation &&
+                        currentAnnotation.user &&
+                        currentAnnotation.value ? (
                           <div className="annotation-details">
                             <div>{currentAnnotation.value}</div>
                             <div>{currentAnnotation.date}</div>
                             <div>{currentAnnotation.user.username}</div>
                           </div>
+                        ) : (
+                          currentAnnotation && (
+                            <div className="annotation-details">
+                              <div className="annotation-image">
+                                <img
+                                  className="image"
+                                  src={currentAnnotation.source}
+                                ></img>
+                              </div>
+                              <div>{currentAnnotation.date}</div>
+                              <div>{currentAnnotation.user.username}</div>
+                            </div>
+                          )
                         )}
                       </div>
                     )}
@@ -559,25 +580,26 @@ class Article extends Component {
     });
   };
 
-  handleAnnotationHighlight = (content) => {
-    return <div className="content">{content}</div>;
-  };
-
   handleCreatingHighlightedContent = (article, annotationList) => {
     let articleWithHtml = article;
+    console.log(annotationList);
     if (annotationList) {
       annotationList.forEach((annotation) => {
-        console.log(annotation.body.value);
         let eqIndex = annotation.target.selector.value.indexOf('=') + 1;
         let ranges = annotation.target.selector.value
           .substring(eqIndex)
           .split(',');
         let substring = article.substring(ranges[0], ranges[1]);
-        let htmlContent = `<span id=${annotation.id} style='background-color: green; cursor:pointer; refName="span"'>${substring}</span>`;
-        articleWithHtml = articleWithHtml.replace(substring, htmlContent);
+        if (annotation.body.value) {
+          let htmlContent = `<span type="TextualBody" id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
+          articleWithHtml = articleWithHtml.replace(substring, htmlContent);
+        } else {
+          let htmlContent = `<span type="Image" value=${annotation.body.id} id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
+          articleWithHtml = articleWithHtml.replace(substring, htmlContent);
+        }
       });
     }
-    console.log(articleWithHtml);
+
     return articleWithHtml;
   };
 }
