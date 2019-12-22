@@ -29,7 +29,6 @@ class Article extends Component {
       firstIndex: null,
       lastIndex: null,
       annotationImageUrl: null,
-      htmlContent: null,
       currentAnnotation: null
     };
   }
@@ -233,7 +232,7 @@ class Article extends Component {
       });
       const { annotationList } = this.props;
       let annotation = annotationList.filter((element) => element.id === id);
-      annotation = annotation[0];
+      [annotation] = annotation;
       const type = annotation.body.value ? 'TextualBody' : 'Image';
       const source = annotation.body.id;
 
@@ -254,6 +253,7 @@ class Article extends Component {
           )
         )
         .catch((error) =>
+          // eslint-disable-next-line no-console
           console.log('Error while fetching annotation owner', error)
         );
     }
@@ -273,7 +273,9 @@ class Article extends Component {
     const { url } = user.user;
 
     PostWithUrlBody(ANNOTATION_URL, { body, target, creator: url })
+      // eslint-disable-next-line no-console
       .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while adding annotation', error));
 
     setTimeout(() => getArticleAnnotations(), 1000);
@@ -293,12 +295,15 @@ class Article extends Component {
     const { url } = user.user;
 
     PostWithUrlBody(ANNOTATION_URL, { body, target, creator: url })
+      // eslint-disable-next-line no-console
       .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('Error while adding annotation', error));
 
     setTimeout(() => getArticleAnnotations(), 1000);
   };
 
+  // eslint-disable-next-line  react/sort-comp
   render() {
     const { article, comments, user, followings, annotationList } = this.props;
     const {
@@ -308,8 +313,6 @@ class Article extends Component {
       showAddingAnnotation,
       currentAnnotation
     } = this.state;
-
-    console.log(currentAnnotation);
 
     const ownArticle = user && article && user.user.url === article.author.url;
 
@@ -386,6 +389,7 @@ class Article extends Component {
               >
                 <div
                   onClick={this.handleClickRange}
+                  // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{
                     __html: this.handleCreatingHighlightedContent(
                       article.content,
@@ -564,12 +568,15 @@ class Article extends Component {
       function progress(snapshot) {
         const percentage =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // eslint-disable-next-line no-console
         console.log('File upload... ', percentage);
       },
       function error(err) {
+        // eslint-disable-next-line no-console
         console.log('Error when uploading file', err);
       },
       function complete() {
+        // eslint-disable-next-line no-console
         console.log('File upload completed on path: ');
         task.snapshot.ref.getDownloadURL().then((url) => saveUrl(url));
       }
@@ -584,7 +591,7 @@ class Article extends Component {
 
   handleCreatingHighlightedContent = (article, annotationList) => {
     let articleWithHtml = article;
-    console.log(annotationList);
+
     if (annotationList) {
       annotationList.forEach((annotation) => {
         const eqIndex = annotation.target.selector.value.indexOf('=') + 1;

@@ -109,6 +109,7 @@ export const getArticleAnnotations = () => {
       .then((response) => dispatch(saveArticleAnnotations(response)))
       // eslint-disable-next-line no-console
       .catch((error) =>
+        // eslint-disable-next-line no-console
         console.log('Error while fetching annotations\n', error)
       );
   };
