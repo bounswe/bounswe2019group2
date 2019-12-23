@@ -259,7 +259,6 @@ class Portfolio extends Component {
               () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
               1000
             );
-            // window.location.reload();
           });
         }
       }
@@ -279,8 +278,6 @@ class Portfolio extends Component {
             1000
           );
         });
-      } else {
-        alert('You already have followed the portfolio.');
       }
     }
   };
@@ -310,7 +307,6 @@ class Portfolio extends Component {
               () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
               1000
             );
-            // window.location.reload();
           });
         }
       }
@@ -329,7 +325,6 @@ class Portfolio extends Component {
             () => getPortfoliosUserOwnsWithAuthorization(otherUserId, user.key),
             1000
           );
-          // window.location.reload();
         });
       }
     }
@@ -350,7 +345,7 @@ class Portfolio extends Component {
     if (!user) {
       history.push('/login');
     }
-    // this.addToPanes();
+
     const filteredList = [];
     if (currencyList) {
       currencyList.forEach((element) => filteredList.push(element.symbol));

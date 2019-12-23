@@ -5,7 +5,6 @@ import Page from '../page/Page';
 import UserHeader from '../userHeader/UserHeaderContainer';
 import UserSuccess from '../userSuccess/UserSuccessContainer';
 import './other-user.scss';
-import Portfolios from '../portfolio/MyPortfolioContainer';
 
 class OtherUser extends Component {
   constructor(props) {
@@ -76,9 +75,6 @@ class OtherUser extends Component {
             </div>
             <div>
               <UserSuccess id={id} />
-            </div>
-            <div>
-              <Portfolios other otherUserId={id} />
             </div>
           </div>
         </Page>

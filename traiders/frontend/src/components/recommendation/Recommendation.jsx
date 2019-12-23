@@ -13,10 +13,10 @@ const Recommendation = ({
   recommendationResult,
   user
 }) => {
+  const [selectedTab, setSelectedTab] = useState('articles');
   if (!user) {
     history.push('/login');
   }
-  const [selectedTab, setSelectedTab] = useState('articles');
   const { key } = user;
   useEffect(() => {
     getRecommendationResult(key);

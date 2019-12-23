@@ -26,21 +26,6 @@
 
     .buttons {
       display: flex;
-
-      .profile-button {
-        position: relative;
-        display: inline-block;
-      }
-
-      .notification {
-        position: absolute;
-        z-index: 10;
-        top: 10px;
-        right: 240px;
-        color: white;
-        background: rgb(7, 104, 184);
-        border-radius: 2px;
-      }
     }
   }
 }

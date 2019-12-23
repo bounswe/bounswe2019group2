@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu, Button, Input, Icon } from 'antd';
+import { Layout, Menu, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
 import history from '../../common/history';
@@ -11,13 +11,6 @@ const { Header } = Layout;
 const { Search } = Input;
 
 const Navbar = (props) => {
-  const { getNotifications, notificationList, user } = props;
-  if (user) getNotifications(user.key);
-  let size = 0;
-  if (notificationList) {
-    // eslint-disable-next-line
-    notificationList.map((n) => (n.seen ? null : size++));
-  }
   const navbarList = navbarOptions.map((element) => {
     return (
       <Menu.Item key={element.id}>
@@ -30,6 +23,8 @@ const Navbar = (props) => {
     const { logout } = props;
     logout();
   };
+
+  const { user } = props;
 
   const onSearch = (value) => {
     const url = `/search/${value}`;
@@ -56,10 +51,7 @@ const Navbar = (props) => {
           {user ? (
             <div className="buttons">
               <Link to="/profile">
-                {size ? <Icon className="notification" type="bell" /> : null}
-                <Button className="profile-button" type="primary">
-                  Profile
-                </Button>
+                <Button type="primary">Profile</Button>
               </Link>
               <Link to="/">
                 <Button type="danger" onClick={Logout}>
