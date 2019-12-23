@@ -227,11 +227,10 @@ class MyOrders extends Component {
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
-                  this.handleSelectCurrency('buyBaseCurrency', value)
+                  this.handleSelectCurrency('buyTargetCurrency', value)
                 }
                 style={{ width: 120 }}
               >
-                {/* eslint-disable-next-line no-use-before-define */}
                 {this.menu(filteredList)}
               </Select>
             </div>
@@ -240,10 +239,11 @@ class MyOrders extends Component {
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
-                  this.handleSelectCurrency('buyTargetCurrency', value)
+                  this.handleSelectCurrency('buyBaseCurrency', value)
                 }
                 style={{ width: 120 }}
               >
+                {/* eslint-disable-next-line no-use-before-define */}
                 {this.menu(filteredList)}
               </Select>
             </div>
@@ -280,7 +280,7 @@ class MyOrders extends Component {
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
-                  this.handleSelectCurrency('stopBaseCurrency', value)
+                  this.handleSelectCurrency('stopTargetCurrency', value)
                 }
                 style={{ width: 120 }}
               >
@@ -292,7 +292,7 @@ class MyOrders extends Component {
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
-                  this.handleSelectCurrency('stopTargetCurrency', value)
+                  this.handleSelectCurrency('stopBaseCurrency', value)
                 }
                 style={{ width: 120 }}
               >
