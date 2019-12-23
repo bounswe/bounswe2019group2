@@ -16,10 +16,8 @@ class Portfolio extends Component {
   constructor(props) {
     super(props);
     this.newTabIndex = 0;
-    const panes = [];
     this.state = {
       activeKey: null,
-      panes,
       portfoliBaseCurrency: 'TRY',
       portfolioTargetCurrency: 'TRY',
       visiblePortfolioEquipment: false,
@@ -33,16 +31,21 @@ class Portfolio extends Component {
     const {
       getCurrencyList,
       user,
-      getPortfoliosUserOwnsWithAuthorization
+      getPortfoliosUserOwnsWithAuthorization,
+      otherUserId,
+      other
     } = this.props;
+    if (other) {
+      getPortfoliosUserOwnsWithAuthorization(otherUserId, user.key);
+    } else {
+      if (user) {
+        const array = user.user.url.split('/');
+        const userId = array[array.length - 2];
+        getPortfoliosUserOwnsWithAuthorization(userId, user.key);
+      }
 
-    if (user) {
-      const array = user.user.url.split('/');
-      const userId = array[array.length - 2];
-      getPortfoliosUserOwnsWithAuthorization(userId, user.key);
+      getCurrencyList();
     }
-
-    getCurrencyList();
   }
 
   handleRoute = (event, baseSymbol, targetSymbol) => {
@@ -138,23 +141,28 @@ class Portfolio extends Component {
   };
 
   handleDeletePortfolio = (id) => {
-    const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
-    if (user) {
-      const url = `${API}/portfolio/${id}`;
-      const array = user.user.url.split('/');
-      const userId = array[array.length - 2];
+    const { user, getPortfoliosUserOwnsWithAuthorization, other } = this.props;
+    if (!other) {
+      if (user) {
+        const url = `${API}/portfolio/${id}`;
+        const array = user.user.url.split('/');
+        const userId = array[array.length - 2];
 
-      DeleteWithAuthorization(url, user.key).then((response) => {
-        if (response.status === 204) {
-          // eslint-disable-next-line
-          alert('Succesfully deleted.');
-          // eslint-disable-next-line
-        }
-        setTimeout(
-          () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
-          1000
-        );
-      });
+        DeleteWithAuthorization(url, user.key).then((response) => {
+          if (response.status === 204) {
+            // eslint-disable-next-line
+            alert('Succesfully deleted.');
+            // eslint-disable-next-line
+          }
+          setTimeout(
+            () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
+            1000
+          );
+        });
+      }
+    } else {
+      // eslint-disable-next-line
+      alert("You don't have privileges to delete this portfolio!");
     }
   };
 
@@ -227,13 +235,37 @@ class Portfolio extends Component {
   };
 
   handleFollow = (id, isFollowing) => {
-    const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
+    const {
+      user,
+      getPortfoliosUserOwnsWithAuthorization,
+      other,
+      otherUserId
+    } = this.props;
+    if (!other) {
+      if (user) {
+        if (!isFollowing) {
+          const url = `${API}/portfolio/${id}`;
+          const array = user.user.url.split('/');
+          const userId = array[array.length - 2];
+          const body = {
+            is_following: true
+          };
+          PatchWithAuthorization(url, body, user.key).then((response) => {
+            if (response.status === 204) {
+              // eslint-disable-next-line
+            }
 
-    if (user) {
+            setTimeout(
+              () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
+              1000
+            );
+            // window.location.reload();
+          });
+        }
+      }
+    } else if (user) {
       if (!isFollowing) {
         const url = `${API}/portfolio/${id}`;
-        const array = user.user.url.split('/');
-        const userId = array[array.length - 2];
         const body = {
           is_following: true
         };
@@ -243,7 +275,7 @@ class Portfolio extends Component {
           }
 
           setTimeout(
-            () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
+            () => getPortfoliosUserOwnsWithAuthorization(otherUserId, user.key),
             1000
           );
         });
@@ -254,13 +286,37 @@ class Portfolio extends Component {
   };
 
   handleUnfollow = (id, isFollowing) => {
-    const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
+    const {
+      user,
+      getPortfoliosUserOwnsWithAuthorization,
+      other,
+      otherUserId
+    } = this.props;
+    if (!other) {
+      if (user) {
+        if (isFollowing) {
+          const url = `${API}/portfolio/${id}`;
+          const array = user.user.url.split('/');
+          const userId = array[array.length - 2];
+          const body = {
+            is_following: false
+          };
+          PatchWithAuthorization(url, body, user.key).then((response) => {
+            if (response.status === 204) {
+              // eslint-disable-next-line
+            }
 
-    if (user) {
+            setTimeout(
+              () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
+              1000
+            );
+            // window.location.reload();
+          });
+        }
+      }
+    } else if (user) {
       if (isFollowing) {
         const url = `${API}/portfolio/${id}`;
-        const array = user.user.url.split('/');
-        const userId = array[array.length - 2];
         const body = {
           is_following: false
         };
@@ -270,7 +326,7 @@ class Portfolio extends Component {
           }
 
           setTimeout(
-            () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
+            () => getPortfoliosUserOwnsWithAuthorization(otherUserId, user.key),
             1000
           );
           // window.location.reload();
@@ -281,16 +337,15 @@ class Portfolio extends Component {
 
   render() {
     const { TabPane } = Tabs;
-    const { user, currencyList, portfolioList } = this.props;
+    const { user, currencyList, portfolioList, other } = this.props;
     const {
       visiblePortfolioEquipment,
       visiblePortfolio,
       portfolioName,
-      panes,
       activeKey
     } = this.state;
     // eslint-disable-next-line
-    console.log(panes);
+    console.log(this.props);
 
     if (!user) {
       history.push('/login');
@@ -307,17 +362,21 @@ class Portfolio extends Component {
           <div className="portfolio-header-div">
             <h2 className="portfolio-header">MY PORTFOLIOS</h2>
           </div>
-          <div style={{ marginBottom: 16 }}>
-            <Button type="primary" onClick={this.handleAddPortfolio}>
-              Add New Portfolio
-            </Button>
-          </div>
+          {!other && (
+            <div style={{ marginBottom: 16 }}>
+              <Button type="primary" onClick={this.handleAddPortfolio}>
+                Add New Portfolio
+              </Button>
+            </div>
+          )}
+
           <Tabs
             hideAdd
             onChange={this.onChange}
             activeKey={activeKey}
             type="editable-card"
             onEdit={this.handleDeletePortfolio}
+            size="small"
           >
             {portfolioList &&
               portfolioList.map((pane) => {
@@ -388,56 +447,48 @@ class Portfolio extends Component {
                                 </li>
                               </div>
                               {pane.user.url === user.user.url && (
-                                <div>
-                                  <div className="right">
-                                    <Button
-                                      id={item.id}
-                                      type="danger"
-                                      className="button-style"
-                                      onClick={this.deletePortfolioItem}
-                                    >
-                                      <Icon
-                                        className="icon-style"
-                                        type="delete"
-                                      />
-                                    </Button>
-                                  </div>
-                                  {pane.user.url !== user.user.url && (
-                                    <div>
-                                      {!pane.is_following ? (
-                                        <Button
-                                          type="default"
-                                          icon="plus"
-                                          onClick={() =>
-                                            this.handleFollow(
-                                              pane.id,
-                                              pane.is_following
-                                            )
-                                          }
-                                        >
-                                          Follow
-                                        </Button>
-                                      ) : (
-                                        <Button
-                                          type="default"
-                                          icon="plus"
-                                          onClick={() =>
-                                            this.handleUnfollow(
-                                              pane.id,
-                                              pane.is_following
-                                            )
-                                          }
-                                        >
-                                          Unfollow
-                                        </Button>
-                                      )}
-                                    </div>
-                                  )}
+                                <div className="right">
+                                  <Button
+                                    id={item.id}
+                                    type="danger"
+                                    className="button-style"
+                                    onClick={this.deletePortfolioItem}
+                                  >
+                                    <Icon
+                                      className="icon-style"
+                                      type="delete"
+                                    />
+                                  </Button>
                                 </div>
                               )}
                             </div>
                           );
                         })}
+                      {pane.user.url !== user.user.url && (
+                        <div>
+                          {!pane.is_following ? (
+                            <Button
+                              type="default"
+                              icon="plus"
+                              onClick={() =>
+                                this.handleFollow(pane.id, pane.is_following)
+                              }
+                            >
+                              Follow
+                            </Button>
+                          ) : (
+                            <Button
+                              type="default"
+                              icon="plus"
+                              onClick={() =>
+                                this.handleUnfollow(pane.id, pane.is_following)
+                              }
+                            >
+                              Unfollow
+                            </Button>
+                          )}
+                        </div>
+                      )}
                       {pane.user.url === user.user.url && (
                         <Button
                           className="item-add-button"
