@@ -246,10 +246,9 @@ class Portfolio extends Component {
             () => getPortfoliosUserOwnsWithAuthorization(userId, user.key),
             1000
           );
-          // window.location.reload();
         });
       } else {
-        alert();
+        alert('You already have followed the portfolio.');
       }
     }
   };
