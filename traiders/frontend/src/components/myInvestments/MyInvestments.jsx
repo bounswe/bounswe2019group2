@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal, Select, Input, Checkbox } from 'antd';
+import { Table, Button, Modal, Select, Input, Checkbox, Alert } from 'antd';
 
 import history from '../../common/history';
 import './my-investments.scss';
@@ -212,6 +212,7 @@ class MyInvestments extends Component {
       creditCardValidUntil,
       isCreditCard
     } = this.state;
+
     let newManualInvestmentList = [];
     let newOnlineInvestmentList = [];
     if (user && manualInvestments && onlineInvestments && profitLossList) {
@@ -403,6 +404,17 @@ class MyInvestments extends Component {
             )}
           </div>
         </Modal>
+        {profitLossList && profitLossList > 0 ? (
+          <div>
+            Total Profit:
+            <Alert message={profitLossList.total_profit} type="success" />
+          </div>
+        ) : (
+          <div>
+            Total Profit:
+            <Alert message={profitLossList.total_profit} type="error" />
+          </div>
+        )}
       </div>
     );
   }
