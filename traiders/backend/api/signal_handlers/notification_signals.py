@@ -56,10 +56,8 @@ def parity_change(sender, instance: Parity, created, **kwargs):
                               increasing=True)
 
     parity = (
-        Parity.objects
-            .order_by('-date')
-            .filter(target_equipment__symbol=target_symbol, base_equipment__symbol=base_symbol)
-            .first()
+        Parity.objects.order_by('-date').filter(target_equipment__symbol=target_symbol,
+                                                base_equipment__symbol=base_symbol).first()
     )
 
     parity_url = reverse('parity-detail', kwargs={'pk': parity.pk})
