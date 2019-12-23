@@ -16,3 +16,4 @@ from .portfolio import PortfolioViewSet, PortfolioItemViewSet
 from .search import SearchViewSet
 from .notification import NotificationViewSet
 from .recommendation import RecommendationViewSet
+from .alert import AlertViewSet
