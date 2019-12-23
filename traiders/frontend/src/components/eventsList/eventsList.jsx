@@ -5,7 +5,6 @@ import { API } from '../../redux/apiConfig';
 import history from '../../common/history';
 import { PatchWithAuthorization } from '../../common/http/httpUtil';
 import './events-list.scss';
-// import { eventsTableColumns } from '../../common/constants/generalConstants';
 
 class EventsList extends Component {
   componentDidMount() {
