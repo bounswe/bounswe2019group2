@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
-import { Button, Modal, Icon } from 'antd';
+import { Button, Modal, Icon, Input } from 'antd';
+import * as firebase from 'firebase';
 
 import { API } from '../../redux/apiConfig';
 import './article.scss';
 import {
   PostWithAuthorization,
-  DeleteWithAuthorization
+  DeleteWithAuthorization,
+  GetWithUrl,
+  PostWithUrlBody
 } from '../../common/http/httpUtil';
-import history from '../../common/history';
 
+import history from '../../common/history';
 import Comment from '../comment/CommentContainer';
 import AddComment from '../addComment/AddCommentContainer';
+
+const ANNOTATION_URL = 'https://annotation.traiders.tk/annotations/';
 
 class Article extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
-      action: null
+      action: null,
+      showAnnotationTab: false,
+      showAddingAnnotation: true,
+      annotationContent: null,
+      firstIndex: null,
+      lastIndex: null,
+      annotationImageUrl: null,
+      currentAnnotation: null
     };
   }
 
@@ -30,8 +42,11 @@ class Article extends Component {
       getArticleCommentsWithAuthorization,
       getFollowings,
       getFollowers,
-      user
+      user,
+      getArticleAnnotations
     } = this.props;
+
+    getArticleAnnotations();
 
     if (user) {
       const array = user.user.url.split('/');
@@ -181,11 +196,133 @@ class Article extends Component {
     history.push(url);
   };
 
+  handleAnnotationInput = (event) => {
+    this.setState({
+      annotationContent: event.target.value
+    });
+  };
+
+  handleAnnotation = () => {
+    const selected = window.getSelection();
+    const { article } = this.props;
+    if (selected.baseNode.data === selected.extentNode.data) {
+      let firstIndex = selected.baseOffset;
+      let lastIndex = selected.extentOffset;
+      if (lastIndex - firstIndex) {
+        this.setState({
+          showAddingAnnotation: true
+        });
+      }
+      const substring = selected.baseNode.data.substring(firstIndex, lastIndex);
+      firstIndex = article.content.indexOf(substring);
+      lastIndex = firstIndex + substring.length;
+      this.setState({
+        showAnnotationTab: true,
+        firstIndex,
+        lastIndex
+      });
+    }
+  };
+
+  handleClickRange = (e) => {
+    const { id } = e.target;
+    if (id) {
+      this.setState({
+        showAddingAnnotation: false
+      });
+      const { annotationList } = this.props;
+      let annotation = annotationList.filter((element) => element.id === id);
+      [annotation] = annotation;
+      const type = annotation.body.value ? 'TextualBody' : 'Image';
+      const source = annotation.body.id;
+
+      const { creator, created } = annotation;
+      const userId = creator.split('/')[creator.split('/').length - 2];
+      GetWithUrl(`https://api.traiders.tk/users/${userId}`)
+        .then((response) =>
+          response.json().then((res) =>
+            this.setState({
+              currentAnnotation: {
+                value: annotation.body.value,
+                date: new Date(created).toLocaleString(),
+                user: res,
+                type,
+                source
+              }
+            })
+          )
+        )
+        .catch((error) =>
+          // eslint-disable-next-line no-console
+          console.log('Error while fetching annotation owner', error)
+        );
+    }
+  };
+
+  submitAnnotationText = () => {
+    const { firstIndex, lastIndex, annotationContent } = this.state;
+    const { article, user, getArticleAnnotations } = this.props;
+
+    const body = { type: 'TextualBody', value: annotationContent };
+    const target = {
+      source: article.url,
+      selector: {
+        value: `char=${firstIndex},${lastIndex}`
+      }
+    };
+    const { url } = user.user;
+
+    PostWithUrlBody(ANNOTATION_URL, { body, target, creator: url })
+      // eslint-disable-next-line no-console
+      .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while adding annotation', error));
+
+    setTimeout(() => getArticleAnnotations(), 1000);
+  };
+
+  submitAnnotationImage = () => {
+    const { firstIndex, lastIndex, annotationImageUrl } = this.state;
+    const { article, user, getArticleAnnotations } = this.props;
+
+    const body = { type: 'Image', id: annotationImageUrl };
+    const target = {
+      source: article.url,
+      selector: {
+        value: `char=${firstIndex},${lastIndex}`
+      }
+    };
+    const { url } = user.user;
+
+    PostWithUrlBody(ANNOTATION_URL, { body, target, creator: url })
+      // eslint-disable-next-line no-console
+      .then((response) => console.log(response))
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log('Error while adding annotation', error));
+
+    setTimeout(() => getArticleAnnotations(), 1000);
+  };
+
+  // eslint-disable-next-line  react/sort-comp
   render() {
-    const { article, comments, user, followings } = this.props;
-    const { visible, action } = this.state;
+    const { article, comments, user, followings, annotationList } = this.props;
+    const {
+      visible,
+      action,
+      showAnnotationTab,
+      showAddingAnnotation,
+      currentAnnotation
+    } = this.state;
 
     const ownArticle = user && article && user.user.url === article.author.url;
+
+    let filteredAnnotations = [];
+
+    if (annotationList && article) {
+      filteredAnnotations = annotationList.filter(
+        (annotation) => annotation.target.source === article.url
+      );
+    }
 
     const isFollowing =
       user &&
@@ -196,121 +333,283 @@ class Article extends Component {
       );
 
     const following = isFollowing ? isFollowing.length !== 0 : false;
-    // eslint-disable-next-line
-    console.log(followings);
+
     return (
-      <div>
+      <div className="main-div">
         {(article && (
-          <div className="article-container">
-            <div className="article-title">{article.title}</div>
-            <div className="article-header">
-              <div className="header-left-part">
-                <div className="user-related">
-                  <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
-                  <div
-                    className="author-username"
-                    onClick={(event) =>
-                      this.handleRoute(event, article.author.url)
-                    }
-                  >
-                    ({article.author.username})
+          <div className="article-page-container">
+            <div className="article-container">
+              <div className="article-title">{article.title}</div>
+              <div className="article-header">
+                <div className="header-left-part">
+                  <div className="user-related">
+                    <div className="author-name">{`${article.author.first_name} ${article.author.last_name}`}</div>
+                    <div
+                      className="author-username"
+                      onClick={(event) =>
+                        this.handleRoute(event, article.author.url)
+                      }
+                    >
+                      ({article.author.username})
+                    </div>
+                  </div>
+                  <div className="article-related">
+                    {article.created_at.substring(0, 10)}
+                    {!following ? (
+                      <Button onClick={this.handleFollow} disabled={ownArticle}>
+                        Follow
+                      </Button>
+                    ) : (
+                      <Button onClick={this.handleUnfollow}>Unfollow</Button>
+                    )}
                   </div>
                 </div>
-                <div className="article-related">
-                  {article.created_at.substring(0, 10)}
-                  {!following ? (
-                    <Button onClick={this.handleFollow} disabled={ownArticle}>
-                      Follow
+                {ownArticle && (
+                  <div className="header-right-part">
+                    <Button type="primary" onClick={this.editArticle}>
+                      Edit
                     </Button>
-                  ) : (
-                    <Button onClick={this.handleUnfollow}>Unfollow</Button>
-                  )}
-                </div>
+                    <Button type="danger" onClick={this.deleteArticle}>
+                      Delete
+                    </Button>
+                  </div>
+                )}
               </div>
-              {ownArticle && (
-                <div className="header-right-part">
-                  <Button type="primary" onClick={this.editArticle}>
-                    Edit
-                  </Button>
-                  <Button type="danger" onClick={this.deleteArticle}>
-                    Delete
-                  </Button>
-                </div>
-              )}
-            </div>
 
-            <div className="article-image-container">
-              <img
-                className="article-image"
-                src={article.image}
-                alt={article.image}
-              />
-            </div>
-            <pre className="article-content">{article.content}</pre>
-            <div className="article-like">
-              <h4>Number of Likes: {article.num_likes}</h4>
-
-              <Button
-                style={{ paddingLeft: 12, cursor: 'auto' }}
-                onClick={this.handleLike}
+              <div className="article-image-container">
+                <img
+                  className="article-image"
+                  src={article.image}
+                  alt={article.image}
+                />
+              </div>
+              <pre
+                className="article-content"
+                onMouseUp={this.handleAnnotation}
               >
-                <Icon
-                  type="like"
-                  theme={action === 'liked' ? 'filled' : 'outlined'}
+                <div
+                  onClick={this.handleClickRange}
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{
+                    __html: this.handleCreatingHighlightedContent(
+                      article.content,
+                      filteredAnnotations
+                    )
+                  }}
+                />
+              </pre>
+
+              <div className="article-like">
+                <h4>Number of Likes: {article.num_likes}</h4>
+
+                <Button
+                  style={{ paddingLeft: 12, cursor: 'auto' }}
                   onClick={this.handleLike}
-                />
-              </Button>
-              <Button
-                onClick={this.handleDislike}
-                style={{ paddingLeft: 12, cursor: 'auto' }}
-              >
-                <Icon
-                  type="dislike"
-                  theme={action === 'disliked' ? 'filled' : 'outlined'}
-                  onClick={this.handleDislike}
-                />
-              </Button>
-            </div>
-            <div className="written-by" />
-            <div className="article-comment">
-              <div className="comment-header-div">
-                <h2 className="comment-header">COMMENTS</h2>
-              </div>
-
-              {comments &&
-                comments.map((comment) => (
-                  <Comment
-                    submitUrl="https://api.traiders.tk/comments/article/"
-                    author={comment.user.username}
-                    content={comment.content}
-                    createdAt={comment.created_at.substring(0, 10)}
-                    image={comment.image}
-                    commentId={comment.id}
-                    articleId={comment.article}
-                    authorURL={comment.user.url}
-                    avatarValue={comment.user.avatar}
-                    numberofLikes={comment.num_likes}
+                >
+                  <Icon
+                    type="like"
+                    theme={action === 'liked' ? 'filled' : 'outlined'}
+                    onClick={this.handleLike}
                   />
-                ))}
-            </div>
-            <div className="create-comment">
-              <AddComment submitUrl="https://api.traiders.tk/comments/article/" />
-            </div>
-            <Modal
-              title="DELETE"
-              visible={visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
-            >
-              <div>
-                Are you sure? There is no way you to recover this action!
+                </Button>
+                <Button
+                  onClick={this.handleDislike}
+                  style={{ paddingLeft: 12, cursor: 'auto' }}
+                >
+                  <Icon
+                    type="dislike"
+                    theme={action === 'disliked' ? 'filled' : 'outlined'}
+                    onClick={this.handleDislike}
+                  />
+                </Button>
               </div>
-            </Modal>
+              <div className="written-by" />
+              <div className="article-comment">
+                <div className="comment-header-div">
+                  <h2 className="comment-header">COMMENTS</h2>
+                </div>
+
+                {comments &&
+                  comments.map((comment) => (
+                    <Comment
+                      submitUrl="https://api.traiders.tk/comments/article/"
+                      author={comment.user.username}
+                      content={comment.content}
+                      createdAt={comment.created_at.substring(0, 10)}
+                      image={comment.image}
+                      commentId={comment.id}
+                      articleId={comment.article}
+                      authorURL={comment.user.url}
+                      avatarValue={comment.user.avatar}
+                      numberofLikes={comment.num_likes}
+                      key={comment.user.username}
+                    />
+                  ))}
+              </div>
+              <div className="create-comment">
+                <AddComment submitUrl="https://api.traiders.tk/comments/article/" />
+              </div>
+              <Modal
+                title="DELETE"
+                visible={visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+              >
+                <div>Are you sure? There is no way to recover this action!</div>
+              </Modal>
+            </div>
+            {showAnnotationTab && (
+              <div className="annotation-container">
+                {!user ? (
+                  <div className="signin-warning">
+                    <div className="warning-text">
+                      Sign in to start annotating
+                    </div>
+                    <Button
+                      type="primary"
+                      onClick={() => history.push('/login')}
+                    >
+                      LOGIN
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    {showAddingAnnotation ? (
+                      <div className="add-annotation-container">
+                        <div className="add-annotate-title">TEXT MESSAGE</div>
+                        <div className="add-text-container">
+                          <Input.TextArea
+                            placeholder="Type here to annotate"
+                            onChange={this.handleAnnotationInput}
+                          />
+                        </div>
+                        <div className="annotation-submit-button">
+                          <Button
+                            type="primary"
+                            onClick={this.submitAnnotationText}
+                          >
+                            Submit
+                          </Button>
+                        </div>
+                        <div className="add-annotation-image">
+                          IMAGE MESSAGE
+                        </div>
+                        <div className="add-image-container">
+                          <Input
+                            type="file"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
+                            accept="image/png, image/jpeg"
+                            onChange={(event) =>
+                              this.handleFileUpload(event, this.saveUrl)
+                            }
+                          />
+                        </div>
+                        <div className="annotation-submit-button">
+                          <Button
+                            type="primary"
+                            onClick={this.submitAnnotationImage}
+                          >
+                            Submit
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="annotation-detail-container">
+                        {currentAnnotation &&
+                        currentAnnotation.user &&
+                        currentAnnotation.value ? (
+                          <div className="annotation-details">
+                            <div>{currentAnnotation.value}</div>
+                            <div>{currentAnnotation.date}</div>
+                            <div>{currentAnnotation.user.username}</div>
+                          </div>
+                        ) : (
+                          currentAnnotation && (
+                            <div className="annotation-details">
+                              <div className="annotation-image">
+                                <img
+                                  className="image"
+                                  src={currentAnnotation.source}
+                                  alt={currentAnnotation.source}
+                                />
+                              </div>
+                              <div>{currentAnnotation.date}</div>
+                              <div>{currentAnnotation.user.username}</div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
           </div>
         )) ||
           'Loading'}
       </div>
     );
   }
+
+  handleFileUpload = (event, saveUrl) => {
+    const file = event.target.files[0];
+
+    const path = `${file.lastModified}-${file.name}`;
+    // Create a storage ref
+    const storageRef = firebase.storage().ref(path);
+
+    // Upload file
+    const task = storageRef.put(file);
+
+    // Update progress
+    task.on(
+      'state_changed',
+      function progress(snapshot) {
+        const percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // eslint-disable-next-line no-console
+        console.log('File upload... ', percentage);
+      },
+      function error(err) {
+        // eslint-disable-next-line no-console
+        console.log('Error when uploading file', err);
+      },
+      function complete() {
+        // eslint-disable-next-line no-console
+        console.log('File upload completed on path: ');
+        task.snapshot.ref.getDownloadURL().then((url) => saveUrl(url));
+      }
+    );
+  };
+
+  saveUrl = (url) => {
+    this.setState({
+      annotationImageUrl: url
+    });
+  };
+
+  handleCreatingHighlightedContent = (article, annotationList) => {
+    let articleWithHtml = article;
+
+    if (annotationList) {
+      annotationList.forEach((annotation) => {
+        const eqIndex = annotation.target.selector.value.indexOf('=') + 1;
+        const ranges = annotation.target.selector.value
+          .substring(eqIndex)
+          .split(',');
+        const substring = article.substring(ranges[0], ranges[1]);
+        if (annotation.body.value) {
+          const htmlContent = `<span type="TextualBody" id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
+          articleWithHtml = articleWithHtml.replace(substring, htmlContent);
+        } else {
+          const htmlContent = `<span type="Image" value=${annotation.body.id} id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
+          articleWithHtml = articleWithHtml.replace(substring, htmlContent);
+        }
+      });
+    }
+
+    return articleWithHtml;
+  };
 }
 export default Article;
