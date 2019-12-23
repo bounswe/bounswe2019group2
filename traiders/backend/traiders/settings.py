@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     'corsheaders',  # CORS
     'django_filters',
     'django_countries',
-    'oauth2_provider',
-    'social_django',
-    'rest_framework_social_oauth2',
     'api'
 ]
 
@@ -72,8 +69,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -112,30 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = (
-    # Google OAuth2
-    'social_core.backends.google.GoogleOAuth2',
-
-    # django-rest-framework-social-oauth2
-    'rest_framework_social_oauth2.backends.DjangoOAuth2',
-
-    # Django
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-# Google configuration
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '729799288738-a5v5fpuipplhfephp8rhg1ucla2nu2sj.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'SQXg-pE9OUC1NfhNDLmTWMcl'
-
-# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-    'https://www.googleapis.com/auth/userinfo.email',
-    'https://www.googleapis.com/auth/userinfo.profile',
-]
-
-OAUTH2_PROVIDER = {
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 99999999999
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -157,8 +128,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',  # for browsable API
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
-        'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'api.schemas.AutoSchema'  # custom schema generator
 }
@@ -217,3 +186,7 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'traidersapp@gmail.com'
+
+# Google configuration
+GOOGLE_OAUTH_ID = os.environ.get('GOOGLE_OAUTH_ID', '')
+GOOGLE_OAUTH_SECRET = os.environ.get('GOOGLE_OAUTH_SECRET', '')

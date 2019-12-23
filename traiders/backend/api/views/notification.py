@@ -1,13 +1,24 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet
 from ..models import Notification
 from ..serializers import NotificationSerializer
-from ..filters import NotificationFilterSet
 from rest_framework.exceptions import PermissionDenied
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import mixins
+from rest_framework.permissions import IsAuthenticated
 
 
-class NotificationViewSet(ReadOnlyModelViewSet):
+class NotificationViewSet(mixins.RetrieveModelMixin,
+                          mixins.UpdateModelMixin,
+                          mixins.ListModelMixin,
+                          GenericViewSet):
     serializer_class = NotificationSerializer
-    queryset = Notification.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_class = NotificationFilterSet
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Notification.objects.filter(user=self.request.user)
+
+    def check_object_permissions(self, request, notification):
+        # Another user cannot
+        if request.user != notification.user:
+            raise PermissionDenied

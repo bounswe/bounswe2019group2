@@ -5,7 +5,8 @@ const initialState = {
   currentArticle: null,
   author: null,
   commentsList: null,
-  currentComment: null
+  currentComment: null,
+  annotationList: null
 };
 
 function articleReducer(state = initialState, action) {
@@ -41,6 +42,16 @@ function articleReducer(state = initialState, action) {
         ...state,
         currentArticle: null,
         commentsList: null
+      };
+    case actionTypes.SAVE_ARTICLE_ANNOTATIONS:
+      return {
+        ...state,
+        annotationList: action.payload
+      };
+    case actionTypes.CLEAR_ARTICLE_ANNOTATIONS:
+      return {
+        ...state,
+        annotationList: null
       };
 
     default:

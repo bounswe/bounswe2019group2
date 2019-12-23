@@ -57,9 +57,6 @@ urlpatterns = [
     # Email verification
     path('verify/<int:pk>', verify_email, name='verify-email'),
 
-    # OAuth
-    path('auth/', include('rest_framework_social_oauth2.urls')),
-
     # all API ends
     *router.urls
 ]
