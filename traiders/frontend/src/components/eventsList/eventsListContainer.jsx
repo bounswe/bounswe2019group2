@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
 
 import EventsList from './eventsList';
-import { getEvents } from '../../redux/events/actions';
+import {
+  getEvents,
+  getEventsWithAuthorization
+} from '../../redux/events/actions';
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user.currentUser,
     eventsList: state.events.eventsList
   };
 };
 
 const mapDispatchToProps = {
-  getEvents
+  getEvents,
+  getEventsWithAuthorization
 };
 
 export default connect(
