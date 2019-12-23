@@ -37,7 +37,7 @@ class ArticleCommentViewSet(mixins.CreateModelMixin,
         return super().list(request, *args, **kwargs)
 
     def check_object_permissions(self, request, article_comment):
-        if self.action == 'delete' and request.user != article_comment.user:
+        if self.action == 'destroy' and request.user != article_comment.user:
             raise PermissionDenied
 
 
@@ -66,5 +66,5 @@ class EquipmentCommentViewSet(mixins.CreateModelMixin,
         return super().list(request, *args, **kwargs)
 
     def check_object_permissions(self, request, equipment_comment):
-        if self.action == 'delete' and request.user != equipment_comment.user:
+        if self.action == 'destroy' and request.user != equipment_comment.user:
             raise PermissionDenied
