@@ -10,17 +10,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import tk.traiders.R;
+import tk.traiders.marshallers.AlarmMarshaller;
+import tk.traiders.marshallers.NotificationMarshaller;
+import tk.traiders.ui.ListFragment;
+import tk.traiders.ui.investments.adapters.AlarmAdapter;
+import tk.traiders.ui.investments.adapters.NotificationAdapter;
 
-public class AlarmsFragment extends Fragment {
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_alarms, container, false);
-        return view;
-    }
+public class AlarmsFragment extends ListFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,5 +30,15 @@ public class AlarmsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.alarms_menu, menu);
+    }
+
+    @Override
+    protected String getURL() {
+        return "https://api.traiders.tk/alarms/";
+    }
+
+    @Override
+    protected RecyclerView.Adapter getAdapter(String response) {
+        return new AlarmAdapter(getActivity(), AlarmMarshaller.unmarshallList(response));
     }
 }
