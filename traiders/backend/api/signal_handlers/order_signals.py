@@ -47,7 +47,7 @@ def handle_orders(sender, instance: Parity, created, **kwargs):
         pk = investment.pk
         url = reverse('onlineinvestment-detail', kwargs={'pk': pk})
         Notification.objects.create(user=user,
-                                    message="Your buy order in case the parity " + target_eq.symbol + "/" + base_eq.symbol + " becomes lower than " + str(
+                                    message="Your buy order in case the parity " + base_eq.symbol + "/" + target_eq.symbol + " becomes lower than " + str(
                                         ratio) + " has been processed.",
                                     reference_obj="BuyOrder",
                                     reference_url=url)
