@@ -4,8 +4,10 @@ import Page from '../page/Page';
 import { API } from '../../redux/apiConfig';
 import UserHeader from '../userHeader/UserHeaderContainer';
 import UserSuccess from '../userSuccess/UserSuccessContainer';
+import Notification from '../notification/NotificationContainer';
 import history from '../../common/history';
 import './user-profile.scss';
+import Portfolios from '../portfolio/MyPortfolioContainer';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -74,8 +76,13 @@ class UserProfile extends Component {
               <div>
                 <UserSuccess id={user.user.id} />
               </div>
+              <div>
+                <Portfolios userOwn={user.id} />
+              </div>
             </div>
-            <div className="profile-right">notifications</div>
+            <div className="profile-right">
+              <Notification />
+            </div>
           </div>
         </Page>
       );
