@@ -1,6 +1,8 @@
 package tk.traiders.models;
 
-public class Notification {
+import java.io.Serializable;
+
+public class Notification implements Serializable {
 
     private String url;
     private User user;
