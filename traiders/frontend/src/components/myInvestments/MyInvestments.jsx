@@ -345,7 +345,7 @@ class MyInvestments extends Component {
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
-                  this.handleSelectCurrency('onlineBaseCurrency', value)
+                  this.handleSelectCurrency('onlineTargetCurrency', value)
                 }
                 style={{ width: 120 }}
               >
@@ -358,7 +358,7 @@ class MyInvestments extends Component {
               <Select
                 defaultValue="TRY"
                 onChange={(value) =>
-                  this.handleSelectCurrency('onlineTargetCurrency', value)
+                  this.handleSelectCurrency('onlineBaseCurrency', value)
                 }
                 style={{ width: 120 }}
               >
