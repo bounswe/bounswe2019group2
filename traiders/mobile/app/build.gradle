@@ -47,9 +47,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.2.0'
     implementation 'org.apache.commons:commons-lang3:3.9'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
-
-
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
-
-
 }

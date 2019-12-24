@@ -15,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".components.portfolio.CreatePortfolioActivity"></activity>
+        <activity android:name=".components.investment.MakeInvestmentActivity" />
         <activity
             android:name=".components.markets.ParityDetailsActivity"
             android:label="Parity Details" />

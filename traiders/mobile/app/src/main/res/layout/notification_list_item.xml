@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="8dp"
+    android:orientation="vertical"
+    android:id="@+id/linearLayout_article">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:justificationMode="inter_word"
+                android:maxLines="2"
+                android:singleLine="false"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:justificationMode="inter_word"
+                android:maxLines="4"
+                android:singleLine="false" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginStart="16dp"
+            android:id="@+id/imageView"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_notifications_24dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/primaryLightColor" />
+
+</LinearLayout>
