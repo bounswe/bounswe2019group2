@@ -74,7 +74,7 @@ class OtherUser extends Component {
                 otherUser={otherUser}
               />
             </div>
-            <div>
+            <div className="success-container">
               <UserSuccess id={id} />
             </div>
             <div>

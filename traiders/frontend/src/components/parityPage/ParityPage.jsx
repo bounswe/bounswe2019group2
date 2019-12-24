@@ -105,7 +105,7 @@ class ParityPage extends Component {
     }
     return (
       <Page>
-        {oneParity && (
+        {oneParity ? (
           <div className="parity-container">
             <div className="up">
               <div style={{ pointerEvents: 'none' }}>Your prediction:</div>
@@ -150,6 +150,8 @@ class ParityPage extends Component {
               </div>
             </div>
           </div>
+        ) : (
+          'waiting'
         )}
       </Page>
     );

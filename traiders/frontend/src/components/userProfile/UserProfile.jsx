@@ -8,7 +8,7 @@ import Notification from '../notification/NotificationContainer';
 import history from '../../common/history';
 import './user-profile.scss';
 import Portfolios from '../portfolio/MyPortfolioContainer';
-import FollowRequestList from "../followRequest/FollowRequestList";
+import FollowRequestList from '../followRequest/FollowRequestList';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -74,21 +74,18 @@ class UserProfile extends Component {
                   otherUser={user.user}
                 />
               </div>
-              <div>
+              <div className="profile-left-up">
                 <UserSuccess id={user.user.id} />
               </div>
               <div>
-                <Portfolios userOwn={user.id} />
+                <Portfolios userOwn={user.user.id} />
               </div>
             </div>
             <div className="profile-right">
               <Notification />
-              {
-                user.user.is_private ?
-                  <FollowRequestList token={user.key} user={user.user}/> :
-                  ''
-              }
-            }
+              {user.user.is_private ? (
+                <FollowRequestList token={user.key} user={user.user} />
+              ) : null}
             </div>
           </div>
         </Page>
