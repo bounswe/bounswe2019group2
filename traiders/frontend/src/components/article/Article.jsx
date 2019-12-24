@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, Icon, Input } from 'antd';
-import * as firebase from 'firebase';
 
 import { API } from '../../redux/apiConfig';
 import './article.scss';
@@ -14,6 +13,12 @@ import {
 import history from '../../common/history';
 import Comment from '../comment/CommentContainer';
 import AddComment from '../addComment/AddCommentContainer';
+import ImageAnnotation from './ImageAnnotation';
+
+import {
+  handleCreatingHighlightedContent,
+  handleFileUpload
+} from './AnnotationHelperFunctions';
 
 const ANNOTATION_URL = 'https://annotation.traiders.tk/annotations/';
 
@@ -298,6 +303,10 @@ class Article extends Component {
       .catch((error) => console.log('Error while adding annotation', error));
 
     setTimeout(() => getArticleAnnotations(), 1000);
+
+    this.setState({
+      showAddingAnnotation: false
+    });
   };
 
   submitAnnotationImage = () => {
@@ -320,11 +329,26 @@ class Article extends Component {
       .catch((error) => console.log('Error while adding annotation', error));
 
     setTimeout(() => getArticleAnnotations(), 1000);
+    this.setState({
+      showAddingAnnotation: false
+    });
   };
 
-  // eslint-disable-next-line  react/sort-comp
+  saveUrl = (url) => {
+    this.setState({
+      annotationImageUrl: url
+    });
+  };
+
   render() {
-    const { article, comments, user, followings, annotationList } = this.props;
+    const {
+      article,
+      comments,
+      user,
+      followings,
+      annotationList,
+      getArticleAnnotations
+    } = this.props;
     const {
       visible,
       action,
@@ -396,10 +420,12 @@ class Article extends Component {
               </div>
 
               <div className="article-image-container">
-                <img
-                  className="article-image"
+                <ImageAnnotation
                   src={article.image}
-                  alt={article.image}
+                  article={article}
+                  user={user}
+                  getArticleAnnotations={getArticleAnnotations}
+                  annotationList={annotationList}
                 />
               </div>
               <pre
@@ -410,7 +436,7 @@ class Article extends Component {
                   onClick={this.handleClickRange}
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{
-                    __html: this.handleCreatingHighlightedContent(
+                    __html: handleCreatingHighlightedContent(
                       article.content,
                       filteredAnnotations
                     )
@@ -479,21 +505,9 @@ class Article extends Component {
             </div>
             {showAnnotationTab && (
               <div className="annotation-container">
-                {!user ? (
-                  <div className="signin-warning">
-                    <div className="warning-text">
-                      Sign in to start annotating
-                    </div>
-                    <Button
-                      type="primary"
-                      onClick={() => history.push('/login')}
-                    >
-                      LOGIN
-                    </Button>
-                  </div>
-                ) : (
+                {showAddingAnnotation ? (
                   <>
-                    {showAddingAnnotation ? (
+                    {user ? (
                       <div className="add-annotation-container">
                         <div className="add-annotate-title">TEXT MESSAGE</div>
                         <div className="add-text-container">
@@ -520,7 +534,7 @@ class Article extends Component {
                             aria-describedby="basic-addon1"
                             accept="image/png, image/jpeg"
                             onChange={(event) =>
-                              this.handleFileUpload(event, this.saveUrl)
+                              handleFileUpload(event, this.saveUrl)
                             }
                           />
                         </div>
@@ -534,33 +548,68 @@ class Article extends Component {
                         </div>
                       </div>
                     ) : (
-                      <div className="annotation-detail-container">
-                        {currentAnnotation &&
-                        currentAnnotation.user &&
-                        currentAnnotation.value ? (
-                          <div className="annotation-details">
-                            <div>{currentAnnotation.value}</div>
-                            <div>{currentAnnotation.date}</div>
-                            <div>{currentAnnotation.user.username}</div>
-                          </div>
-                        ) : (
-                          currentAnnotation && (
-                            <div className="annotation-details">
-                              <div className="annotation-image">
-                                <img
-                                  className="image"
-                                  src={currentAnnotation.source}
-                                  alt={currentAnnotation.source}
-                                />
-                              </div>
-                              <div>{currentAnnotation.date}</div>
-                              <div>{currentAnnotation.user.username}</div>
-                            </div>
-                          )
-                        )}
+                      <div className="signin-warning">
+                        <div className="warning-text">
+                          Sign in to start annotating
+                        </div>
+                        <Button
+                          type="primary"
+                          onClick={() => history.push('/login')}
+                        >
+                          LOGIN
+                        </Button>
                       </div>
                     )}
                   </>
+                ) : (
+                  <div className="annotation-detail-container">
+                    {currentAnnotation &&
+                    currentAnnotation.user &&
+                    currentAnnotation.value ? (
+                      <div className="annotation-details">
+                        <div className="traiders-annotation">
+                          TRAIDERS ANNOTATION
+                        </div>
+                        <div className="annotation-value">
+                          {currentAnnotation.value}
+                        </div>
+                        <div
+                          className="annotation-user"
+                          onClick={() =>
+                            history.push(
+                              `/profile/${currentAnnotation.user.id}`
+                            )
+                          }
+                        >
+                          {currentAnnotation.user.username}
+                        </div>
+                        <div className="annotation-date">
+                          {currentAnnotation.date}
+                        </div>
+                      </div>
+                    ) : (
+                      currentAnnotation && (
+                        <div className="annotation-details">
+                          <div className="annotation-image">
+                            <div className="traiders-annotation">
+                              TRAIDERS ANNOTATION
+                            </div>
+                            <img
+                              className="image"
+                              src={currentAnnotation.source}
+                              alt={currentAnnotation.source}
+                            />
+                          </div>
+                          <div className="annotation-user">
+                            {currentAnnotation.user.username}
+                          </div>
+                          <div className="annotation-date">
+                            {currentAnnotation.date}
+                          </div>
+                        </div>
+                      )
+                    )}
+                  </div>
                 )}
               </div>
             )}
@@ -570,65 +619,5 @@ class Article extends Component {
       </div>
     );
   }
-
-  handleFileUpload = (event, saveUrl) => {
-    const file = event.target.files[0];
-
-    const path = `${file.lastModified}-${file.name}`;
-    // Create a storage ref
-    const storageRef = firebase.storage().ref(path);
-
-    // Upload file
-    const task = storageRef.put(file);
-
-    // Update progress
-    task.on(
-      'state_changed',
-      function progress(snapshot) {
-        const percentage =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // eslint-disable-next-line no-console
-        console.log('File upload... ', percentage);
-      },
-      function error(err) {
-        // eslint-disable-next-line no-console
-        console.log('Error when uploading file', err);
-      },
-      function complete() {
-        // eslint-disable-next-line no-console
-        console.log('File upload completed on path: ');
-        task.snapshot.ref.getDownloadURL().then((url) => saveUrl(url));
-      }
-    );
-  };
-
-  saveUrl = (url) => {
-    this.setState({
-      annotationImageUrl: url
-    });
-  };
-
-  handleCreatingHighlightedContent = (article, annotationList) => {
-    let articleWithHtml = article;
-
-    if (annotationList) {
-      annotationList.forEach((annotation) => {
-        const eqIndex = annotation.target.selector.value.indexOf('=') + 1;
-        const ranges = annotation.target.selector.value
-          .substring(eqIndex)
-          .split(',');
-        const substring = article.substring(ranges[0], ranges[1]);
-        if (annotation.body.value) {
-          const htmlContent = `<span type="TextualBody" id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
-          articleWithHtml = articleWithHtml.replace(substring, htmlContent);
-        } else {
-          const htmlContent = `<span type="Image" value=${annotation.body.id} id=${annotation.id} style='background-color: green; cursor:pointer;'>${substring}</span>`;
-          articleWithHtml = articleWithHtml.replace(substring, htmlContent);
-        }
-      });
-    }
-
-    return articleWithHtml;
-  };
 }
 export default Article;
