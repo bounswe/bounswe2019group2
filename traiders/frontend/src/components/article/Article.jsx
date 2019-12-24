@@ -303,6 +303,10 @@ class Article extends Component {
       .catch((error) => console.log('Error while adding annotation', error));
 
     setTimeout(() => getArticleAnnotations(), 1000);
+
+    this.setState({
+      showAddingAnnotation: false
+    });
   };
 
   submitAnnotationImage = () => {
@@ -325,6 +329,9 @@ class Article extends Component {
       .catch((error) => console.log('Error while adding annotation', error));
 
     setTimeout(() => getArticleAnnotations(), 1000);
+    this.setState({
+      showAddingAnnotation: false
+    });
   };
 
   saveUrl = (url) => {
@@ -350,7 +357,6 @@ class Article extends Component {
       currentAnnotation
     } = this.state;
 
-    console.log(currentAnnotation);
     const ownArticle = user && article && user.user.url === article.author.url;
 
     let filteredAnnotations = [];

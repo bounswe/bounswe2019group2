@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import Annotation from 'react-image-annotation';
 import { Input, Button } from 'antd';
 
+import './image-annotation.scss';
+
 import { handleFileUpload } from './AnnotationHelperFunctions';
 import { PostWithUrlBody } from '../../common/http/httpUtil';
 import history from '../../common/history';
@@ -44,9 +46,8 @@ const ImageAnnotation = ({
   const [url, setUrl] = useState(null);
   const [disableEditor, setDisableEditor] = useState(false);
 
-  const onSubmit = (annotation) => {
-    console.log(annotation);
-    const { geometry, data } = annotation;
+  const onSubmit = (annotationTemp) => {
+    const { geometry, data } = annotationTemp;
 
     setAnnotation({});
     setAnnotations(
@@ -60,8 +61,8 @@ const ImageAnnotation = ({
     );
   };
 
-  const onChange = (annotation) => {
-    setAnnotation(annotation);
+  const onChange = (annotationTemp) => {
+    setAnnotation(annotationTemp);
   };
 
   const submitAnnotationText = () => {
@@ -162,10 +163,6 @@ const ImageAnnotation = ({
     setDisableEditor(true);
   };
 
-  const onClickAnnotation = (event) => {
-    console.log(event.target);
-  };
-
   const RenderEditor = () => {
     const { geometry } = annotation;
     setDisableEditor(false);
@@ -221,11 +218,10 @@ const ImageAnnotation = ({
   };
 
   const RenderContent = (props) => {
+    // eslint-disable-next-line no-shadow
     const { annotation } = props;
     const { geometry } = annotation;
     const currentAnnotation = annotation.data.val;
-    const creator = currentAnnotation.creator;
-    const created = new Date(currentAnnotation.creatod).toLocaleString;
 
     const type = currentAnnotation.body.value ? 'TextualBody' : 'Image';
     const source = currentAnnotation.body.id;
@@ -236,13 +232,18 @@ const ImageAnnotation = ({
           position: 'absolute',
           left: `${geometry.x}%`,
           top: `${geometry.y + geometry.height}%`,
+          // eslint-disable-next-line react/destructuring-assignment
           ...props.style
         }}
         geometry={geometry}
       >
         {type === 'Image' ? (
           <div>
-            <img src={source} style={{ width: 200, height: 200 }}></img>
+            <img
+              alt={source}
+              src={source}
+              style={{ width: 200, height: 200 }}
+            />
           </div>
         ) : (
           <div>{annotation.data.text}</div>
@@ -263,7 +264,6 @@ const ImageAnnotation = ({
         renderEditor={RenderEditor}
         disableEditor={disableEditor}
         renderContent={RenderContent}
-        onClick={onClickAnnotation}
       />
     </div>
   );

@@ -53,8 +53,3 @@ export const handleFileUpload = (event, saveUrl) => {
     }
   );
 };
-
-export const handleSelectingPixels = (event) => {
-  console.log(event.target);
-  console.log(window.getSelection());
-};

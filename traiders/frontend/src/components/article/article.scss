@@ -145,10 +145,48 @@
             width: 100%;
             margin-bottom: 5px;
           }
+
+          .image-add-annotation-container {
+            margin: 10px;
+            width: 240px;
+
+            .add-annotation-container {
+              .add-annotation-title {
+                margin-bottom: 4px;
+              }
+
+              .annotation-submit-button {
+                margin: 4px 0;
+              }
+            }
+
+            .add-annotation-image {
+              margin: 4px 0;
+            }
+          }
         }
 
         .add-image-container {
           margin-bottom: 5px;
+
+          .image-add-annotation-container {
+            margin: 10px;
+            width: 240px;
+
+            .add-annotation-container {
+              .add-annotation-title {
+                margin-bottom: 4px;
+              }
+
+              .annotation-submit-button {
+                margin: 4px 0;
+              }
+            }
+
+            .add-annotation-image {
+              margin: 4px 0;
+            }
+          }
         }
       }
 
@@ -165,6 +203,7 @@
 
       .annotation-detail-container {
         padding-top: 400px;
+
         .annotation-details {
           .traiders-annotation {
             font-family: 'McLaren', cursive;
