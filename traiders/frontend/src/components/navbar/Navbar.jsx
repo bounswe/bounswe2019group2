@@ -12,7 +12,7 @@ const { Search } = Input;
 
 const Navbar = (props) => {
   const { getNotifications, notificationList, user } = props;
-  if (user) getNotifications(user.key);
+  // if (user) getNotifications(user.key);
   let size = 0;
   if (notificationList) {
     // eslint-disable-next-line

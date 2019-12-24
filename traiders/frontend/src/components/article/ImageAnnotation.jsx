@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Annotation from 'react-image-annotation';
 import { Input, Button } from 'antd';
 
 import { handleFileUpload } from './AnnotationHelperFunctions';
-import { PostWithUrlBody, GetWithUrl } from '../../common/http/httpUtil';
+import { PostWithUrlBody } from '../../common/http/httpUtil';
 import history from '../../common/history';
 
 const ANNOTATION_URL = 'https://annotation.traiders.tk/annotations/';
@@ -43,7 +43,6 @@ const ImageAnnotation = ({
   const [annotationTextInput, setAnnotationTextInput] = useState(null);
   const [url, setUrl] = useState(null);
   const [disableEditor, setDisableEditor] = useState(false);
-  const [displayingAnnotation, setDisplayingAnnotation] = useState(null);
 
   const onSubmit = (annotation) => {
     console.log(annotation);

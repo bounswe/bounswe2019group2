@@ -153,8 +153,9 @@
       }
 
       .signin-warning {
+        padding-top: 400px;
+
         display: flex;
-        align-items: center;
         justify-content: space-between;
 
         .warning-text {
@@ -163,7 +164,45 @@
       }
 
       .annotation-detail-container {
+        padding-top: 400px;
         .annotation-details {
+          .traiders-annotation {
+            font-family: 'McLaren', cursive;
+            font-size: 24px;
+            line-height: '1.3333';
+            margin-bottom: 5px;
+          }
+
+          .annotation-value {
+            white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+            white-space: -pre-wrap; /* Opera */
+            white-space: -o-pre-wrap; /* Opera */
+            white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+            word-wrap: break-word;
+
+            margin-top: 20px;
+
+            font-size: 21px;
+            font-family: medium-content-serif-font, Georgia, Cambria,
+              'Times New Roman', Times, serif;
+            color: rgba(0, 0, 0, 0.84);
+            font-weight: 400;
+            margin-bottom: 5px;
+          }
+
+          .annotation-user {
+            font-size: 24px;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .annotation-date {
+            font-size: 12px;
+            margin-top: 5px;
+          }
+
           .annotation-image {
             .image {
               width: 200px;
