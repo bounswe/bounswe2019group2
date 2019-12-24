@@ -175,3 +175,12 @@ class Command(BaseCommand):
         Following.objects.get_or_create(user_following=u3,
                                         user_followed=u4,
                                         status=Following.ACCEPTED)
+
+        Prediction.objects.create(
+            direction=random.choice([Prediction.WILL_DECREASE, Prediction.WILL_INCREASE]),
+            result=Prediction.FAILED if random.random() < 0.05 else Prediction.SUCCESSFUL,
+            base_equipment=Equipment.objects.get(symbol='GBP'),
+            target_equipment=Equipment.objects.get(symbol='TRY'),
+            user=u3,
+            date=make_aware(datetime(2019, 7, 1) + timedelta(days=i))
+        )
