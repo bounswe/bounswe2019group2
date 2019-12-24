@@ -19,9 +19,13 @@ import tk.traiders.ui.ListFragment;
 import tk.traiders.ui.investments.adapters.AlarmAdapter;
 import tk.traiders.ui.investments.adapters.InvestmentAdapter;
 
-public class InvestmentFragment extends ListFragment {
+public class InvestmentFragment extends Fragment {
 
-
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_investment, container, false);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,13 +38,4 @@ public class InvestmentFragment extends ListFragment {
         inflater.inflate(R.menu.investment_menu, menu);
     }
 
-    @Override
-    protected String getURL() {
-        return "https://api.traiders.tk/investment/";
-    }
-
-    @Override
-    protected RecyclerView.Adapter getAdapter(String response) {
-        return new InvestmentAdapter(getActivity(), InvestmentMarshaller.unmarshallList(response));
-    }
 }

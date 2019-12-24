@@ -57,32 +57,32 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_gravity="end"
-                android:gravity="start|center"
-                android:paddingEnd="8dp"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:textColor="@android:color/black"
-                android:text="Date:"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView_createdAt"
-                android:layout_gravity="end"
-                android:gravity="start|center"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                tools:text="21 May 2019"/>
+    <LinearLayout
+        android:layout_marginStart="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        </LinearLayout>
+        <TextView
+            android:layout_gravity="end"
+            android:gravity="start|center"
+            android:paddingEnd="8dp"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:textColor="@android:color/black"
+            android:text="Date:"/>
 
+        <TextView
+            android:id="@+id/textView_createdAt"
+            android:layout_gravity="end"
+            android:gravity="start|center"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            tools:text="21 May 2019"/>
 
     </LinearLayout>
 
