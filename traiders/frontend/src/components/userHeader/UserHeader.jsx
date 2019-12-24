@@ -189,7 +189,7 @@ class UserHeader extends Component {
             <Avatar
               src={images[value - 1].src}
               className={!other && 'avatar'}
-              onClick={!other && this.handleAvatar}
+              onClick={!other ? this.handleAvatar : () => {}}
               size={80}
             />
             <Modal
@@ -201,7 +201,7 @@ class UserHeader extends Component {
               <div>
                 <Radio.Group onChange={this.onChange} value={value}>
                   {images.map(({ id, src, title }) => (
-                    <Radio value={id}>
+                    <Radio value={id} key={id}>
                       <img
                         key={id}
                         src={src}
@@ -228,7 +228,6 @@ class UserHeader extends Component {
                   onClick={this.handleUnfollow}
                   type="primary"
                   icon="user-delete"
-                  size={14}
                 >
                   Unfollow
                 </Button>
@@ -241,7 +240,6 @@ class UserHeader extends Component {
                   onClick={this.handleFollow}
                   type="primary"
                   icon="user-add"
-                  size={14}
                 >
                   Follow
                 </Button>
@@ -254,10 +252,9 @@ class UserHeader extends Component {
             <div className="right-up">
               <Button
                 ghost
-                onClick={!other && this.handlePrivacy}
+                onClick={!other ? this.handlePrivacy : () => {}}
                 type="default"
                 icon="lock"
-                size={14}
                 style={style}
               >
                 Private
@@ -267,10 +264,9 @@ class UserHeader extends Component {
             <div className="right-up">
               <Button
                 ghost
-                onClick={!other && this.handlePrivacy}
+                onClick={!other ? this.handlePrivacy : () => {}}
                 type="default"
                 icon="unlock"
-                size={14}
                 style={style}
               >
                 Public
@@ -284,7 +280,7 @@ class UserHeader extends Component {
                 className="update-link"
                 to={{ pathname: '/updateprofile', state: { user } }}
               >
-                <Button ghost type="default" icon="edit" size={14}>
+                <Button ghost type="default" icon="edit">
                   Edit
                 </Button>
               </Link>

@@ -36,7 +36,7 @@ class Portfolio extends Component {
       other
     } = this.props;
     if (other) {
-      getPortfoliosUserOwnsWithAuthorization(otherUserId, user.key);
+      getPortfoliosUserOwnsWithAuthorization(otherUserId, user && user.key);
     } else {
       if (user) {
         const array = user.user.url.split('/');
@@ -344,11 +344,7 @@ class Portfolio extends Component {
       activeKey
     } = this.state;
     // eslint-disable-next-line
-    console.log(this.props);
 
-    if (!user) {
-      history.push('/login');
-    }
     // this.addToPanes();
     const filteredList = [];
     if (currencyList) {
@@ -376,7 +372,6 @@ class Portfolio extends Component {
             activeKey={activeKey}
             type="editable-card"
             onEdit={this.handleDeletePortfolio}
-            size="small"
           >
             {portfolioList &&
               portfolioList.map((pane) => {
@@ -429,9 +424,8 @@ class Portfolio extends Component {
                       {pane.portfolio_items &&
                         pane.portfolio_items.map((item) => {
                           return (
-                            <div className="item-container">
+                            <div className="item-container" key={item}>
                               <div className="left">
-                                {' '}
                                 <li
                                   id={item.id}
                                   className="list-content"
@@ -446,7 +440,7 @@ class Portfolio extends Component {
                                   {`${item.base_equipment}/${item.target_equipment}`}
                                 </li>
                               </div>
-                              {pane.user.url === user.user.url && (
+                              {user && pane.user.url === user.user.url && (
                                 <div className="right">
                                   <Button
                                     id={item.id}
@@ -464,7 +458,7 @@ class Portfolio extends Component {
                             </div>
                           );
                         })}
-                      {pane.user.url !== user.user.url && (
+                      {user && pane.user.url !== user.user.url && (
                         <div>
                           {!pane.is_following ? (
                             <Button
@@ -489,7 +483,7 @@ class Portfolio extends Component {
                           )}
                         </div>
                       )}
-                      {pane.user.url === user.user.url && (
+                      {user && pane.user.url === user.user.url && (
                         <Button
                           className="item-add-button"
                           type="primary"
