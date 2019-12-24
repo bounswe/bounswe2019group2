@@ -23,25 +23,3 @@ class NotificationViewSet(mixins.RetrieveModelMixin,
         # Another user cannot
         if request.user != notification.user:
             raise PermissionDenied
-
-    def list(self, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        notifs = []
-
-        for notif in queryset:
-            print(notif.reference_url)
-            _, type, id, _ = notif.reference_url.split('/')
-
-            model = None
-            if type == 'events':
-                model = Event
-            elif type == 'articles':
-                model = Article
-            elif type == 'onlineinvestment':
-                model = OnlineInvestment
-
-            if model and model.objects.filter(id=int(id)).exists():
-                notifs.append(notif)
-
-        serializer = self.get_serializer(notifs, many=True)
-        return Response(serializer.data)
