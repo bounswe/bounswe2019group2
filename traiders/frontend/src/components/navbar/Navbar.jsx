@@ -32,7 +32,7 @@ const Navbar = (props) => {
   };
 
   const onSearch = (value) => {
-    const url = `/search/${value}`;
+    const url = `/search/${encodeURIComponent(value)}`;
     history.push(url);
   };
 
