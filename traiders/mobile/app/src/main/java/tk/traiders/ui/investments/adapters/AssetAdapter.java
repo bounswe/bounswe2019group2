@@ -31,43 +31,43 @@ import tk.traiders.R;
 import tk.traiders.components.article.ViewArticleActivity;
 import tk.traiders.models.Alarm;
 import tk.traiders.models.Article;
-import tk.traiders.models.Investment;
+import tk.traiders.models.Asset;
 import tk.traiders.models.Notification;
 import tk.traiders.models.Portfolio;
 import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
-public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.InvestmentViewHolder> {
+public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.AssetViewHolder> {
 
     private Context context;
-    private List<Investment> investmentList;
+    private List<Asset> assetList;
 
-    public InvestmentAdapter(Context context, List<Investment> investments) {
+    public AssetAdapter(Context context, List<Asset> assetList) {
         this.context = context;
-        this.investmentList = investments;
+        this.assetList = assetList;
     }
 
     @NonNull
     @Override
-    public InvestmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new InvestmentViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.investment_list_item, parent, false));
+    public AssetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new AssetViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.asset_list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InvestmentViewHolder holder, int position) {
-        Investment investment = investmentList.get(position);
+    public void onBindViewHolder(@NonNull AssetViewHolder holder, int position) {
+        Asset asset = assetList.get(position);
 
     }
 
 
     @Override
     public int getItemCount() {
-        return investmentList.size();
+        return assetList.size();
     }
 
-    public static class InvestmentViewHolder extends RecyclerView.ViewHolder {
+    public static class AssetViewHolder extends RecyclerView.ViewHolder {
 
 
-        public InvestmentViewHolder(@NonNull View itemView) {
+        public AssetViewHolder(@NonNull View itemView) {
             super(itemView);
 
         }

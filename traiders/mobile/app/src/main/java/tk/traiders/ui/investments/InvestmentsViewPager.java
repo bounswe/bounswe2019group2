@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import tk.traiders.models.Asset;
+import tk.traiders.ui.investments.children.AssetsFragment;
 import tk.traiders.ui.investments.children.InvestmentFragment;
 import tk.traiders.ui.investments.children.NotificationsFragment;
 import tk.traiders.ui.investments.children.PortfoliosFragment;
@@ -23,10 +25,12 @@ public class InvestmentsViewPager extends FragmentPagerAdapter {
             case 0:
                 return new InvestmentFragment();
             case 1:
-                return new PortfoliosFragment();
+                return new AssetsFragment();
             case 2:
-                return new AlarmsFragment();
+                return new PortfoliosFragment();
             case 3:
+                return new AlarmsFragment();
+            case 4:
                 return new NotificationsFragment();
             default:
                 return null;
@@ -35,7 +39,7 @@ public class InvestmentsViewPager extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 5;
     }
 
     @Nullable
@@ -45,10 +49,12 @@ public class InvestmentsViewPager extends FragmentPagerAdapter {
             case 0:
                 return "Investment";
             case 1:
-                return "Portfolio";
+                return "Asset";
             case 2:
-                return "Alarms";
+                return "Portfolio";
             case 3:
+                return "Alarms";
+            case 4:
                 return "Notifications";
         }
         return super.getPageTitle(position);
