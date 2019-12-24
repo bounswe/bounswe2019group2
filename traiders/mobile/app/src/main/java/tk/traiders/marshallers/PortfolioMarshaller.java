@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tk.traiders.constants.ArticleConstants;
+import tk.traiders.constants.PortfolioConstants;
 import tk.traiders.models.Article;
 import tk.traiders.models.Like;
 import tk.traiders.models.Portfolio;
+import tk.traiders.models.PortfolioItem;
 import tk.traiders.models.User;
 import tk.traiders.utils.DateUtils;
 import tk.traiders.utils.MarshallerUtils;
@@ -25,18 +27,20 @@ public class PortfolioMarshaller {
 
             JSONObject portfolioAsJson = new JSONObject(response);
 
-            String url = portfolioAsJson.getString(ArticleConstants.URL);
-            String title = portfolioAsJson.getString(ArticleConstants.TITLE);
-            String created_at = DateUtils.getHumanReadableDate(portfolioAsJson.getString(ArticleConstants.CREATED_AT).substring(0,19) + "Z");
-            String content = portfolioAsJson.getString(ArticleConstants.CONTENT);
-            String image = portfolioAsJson.getString(ArticleConstants.IMAGE);
-            User author = UserMarshaller.unmarshall(portfolioAsJson.getString(ArticleConstants.AUTHOR));
-            String id = portfolioAsJson.getString(ArticleConstants.ID);
-            String likeCount = portfolioAsJson.getString(ArticleConstants.NUMBER_OF_LIKES);
-            Like like = LikeMarshaller.unmarshall(portfolioAsJson.getString(ArticleConstants.LIKE));
+            String url = portfolioAsJson.getString(PortfolioConstants.URL);
+            int id = portfolioAsJson.getInt(PortfolioConstants.ID);
+            String name = portfolioAsJson.getString(PortfolioConstants.NAME);
+            User user = UserMarshaller.unmarshall(portfolioAsJson.getString(PortfolioConstants.USER));
+            String isFollowing = portfolioAsJson.getString(PortfolioConstants.IS_FOLLOWING);
+            List<PortfolioItem> portfolioItems = PortfolioItemMarshaller.unmarshallList(portfolioAsJson.getString(PortfolioConstants.PORTFOLIO_ITEMS));
 
-            portfolio = new Portfolio();
-
+            portfolio = new Portfolio()
+                    .setUrl(url)
+                    .setId(id)
+                    .setName(name)
+                    .setUser(user)
+                    .setIsFollowing(isFollowing)
+                    .setPortfolioItemList(portfolioItems);
 
         } catch (JSONException e) {
             e.printStackTrace();

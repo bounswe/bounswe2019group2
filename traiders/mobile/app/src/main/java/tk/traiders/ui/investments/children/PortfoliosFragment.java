@@ -1,5 +1,6 @@
 package tk.traiders.ui.investments.children;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import tk.traiders.MainActivity;
 import tk.traiders.R;
 import tk.traiders.marshallers.AlarmMarshaller;
 import tk.traiders.marshallers.PortfolioMarshaller;
@@ -35,7 +37,9 @@ public class PortfoliosFragment extends ListFragment {
 
     @Override
     protected String getURL() {
-        return "https://api.traiders.tk/portfolio/";
+        Uri.Builder builder = Uri.parse("https://api.traiders.tk/portfolio/").buildUpon();
+        builder.appendQueryParameter("user", MainActivity.getUserID(getContext()));
+        return builder.build().toString();
     }
 
     @Override

@@ -12,9 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
+import java.util.List;
+
 import tk.traiders.R;
 import tk.traiders.marshallers.ArticleMarshaller;
 import tk.traiders.marshallers.NotificationMarshaller;
+import tk.traiders.models.Notification;
 import tk.traiders.ui.ListFragment;
 import tk.traiders.ui.investments.adapters.NotificationAdapter;
 import tk.traiders.ui.social.adapters.ArticlesAdapter;
@@ -28,7 +32,9 @@ public class NotificationsFragment extends ListFragment {
 
     @Override
     protected RecyclerView.Adapter getAdapter(String response) {
-        return new NotificationAdapter(getActivity(), NotificationMarshaller.unmarshallList(response));
+        List<Notification> notifications = NotificationMarshaller.unmarshallList(response);
+        Collections.reverse(notifications);
+        return new NotificationAdapter(getActivity(), notifications);
     }
 
 }

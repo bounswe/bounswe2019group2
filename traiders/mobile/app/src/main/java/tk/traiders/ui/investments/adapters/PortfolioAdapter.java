@@ -2,6 +2,8 @@ package tk.traiders.ui.investments.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
+import android.opengl.Visibility;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,7 @@ import tk.traiders.models.Alarm;
 import tk.traiders.models.Article;
 import tk.traiders.models.Notification;
 import tk.traiders.models.Portfolio;
+import tk.traiders.models.PortfolioItem;
 import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
 public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.PortfolioViewHolder> {
@@ -54,6 +57,40 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
     @Override
     public void onBindViewHolder(@NonNull PortfolioViewHolder holder, int position) {
         Portfolio portfolio = portfolioList.get(position);
+        holder.textView_name.setText(portfolio.getName());
+        holder.textView_user.setText(portfolio.getUser().getUsername());
+
+        for(PortfolioItem portfolioItem: portfolio.getPortfolioItemList()){
+
+            View view = View.inflate(context, R.layout.portfolio_item_list_item, holder.linearLayout);
+
+            TextView textView_base = view.findViewById(R.id.textView_base);
+            textView_base.setText(portfolioItem.getBaseEquipment());
+
+            TextView textView_target = view.findViewById(R.id.textView_target);
+            textView_target.setText(portfolioItem.getTargetEquipment());
+
+        }
+
+        holder.imageView_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Edit" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.imageView_show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.linearLayout.getVisibility() == View.GONE){
+                    holder.linearLayout.setVisibility(View.VISIBLE);
+                    holder.imageView_show.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_keyboard_arrow_up_24dp));
+                } else {
+                    holder.linearLayout.setVisibility(View.GONE);
+                    holder.imageView_show.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_keyboard_arrow_down_24dp));
+                }
+            }
+        });
 
     }
 
@@ -65,9 +102,21 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
 
     public static class PortfolioViewHolder extends RecyclerView.ViewHolder {
 
+        TextView textView_name;
+        TextView textView_user;
+        ImageView imageView_show;
+        ImageView imageView_edit;
+        LinearLayout linearLayout;
+
 
         public PortfolioViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            textView_name = itemView.findViewById(R.id.textView_name);
+            textView_user = itemView.findViewById(R.id.textView_user);
+            imageView_show = itemView.findViewById(R.id.imageView_show);
+            imageView_edit = itemView.findViewById(R.id.imageView_edit);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
 
         }
 

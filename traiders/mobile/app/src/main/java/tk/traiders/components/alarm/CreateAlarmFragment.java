@@ -48,7 +48,7 @@ import tk.traiders.models.Equipment;
 
 public class CreateAlarmFragment extends DialogFragment {
 
-    private static final String URL = "https://annotation.traiders.tk/alert/";
+    private static final String URL = "https://api.traiders.tk/alert/";
 
     private RequestQueue requestQueue;
     private ArrayList<String> equipmentSymbols = new ArrayList<>();
