@@ -70,12 +70,12 @@ class ArticleCommentViewSetTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
         # test with a user
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key2)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
         response = self.client.patch(url, {'is_liked': True}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # test if updated
-        self.assertEqual(self.user2 in EquipmentComment.objects.get(pk=pk).liked_by.all(),
+        self.assertEqual(self.user in EquipmentComment.objects.get(pk=pk).liked_by.all(),
                          True)
 
     def test_equipment_comment_unlike(self):

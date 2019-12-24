@@ -37,8 +37,7 @@ class ArticleCommentViewSet(mixins.CreateModelMixin,
         return super().list(request, *args, **kwargs)
 
     def check_object_permissions(self, request, article_comment):
-        # Another user can only retrieve; cannot update, delete, update or partial_update
-        if self.action != 'retrieve' and request.user != article_comment.user:
+        if self.action == 'destroy' and request.user != article_comment.user:
             raise PermissionDenied
 
 
@@ -67,6 +66,5 @@ class EquipmentCommentViewSet(mixins.CreateModelMixin,
         return super().list(request, *args, **kwargs)
 
     def check_object_permissions(self, request, equipment_comment):
-        # Another user can only retrieve; cannot update, delete, update or partial_update
-        if self.action != 'retrieve' and request.user != equipment_comment.user:
+        if self.action == 'destroy' and request.user != equipment_comment.user:
             raise PermissionDenied

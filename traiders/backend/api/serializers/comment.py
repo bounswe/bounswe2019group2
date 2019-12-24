@@ -1,4 +1,5 @@
 from rest_framework import serializers, fields
+from rest_framework.exceptions import PermissionDenied
 
 from ..models import ArticleComment, EquipmentComment, Equipment
 from . import UserSerializer
@@ -20,8 +21,6 @@ class CommentSerializerBase(serializers.HyperlinkedModelSerializer):
         return comment.liked_by.count()
 
     def validate(self, data):
-        data['user'] = self.context['request'].user
-
         # If only liking, user does not have to provide any content or image
         if self.context['request'].method != 'PATCH':
             if not data.get('image') and not data.get('content'):
@@ -32,11 +31,16 @@ class CommentSerializerBase(serializers.HyperlinkedModelSerializer):
         if 'is_liked' in validated_data:
             validated_data.pop('is_liked')
 
+        validated_data['user'] = self.context['request'].user
+
         return super().create(validated_data)
 
     def update(self, instance, validated_data: dict):
         is_liked = validated_data.pop('is_liked', None)
         likers = instance.liked_by.all()
+
+        if validated_data and self.context['request'].user != instance.user:
+            raise PermissionDenied
 
         if is_liked is True:
             if self.context['request'].user.is_anonymous:
