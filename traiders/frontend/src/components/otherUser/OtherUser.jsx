@@ -22,7 +22,7 @@ class OtherUser extends Component {
     const { match, getOtherUser } = this.props;
     const { id } = match.params;
     getOtherUser(id);
-    fetch(`${API}/following/?user_following=${id}`)
+    fetch(`${API}/following/?user_following=${id}&status=1`)
       .then((res) => res.json())
       .then((data) => {
         this.setState({ followings: data });
@@ -33,7 +33,7 @@ class OtherUser extends Component {
       })
       // eslint-disable-next-line no-console
       .catch(console.log);
-    fetch(`${API}/following/?user_followed=${id}`)
+    fetch(`${API}/following/?user_followed=${id}&status=1`)
       .then((res) => res.json())
       .then((data) => {
         this.setState({ followers: data });
@@ -78,7 +78,9 @@ class OtherUser extends Component {
               <UserSuccess id={id} />
             </div>
             <div>
-              <Portfolios other otherUserId={id} />
+              {otherUser.is_private ? null : (
+                <Portfolios other otherUserId={id} />
+              )}
             </div>
           </div>
         </Page>
