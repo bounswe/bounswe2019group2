@@ -34,7 +34,7 @@ public class AlarmsFragment extends ListFragment {
 
     @Override
     protected String getURL() {
-        return "https://api.traiders.tk/alarms/";
+        return "https://api.traiders.tk/alert/";
     }
 
     @Override

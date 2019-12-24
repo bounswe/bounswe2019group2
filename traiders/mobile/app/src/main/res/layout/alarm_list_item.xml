@@ -18,7 +18,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:text="Base:"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/primaryColor"/>
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:text="Target:"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/primaryColor"/>
 
         <TextView

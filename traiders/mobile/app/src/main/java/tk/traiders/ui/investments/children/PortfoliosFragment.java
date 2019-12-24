@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import tk.traiders.R;
+import tk.traiders.marshallers.AlarmMarshaller;
+import tk.traiders.marshallers.PortfolioMarshaller;
+import tk.traiders.ui.ListFragment;
+import tk.traiders.ui.investments.adapters.AlarmAdapter;
+import tk.traiders.ui.investments.adapters.PortfolioAdapter;
 
-public class PortfoliosFragment extends Fragment {
+public class PortfoliosFragment extends ListFragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_portfolios, container, false);
-        return view;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,5 +31,15 @@ public class PortfoliosFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.portfolios_menu, menu);
+    }
+
+    @Override
+    protected String getURL() {
+        return "https://api.traiders.tk/portfolio/";
+    }
+
+    @Override
+    protected RecyclerView.Adapter getAdapter(String response) {
+        return new PortfolioAdapter(getActivity(), PortfolioMarshaller.unmarshallList(response));
     }
 }

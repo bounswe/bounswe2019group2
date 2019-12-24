@@ -26,9 +26,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -37,12 +40,15 @@ import java.util.Map;
 
 import tk.traiders.MainActivity;
 import tk.traiders.R;
+import tk.traiders.SignUpActivity;
 import tk.traiders.marshallers.AnnotationMarshaller;
 import tk.traiders.marshallers.EquipmentMarshaller;
 import tk.traiders.models.Annotation;
 import tk.traiders.models.Equipment;
 
 public class CreateAlarmFragment extends DialogFragment {
+
+    private static final String URL = "https://annotation.traiders.tk/alert/";
 
     private RequestQueue requestQueue;
     private ArrayList<String> equipmentSymbols = new ArrayList<>();
@@ -87,13 +93,57 @@ public class CreateAlarmFragment extends DialogFragment {
                     return;
                 }
 
+                double ratiod = Double.valueOf(ratio);
+
                 button_up.setEnabled(false);
                 button_down.setEnabled(false);
 
                 String baseSymbol = equipmentSymbols.get(spinner_base.getSelectedItemPosition());
                 String targetSymbol = equipmentSymbols.get(spinner_target.getSelectedItemPosition());
 
-                Toast.makeText(getContext(), "Up" + ratio + baseSymbol + " " + targetSymbol, Toast.LENGTH_SHORT).show();
+                JSONObject jsonObject = new JSONObject();
+
+                try {
+                    jsonObject.put("base_symbol", baseSymbol);
+                    jsonObject.put("target_symbol", targetSymbol);
+                    jsonObject.put("ratio", ratiod);
+                    jsonObject.put("increasing", true);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject,
+                        new Response.Listener<JSONObject>()
+                        {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // response
+                                Toast.makeText(getContext(), "Alarm created!", Toast.LENGTH_SHORT).show();
+                                button_down.setEnabled(true);
+                                button_up.setEnabled(true);
+                                dismiss();
+                            }
+                        },
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), "An error occured!", Toast.LENGTH_SHORT).show();
+                                error.printStackTrace();
+                                button_down.setEnabled(true);
+                                button_up.setEnabled(true);
+                            }
+                        }
+                ){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        return MainActivity.getAuthorizationHeader(getContext());
+                    }
+                };
+
+                requestQueue.add(postRequest);
 
             }
         });
@@ -108,11 +158,57 @@ public class CreateAlarmFragment extends DialogFragment {
                     return;
                 }
 
+                double ratiod = Double.valueOf(ratio);
+
                 button_up.setEnabled(false);
                 button_down.setEnabled(false);
 
-                Toast.makeText(getContext(), "Down" + ratio + baseSymbol + " " + targetSymbol, Toast.LENGTH_SHORT).show();
+                String baseSymbol = equipmentSymbols.get(spinner_base.getSelectedItemPosition());
+                String targetSymbol = equipmentSymbols.get(spinner_target.getSelectedItemPosition());
 
+                JSONObject jsonObject = new JSONObject();
+
+                try {
+                    jsonObject.put("base_symbol", baseSymbol);
+                    jsonObject.put("target_symbol", targetSymbol);
+                    jsonObject.put("ratio", ratiod);
+                    jsonObject.put("increasing", false);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                JsonObjectRequest postRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonObject,
+                        new Response.Listener<JSONObject>()
+                        {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // response
+                                Toast.makeText(getContext(), "Alarm created!", Toast.LENGTH_SHORT).show();
+                                button_down.setEnabled(true);
+                                button_up.setEnabled(true);
+                                dismiss();
+                            }
+                        },
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), "An error occured!", Toast.LENGTH_SHORT).show();
+                                error.printStackTrace();
+                                button_down.setEnabled(true);
+                                button_up.setEnabled(true);
+                            }
+                        }
+                ){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        return MainActivity.getAuthorizationHeader(getContext());
+                    }
+                };
+
+                requestQueue.add(postRequest);
             }
         });
 
