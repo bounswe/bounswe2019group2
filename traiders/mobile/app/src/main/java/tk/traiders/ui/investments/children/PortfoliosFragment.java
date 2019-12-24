@@ -44,6 +44,6 @@ public class PortfoliosFragment extends ListFragment {
 
     @Override
     protected RecyclerView.Adapter getAdapter(String response) {
-        return new PortfolioAdapter(getActivity(), PortfolioMarshaller.unmarshallList(response));
+        return new PortfolioAdapter(getContext(),getActivity().getSupportFragmentManager(), PortfolioMarshaller.unmarshallList(response));
     }
 }

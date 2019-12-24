@@ -70,6 +70,13 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/imageView_delete"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_delete_24dp"
+            android:scaleType="center"/>
+
+        <ImageView
             android:id="@+id/imageView_edit"
             android:layout_width="48dp"
             android:layout_height="match_parent"

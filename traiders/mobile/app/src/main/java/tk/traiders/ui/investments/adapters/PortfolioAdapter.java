@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -26,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.dynamic.SupportFragmentWrapper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,12 +47,16 @@ import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
 public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.PortfolioViewHolder> {
 
-    private AppCompatActivity context;
+    private Context context;
     private List<Portfolio> portfolioList;
+    private FragmentManager fragmentManager;
+    private RequestQueue requestQueue;
 
-    public PortfolioAdapter(AppCompatActivity context, List<Portfolio> portfolios) {
+    public PortfolioAdapter(Context context, FragmentManager fragmentManager, List<Portfolio> portfolios) {
         this.context = context;
         this.portfolioList = portfolios;
+        this.fragmentManager = fragmentManager;
+        requestQueue = Volley.newRequestQueue(context);
     }
 
     @NonNull
@@ -64,6 +70,33 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
         Portfolio portfolio = portfolioList.get(position);
         holder.textView_name.setText(portfolio.getName());
         holder.textView_user.setText(portfolio.getUser().getUsername());
+
+        holder.imageView_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringRequest stringRequest= new StringRequest(Request.Method.DELETE, portfolio.getUrl(), new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(context, "portfolio deleted", Toast.LENGTH_SHORT).show();
+                        portfolioList.remove(position);
+                        notifyItemRemoved(position);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(context, "an error occured during deletion", Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers = MainActivity.getAuthorizationHeader(context);
+                        return headers != null ? headers : super.getHeaders();
+                    }
+                };
+
+                requestQueue.add(stringRequest);
+            }
+        });
 
         for(PortfolioItem portfolioItem: portfolio.getPortfolioItemList()){
 
@@ -81,7 +114,7 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
             @Override
             public void onClick(View v) {
 
-                new EditPortfolioFragment().show(context.getSupportFragmentManager(), "EditPortfolioFragment");
+                EditPortfolioFragment.newInstance(portfolio.getUrl()).show(fragmentManager, "EditPortfolioFragment");
             }
         });
 
@@ -113,6 +146,7 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
         ImageView imageView_show;
         ImageView imageView_edit;
         LinearLayout linearLayout;
+        ImageView imageView_delete;
 
 
         public PortfolioViewHolder(@NonNull View itemView) {
@@ -123,6 +157,7 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
             imageView_show = itemView.findViewById(R.id.imageView_show);
             imageView_edit = itemView.findViewById(R.id.imageView_edit);
             linearLayout = itemView.findViewById(R.id.linearLayout);
+            imageView_delete = itemView.findViewById(R.id.imageView_delete);
 
         }
 
