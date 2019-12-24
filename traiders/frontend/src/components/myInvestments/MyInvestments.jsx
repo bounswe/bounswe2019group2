@@ -238,184 +238,188 @@ class MyInvestments extends Component {
     }
 
     return (
-      <div className="investment-part">
-        <div className="manual-investments">
-          <div className="manual-investments-table">
-            <Table
-              columns={manualInvestmentsTableColumns}
-              dataSource={newManualInvestmentList}
-              bordered
-              title={() => 'MANUAL INVESTMENTS'}
-              rowKey="id"
-            />
-          </div>
-          <div className="make-investment">
-            <div className="manual-investment">
-              <Button type="primary" onClick={this.handleManual}>
-                Manual Investment
-              </Button>
+      <>
+        {user && (
+          <div className="investment-part">
+            <div className="manual-investments">
+              <div className="manual-investments-table">
+                <Table
+                  columns={manualInvestmentsTableColumns}
+                  dataSource={newManualInvestmentList}
+                  bordered
+                  title={() => 'MANUAL INVESTMENTS'}
+                  rowKey="id"
+                />
+              </div>
+              <div className="make-investment">
+                <div className="manual-investment">
+                  <Button type="primary" onClick={this.handleManual}>
+                    Manual Investment
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="online-investments">
-          <div className="online-investments-table">
-            <Table
-              columns={onlineInvestmentsTableColumns}
-              dataSource={newOnlineInvestmentList}
-              bordered
-              title={() => 'ONLINE INVESTMENTS'}
-              rowKey="id"
-            />
-          </div>
-          <div className="make-investment">
-            <div className="online-investment">
-              <Button type="primary" onClick={this.handleOnline}>
-                Online Investment
-              </Button>
+            <div className="online-investments">
+              <div className="online-investments-table">
+                <Table
+                  columns={onlineInvestmentsTableColumns}
+                  dataSource={newOnlineInvestmentList}
+                  bordered
+                  title={() => 'ONLINE INVESTMENTS'}
+                  rowKey="id"
+                />
+              </div>
+              <div className="make-investment">
+                <div className="online-investment">
+                  <Button type="primary" onClick={this.handleOnline}>
+                    Online Investment
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <Modal
-          title="MAKE MANUAL INVESTMENT"
-          visible={visibleManual}
-          onOk={this.handleOkManual}
-          onCancel={this.handleCancelManual}
-        >
-          <div className="modal">
-            <div className="base-equipment">
-              <Input
-                placeholder="Spent this amount"
-                type="number"
-                name="manualBaseAmount"
-                value={manualBaseAmount}
-                onChange={this.changeValue}
-              />
-              <Select
-                defaultValue="TRY"
-                onChange={(value) =>
-                  this.handleSelectCurrency('manualBaseCurrency', value)
-                }
-                style={{ width: 120 }}
-              >
-                {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(filteredList)}
-              </Select>
-            </div>
-            <div className="target-equipment">
-              <Input
-                placeholder="Bought this amount"
-                type="number"
-                name="manualTargetAmount"
-                value={manualTargetAmount}
-                onChange={this.changeValue}
-              />
-              <Select
-                defaultValue="TRY"
-                onChange={(value) =>
-                  this.handleSelectCurrency('manualTargetCurrency', value)
-                }
-                style={{ width: 120 }}
-              >
-                {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(filteredList)}
-              </Select>
-            </div>
-            <Input
-              placeholder="Date (Format: YYYY-MM-DD)"
-              name="manualDate"
-              value={manualDate}
-              onChange={this.changeValue}
-            />
-          </div>
-        </Modal>
-        <Modal
-          title="MAKE ONLINE INVESTMENT"
-          visible={visibleOnline}
-          onOk={this.handleOkOnline}
-          onCancel={this.handleCancelOnline}
-        >
-          <div className="modal">
-            <div className="base-equipment">
-              <Input
-                placeholder="Buy this amount"
-                type="number"
-                name="onlineBaseAmount"
-                value={onlineBaseAmount}
-                onChange={this.changeValue}
-              />
-              <Select
-                defaultValue="TRY"
-                onChange={(value) =>
-                  this.handleSelectCurrency('onlineTargetCurrency', value)
-                }
-                style={{ width: 120 }}
-              >
-                {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(filteredList)}
-              </Select>
-            </div>
-            <div className="target-equipment-online">
-              Spend from this asset:
-              <Select
-                defaultValue="TRY"
-                onChange={(value) =>
-                  this.handleSelectCurrency('onlineBaseCurrency', value)
-                }
-                style={{ width: 120 }}
-              >
-                {/* eslint-disable-next-line no-use-before-define */}
-                {this.menu(filteredList)}
-              </Select>
-            </div>
-            <div className="credit-card-radio">
-              <Checkbox onChange={this.triggerRadio}>
-                Use Credit Card (Or you can use your assets)
-              </Checkbox>
-            </div>
-            {isCreditCard && (
-              <div className="credit-card">
-                <div className="cc-number">
+            <Modal
+              title="MAKE MANUAL INVESTMENT"
+              visible={visibleManual}
+              onOk={this.handleOkManual}
+              onCancel={this.handleCancelManual}
+            >
+              <div className="modal">
+                <div className="base-equipment">
                   <Input
-                    placeholder="16 Characters Credit Card Number"
+                    placeholder="Spent this amount"
                     type="number"
-                    name="creditCardNumber"
-                    value={creditCardNumber}
+                    name="manualBaseAmount"
+                    value={manualBaseAmount}
                     onChange={this.changeValue}
                   />
+                  <Select
+                    defaultValue="TRY"
+                    onChange={(value) =>
+                      this.handleSelectCurrency('manualBaseCurrency', value)
+                    }
+                    style={{ width: 120 }}
+                  >
+                    {/* eslint-disable-next-line no-use-before-define */}
+                    {this.menu(filteredList)}
+                  </Select>
                 </div>
-                <div className="cc-date">
+                <div className="target-equipment">
                   <Input
-                    placeholder="Valid Until (MM/YY)"
-                    name="creditCardValidUntil"
-                    value={creditCardValidUntil}
-                    onChange={this.changeValue}
-                  />
-                </div>
-                <div className="cc-ccv">
-                  <Input
-                    placeholder="CCV (3 characters long)"
+                    placeholder="Bought this amount"
                     type="number"
-                    name="CCV"
-                    value={CCV}
+                    name="manualTargetAmount"
+                    value={manualTargetAmount}
                     onChange={this.changeValue}
                   />
+                  <Select
+                    defaultValue="TRY"
+                    onChange={(value) =>
+                      this.handleSelectCurrency('manualTargetCurrency', value)
+                    }
+                    style={{ width: 120 }}
+                  >
+                    {/* eslint-disable-next-line no-use-before-define */}
+                    {this.menu(filteredList)}
+                  </Select>
                 </div>
+                <Input
+                  placeholder="Date (Format: YYYY-MM-DD)"
+                  name="manualDate"
+                  value={manualDate}
+                  onChange={this.changeValue}
+                />
+              </div>
+            </Modal>
+            <Modal
+              title="MAKE ONLINE INVESTMENT"
+              visible={visibleOnline}
+              onOk={this.handleOkOnline}
+              onCancel={this.handleCancelOnline}
+            >
+              <div className="modal">
+                <div className="base-equipment">
+                  <Input
+                    placeholder="Buy this amount"
+                    type="number"
+                    name="onlineBaseAmount"
+                    value={onlineBaseAmount}
+                    onChange={this.changeValue}
+                  />
+                  <Select
+                    defaultValue="TRY"
+                    onChange={(value) =>
+                      this.handleSelectCurrency('onlineTargetCurrency', value)
+                    }
+                    style={{ width: 120 }}
+                  >
+                    {/* eslint-disable-next-line no-use-before-define */}
+                    {this.menu(filteredList)}
+                  </Select>
+                </div>
+                <div className="target-equipment-online">
+                  Spend from this asset:
+                  <Select
+                    defaultValue="TRY"
+                    onChange={(value) =>
+                      this.handleSelectCurrency('onlineBaseCurrency', value)
+                    }
+                    style={{ width: 120 }}
+                  >
+                    {/* eslint-disable-next-line no-use-before-define */}
+                    {this.menu(filteredList)}
+                  </Select>
+                </div>
+                <div className="credit-card-radio">
+                  <Checkbox onChange={this.triggerRadio}>
+                    Use Credit Card (Or you can use your assets)
+                  </Checkbox>
+                </div>
+                {isCreditCard && (
+                  <div className="credit-card">
+                    <div className="cc-number">
+                      <Input
+                        placeholder="16 Characters Credit Card Number"
+                        type="number"
+                        name="creditCardNumber"
+                        value={creditCardNumber}
+                        onChange={this.changeValue}
+                      />
+                    </div>
+                    <div className="cc-date">
+                      <Input
+                        placeholder="Valid Until (MM/YY)"
+                        name="creditCardValidUntil"
+                        value={creditCardValidUntil}
+                        onChange={this.changeValue}
+                      />
+                    </div>
+                    <div className="cc-ccv">
+                      <Input
+                        placeholder="CCV (3 characters long)"
+                        type="number"
+                        name="CCV"
+                        value={CCV}
+                        onChange={this.changeValue}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Modal>
+            {profitLossList && profitLossList > 0 ? (
+              <div>
+                Total Profit:
+                <Alert message={profitLossList.total_profit} type="success" />
+              </div>
+            ) : (
+              <div>
+                Total Profit:
+                <Alert message={profitLossList.total_profit} type="error" />
               </div>
             )}
           </div>
-        </Modal>
-        {profitLossList && profitLossList.total_profit > 0 ? (
-          <div>
-            Total Profit:
-            <Alert message={profitLossList.total_profit} type="success" />
-          </div>
-        ) : (
-          <div>
-            Total Profit:
-            <Alert message={profitLossList.total_profit} type="error" />
-          </div>
         )}
-      </div>
+      </>
     );
   }
 }

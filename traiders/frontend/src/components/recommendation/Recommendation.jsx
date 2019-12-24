@@ -13,7 +13,6 @@ const Recommendation = ({
   recommendationResult,
   user
 }) => {
-  console.log(recommendationResult);
   if (!user) {
     history.push('/login');
   }
