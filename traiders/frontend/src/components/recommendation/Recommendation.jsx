@@ -13,15 +13,15 @@ const Recommendation = ({
   recommendationResult,
   user
 }) => {
-  console.log(recommendationResult);
-  if (!user) {
-    history.push('/login');
-  }
   const [selectedTab, setSelectedTab] = useState('articles');
-  const { key } = user;
+
   useEffect(() => {
-    getRecommendationResult(key);
-  }, [getRecommendationResult, key]);
+    if (!user) {
+      history.push('/login');
+    } else {
+      getRecommendationResult(user.key);
+    }
+  }, [getRecommendationResult, user]);
   const parities =
     recommendationResult &&
     recommendationResult.parities.map((parity) => ({
