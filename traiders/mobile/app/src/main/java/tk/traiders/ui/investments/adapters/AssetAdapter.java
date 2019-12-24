@@ -2,6 +2,7 @@ package tk.traiders.ui.investments.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,23 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.AssetViewHol
     @Override
     public void onBindViewHolder(@NonNull AssetViewHolder holder, int position) {
         Asset asset = assetList.get(position);
+        holder.textView_equipment.setText(asset.getEquipment());
+        holder.textView_amount.setText("" + asset.getAmount());
+        holder.textView_onhold.setText(asset.getOnHoldForInvestment() == 0 ? "No" : "Yes");
+
+        holder.imageView_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Soon: delete asset", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.imageView_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Soon: edit asset", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -66,9 +84,22 @@ public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.AssetViewHol
 
     public static class AssetViewHolder extends RecyclerView.ViewHolder {
 
+        TextView textView_equipment;
+        TextView textView_amount;
+        TextView textView_onhold;
+
+        ImageView imageView_delete;
+        ImageView imageView_edit;
+
 
         public AssetViewHolder(@NonNull View itemView) {
             super(itemView);
+            textView_equipment = itemView.findViewById(R.id.textView_equipment);
+            textView_amount = itemView.findViewById(R.id.textView_amount);
+            textView_onhold = itemView.findViewById(R.id.textView_onhold);
+
+            imageView_delete = itemView.findViewById(R.id.imageView_delete);
+            imageView_edit = itemView.findViewById(R.id.imageView_edit);
 
         }
 

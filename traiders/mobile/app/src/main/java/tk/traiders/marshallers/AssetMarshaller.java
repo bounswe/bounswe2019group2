@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tk.traiders.constants.ArticleConstants;
+import tk.traiders.constants.AssetConstants;
 import tk.traiders.models.Article;
 import tk.traiders.models.Asset;
 import tk.traiders.models.Like;
@@ -23,19 +24,23 @@ public class AssetMarshaller {
 
         try {
 
-            JSONObject articleAsJson = new JSONObject(response);
+            JSONObject assetAsJson = new JSONObject(response);
 
-            String url = articleAsJson.getString(ArticleConstants.URL);
-            String title = articleAsJson.getString(ArticleConstants.TITLE);
-            String created_at = DateUtils.getHumanReadableDate(articleAsJson.getString(ArticleConstants.CREATED_AT).substring(0,19) + "Z");
-            String content = articleAsJson.getString(ArticleConstants.CONTENT);
-            String image = articleAsJson.getString(ArticleConstants.IMAGE);
-            User author = UserMarshaller.unmarshall(articleAsJson.getString(ArticleConstants.AUTHOR));
-            String id = articleAsJson.getString(ArticleConstants.ID);
-            String likeCount = articleAsJson.getString(ArticleConstants.NUMBER_OF_LIKES);
-            Like like = LikeMarshaller.unmarshall(articleAsJson.getString(ArticleConstants.LIKE));
+            String url = assetAsJson.getString(AssetConstants.URL);
+            int id = assetAsJson.getInt(AssetConstants.ID);
+            String equipment = assetAsJson.getString(AssetConstants.EQUIPMENT);
+            double amount = assetAsJson.getDouble(AssetConstants.AMOUNT);
+            User user = UserMarshaller.unmarshall(assetAsJson.getString(AssetConstants.USER));
+            int onHoldForInvestment = assetAsJson.getInt(AssetConstants.ON_HOLD_FOR_INVESTMENT);
 
-            asset = new Asset();
+            asset = new Asset()
+                    .setUrl(url)
+                    .setId(id)
+                    .setEquipment(equipment)
+                    .setAmount(amount)
+                    .setUser(user)
+                    .setOnHoldForInvestment(onHoldForInvestment);
+
 
 
         } catch (JSONException e) {
