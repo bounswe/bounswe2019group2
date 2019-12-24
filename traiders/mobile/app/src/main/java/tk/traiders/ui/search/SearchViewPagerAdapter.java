@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import tk.traiders.ui.portfolio.children.AlarmsFragment;
-import tk.traiders.ui.portfolio.children.ChildPortfolioFragment;
 import tk.traiders.ui.search.children.RecommendationsFragment;
 import tk.traiders.ui.search.children.SubSearchFragment;
 

@@ -24,8 +24,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.HashMap;
 import java.util.Map;
 
+import tk.traiders.components.alarm.CreateAlarmFragment;
 import tk.traiders.components.article.WriteArticleActivity;
 import tk.traiders.components.event.EventFilterFragment;
+import tk.traiders.components.investment.MakeInvestmentActivity;
+import tk.traiders.components.portfolio.CreatePortfolioActivity;
+import tk.traiders.components.portfolio.CreatePortfolioFragment;
 
 public class MainActivity extends AppCompatActivity implements NavController.OnDestinationChangedListener {
 
@@ -132,6 +136,30 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 return true;
             case R.id.filter_events:
                 new EventFilterFragment().show(getSupportFragmentManager(), "EventFilterFragment");
+                return true;
+            case R.id.make_new_investment:
+                if (isUserLoggedIn(this)) {
+                    startActivity(new Intent(this, MakeInvestmentActivity.class));
+                } else {
+                    Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
+                return true;
+            case R.id.add_new_portfolio:
+                if (isUserLoggedIn(this)) {
+                    new CreatePortfolioFragment().show(getSupportFragmentManager(), "CreatePortfolioFragment");
+                } else {
+                    Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
+                return true;
+            case R.id.set_new_alarm:
+                if (isUserLoggedIn(this)) {
+                    new CreateAlarmFragment().show(getSupportFragmentManager(), "CreateAlarmFragment");
+                } else {
+                    Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
