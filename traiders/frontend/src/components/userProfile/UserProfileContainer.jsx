@@ -4,7 +4,8 @@ import UserProfile from './UserProfile';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.currentUser
+    user: state.user.currentUser,
+    notificationList: state.notification.notificationList
   };
 };
 

@@ -28,9 +28,19 @@ class Notification extends Component {
     const Row = (props) => {
       const { item } = props;
       // eslint-disable-next-line camelcase
-      const { message, reference_url, seen, url } = item;
-      const array = reference_url.split('/');
-      const link = `${array[array.length - 3]}/${array[array.length - 2]}`;
+      const { message, reference_url, seen, url, reference_obj } = item;
+      let link;
+      if (reference_obj === 'Event') {
+        link = '/social';
+      } else if (
+        reference_obj === 'BuyOrder' ||
+        reference_obj === 'StopLossOrder'
+      ) {
+        link = '/investments';
+      } else {
+        const array = reference_url.split('/');
+        link = `${array[array.length - 3]}/${array[array.length - 2]}`;
+      }
       let style = { cursor: 'default', backgroundColor: '#ADD8E6' };
       if (seen) {
         style = { cursor: 'default', backgroundColor: '#c2bdbd' };

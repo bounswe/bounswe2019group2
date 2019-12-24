@@ -169,7 +169,7 @@ class Portfolio extends Component {
   deletePortfolioItem = (e) => {
     const { id } = e.target;
     // eslint-disable-next-line
-    console.log(id);
+
     const { user, getPortfoliosUserOwnsWithAuthorization } = this.props;
 
     if (user) {
@@ -359,7 +359,8 @@ class Portfolio extends Component {
       <div>
         <div className="main-div">
           <div className="portfolio-header-div">
-            <h2 className="portfolio-header">MY PORTFOLIOS</h2>
+            {other}
+            <h2 className="portfolio-header">PORTFOLIOS</h2>
           </div>
           {!other && (
             <div style={{ marginBottom: 16 }}>
