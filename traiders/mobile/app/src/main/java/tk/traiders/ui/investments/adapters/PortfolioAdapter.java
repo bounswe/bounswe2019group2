@@ -1,5 +1,6 @@
 package tk.traiders.ui.investments.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -31,6 +34,8 @@ import java.util.Map;
 import tk.traiders.MainActivity;
 import tk.traiders.R;
 import tk.traiders.components.article.ViewArticleActivity;
+import tk.traiders.components.portfolio.CreatePortfolioFragment;
+import tk.traiders.components.portfolio.EditPortfolioFragment;
 import tk.traiders.models.Alarm;
 import tk.traiders.models.Article;
 import tk.traiders.models.Notification;
@@ -40,10 +45,10 @@ import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
 public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.PortfolioViewHolder> {
 
-    private Context context;
+    private AppCompatActivity context;
     private List<Portfolio> portfolioList;
 
-    public PortfolioAdapter(Context context, List<Portfolio> portfolios) {
+    public PortfolioAdapter(AppCompatActivity context, List<Portfolio> portfolios) {
         this.context = context;
         this.portfolioList = portfolios;
     }
@@ -75,7 +80,8 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
         holder.imageView_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Edit" + position, Toast.LENGTH_SHORT).show();
+
+                new EditPortfolioFragment().show(context.getSupportFragmentManager(), "EditPortfolioFragment");
             }
         });
 
