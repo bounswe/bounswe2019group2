@@ -11,7 +11,7 @@ const { Header } = Layout;
 const { Search } = Input;
 
 const Navbar = (props) => {
-  const { getNotifications, notificationList, user } = props;
+  const { notificationList, user } = props;
   // if (user) getNotifications(user.key);
   let size = 0;
   if (notificationList) {

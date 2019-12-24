@@ -97,19 +97,35 @@ export const getPortfolio = (id) => {
 export const getPortfoliosUserOwnsWithAuthorization = (id, token) => {
   return (dispatch) => {
     dispatch(clearPortfolioData());
-    GetWithAuthorization(`${API}/portfolio/?user=${id}`, token)
-      .then((response) => {
-        if (response.status === 200) {
-          response.json().then((res) => {
-            return dispatch(savePortfolioList(res));
-          });
-        }
-      })
-      // eslint-disable-next-line no-console
-      .catch((error) =>
+    if (token) {
+      GetWithAuthorization(`${API}/portfolio/?user=${id}`, token)
+        .then((response) => {
+          if (response.status === 200) {
+            response.json().then((res) => {
+              return dispatch(savePortfolioList(res));
+            });
+          }
+        })
         // eslint-disable-next-line no-console
-        console.log('Error while fetching portfolios\n', error)
-      );
+        .catch((error) =>
+          // eslint-disable-next-line no-console
+          console.log('Error while fetching portfolios\n', error)
+        );
+    } else {
+      GetWithUrl(`${API}/portfolio/?user=${id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            response.json().then((res) => {
+              return dispatch(savePortfolioList(res));
+            });
+          }
+        })
+        // eslint-disable-next-line no-console
+        .catch((error) =>
+          // eslint-disable-next-line no-console
+          console.log('Error while fetching portfolios\n', error)
+        );
+    }
   };
 };
 export const getPortfolioEquipments = (id) => {
