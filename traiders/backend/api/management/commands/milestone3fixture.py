@@ -136,7 +136,7 @@ class Command(BaseCommand):
                                      portfolio=p1)
 
         # 95% prediction rate
-        for i in range(50):
+        for i in range(300):
             Prediction.objects.create(
                 direction=random.choice([Prediction.WILL_DECREASE, Prediction.WILL_INCREASE]),
                 result=Prediction.FAILED if random.random() < 0.05 else Prediction.SUCCESSFUL,
@@ -184,3 +184,35 @@ class Command(BaseCommand):
             user=u3,
             date=make_aware(datetime(2019, 7, 1) + timedelta(days=i))
         )
+
+        for j, comment in enumerate(open(os.path.join(data_path, f'article{i}_comments.txt'))):
+            comment = comment[:-1]
+            if comment:
+                ArticleComment.objects.create(
+                    user=users[10 * i + j],
+                    content=comment,
+                    article=a3
+                )
+
+        n_likes = random.randint(0, 50)
+        for j in range(n_likes):
+            Like.objects.get_or_create(
+                user=random.choice(users),
+                article=a3
+            )
+
+        for j, comment in enumerate(open(os.path.join(data_path, f'article{i}_comments.txt'))):
+            comment = comment[:-1]
+            if comment:
+                ArticleComment.objects.create(
+                    user=users[10 * i + j],
+                    content=comment,
+                    article=a4
+                )
+
+        n_likes = random.randint(0, 50)
+        for j in range(n_likes):
+            Like.objects.get_or_create(
+                user=random.choice(users),
+                article=a4
+            )
