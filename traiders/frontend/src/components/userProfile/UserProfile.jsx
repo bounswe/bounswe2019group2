@@ -8,6 +8,7 @@ import Notification from '../notification/NotificationContainer';
 import history from '../../common/history';
 import './user-profile.scss';
 import Portfolios from '../portfolio/MyPortfolioContainer';
+import FollowRequestList from "../followRequest/FollowRequestList";
 
 class UserProfile extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class UserProfile extends Component {
     if (user) {
       const array = user.user.url.split('/');
       const id = array[array.length - 2];
-      fetch(`${API}/following/?user_following=${id}`)
+      fetch(`${API}/following/?user_following=${id}&status=1`)
         .then((res) => res.json())
         .then((data) => {
           this.setState({ followings: data });
@@ -37,7 +38,7 @@ class UserProfile extends Component {
         // eslint-disable-next-line no-console
         .catch(console.log);
 
-      fetch(`${API}/following/?user_followed=${id}`)
+      fetch(`${API}/following/?user_followed=${id}&status=1`)
         .then((res) => res.json())
         .then((data) => {
           this.setState({ followers: data });
@@ -82,6 +83,12 @@ class UserProfile extends Component {
             </div>
             <div className="profile-right">
               <Notification />
+              {
+                user.user.is_private ?
+                  <FollowRequestList token={user.key} user={user.user}/> :
+                  ''
+              }
+            }
             </div>
           </div>
         </Page>

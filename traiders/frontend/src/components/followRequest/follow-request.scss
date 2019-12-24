@@ -1,0 +1,15 @@
+.follow-request-container {
+  margin-left: 40px;
+
+  .accept-button {
+    background: lightgreen;
+    border-color: white;
+  }
+
+  .deny-button {
+    background: lightcoral;
+    border-color: white;
+    text-emphasis-color: black;
+  }
+
+}
