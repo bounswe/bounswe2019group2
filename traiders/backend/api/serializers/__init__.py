@@ -12,3 +12,4 @@ from .prediction import PredictionSerializer
 from .investment import ManualInvestmentSerializer, AssetSerializer, OnlineInvestmentSerializer
 from .order import BuyOrderSerializer, StopLossOrderSerializer
 from .notification import NotificationSerializer
+from .alert import AlertSerializer

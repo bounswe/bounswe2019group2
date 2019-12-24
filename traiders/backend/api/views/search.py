@@ -29,7 +29,7 @@ class SearchViewSet(GenericViewSet):
         user = UserSerializer()
 
     @staticmethod
-    def find_closest(keyword, top_k=10):
+    def find_closest(keyword, top_k=20):
         words = keyword.split(' ')
         kws = []
         for word in words:

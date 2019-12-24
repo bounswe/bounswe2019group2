@@ -13,6 +13,7 @@ const Recommendation = ({
   recommendationResult,
   user
 }) => {
+  console.log(recommendationResult);
   if (!user) {
     history.push('/login');
   }
@@ -128,7 +129,7 @@ const Recommendation = ({
                   {recommendationResult.articles.map((article) => (
                     <div>
                       <p
-                        data-tip={article.messages.map((m) => `${m}\n`)}
+                        data-tip={article.messages.join('\n')}
                         data-for="oneArticle"
                       >
                         <ArticleRow article={article} key={article.id} />

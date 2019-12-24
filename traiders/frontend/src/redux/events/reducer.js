@@ -11,6 +11,11 @@ function eventsReducer(state = initialState, action) {
         ...state,
         eventsList: action.payload
       };
+    case actionTypes.CLEAR_EVENTS_LIST:
+      return {
+        ...state,
+        eventsList: null
+      };
     default:
       return state;
   }
