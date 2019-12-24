@@ -26,6 +26,7 @@ import tk.traiders.components.article.WriteArticleActivity;
 import tk.traiders.components.event.EventFilterFragment;
 import tk.traiders.components.investment.MakeInvestmentActivity;
 import tk.traiders.components.portfolio.CreatePortfolioActivity;
+import tk.traiders.components.portfolio.CreatePortfolioFragment;
 
 public class MainActivity extends AppCompatActivity implements NavController.OnDestinationChangedListener {
 
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
                 return true;
             case R.id.add_new_portfolio:
                 if (isUserLoggedIn(this)) {
-                    startActivity(new Intent(this, CreatePortfolioActivity.class));
+                    new CreatePortfolioFragment().show(getSupportFragmentManager(), "CreatePortfolioFragment");
                 } else {
                     Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this, LoginActivity.class));
