@@ -135,7 +135,6 @@ class Command(BaseCommand):
                                      target_equipment=Equipment.objects.get(symbol='GBP'),
                                      portfolio=p1)
 
-
         # 95% prediction rate
         for i in range(50):
             Prediction.objects.create(
@@ -176,4 +175,3 @@ class Command(BaseCommand):
         Following.objects.get_or_create(user_following=u3,
                                         user_followed=u4,
                                         status=Following.ACCEPTED)
-
