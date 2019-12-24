@@ -233,37 +233,6 @@ class UserViewSetTests(APITestCase):
 
         self.assertSetEqual(expected_fields, set(response.data.keys()))
 
-    def test_retrieve_private_user(self):
-        user = User.objects.get(username='private_ryan')
-
-        url = reverse('user-detail', kwargs={'pk': user.pk})
-
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-    def test_retrieve_private_user_with_following(self):
-        following = Following.objects.create(user_following=User.objects.get(username='marry48'),
-                                             user_followed=User.objects.get(username='private_ryan'),
-                                             status=Following.PENDING)
-
-        user = User.objects.get(username='private_ryan')
-        url = reverse('user-detail', kwargs={'pk': user.pk})
-
-        # should deny without accepting
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.auth_key)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-        # should work after accepting
-        following.status = Following.ACCEPTED
-        following.save()
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
     def test_update_city_country(self):
         user = User.objects.get(username='marry48')
 

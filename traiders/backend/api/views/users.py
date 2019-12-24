@@ -26,12 +26,6 @@ class UserViewSet(mixins.CreateModelMixin,
         if self.action != 'retrieve' and request.user != user:
             raise PermissionDenied
 
-        elif self.action == 'retrieve' and user.is_private and request.user != user:
-            if request.user.is_anonymous or not Following.objects.filter(user_following=request.user,
-                                                                         user_followed=user,
-                                                                         status=Following.ACCEPTED).exists():
-                raise PermissionDenied("User profile is private. Please request to follow")
-
 
 class UserSuccessViewSet(GenericViewSet):
     """
