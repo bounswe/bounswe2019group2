@@ -404,15 +404,19 @@ class MyInvestments extends Component {
             )}
           </div>
         </Modal>
-        {profitLossList && profitLossList.total_profit > 0 ? (
+        {profitLossList && (
           <div>
-            Total Profit:
-            <Alert message={profitLossList.total_profit} type="success" />
-          </div>
-        ) : (
-          <div>
-            Total Profit:
-            <Alert message={profitLossList.total_profit} type="error" />
+            {profitLossList.total_profit > 0 ? (
+              <div>
+                Total Profit:
+                <Alert message={profitLossList.total_profit} type="success" />
+              </div>
+            ) : (
+              <div>
+                Total Profit:
+                <Alert message={profitLossList.total_profit} type="error" />
+              </div>
+            )}
           </div>
         )}
       </div>
