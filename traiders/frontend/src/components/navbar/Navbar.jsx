@@ -17,6 +17,7 @@ const Navbar = (props) => {
     getNotifications(user.key);
     done = true;
   }
+
   let size = 0;
   if (notificationList) {
     // eslint-disable-next-line
@@ -36,7 +37,7 @@ const Navbar = (props) => {
   };
 
   const onSearch = (value) => {
-    const url = `/search/${value}`;
+    const url = `/search/${encodeURIComponent(value)}`;
     history.push(url);
   };
 

@@ -23,6 +23,8 @@ const UserProfileUpdate = (props) => {
 
   const { user } = location.state;
 
+  console.log(user);
+
   return (
     <Page>
       {user ? (
@@ -63,7 +65,7 @@ const UserProfileUpdate = (props) => {
             />
           </Form.Item>
           <Form.Item>
-            <div className="container">
+            <div className="buttons-container">
               <Link to="/changepassword">Change Password!</Link>
               <Button
                 type="primary"
