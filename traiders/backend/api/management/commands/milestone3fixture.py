@@ -185,7 +185,7 @@ class Command(BaseCommand):
             date=make_aware(datetime(2019, 7, 1) + timedelta(days=i))
         )
 
-        for j, comment in enumerate(open(os.path.join(data_path, f'article{i}_comments.txt'))):
+        for j, comment in enumerate(open(os.path.join(data_path, f'article0_comments.txt'))):
             comment = comment[:-1]
             if comment:
                 ArticleComment.objects.create(
