@@ -205,7 +205,7 @@ class Command(BaseCommand):
             comment = comment[:-1]
             if comment:
                 ArticleComment.objects.create(
-                    user=users[10 * i + j],
+                    user=users[10 * 2 + j],
                     content=comment,
                     article=a4
                 )
