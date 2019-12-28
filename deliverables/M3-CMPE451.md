@@ -35,47 +35,37 @@
 
 <!-- tocstop -->
 
-# Executive Summary
+# Project Assesment
+## Teamwork
+This one year long journey was a particularly teaching and enjoyable experience to us. <br>
+Starting in CMPE352, most of the group members did not know each other, yet the group got to know each other very quickly and adapted to working as a team. <br>
+Throughout the project, everyone had busy periods in their schedules, but the team managed to fill in for that person, and that person also compensated for that period in the later time. <br>
+Moreover, at the beginning of CMPE451, there were people leaving and joining, but the team handled the transition very smoothly. <br>
+To sum up, Group 2 as a team managed to start from zero and became an actual embodiment of teamwork.
+<br> 
+## Technical Skills
+At the beginning of CMPE352, few of us had web development experience, let alone specialization in a topic. <br>
+There were a few of us who had the knowledge of backend, mobile and frontend, and from time to time we had tutorial sessions in the team. <br>
+At the end of CMPE451, all of the group contributed to the application, some of us learning the frameworks from knowing nothing and being able to come up with the desired product. <br>
+The least of all, every group member became better at some aspect of web development. <br>
+## Customer Interaction
+One of the things the Group 2 did the best is probably interacting with the customer. <br>
+We, as a team know that we could enhance different aspects of the final product further, but knowing that we have a limited budget in terms of time and workforce, <br>
+we managed the customer expectation and delivered almost all of the requirements just in time. <br>
+We were careful enough to look out for the borders that were drawn by the customers, in terms of time, product, deliverables and further. <br>
+One of the things the process thought us is: It is very important to deliver what is being asked for: Nothing more is required, nothing less is acceptable. <br>
 
-## Project Description
+## Final Product
+At the end of the day, the experience we had and learnings along the journey led to our investment platform, **TrAiders**. <br>
+In terms of specialty, we learnt new things in the economics and the investment world. The final product has all the functionalities being asked for in the requirements. <br>
+Users can make investments, track their investments, track the economic state in the parities, can read comments and articles, can follow events and interact with other users through different media. <br>
+The system also has <text, image> to <text,image> annotations, which is using the W3C protocol, and that system running on a different servers as well. <br>
 
-Our project is a traders platform for traders and enthusiasts of finance to easily keep track of everything related to finance.
-The easy to use interface, availability in Android and web, location-based news search makes this platform perfect for anyone, anywhere. The functionality of the platform differs for different client types. A guest user can view economic events, different aspects of trading equipment, articles and profiles of public users. This way they have a chance to improve themselves in trading by following other experienced users.
-Basic users can do everything a guest does and much more. They can keep track of their profit/loss by manually entering their investments, they can write articles, rate and comment articles, they can set alarms for economic events and price levels of trading equipment, they can create portfolios and they can make predictions about the price levels estimating whether the prices will drop or rise.
-Our privileged trader users can use the platform to buy and sell any trading equipment they want by integrating their private bank accounts to the platform.
-This makes it much easier to track their profits. What makes this platform unique is that it is also a social platform, where you can follow many inspiring users who will give tips on financial matters. You can comment and start discussions about finance and you can learn a lot from others.
-
-For more detailed information and functionalities, refer to Requirements Section.
-
-## Project Status
-
-After CMPE352, we already had some standards that we have planned out.
-We kept applying our standards, such as PR Templates, Issue Templates, related workflow and process rules.
-
-- Our web project deployed at [traiders.tk](//traiders.tk),
-- API deployed at [api.traiders.tk](//api.traiders.tk),
-- Mobile app APK downloadable at [traiders.tk/mobile](//traiders.tk/mobile)
-
-Thus everything is accessible.
-
-After the first milestone we noticed that we need better orientation for our goals.
-We were happy with our weekly meetings, but we needed more experimentation with the scheduling of tasks.
-We first tried out requirement based scheduling, subject by subject, which turned out to be a very microscopic approach.
-Then we decided to move to page-based implementations and specifying requirements.
-This worked out better.
-
-We implemented **events**, **likes**, **following**, **articles**, **investments**, **iban validation**, **buy/sell orders**, and many other required functionalities.
-Mainly, we have **recommendation**, **search**, **google login**, **annotations** remaining in the backend.
-Status of frontend and mobile is mostly similar to backend.
-We also used weekly milestones in each team to manage the internal expectations
-and have more concrete steps. These can be found under the issues on github.
-We also switched from travis to the testing system github actions provides.
-
-## Moving Forward
-In the remaining weeks, we aim to complete all of the remaining requirements.
-Then we will test for system requirements mostly concerning our reliability and capacity.
-We will continue with the page-based implementation schedule, where we choose a page of the system,
-such as investments, and implement all of the related functionality in backend, frontend and mobile in the same week.
+## Final Comments
+One of the very important lessons that the process thought us is attention to detail. <br>
+Simply just by paying attention to customer's words or what is written on the paper can lead to great satisfaction. <br>
+One can find these details in any part of the TrAiders product: The avatars, the ease of use for the users, the annotation system being run exactly by the customer's description.. <br>
+We, as Group 2 are very happy with the final product that we have, but most importantly the teamwork and friendship we have built throught the journey, and everyone having value added to their lives. <br>
 
 # Deliverables
 
@@ -356,118 +346,6 @@ The system shall support following equipments and possible conversions between t
 
 
 # User Scenarios
-
-## Scenario 1 (Mobile)
-
-### Alperen Duymaz
-
-![Alperen Duymaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Alperen%20Duymaz.png?raw=true)
-**Persona**
-* 29 years old
-* Graduated 5 years ago from the finance department.
-* Works at a bank.
-* Very ambitious and curious about investments
-* Research and analyze economic issues.
-* Advise  individuals on economic topics.
-
-**Story**
-* Alperen graduated from university 5 years ago  and works as a banker.
-* He uses our mobile application and he is our loyal user.
-* He uses our mobile app everyday to see which articles are written by other users and which events are occured.
-* He is interested in the state of EUR against Turkish Lira.
-* According to political agenda, he tries to make predictions about the EUR.
-* He visits the events page and filters for EUR based on country and importance level and then sees the coming events that will effect EUR. He starts to track these events so that he gets notified when the events happen.
-* He remembers his article which is written almost 1 week earlier from these events.
-* He sees that his prediction about EUR in his article becomes true and there are many likes and comments in his article.
-* After Alperen sees the number of likes and comments, he wonders his follower number.
-* He visits his profile page and sees the increase in the follower number and becomes very happy. 
- 
-**Preconditions**
-1. Uses a our mobile app.
-2. Already has an account.
-3. Already has a verified e-mail.
-4. Already published an article.
-5. Already tracked several events.
-
-**Acceptance Criteria**
-1. 1.1.3.1
-2. 1.1.5.1, 1.1.5.2, 1.1.5.4
-3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
-4. 1.2.4.5
-
-## Scenario 2 (Web)
-### Aron Dacemoğlu
-![Aron Dacemoğlu](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Aron%20Dacemoglu.png?raw=true)
-
-**Persona**
-* 52 years old.
-* Economist and interested in international political economy
-* Wants to share his own ideas on results of international affairs for national economies
-* Wants to use Traiders also for his investments in future
-
-**Story**
-* He enters our website and clicks register.
-* He fills in his info and decides to register as a trader. 
-* He realizes he made a mistake when typing his IBAN and fixes it after seeing the error message.
-* He clicks "social" on the navigation bar, scrolls down the page and clicks "create article".
-* He writes an article about how the European Union army would have an impact on Turkish economy.
-* He noticed he confused the two dates in the article, wants to edit the article to correct the typo.
-* He accidentally clicks on "delete" and cancels it. Then clicks on "edit", and fixes the typo.
-* He comments the link of his article on a popular article to get more views. 
-* He also "likes" the popular article and "follows" its author.
-
-**Preconditions**
-1. Visits our website.
-
-**Acceptance Criteria**
-1. 1.1.1.1
-2. 1.1.2.1
-3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
-4. 1.1.4.4
-5. 1.1.4.1
-
-## Scenario 3 (Web)
-### Sarp Er (Trader)
-![Sarp Er](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Sarp%20Er.png?raw=true)
-
-**Persona**
-* 25 years old
-* Recently graduated
-* Works at a production facility
-* Very ambitious and curious about investments
-* Very easily influenced by opinions
-* Looking for news, expert opinions
-
-**Story**
-* Sarp recently graduated from university works as a project manager at a production facility.
-* He comes to our website and logs in. 
-* He is very curious about the state of the GBP, since he hears a lot about it in the news.
-* He first visits the GBP/TRY page to check the history.
-* Saw some potential, and wants to read more about the GBP equipment. Therefore he moves to the GBP page.
-* There he sees a comment about the equipment. Scenario1Name's comment from a week earlier become true yesterday.
-* He thinks that this could be a nice person to follow.
-* Then he moves to the user page of Scenario1Name.
-* He sees the success rate of the user and is very much impressed.
-* He follows the user, and heads back to the parity page.
-* He makes a prediction according to the user's comments.
-* Then he heads to the investments. He first needs to add an asset.
-* He adds asset, then makes an investment.
-* In case of any quick changes, he puts an order.
-* Luckily, in few minutes a new parity update happens, and his order gets triggered.
-
-**Preconditions**
-1. Uses a web browser to visit our website
-2. Already has an account
-3. Already has a verified e-mail
-4. Already has an IBAN in the system
-
-**Acceptance Criteria**
-1. 1.1.2.1
-2. 1.1.3.1, 1.1.3.2, 1.1.3.7
-3. 1.1.4.1, 1.1.4.6
-4. 1.1.7.1, 1.1.7.2, 1.1.7.3
-5. 1.1.8.1, 1.1.8.3, 1.1.8.4
-6. 1.1.8.5, 1.1.8.6, 1.2.4.5
 
 
 # Evaluation of tools and managing the project
