@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginStart="8dp"
+        android:gravity="start|center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:text="Content"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/textView_content"
+        android:layout_marginStart="12dp"
+        android:gravity="start|center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        tools:text="what a great organization"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="start"
+                android:layout_marginStart="6dp"
+                android:gravity="start|center"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="@android:color/black"
+                android:text="Author:"/>
+
+            <TextView
+                android:id="@+id/textView_createdBy"
+                android:layout_gravity="start"
+                android:gravity="start|center"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                tools:text="fiver6"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="end"
+                android:gravity="start|center"
+                android:paddingEnd="8dp"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:textColor="@android:color/black"
+                android:text="Date:"/>
+
+            <TextView
+                android:id="@+id/textView_createdAt"
+                android:layout_gravity="end"
+                android:gravity="start|center"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                tools:text="21 May 2019"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/holo_blue_dark"
+        android:layout_marginVertical="2dp"/>
+
+
+</LinearLayout>

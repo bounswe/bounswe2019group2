@@ -5,7 +5,6 @@ from django.db.models import Count, Avg
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers
-from rest_framework.decorators import action
 
 from ..models import User, Following, Prediction, Equipment
 from ..serializers import EquipmentSerializer, UserSerializer
@@ -26,17 +25,6 @@ class UserViewSet(mixins.CreateModelMixin,
         # Another user can only retrieve; cannot update, delete, update or partial_update
         if self.action != 'retrieve' and request.user != user:
             raise PermissionDenied
-
-        elif self.action == 'retrieve' and user.is_private and request.user != user:
-            if request.user.is_anonymous or not Following.objects.filter(user_following=request.user,
-                                                                         user_followed=user,
-                                                                         status=Following.ACCEPTED).exists():
-                raise PermissionDenied("User profile is private. Please request to follow")
-
-    @action(detail=False, methods=['GET'])
-    def me(self, request):
-        self.kwargs['pk'] = request.user.pk
-        return self.retrieve(request)
 
 
 class UserSuccessViewSet(GenericViewSet):

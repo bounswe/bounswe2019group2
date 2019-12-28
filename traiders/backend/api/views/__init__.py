@@ -14,4 +14,6 @@ from .order import BuyOrderViewSet, StopLossOrderViewSet
 from .verify_email import verify_email
 from .portfolio import PortfolioViewSet, PortfolioItemViewSet
 from .search import SearchViewSet
+from .notification import NotificationViewSet
 from .recommendation import RecommendationViewSet
+from .alert import AlertViewSet

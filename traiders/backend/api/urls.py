@@ -28,7 +28,8 @@ router.register(r'profitloss', ProfitLossViewSet, basename='profitloss')
 router.register(r'recommendation', RecommendationViewSet, basename='recommendation')
 router.register(r'portfolio', PortfolioViewSet, basename='portfolio')
 router.register(r'portfolioitem', PortfolioItemViewSet, basename='portfolioitem')
-
+router.register(r'notification', NotificationViewSet, basename='notification')
+router.register(r'alert', AlertViewSet, basename='alert')
 
 urlpatterns = [
     # documentation views
@@ -56,9 +57,6 @@ urlpatterns = [
 
     # Email verification
     path('verify/<int:pk>', verify_email, name='verify-email'),
-
-    # OAuth
-    path('auth/', include('rest_framework_social_oauth2.urls')),
 
     # all API ends
     *router.urls

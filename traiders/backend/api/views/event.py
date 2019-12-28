@@ -13,7 +13,7 @@ class EventViewSet(mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,
                    GenericViewSet):
     serializer_class = EventSerializer
-    queryset = Event.objects.all()
+    queryset = Event.objects.all().order_by('-date')
     filter_backends = [DjangoFilterBackend]
     filterset_class = EventFilterSet
     pagination_class = LimitOffsetPagination

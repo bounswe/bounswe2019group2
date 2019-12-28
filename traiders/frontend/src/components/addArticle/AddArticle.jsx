@@ -54,16 +54,22 @@ class AddArticle extends Component {
           if (response.status === 201) {
             response.json().then((res) => {
               id = res.id;
-              PatchUploadImage(res.url, image, token)
-                .then((response) => {
-                  response
-                    .json()
-                    .then((res) => history.push(`/articles/${res.id}`));
-                })
-                .catch((error) => {
-                  history.push(`/articles/${id}`);
-                  console.log('Smt wrong \n', error);
-                });
+              if (image) {
+              }
+              if (image) {
+                PatchUploadImage(res.url, image, token)
+                  .then((response) => {
+                    console.log('hey');
+                    response
+                      .json()
+                      .then((res) => history.push(`/articles/${res.id}`));
+                  })
+                  .catch((error) => {
+                    console.log('Smt wrong \n', error);
+                  });
+              } else {
+                history.push(`/articles/${res.id}`);
+              }
             });
           }
         })

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_margin="12dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/primaryColor"
+        android:layout_height="wrap_content"
+        android:text="Base Equipment"/>
+
+    <Spinner
+        android:id="@+id/spinner_base"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp" />
+
+    <ImageView
+        android:id="@+id/imageView_swap"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_swap_vert_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/primaryColor"
+        android:layout_height="wrap_content"
+        android:text="Target Equipment"/>
+
+    <Spinner
+        android:id="@+id/spinner_target"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"  />
+
+    <EditText
+        android:id="@+id/editText_ratio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:paddingStart="8dp"
+        android:hint="ratio..." />
+
+    <Button
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/button_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INCREASING"
+        android:background="@color/primaryColor"
+        android:textColor="@color/white" />
+
+    <Button
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/button_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Decreasing"
+        android:background="@color/primaryColor"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"/>
+
+</LinearLayout>

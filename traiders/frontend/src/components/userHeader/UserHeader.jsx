@@ -18,7 +18,8 @@ class UserHeader extends Component {
       isFollowing: null,
       visible: false,
       value: 1,
-      isPrivate: null
+      isPrivate: null,
+      requested: false
     };
   }
 
@@ -50,10 +51,14 @@ class UserHeader extends Component {
         followings.filter((element) => element.user_followed === otherUser.url);
     }
     if (Following) {
-      Following = Following.length !== 0;
       this.setState({
-        isFollowing: Following
+        isFollowing: Following.length !== 0
       });
+      if (Following.length !== 0) {
+        this.setState({
+          requested: Following[0].status === 0
+        });
+      }
     } else {
       this.setState({
         isFollowing: false
@@ -92,10 +97,16 @@ class UserHeader extends Component {
       setTimeout(() => getFollowings(user.id), 500);
     }
     setTimeout(() => getFollowers(otherUser.id), 500);
-    this.setState((prevState) => ({
-      isFollowing: !prevState.isFollowing,
-      followerNumber: prevState.followerNumber + 1
-    }));
+    if (!otherUser.is_private) {
+      this.setState((prevState) => ({
+        isFollowing: !prevState.isFollowing,
+        followerNumber: prevState.followerNumber + 1
+      }));
+    } else {
+      this.setState(() => ({
+        requested: true
+      }));
+    }
   };
 
   handleUnfollow = () => {
@@ -171,7 +182,8 @@ class UserHeader extends Component {
       isFollowing,
       visible,
       value,
-      isPrivate
+      isPrivate,
+      requested
     } = this.state;
     let style = null;
     if (other) {
@@ -189,7 +201,7 @@ class UserHeader extends Component {
             <Avatar
               src={images[value - 1].src}
               className={!other && 'avatar'}
-              onClick={!other && this.handleAvatar}
+              onClick={!other ? this.handleAvatar : () => {}}
               size={80}
             />
             <Modal
@@ -201,7 +213,7 @@ class UserHeader extends Component {
               <div>
                 <Radio.Group onChange={this.onChange} value={value}>
                   {images.map(({ id, src, title }) => (
-                    <Radio value={id}>
+                    <Radio value={id} key={id}>
                       <img
                         key={id}
                         src={src}
@@ -221,14 +233,23 @@ class UserHeader extends Component {
               <h4>{followingNumber} Followings</h4>
             </div>
           </div>
+          {other && requested && (
+            <Button
+              className="left-down"
+              onClick=""
+              type="primary"
+              icon="user-add"
+            >
+              Requested
+            </Button>
+          )}
           {isFollowing ? (
             <div className="left-down">
-              {other && (
+              {other && !requested && (
                 <Button
                   onClick={this.handleUnfollow}
                   type="primary"
                   icon="user-delete"
-                  size={14}
                 >
                   Unfollow
                 </Button>
@@ -236,12 +257,11 @@ class UserHeader extends Component {
             </div>
           ) : (
             <div className="left-down">
-              {other && (
+              {other && !requested && (
                 <Button
                   onClick={this.handleFollow}
                   type="primary"
                   icon="user-add"
-                  size={14}
                 >
                   Follow
                 </Button>
@@ -254,10 +274,9 @@ class UserHeader extends Component {
             <div className="right-up">
               <Button
                 ghost
-                onClick={!other && this.handlePrivacy}
+                onClick={!other ? this.handlePrivacy : () => {}}
                 type="default"
                 icon="lock"
-                size={14}
                 style={style}
               >
                 Private
@@ -267,10 +286,9 @@ class UserHeader extends Component {
             <div className="right-up">
               <Button
                 ghost
-                onClick={!other && this.handlePrivacy}
+                onClick={!other ? this.handlePrivacy : () => {}}
                 type="default"
                 icon="unlock"
-                size={14}
                 style={style}
               >
                 Public
@@ -284,7 +302,7 @@ class UserHeader extends Component {
                 className="update-link"
                 to={{ pathname: '/updateprofile', state: { user } }}
               >
-                <Button ghost type="default" icon="edit" size={14}>
+                <Button ghost type="default" icon="edit">
                   Edit
                 </Button>
               </Link>

@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ import tk.traiders.utils.MarshallerUtils;
 
 public class RecommendationsFragment extends Fragment {
 
-    private String URL = "https://api.traiders.tk/recommendations/";
+    private String URL = "https://api.traiders.tk/recommendation/";
 
     private RequestQueue requestQueue;
 
@@ -88,6 +89,7 @@ public class RecommendationsFragment extends Fragment {
     private TextView textView_paritiesCount;
     private TextView textView_equipmentCount;
 
+    private ImageView imageView_search;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +104,15 @@ public class RecommendationsFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_recommendations, container, false);
 
+        imageView_search = rootView.findViewById(R.id.imageView_search);
+
+        imageView_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView_search.setEnabled(false);
+                getRecommendations();
+            }
+        });
 
         imageView_search_articles = rootView.findViewById(R.id.imageView_search_articles);
 
@@ -224,6 +235,11 @@ public class RecommendationsFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void getRecommendations(){
 
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
@@ -232,6 +248,7 @@ public class RecommendationsFragment extends Fragment {
             public void onResponse(String response) {
 
                 try {
+                    imageView_search.setEnabled(true);
 
                     String responseAsUTF8 = MarshallerUtils.convertToUTF8(response);
 
@@ -282,14 +299,20 @@ public class RecommendationsFragment extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                imageView_search.setEnabled(true);
                 Toast.makeText(getContext(), "An error occured fetching recommendations!", Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return MainActivity.getAuthorizationHeader(getContext());
+            }
+        };
 
         requestQueue.add(request);
 
-        Toast.makeText(getContext(), "Fetching results...", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Fetching recommendations...", Toast.LENGTH_LONG).show();
 
     }
 

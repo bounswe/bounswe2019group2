@@ -18,5 +18,7 @@ class ParitySetting(models.Model):
     from_date = models.DateTimeField(blank=False)
     last_updated = models.DateTimeField(null=True, blank=True)  # null/blank means not updated yet
 
+    order = models.IntegerField(blank=False, default=0)
+
     def __str__(self):
         return "/".join([self.base_equipment.symbol, self.target_equipment.symbol])

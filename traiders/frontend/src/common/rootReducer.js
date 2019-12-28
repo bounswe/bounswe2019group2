@@ -12,6 +12,8 @@ import successReducer from '../redux/success/reducer';
 import predictionReducer from '../redux/prediction/reducer';
 import searchReducer from '../redux/search/reducer';
 import portfolioReducer from '../redux/portfolio/reducer';
+import recommendationReducer from '../redux/recommendation/reducer';
+import notificationReducer from '../redux/notification/reducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -24,7 +26,9 @@ const rootReducer = combineReducers({
   success: successReducer,
   prediction: predictionReducer,
   search: searchReducer,
-  portfolio: portfolioReducer
+  portfolio: portfolioReducer,
+  recommendation: recommendationReducer,
+  notification: notificationReducer
 });
 
 export default rootReducer;

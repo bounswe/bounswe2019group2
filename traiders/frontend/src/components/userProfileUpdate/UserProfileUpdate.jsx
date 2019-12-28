@@ -1,12 +1,15 @@
 import React from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { PatchWithAuthorization } from '../../common/http/httpUtil';
 import './user-profile-update.scss';
 import Page from '../page/Page';
 
 const UserProfileUpdate = (props) => {
-  const { location } = props;
+  const { form } = props;
+  const { getFieldDecorator } = form;
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
@@ -17,53 +20,82 @@ const UserProfileUpdate = (props) => {
       sm: { span: 16 }
     }
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
-  const { user } = location.state;
+  const { user } = props.user;
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    props.form.validateFields((err, values) => {
+      const { firstName, lastName, iban } = values;
+      const body = {
+        first_name: firstName,
+        last_name: lastName,
+        iban
+      };
+      const token = props.user.key;
+      const url = `https://api.traiders.tk/users/${user.id}`;
+
+      PatchWithAuthorization(url, body, token).then((response) =>
+        console.log(response)
+      );
+    });
+  };
 
   return (
     <Page>
       {user ? (
         <Form
-          onSubmit={handleSubmit}
+          onSubmit={handleUpdate}
           {...formItemLayout}
           className="update-form"
         >
           <Form.Item label="Username">
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              defaultValue={user.username}
-              readOnly
-            />
+            {getFieldDecorator('username', {
+              initialValue: user.username
+            })(
+              <Input
+                prefix={
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                readOnly
+              />
+            )}
           </Form.Item>
           <Form.Item label="Email">
-            <Input
-              prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="text"
-              defaultValue={user.email}
-              readOnly
-            />
+            {getFieldDecorator('email', {
+              initialValue: user.email
+            })(
+              <Input
+                prefix={
+                  <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                type="text"
+                readOnly
+              />
+            )}
           </Form.Item>
           <Form.Item label="First Name">
-            <Input type="text" defaultValue={user.first_name} />
+            {getFieldDecorator('firstName', { initialValue: user.first_name })(
+              <Input type="text" />
+            )}
           </Form.Item>
           <Form.Item label="Last Name:">
-            <Input type="text" defaultValue={user.last_name} />
+            {getFieldDecorator('lastName', { initialValue: user.last_name })(
+              <Input type="text" />
+            )}
           </Form.Item>
           <Form.Item label="IBAN">
-            <Input type="text" defaultValue={user.iban} />
+            {getFieldDecorator('iban', { initialValue: user.iban })(
+              <Input type="text" />
+            )}
           </Form.Item>
           <Form.Item label="Location">
-            <Input
-              readOnly
-              type="text"
-              defaultValue={`${user.city}/${user.country}`}
-            />
+            {getFieldDecorator('location', {
+              initialValue: user.city + '/' + user.country.name
+            })(<Input type="text" readOnly />)}
           </Form.Item>
           <Form.Item>
-            <div className="container">
+            <div className="buttons-container">
               <Link to="/changepassword">Change Password!</Link>
               <Button
                 type="primary"
@@ -82,4 +114,12 @@ const UserProfileUpdate = (props) => {
   );
 };
 
-export default UserProfileUpdate;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.currentUser
+  };
+};
+
+export default connect(mapStateToProps)(
+  Form.create({ name: 'updateForm' })(UserProfileUpdate)
+);

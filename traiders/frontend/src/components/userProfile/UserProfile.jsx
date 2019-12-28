@@ -4,17 +4,20 @@ import Page from '../page/Page';
 import { API } from '../../redux/apiConfig';
 import UserHeader from '../userHeader/UserHeaderContainer';
 import UserSuccess from '../userSuccess/UserSuccessContainer';
+import Notification from '../notification/NotificationContainer';
 import history from '../../common/history';
 import './user-profile.scss';
+import Portfolios from '../portfolio/MyPortfolioContainer';
+import FollowRequestList from '../followRequest/FollowRequestList';
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       followings: [],
-      followingNumber: 0,
+      followingNumber: null,
       followers: [],
-      followerNumber: 0
+      followerNumber: null
     };
   }
 
@@ -23,7 +26,7 @@ class UserProfile extends Component {
     if (user) {
       const array = user.user.url.split('/');
       const id = array[array.length - 2];
-      fetch(`${API}/following/?user_following=${id}`)
+      fetch(`${API}/following/?user_following=${id}&status=1`)
         .then((res) => res.json())
         .then((data) => {
           this.setState({ followings: data });
@@ -35,7 +38,7 @@ class UserProfile extends Component {
         // eslint-disable-next-line no-console
         .catch(console.log);
 
-      fetch(`${API}/following/?user_followed=${id}`)
+      fetch(`${API}/following/?user_followed=${id}&status=1`)
         .then((res) => res.json())
         .then((data) => {
           this.setState({ followers: data });
@@ -56,8 +59,7 @@ class UserProfile extends Component {
       history.push('/login');
       return <div />;
     }
-
-    if (followingNumber && followerNumber) {
+    if (followingNumber != null && followerNumber != null) {
       return (
         <Page>
           <div className="profile-container">
@@ -72,11 +74,19 @@ class UserProfile extends Component {
                   otherUser={user.user}
                 />
               </div>
-              <div>
+              <div className="profile-left-up">
                 <UserSuccess id={user.user.id} />
               </div>
+              <div>
+                <Portfolios userOwn={user.user.id} />
+              </div>
             </div>
-            <div className="profile-right">notifications</div>
+            <div className="profile-right">
+              <Notification />
+              {user.user.is_private ? (
+                <FollowRequestList token={user.key} user={user.user} />
+              ) : null}
+            </div>
           </div>
         </Page>
       );
