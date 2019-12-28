@@ -147,10 +147,15 @@ class RecommendationViewSet(GenericViewSet):
                 main_keywords[word].append(msg)
 
         followed_users = Following.objects.all().filter(user_following=req_user).values('user_followed')
+
         user_kws = []
         for user in followed_users:
             user = User.objects.get(pk=user["user_followed"])
-            user_kws.append((user, "You are receiving this since you follow {}".format(user.username)))
+            msg = "You are receiving this since you follow {}".format(user.username)
+            user_kws.append((user, msg))
+            if user.username not in main_keywords:
+                main_keywords[user.username] = list()
+            main_keywords[user.username].append(msg)
 
         keywords = []
         for kw, msgs in main_keywords.items():
@@ -168,7 +173,7 @@ class RecommendationViewSet(GenericViewSet):
         for kw in keywords:
             msgs = kw[0]
             q_article = Q(content__contains=kw[1]) | Q(author__username__contains=kw[1]) | Q(title__contains=kw[1])
-            q_article = q_article
+            q_article = q_article & ~Q(author=req_user)
 
             (self.iterate_and_add(Article.objects.filter(q_article)[:MAX_ITEMS],
                                   ArticleSerializer,
