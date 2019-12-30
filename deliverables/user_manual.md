@@ -1,13 +1,13 @@
 # Traiders User Manual
 This manual is designed for the end-users who wish to use our Traiders application in web or mobile platform.
 
-## Sign In
-
 ## Sign Up
+
+## Sign In
 
 ## Trading Equipment and Parities
 
-## Portfolio
+## Portfolio: How to follow Equipment and Parities
 
 ## Social Interactions with Other Users
 
