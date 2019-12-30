@@ -24,27 +24,26 @@ class FollowRequestList extends Component {
 
     const response = await GetWithAuthorization(
       `${API}/following/?user_followed=${user.id}&status=0`,
-      this.props.token
+      token
     );
 
     const followRequests = await response.json();
 
-    for (let i = 0; i < followRequests.length; i++) {
+    for (let i = 0; i < followRequests.length; i += 1) {
       const url = followRequests[i].user_following;
-      const response = await GetWithAuthorization(url, token);
-      followRequests[i].user_following = await response.json();
+      const res = await GetWithAuthorization(url, token);
+      followRequests[i].user_following = await res.json();
     }
 
     this.setState({
-      followRequests: followRequests
+      followRequests
     });
   }
 
   async removeRequest(url) {
+    const { followRequests } = this.state;
     this.setState({
-      followRequests: this.state.followRequests.filter(
-        (request) => request.url !== url
-      )
+      followRequests: followRequests.filter((request) => request.url !== url)
     });
   }
 
@@ -69,12 +68,13 @@ class FollowRequestList extends Component {
   }
 
   render() {
+    const { followRequests } = this.state;
     return (
       <div className="follow-request-container">
         <h2>Following Requests</h2>
         <List
           itemLayout="horizontal"
-          dataSource={this.state.followRequests}
+          dataSource={followRequests}
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
@@ -86,11 +86,7 @@ class FollowRequestList extends Component {
                     {item.user_following.username}
                   </a>
                 }
-                description={
-                  item.user_following.first_name +
-                  ' ' +
-                  item.user_following.last_name
-                }
+                description={`${item.user_following.first_name} ${item.user_following.last_name}`}
               />
               <Button
                 className="accept-button"
