@@ -25,6 +25,7 @@
     "camelcase": "off",
     "no-alert": "off",
     "no-undef": "off",
+    "no-await-in-loop": "off",
     "react/jsx-curly-newline": "off",
     "quotes": [
       2,

@@ -20,7 +20,7 @@ const UserProfileUpdate = (props) => {
       sm: { span: 16 }
     }
   };
-
+  // eslint-disable-next-line
   const { user } = props.user;
 
   const handleUpdate = (e) => {
@@ -36,6 +36,7 @@ const UserProfileUpdate = (props) => {
       const url = `https://api.traiders.tk/users/${user.id}`;
 
       PatchWithAuthorization(url, body, token).then((response) =>
+        // eslint-disable-next-line no-console
         console.log(response)
       );
     });
@@ -55,7 +56,12 @@ const UserProfileUpdate = (props) => {
             })(
               <Input
                 prefix={
-                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                  <Icon
+                    type="user"
+                    style={{
+                      color: 'rgba(0,0,0,.25)'
+                    }}
+                  />
                 }
                 readOnly
               />
@@ -67,7 +73,12 @@ const UserProfileUpdate = (props) => {
             })(
               <Input
                 prefix={
-                  <Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />
+                  <Icon
+                    type="mail"
+                    style={{
+                      color: 'rgba(0,0,0,.25)'
+                    }}
+                  />
                 }
                 type="text"
                 readOnly
@@ -75,23 +86,23 @@ const UserProfileUpdate = (props) => {
             )}
           </Form.Item>
           <Form.Item label="First Name">
-            {getFieldDecorator('firstName', { initialValue: user.first_name })(
-              <Input type="text" />
-            )}
+            {getFieldDecorator('firstName', {
+              initialValue: user.first_name
+            })(<Input type="text" />)}
           </Form.Item>
           <Form.Item label="Last Name:">
-            {getFieldDecorator('lastName', { initialValue: user.last_name })(
-              <Input type="text" />
-            )}
+            {getFieldDecorator('lastName', {
+              initialValue: user.last_name
+            })(<Input type="text" />)}
           </Form.Item>
           <Form.Item label="IBAN">
-            {getFieldDecorator('iban', { initialValue: user.iban })(
-              <Input type="text" />
-            )}
+            {getFieldDecorator('iban', {
+              initialValue: user.iban
+            })(<Input type="text" />)}
           </Form.Item>
           <Form.Item label="Location">
             {getFieldDecorator('location', {
-              initialValue: user.city + '/' + user.country.name
+              initialValue: `${user.city}/${user.country.name}`
             })(<Input type="text" readOnly />)}
           </Form.Item>
           <Form.Item>
