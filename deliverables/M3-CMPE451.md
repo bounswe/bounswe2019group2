@@ -109,13 +109,13 @@ Project plan can also be found below. As mentioned previously, we have decided t
 Thus in the project plan, the tabs refer to our requirements. Each week we plan to implement couple of those.
 
 **8- API:**
-Traiders API can be accessible at [api.traiders.tk](//api.traiders.tk)
+Traiders API can be accessible at [api.traiders.tk](//api.traiders.tk). 
 
 **9- API Documentation:**
 Traiders API documentations can be accessible at [api.traiders.tk/docs](//api.traiders.tk/docs) [api.traiders.tk/redocs](//api.traiders.tk/redocs)
 
 **10- Deployment and Security:**
-We frequently deployed our application's latest version throughout the development process so that it would always be up to date. 
+We frequently deployed our application's latest version throughout the development process so that it would always be up to date. In addition to that we deployed an annotation server to bring annotation support to our application. Annotation server is independent from Traiders servers and can be accessible at [https://annotation.traiders.tk/](//annotation.traiders.tk/).
 
 **11- Web Project, Frontend:**
 Our web application is up and running at [traiders.tk](//traiders.tk). Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & tracks events, list & follow users, list & view & comment (on) equipment, list & see details with charts for several parities in different category, add assets, make investments, create & follow portfolios, making text or image annotations for articles, sign-up or sign-in with Google, make semantic search. get recommendations, see notifications, 
