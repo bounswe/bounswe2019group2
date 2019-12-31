@@ -102,30 +102,30 @@ We have rarely updated our requirements so far, but we always keep reviewing the
 You can visit the [mockups section](https://github.com/bounswe/bounswe2019group2/wiki/Mockups) to see all the mockups we've done so far.
 
 **6- Design Diagrams:**
-We believe there will still be updates during the implementation as we figure out better ways of doing things. You can find the class diagram in this [page](https://github.com/bounswe/bounswe2019group2/wiki/Class-Diagram). 
+We finalized the implementation, but there will still be updates as needed. Final version of the class diagrams can be found at this page [page](https://github.com/bounswe/bounswe2019group2/wiki/Class-Diagram). 
 
 **7- Project Plan:**
-Project plan can also be found below. As mentioned above, we have decided to take a requirement oriented approach.
+Project plan can also be found below. As mentioned previously, we have decided to take a requirement oriented approach.
 Thus in the project plan, the tabs refer to our requirements. Each week we plan to implement couple of those.
 
 **8- API:**
-[api.traiders.tk](//api.traiders.tk)
+Traiders API can be accessible at [api.traiders.tk](//api.traiders.tk)
 
 **9- API Documentation:**
-[api.traiders.tk/docs](//api.traiders.tk/docs) [api.traiders.tk/redocs](//api.traiders.tk/redocs)
+Traiders API documentations can be accessible at [api.traiders.tk/docs](//api.traiders.tk/docs) [api.traiders.tk/redocs](//api.traiders.tk/redocs)
 
 **10- Deployment and Security:**
-We frequently deployed our application's latest version throughout the development process so that it would always be up to date
+We frequently deployed our application's latest version throughout the development process so that it would always be up to date. 
 
 **11- Web Project, Frontend:**
-Our web application is up and running at [traiders.tk](//traiders.tk). Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list events, list & follow users, list & view & comment (on) equipment, list & see details with charts for several parities in different category, add assets and make investment.
+Our web application is up and running at [traiders.tk](//traiders.tk). Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & tracks events, list & follow users, list & view & comment (on) equipment, list & see details with charts for several parities in different category, add assets, make investments, create & follow portfolios, making text or image annotations for articles, sign-up or sign-in with Google, make semantic search. get recommendations, see notifications, 
 
 **12- Mobile App:**
 The latest version of our mobile application will always be downloadable at [traiders.tk/mobile](//traiders.tk/mobile).
-Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & track events, list & follow users, list & view & comment (on) equipment, list & see details for several parities in different category.
+Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & track events, list & follow users, list & view & comment (on) equipment, list & see details for several parities in different category, sign-up or sign-in with Google,  create & delete alarms, create & list portfolios, make semantic search, get recommendations, see notifications, make text to text annotations for articles.
 
 **13- Weekly Milestones:**
-We started to utilize milestone concept rather seeing it as just a delivery deadline. We try to set weekly or biweekly custom milestones to increase efficiency in delivery and ease the management of the project per domain like backend, frontend, etc.
+We continued to utilize milestone concept. As stated previously we tried to set weekly or biweekly custom milestones to increase efficiency in delivery and ease the management of the project per domain like backend, frontend, etc.
 
 # Work Done by Each Member
 
