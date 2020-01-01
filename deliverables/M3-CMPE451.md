@@ -346,6 +346,115 @@ The system shall support following equipments and possible conversions between t
 
 
 # User Scenarios
+### John  Wick
+
+![Alperen Duymaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Alperen%20Duymaz.png?raw=true)
+**Persona**
+* 58 years old
+* Closer to retirement.
+* Worked at a bank.
+* Very ambitious and curious about Bitcoin
+
+**Story**
+* He signed in to our mobile app and noticed that he chose the wrong avatar. 
+* He changes the avatar to be an old man.
+* He set an alert for Bitcoin. He goes to the Alerts tab to set another alert for Bitcoin because he does not want   to miss   any critical level updates. He sets another alert.  
+* Then goes to the notification tab to see is there any other notification for him. 
+* He goes to the search tab to search for Bitcoin, and by doing that he wants to see the latest updates about it.
+* He sees an article in the search results. He clicks to that article to view its full version. He reads the article, learns that IOTA value is decreasing.
+* He sees a few annotations made by other users. He click them to read what is written.
+* He also wants to add his own annotation because halving is coming and everybody should know about it, commenting wouldn’t be enough.
+* He annotates by selecting the Bitcoin word. He then leaves the article.
+* He goes to the portfolio tab to make some changes. He removes IOTA from his crypto portfolio. He also deletes his stock portfolio because they are kind of boring, compared to crypto market. 
+ 
+**Preconditions**
+1. Uses a our mobile app.
+2. Already has an account.
+3. Already has a verified e-mail.
+4. Already set an alert
+5. Already tracked several events.
+
+**Acceptance Criteria**
+1. 1.1.2.1
+2. 1.1.3.1
+3. 1.1.4.3  1.1.4.5
+4. 1.2.1.1, 1.2.1.2
+5. 1.2.1.5  1.2.4.5   
+6. 1.1.10.1 1.1.10.2
+7. 2.4.1
+## Scenario 2 (Web)
+### Aron Dacemoğlu
+![Aron Dacemoğlu](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Aron%20Dacemoglu.png?raw=true)
+
+**Persona**
+* 52 years old.
+* Economist and interested in international political economy
+* Wants to share his own ideas on results of international affairs for national economies
+* Wants to use Traiders also for his investments in future
+
+**Story**
+* He enters our website and clicks register.
+* He fills in his info and decides to register as a trader. 
+* He realizes he made a mistake when typing his IBAN and fixes it after seeing the error message.
+* He clicks "social" on the navigation bar, scrolls down the page and clicks "create article".
+* He writes an article about how the European Union army would have an impact on Turkish economy.
+* He noticed he confused the two dates in the article, wants to edit the article to correct the typo.
+* He accidentally clicks on "delete" and cancels it. Then clicks on "edit", and fixes the typo.
+* He comments the link of his article on a popular article to get more views. 
+* He also "likes" the popular article and "follows" its author.
+
+**Preconditions**
+1. Visits our website.
+
+**Acceptance Criteria**
+1. 1.1.1.1
+2. 1.1.2.1
+3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
+4. 1.1.4.4
+5. 1.1.4.1
+
+## Scenario 3 (Web)
+### Sarp Er (Trader)
+![Sarp Er](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Sarp%20Er.png?raw=true)
+
+**Persona**
+* 25 years old
+* Recently graduated
+* Works at a production facility
+* Very ambitious and curious about investments
+* Very easily influenced by opinions
+* Looking for news, expert opinions
+
+**Story**
+* Sarp recently graduated from university works as a project manager at a production facility.
+* He comes to our website and logs in. 
+* He is very curious about the state of the GBP, since he hears a lot about it in the news.
+* He first visits the GBP/TRY page to check the history.
+* Saw some potential, and wants to read more about the GBP equipment. Therefore he moves to the GBP page.
+* There he sees a comment about the equipment. Scenario1Name's comment from a week earlier become true yesterday.
+* He thinks that this could be a nice person to follow.
+* Then he moves to the user page of Scenario1Name.
+* He sees the success rate of the user and is very much impressed.
+* He follows the user, and heads back to the parity page.
+* He makes a prediction according to the user's comments.
+* Then he heads to the investments. He first needs to add an asset.
+* He adds asset, then makes an investment.
+* In case of any quick changes, he puts an order.
+* Luckily, in few minutes a new parity update happens, and his order gets triggered.
+
+**Preconditions**
+1. Uses a web browser to visit our website
+2. Already has an account
+3. Already has a verified e-mail
+4. Already has an IBAN in the system
+
+**Acceptance Criteria**
+1. 1.1.2.1
+2. 1.1.3.1, 1.1.3.2, 1.1.3.7
+3. 1.1.4.1, 1.1.4.6
+4. 1.1.7.1, 1.1.7.2, 1.1.7.3
+5. 1.1.8.1, 1.1.8.3, 1.1.8.4
+6. 1.1.8.5, 1.1.8.6, 1.2.4.5
 
 # Project Plan
 ![FinalProjectPlan-1](https://user-images.githubusercontent.com/25746169/71589862-78e9b800-2b37-11ea-87b0-52448f686552.png)
