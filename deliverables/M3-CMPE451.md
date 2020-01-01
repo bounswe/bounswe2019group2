@@ -23,11 +23,11 @@
     + [2.4. Annotations](#24-annotations)
 - [User Scenarios](#user-scenarios)
   * [Scenario 1 (Mobile)](#scenario-1-mobile)
-    + [Alperen Duymaz](#alperen-duymaz)
+    + [John  Wick](#john-wick)
   * [Scenario 2 (Web)](#scenario-2-web)
-    + [Aron Dacemoğlu](#aron-dacemoglu)
+    + [Can Özcan](#can-özcan)
   * [Scenario 3 (Web)](#scenario-3-web)
-    + [Sarp Er (Trader)](#sarp-er-trader)
+    + [Enes Yılmaz ](#enes-yılmaz)
 - [Evaluation of tools and managing the project](#evaluation-of-tools-and-managing-the-project)
   * [Backend](#backend)
   * [Frontend](#frontend)
@@ -77,7 +77,7 @@ We, as Group 2 are very happy with the final product that we have, but most impo
 | 4- Requirements                  | Complete    | As improvement needed | Sharing the requirements analysis related to the project. Updating as needed.        |
 | 5- Mockups                       | Complete    | As improvement needed | To stay on the same page with the customer.                                           |
 | 6- Design Diagrams               | Complete    | Per feedback for now  | Posting design diagrams to wiki page                                                  |
-| 7- Project Plan                  | Complete    | -                     | Prepared the project plan.                                                           |
+| 7- Project Plan                  | In progress | -                     | Preparing the project plan                                                            |
 | 8- API                           | In progress | Weekly                | Backend of the project. Related endpoints, management of DB etc.                      |
 | 9- API Documentation             | In progress | As improvement needed | API Documentation for the users of endpoints.                                         |
 | 10- Deployment and Security      | In progress | As improvement needed | Deployment of the project and accessibility                                            |
@@ -147,10 +147,10 @@ Team | Member | Work done    |
 | -------- | ------- | ----------- |
 | *Backend* | **Yunus Emre Inci** | • Implemented user related API endpoints. (register, update, delete, retrieve) <br> • Implemented authentication and permission mechanisms. (token creation) <br> • Added location information for users. <br> • Handled DevOps related stuff. Deployment, server and database configurations etc. <br> • Updated class diagram due to changes in design. <br> • Implemented functionality for fetching live and historic parity data from AlphaVantage. <br> • Added OpenIBAN support for IBAN validation. <br> • Configured Github actions for CI. <br> • Implemented API endpoints for login and register by Google. <br> • Implemented the annotation server which complies to W3C standards. <br> • Fixed various errors and reported bugs. <br> • Added unit tests for implemented API endpoints.   <br> • Reviewed other team members' work. |
 | *Backend* | **Harun Eren**  | • Implemented Equipment pairs for Portfolio API <br> • Implemented Portfolio API and necessary tests <br> • Requirements update for Portfolio <br> • Reviewed other team members' work. |
-| *Backend* | **Mert Yuksekgonul** | • Implemented equipment related endpoints (list, retrieve). <br> • Implemented parity, parity/latest related endpoints (list, retrieve). <br> • Implemented comment related (article comments and equipment comments) endpoints (list, retrieve, create, update, delete). <br> • Implemented equipment related endpoints (list, retrieve). <br> • Implemented follower related endpoints and private user relations (list, retrieve, create, delete). <br> • Reviewed code for backend team. <br> •  Implemented Prediction endpoint. <br> • Implemented Events Endpoint. <br> • Implemented success rate endpoints. <br> • Implemented evaluation of the prediction results after the closure of the day. <br> • Implemented manual investments endpoints. <br> • Implemented online investments. <br> • Implemented assets of a user. <br> • Implemented signals for asset updates after an online investment. <br> • Implemented orders(buy order, stop/loss order). <br> • Implemented realization of orders after the related parity updated. <br> • Implemented profit/loss endpoints. <br> • Implemented comment likes and event following. <br> • Implemented tests for orders and investments, comment likes, parity/latest endpoint. <br> Code review and maintenance(bugfixes, updates for endpoint) for backend. <br> • Implemented search endpoints, used semantic search an external API (datamuse) for semantic search. <br>  • Implemented tests for search endpoints <br>  • Implemented recommendation system, and interpretation for each recommendation <br> • Implemented milestone3 command. <br> |
+| *Backend* | **Mert Yuksekgonul** | •  Implemented Prediction endpoint. <br> • Implemented Events Endpoint. <br> • Implemented success rate endpoints. <br> • Implemented evaluation of the prediction results after the closure of the day. <br> • Implemented manual investments endpoints. <br> • Implemented online investments. <br> • Implemented assets of a user. <br> • Implemented signals for asset updates after an online investment. <br> • Implemented orders(buy order, stop/loss order). <br> • Implemented realization of orders after the related parity updated. <br> • Implemented profit/loss endpoints. <br> • Implemented comment likes and event following. <br> • Implemented tests for orders and investments, comment likes, parity/latest endpoint. <br> Code review and maintenance(bugfixes, updates for endpoint) for backend. <br>|
 | *Frontend* | **Dilruba Köse** |  • Implement UserHeader component <br> • Implement OtherUser component for controlling following functionality <br>   • Update profile page, for both current and other users and configure routing  <br>  • Implement UserSuccess component for prediction success table <br>  •Implement ParityChart Component <br>  • Implement Parity Page and configure routing <br>  • Implement Equipment Page and configure routing <br>  • Made reviews for web-front-end team commits. <br> • Attended front-end team code sessions. <br> |
 | *Frontend* | **Muhammet Furkan Gök** | • Implemented article page with edit-delete-create functionalities <br> • Implemented custom table for displaying parities and equipments on different pages <br> • Implemented orders component <br> • Implemented investments component <br> • Implemented assets component <br> • Implemented socials page displaying articles and events on two different tabs respectively <br> • Implemented a component showing initial details about an article to be used in home page and socials page <br> •  Attended front-end team coding sessions <br> • Made reviews on the pull requests of other front end team members |
-| *Frontend* | **Alperen Kürşat Özkan** |  • Bugfix on investment and route handling of notifications <br>   • Implement Event Follow Functionality   <br> • Attended front-end team code sessions. <br>  •Bugfix on Investment Page <br>  • Implementing total profit on investment page  <br>  • Made reviews for web-front-end team commits.  •Adding Follow functionality on Event Page <br>   • Bugfix rendering issue on article comments when article is liked  <br>   •Add Portfolio screen to user's profile readjust and bugfix on functionality of buttons <br> • Bugfix on re-rendering upon Adding new portfolio / portfolio item on My portfolios and Followed Portfolios <br> • Frontend Google Sign in button and Backend Connections. <br> •Implementation of owned Portfolios page on Frontend  <br> • Implementation of followed portfolios page and follow-delete-add functionality handling.  <br> •Comment like functionality backend connections has completed. <br> •Bugfix setting notification request timer to avoid 10000 notifications in minutes.  <br>  • Implement Comment component on article <br>   • Update on map component and location style issues   <br> • Attended front-end team code sessions. <br>  •Implementing Create Comment Component - Add Edit- Delete comment functionalities <br>  • Add logo to home page and configure home routing.  <br>  • Made reviews for web-front-end team commits.  • Add iban - password validations on register page <br>   • Add is Trader functionality on register page , bug fix on registration <br>   • Add Like Article Functionality <br> • Frontend comment avatar logo addition <br> • Frontend/bugfix on Delete comment equipment and re-rendering issues on comment both on article and comment on delete. <br> • Frontend/bugfix on Delete comment equipment and re-rendering issues on comment both on article and comment on delete. <br> • Frontend/bugfix related to follow / like buttons - Comment Add <br> • Implement Frontend/portfolio page basics. <br>  • Implemented CommentContainer component <br>   • Implemented Geolocation for Map Component  <br> • Attended front-end team code sessions. <br>  •Implemented Map Component. <br>  • Implemented autolocation search functionality.  <br>  • Made reviews for web-front-end team commits. |
+| *Frontend* | **Alperen Kürşat Özkan** |  • Bugfix on investment and route handling of notifications <br>   • Implement Event Follow Functionality   <br> • Attended front-end team code sessions. <br>  •Bugfix on Investment Page <br>  • Implementing total profit on investment page  <br>  • Made reviews for web-front-end team commits.  •Adding Follow functionality on Event Page <br>   • Bugfix rendering issue on article comments when article is liked  <br>   •Add Portfolio screen to user's profile readjust and bugfix on functionality of buttons <br> • Bugfix on re-rendering upon Adding new portfolio / portfolio item on My portfolios and Followed Portfolios <br> • Frontend Google Sign in button and Backend Connections. <br> •Implementation of owned Portfolios page on Frontend  <br> • Implementation of followed portfolios page and follow-delete-add functionality handling.  <br> •Comment like functionality backend connections has completed. <br> •Bugfix setting notification request timer to avoid 10000 notifications in minutes.   |
 | *Mobile* | **Fatih İver** | • Implement portfolio add, delete, edit & list <br> • Implement asset add & delete <br> • Implement article annotation <br> • Implement search <br> • Implement recommendations <br> • Implement notifications <br> • Implement alarm add, delete, edit & list  <br> |
 | *Mobile* | **Ozgur Solak**  | • Implement Stock Fragment  <br> • Implement Comment component on article <br> • Create Milestone Personna for Mobile Scenario <br> • Implement Crypto Fragment <br> • Implement write article functionality <br> • Add write article button to access from home page <br> • Implement Currency  Fragment basics <br> • Implement Metal Fragment Basics <br> • Implement Index  Fragment basics <br> |  
 
@@ -427,47 +427,39 @@ The system shall support following equipments and possible conversions between t
 9. 1.1.4.5
 
 ## Scenario 3 (Web)
-### Sarp Er (Trader)
-![Sarp Er](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Sarp%20Er.png?raw=true)
+### Enes Yılmaz
+![Enes Yılmaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Sarp%20Er.png?raw=true)
 
 **Persona**
-* 25 years old
-* Recently graduated
+* 29 years old
+* Recently married
 * Works at a production facility
-* Very ambitious and curious about investments
 * Very easily influenced by opinions
 * Looking for news, expert opinions
 
 **Story**
-* Sarp recently graduated from university works as a project manager at a production facility.
-* He comes to our website and logs in. 
-* He is very curious about the state of the GBP, since he hears a lot about it in the news.
-* He first visits the GBP/TRY page to check the history.
-* Saw some potential, and wants to read more about the GBP equipment. Therefore he moves to the GBP page.
-* There he sees a comment about the equipment. Scenario1Name's comment from a week earlier become true yesterday.
-* He thinks that this could be a nice person to follow.
-* Then he moves to the user page of Scenario1Name.
+* Enes recently married and wants to make  profitable investment for his and her wife's future.  
+* He comes to our website and logs in with google. 
+* He reads the articles and likes Ozgur's article.
+* He visits Ozgur's profile and he thinks that this could be a nice person to follow.
 * He sees the success rate of the user and is very much impressed.
-* He follows the user, and heads back to the parity page.
-* He makes a prediction according to the user's comments.
-* Then he heads to the investments. He first needs to add an asset.
-* He adds asset, then makes an investment.
-* In case of any quick changes, he puts an order.
-* Luckily, in few minutes a new parity update happens, and his order gets triggered.
+* He starts to follow his portfolio.
+* According to this following event, web site recommends him related portfolios.
+* Then he moves to his profile.
+* He wants that content produced by him is visible only to its followers.
+* Because of that, he makes his profile private.
 
 **Preconditions**
 1. Uses a web browser to visit our website
-2. Already has an account
-3. Already has a verified e-mail
-4. Already has an IBAN in the system
+2. Already has verified google account
+
 
 **Acceptance Criteria**
-1. 1.1.2.1
-2. 1.1.3.1, 1.1.3.2, 1.1.3.7
-3. 1.1.4.1, 1.1.4.6
-4. 1.1.7.1, 1.1.7.2, 1.1.7.3
-5. 1.1.8.1, 1.1.8.3, 1.1.8.4
-6. 1.1.8.5, 1.1.8.6, 1.2.4.5
+1. 1.1.2.2
+2. 1.1.3.1, 1.1.3.2, 1.1.3.3, 1.1.3.6, 1.1.3.7
+3. 1.1.4.3, 1.1.4.6
+4. 1.1.6.1
+7. 1.1.11.1
 
 # Project Plan
 ![FinalProjectPlan-1](https://user-images.githubusercontent.com/25746169/71589862-78e9b800-2b37-11ea-87b0-52448f686552.png)
