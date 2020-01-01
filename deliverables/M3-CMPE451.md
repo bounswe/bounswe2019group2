@@ -32,6 +32,7 @@
   * [Backend](#backend)
   * [Frontend](#frontend)
   * [Mobile](#mobile)
+- [Design Documents](#design-documents)
 
 <!-- tocstop -->
 
@@ -497,3 +498,97 @@ The system shall support following equipments and possible conversions between t
 - **Android Emulator:** Android emulator simulates Android devices on our computer so that we can test our application on a variety of devices and Android API levels without needing to have each physical device.
 - **Gradle:** Gradle is an open-source build-automation system that builds upon the concepts of Apache Ant and Apache Maven and introduces a Groovy-based domain-specific language (DSL) instead of the XML form used by Apache Maven for declaring the project configuration.
 - **Material.io:** This website provides a design system that helps developers build high-quality digital experience. We try to follow the standards on this website. In addition to this, the icons we use in our application are taken from this website - all for free.
+
+# Design Documents
+
+## Scenario 1: Searching in articles and Looking for a parity 
+***
+* **User:** Emre Tur <br>
+* **Platform:** Web <br>
+* **User Type:** Guest <br>
+
+**1- Our guest user Emre is on another watch in the hospital. He got so much leisure time during the night. He is interested in economic news. While he is surfing on the internet, he encounters our platform and visits it. He looks economic events.**<br>
+![](https://user-images.githubusercontent.com/32342117/54496212-b27d6980-48fd-11e9-8540-daf29982881f.png)
+<br>
+<br>
+**2- Emre clicks on the ARTICLES button then. Realizes the website is full of economy experts' articles. But he is not interested any article on the first-page.**<br>
+![](https://user-images.githubusercontent.com/32342117/54496214-b27d6980-48fd-11e9-846f-2397ccbf177e.png)
+<br>
+<br>
+**3- Emre realizes the SEARCH bar. Decides to use it to filter articles. He is using "Trump" as a keyword. After entering the word, there are related articles based on his keyword.**<br>
+![](https://user-images.githubusercontent.com/32342117/54496215-b3160000-48fd-11e9-9642-0edaffb669d0.png)
+<br>
+<br>
+**4- But there is a problem. Emre's English skills are inadequate to read an article:( He is also curious about the current USD/TRY parity for a year to invest in. Then he clicks the USD/TRY on the portfolio bar, goes to the USD/TRY page.**<br>
+![](https://user-images.githubusercontent.com/32342117/54496155-400c8980-48fd-11e9-9883-c5e19faa9759.png)
+<br>
+<br>
+**5- He looks to the daily details of the parity. He sees other (signed in) users are making 'clever' comments about the parity. He realizes he has to sign in to make comments about the parity. He also finds a daily expectation tool and clicks to the increase button as he guessed.**<br>
+![](https://user-images.githubusercontent.com/32342117/54496176-6af6dd80-48fd-11e9-9cb6-a2af430b2d17.png)
+<br>
+<br>
+**6- After clicking the increase button, he gets an alert that invites him to sign in. Emre gets a feeling that this platform serves so many tools and information about the economy and trading equipment. He decided to sign in but he couldn't do it because his advisor doctor suddenly came into the room and said: "I'VE BEEN LOOKING FOR YOU FOR AN HOUR!!".**<br>
+![](https://user-images.githubusercontent.com/32342117/54497134-42281580-4908-11e9-9a21-8ca92d482185.png)
+<br>
+<br>
+
+## Scenario 2: Looking at profiles of other users
+***
+
+* **User:** Özge Bozkurt <br>
+* **Platform:** Web <br>
+* **User Type:** Basic User <br>
+
+**1- Özge opens the homepage of TrAiders as usual after her favorite TV show ends. She clicks the Sign In button since she wants to stalk the great users she is following and sees if they posted any articles.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/1.png)
+<br>**2- Sign In Screen shows up, Özge signs in with Google because she doesn't want to enter her email and password manually. She thinks this site is great because it provides such an easy sign-in option.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/2.png)
+<br>**3- Özge's email is filled automatically by her browser, she simply clicks the next button and she gets logged in.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/3.png)
+<br>**4- Özge is redirected to the homepage, where she lands on the event stream. She casually looks at the events that took place today. She sees nothing extraordinary happened, so she clicks the articles to see if any of the great users she follows posted anything interesting.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/4.png)
+<br>**5- She clicks on the article about Trump. She invested in oil so she got concerned of the latest news.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/5.png)
+<br>**6- She reads the article and thinks her investments are at risk.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/6.png)
+<br>**7- She gets furious at Trump and she wants to share her anger by commenting. She then clicks the post button.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/7.png)
+<br>**8- She sees the comment of Marshall Hiepler, it seems like a clever comment. She thinks she should check his page to see if he is worthy of stalking.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/8.png)
+<br>**9- She looks at Marshall's prediction success rate in USD/TL and becomes amazed. His articles look really clever. She sees that he shared his portfolio recently, so she clicks on the portfolio.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/9.png)
+<br>**10- She likes the portfolio of Marshall, she thinks oil is not safe to invest in anymore and since she loves social media platforms this Tech Stocks portfolio is perfect for her. She believes Facebook will rule the world one day. She decides to follow the portfolio, she clicks the follow button.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/10.png)
+<br>**11- She closes the portfolio.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/11.png)
+<br>**12- She follows Marshall, from now on she will stalk him regularly on her homepage.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/12.png)
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup2/12_2.png)
+
+## Scenario 3: Making an investment & Setting an alarm
+***
+* **User:** Muazzes Çolak <br>
+* **Platform:** Mobile <br>
+* **User Type:** Trader <br>
+
+**1- Muazzes launches the application.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/1.png)
+<br><br>**2- Muazzez wants to invest her turkish liras to dollars and clik usd/try to see the fluctuations in detail.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/2.png)
+
+<br><br>**3-She believes there will be increase in USD/TRY parity so she decides to vote up.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/3.png)
+
+<br><br>**4-She confirms her prediction since predictions cannot be changed after a certain hour.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/4.png)
+
+
+<br><br>**5-After analyzing the fluctuations, she decides to buy US dollar and click buy button .**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/5.png)
+
+
+<br><br>**6-She puts a limit order to buy some amount of dollars.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/6.png)
+
+<br><br>**7-After she gets notified, she goes to the investment tab to see her new investment.**<br>
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/7.png)
