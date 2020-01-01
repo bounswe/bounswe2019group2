@@ -73,17 +73,18 @@ We, as Group 2 are very happy with the final product that we have, but most impo
 | -------------------------------- | ----------- | --------------------- | ------------------------------------------------------------------------------------- |
 | 1- GitHub Wiki                   | Complete    | Weekly                | Accessible github wiki pages, up-to-date information related to project can be found. |
 | 2- GitHub Issues & Pull Requests | Complete    | As improvement needed | Issue labels, templates, workflow.                                                    |
-| 3- Meeting Notes                 | In Progress | Weekly                | Publishing meeting notes in GitHub Wiki.                                              |
+| 3- Meeting Notes                 | Complete | Weekly                | Publishing meeting notes in GitHub Wiki.                                              |
 | 4- Requirements                  | Complete    | As improvement needed | Sharing the requirements analysis related to the project. Updating as needed.        |
 | 5- Mockups                       | Complete    | As improvement needed | To stay on the same page with the customer.                                           |
 | 6- Design Diagrams               | Complete    | Per feedback for now  | Posting design diagrams to wiki page                                                  |
-| 7- Project Plan                  | In progress | -                     | Preparing the project plan                                                            |
-| 8- API                           | In progress | Weekly                | Backend of the project. Related endpoints, management of DB etc.                      |
-| 9- API Documentation             | In progress | As improvement needed | API Documentation for the users of endpoints.                                         |
-| 10- Deployment and Security      | In progress | As improvement needed | Deployment of the project and accessibility                                            |
-| 11- Web Project, Frontend        | In progress | Weekly                | Frontend project and accessibility                                                     |
-| 12- Mobile App                   | In progress | Weekly                | Mobile application and accessibility                                                   |
-| 13- Weekly Milestones                   | In progress | Weekly                | To increase efficiency and throughput in delivery                                                  |
+| 7- Project Plan                  | Complete | -                     | Preparing the project plan                                                            |
+| 8- API                           | Complete | Weekly                | Backend of the project. Related endpoints, management of DB etc.                      |
+| 9- API Documentation             | Complete | As improvement needed | API Documentation for the users of endpoints.                                         |
+| 10- Deployment and Security      | Complete | As improvement needed | Deployment of the project and accessibility                                            |
+| 11- Web Project, Frontend        | Complete | Weekly                | Frontend project and accessibility                                                     |
+| 12- Mobile App                   | Complete | Weekly                | Mobile application and accessibility                                                   |
+| 13- Weekly Milestones                   | Complete | Weekly                | To increase efficiency and throughput in delivery 
+  
 
 **1- GitHub Wiki:**
 We are updating our wiki page as needed, pushing meeting notes and keeping everything from requirements to group members updated on there.
