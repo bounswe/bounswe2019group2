@@ -348,7 +348,7 @@ The system shall support following equipments and possible conversions between t
 # User Scenarios
 ### John  Wick
 
-![Alperen Duymaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Alperen%20Duymaz.png?raw=true)
+![John Wick](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Alperen%20Duymaz.png?raw=true)
 **Persona**
 * 58 years old
 * Closer to retirement.
@@ -383,35 +383,48 @@ The system shall support following equipments and possible conversions between t
 6. 1.1.10.1 1.1.10.2
 7. 2.4.1
 ## Scenario 2 (Web)
-### Aron Dacemoğlu
+### Can Özcan 
 ![Aron Dacemoğlu](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Aron%20Dacemoglu.png?raw=true)
 
 **Persona**
-* 52 years old.
-* Economist and interested in international political economy
-* Wants to share his own ideas on results of international affairs for national economies
-* Wants to use Traiders also for his investments in future
+* 33 years old. 
+* He is turkish and albenian.
+* Currently working as a senior software developer.
+* Looking for the best website possible for his future  investsments
+* Views economic events and justify the impact of events to the economy.
+* He is already a member of Traiders.
 
 **Story**
-* He enters our website and clicks register.
-* He fills in his info and decides to register as a trader. 
-* He realizes he made a mistake when typing his IBAN and fixes it after seeing the error message.
-* He clicks "social" on the navigation bar, scrolls down the page and clicks "create article".
-* He writes an article about how the European Union army would have an impact on Turkish economy.
-* He noticed he confused the two dates in the article, wants to edit the article to correct the typo.
-* He accidentally clicks on "delete" and cancels it. Then clicks on "edit", and fixes the typo.
-* He comments the link of his article on a popular article to get more views. 
-* He also "likes" the popular article and "follows" its author.
+* Can logs in to Traiders and sees a new notification icon on his profile page button.  
+* Enters  his profile page to see  current notifications on his profile page.
+* He sees an event he followed before has occured on his notifications.
+* He likes the new notification feature added to the website.
+* He directs himself to events page and checks his followed event's actual value.
+* He sees another event that may affect the euro parity follows it.
+* He decides to invest on Traiders some on Euro(?) currrency so he goes to investment page.
+* When he tries to make an online investment an alert pops up which tells him to verify his email.
+* He buys some Euro asset with credit card payment.
+* middle east
+* After the investment he made, he wants to surf around a little bit more and clicks the search bar and writes turke(which means turkish in albenian)  on search bar.
+* He sees an article related to baklava clicks it , after reading the article sees comments with delicious images, likes the article , comment and follows the article.
+* He checks for bitcoin's he types lite to search bar and sees other cryptos as well.
+* He wonders what if he writes middle east instead. After seeing all middle east countries' currencies he simply amazed.
 
 **Preconditions**
-1. Visits our website.
+ * Already has an account.
+ * Does not have a verified email.
+ * Already tracked several events.
 
 **Acceptance Criteria**
-1. 1.1.1.1
-2. 1.1.2.1
-3. 1.1.4.3, 1.1.4.5, 1.2.1.1, 1.2.1.2
-4. 1.1.4.4
-5. 1.1.4.1
+1. 1.1.2.1
+2. 1.1.3.1
+3. 1.1.5.1
+4. 1.1.5.4
+5. 1.1.8.1
+6. 1.1.8.3
+7. 1.1.8.5
+8. 1.1.10.1
+9. 1.1.4.5
 
 ## Scenario 3 (Web)
 ### Sarp Er (Trader)
