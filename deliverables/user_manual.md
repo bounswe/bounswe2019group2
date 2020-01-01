@@ -4,7 +4,7 @@ This manual is designed for the end-users who wish to use our Traiders applicati
 ## Register
 
 A Basic User, who registered the system without stating his/her IBAN, can benefit all features except most of 
-Investment functionalities. 
+Investment operations. 
 
 A Trader User, who registered the system giving his/her IBAN, can make use of all functions of our application.
 
@@ -23,16 +23,42 @@ be clicked in case a user wants to learn or update his or her password.
 
 ## Profile
 
-Logged in users can see their profiles. In profile page one can see her/his informations(followers, following numbers, username, etc.) , portfolios, and notifications. To edit user profile edit button should be used. 
+A Guest User do not have a Profile page. She or he can only view another user's Profile page if it is public account. 
+In profile page one can see her/his information(username, follower and following numbers, etc.), portfolios, success rate and notifications. 
+To edit user profile edit button should be used. 
+A Basic User can be Trader User using edit, he or she should give a valid IBAN and verify by e-mail.
+A button is used to switch the profile between public and private mode. 
 
-A Guest User can see other users' profile in case their profile is public. To see a private profile, one should login and then send a follow request to this user by clicking follow button. 
+If the profile is private, then profile is not visible by one who is not follower of the account. To follow
+a private profile, one should send a request and pending requests are listed in private profile mode.
 
 
 ## Trading Equipment and Parities
+In home page, many parities are presented. 
+
+Each Trading Equipment and each Parity has their own page. 
+
+
+In a Trading Equipment's page, one can see related parities, comments and make comment about the equipment.
+
+
+In a Parity's page, one can see the graphics with daily, monthly, yearly, MA50, MA100, MA200 labels.
+
+First three graphics are conversion ratio changes depending close values in corresponding time scales and
+the last three graphics are Moving Averages for last 50, 100 and 200 days for this parity.
+One can make prediction about the parity conversion ratio increase or decrease for the day.
 
 ## Portfolio: How to follow Equipment and Parities
+A Portfolio is used to follow a set of parities. 
+One might need to follow different sets of parities for different financial strategies.
+For this purpose, a Basic or Trader User can create his/her own portfolio with a given name, add-drop parities,
+follow another user's portfolio. 
+
+In Portfolio tab, "My Portfolios" and "Followed Portfolios" are presented.
+One can also simply use Profile page to edit his or her own portfolios.
 
 ## Social Interactions with Other Users
+
 
 ## Economic Events
 
@@ -57,8 +83,30 @@ drops below the desired amount, the investment happens. Stop-loss orders can be 
 
 ## Notifications
 
-To see notifications, a user should be logged in. Users can see number of unseen notifications on user button in navbar. Notifications are showed in user profile page in detail. One can click to a notification and go to relevant page to see. If notification is not clicked before, it is showed in blue otherwise it is gray.
+Notifications can only be seen when one logged in. 
+Users can see number of unseen notifications on user button in navbar. 
+Notifications are shown in user profile page in detail. 
+One can click to a notification to see the related thing that triggered the notification.
+If a notification is not clicked before, the background color is blue, otherwise gray. 
+
+Four different reasons can trigger a notification for a User:
+
+A user who is followed by the current user shares an article.
+
+An economic event which the current user followed occurs.
+
+Stop-Loss Order or Buy Order given by the current user has been implemented.
+
+Change in a Parity value meets the condition of the alert set by the current.
 
 ## Recommendations  
+In Recommendation tab, a User-specific table is presented to a User. 
+In this table, a User can view the recommended Articles, Equipments, Parities, Events and Users. 
+Also, the reason behind each Recommendation is presented to the User on the object recommended.
 
 ## Search
+
+A User should type in Search tab what he or she wish to find and then a table (Articles, Equipments, Parities, Events and Users)
+is presented to the User. She or he can check by object type to find the thing she/he is looking for. 
+
+Search property can also be used to find something which is not exactly known since it implements Semantic Search algorithms and come up with a relevant results which are not exactly specified beforehand.
