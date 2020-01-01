@@ -32,7 +32,10 @@ import java.util.Map;
 import tk.traiders.MainActivity;
 import tk.traiders.R;
 import tk.traiders.marshallers.AnnotationMarshaller;
+import tk.traiders.marshallers.UserMarshaller;
 import tk.traiders.models.Annotation;
+import tk.traiders.models.User;
+import tk.traiders.ui.profile.avatars.ChooseAvatarActivity;
 
 public class ShowAnnotationsFragment extends DialogFragment {
 
@@ -151,6 +154,12 @@ public class ShowAnnotationsFragment extends DialogFragment {
                     textView_content.setText(annotation.getBody().getValue());
 
                     textView_createdBy.setText(annotation.getCreator() != null ? annotation.getCreator().substring(annotation.getCreator().indexOf("/users/") + 6) : "");
+
+                    if(annotation.getCreator() != null){
+                        getUsername(textView_createdBy, annotation.getCreator());
+                    }
+
+
                     textView_createdAt.setText(annotation.getCreatedAt() != null ? annotation.getCreatedAt() : "");
 
                     linearLayout.addView(rootView);
@@ -188,6 +197,38 @@ public class ShowAnnotationsFragment extends DialogFragment {
 
         requestQueue.add(request);
 
+
+    }
+
+    private void getUsername(TextView textView, String userUrl){
+
+        StringRequest request = new StringRequest(Request.Method.GET, userUrl, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                User user = UserMarshaller.unmarshall(response);
+                if(user != null){
+                    textView.setText(user.getUsername());
+                }
+            }
+
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "an error occured getting username!", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = MainActivity.getAuthorizationHeader(getContext());
+                return headers != null ? headers : super.getHeaders();
+            }
+        };
+
+        requestQueue.add(request);
 
     }
 }

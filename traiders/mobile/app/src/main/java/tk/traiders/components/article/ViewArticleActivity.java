@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import tk.traiders.LoginActivity;
 import tk.traiders.MainActivity;
@@ -311,6 +312,35 @@ public class ViewArticleActivity extends AppCompatActivity {
                     int startIndex = Integer.valueOf(value.substring(indexOfEqualSign + 1, indexOfComma));
                     int endIndex = Integer.valueOf(value.substring(indexOfComma + 1));
                     pairs.add(new Pair<>(startIndex, endIndex));
+
+                    /*
+
+                    int colorCode;
+
+                    switch (new Random().nextInt(6)){
+                        case 0:
+                            colorCode = 0xFFFF0000;
+                            break;
+                        case 1:
+                            colorCode = 0xFF00FF00;
+                            break;
+                        case 2:
+                            colorCode = 0xFF0000FF;
+                            break;
+                        case 3:
+                            colorCode = 0xFFFFFF00;
+                            break;
+                        case 4:
+                            colorCode = 0xFF00FFFF;
+                            break;
+                        default:
+                            colorCode = 0xFFFFFFFF;
+                            break;
+                    }
+
+
+                     */
+
                     contentAsSpannableString.setSpan(new BackgroundColorSpan(Color.YELLOW), startIndex, endIndex, 0);
                 }
 

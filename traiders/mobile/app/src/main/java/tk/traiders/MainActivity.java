@@ -26,6 +26,7 @@ import java.util.Map;
 
 import tk.traiders.components.alarm.CreateAlarmFragment;
 import tk.traiders.components.article.WriteArticleActivity;
+import tk.traiders.components.asset.CreateAssetFragment;
 import tk.traiders.components.event.EventFilterFragment;
 import tk.traiders.components.investment.MakeInvestmentActivity;
 import tk.traiders.components.portfolio.CreatePortfolioActivity;
@@ -156,6 +157,14 @@ public class MainActivity extends AppCompatActivity implements NavController.OnD
             case R.id.set_new_alarm:
                 if (isUserLoggedIn(this)) {
                     new CreateAlarmFragment().show(getSupportFragmentManager(), "CreateAlarmFragment");
+                } else {
+                    Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
+                return true;
+            case R.id.create_new_asset:
+                if (isUserLoggedIn(this)) {
+                    new CreateAssetFragment().show(getSupportFragmentManager(), "CreateAssetFragment");
                 } else {
                     Toast.makeText(this, "log in to continue", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this, LoginActivity.class));

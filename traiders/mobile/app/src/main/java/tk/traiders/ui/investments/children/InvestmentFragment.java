@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import tk.traiders.R;
 import tk.traiders.marshallers.AlarmMarshaller;
 import tk.traiders.marshallers.InvestmentMarshaller;
+import tk.traiders.models.Investment;
 import tk.traiders.ui.ListFragment;
 import tk.traiders.ui.investments.adapters.AlarmAdapter;
 import tk.traiders.ui.investments.adapters.InvestmentAdapter;
@@ -34,13 +35,13 @@ public class InvestmentFragment extends ListFragment {
         inflater.inflate(R.menu.investment_menu, menu);
     }
 
-    @Override
     protected String getURL() {
-        return "https://api.traiders.tk/investment/";
+        return "https://api.traiders.tk/asset/";
     }
 
     @Override
     protected RecyclerView.Adapter getAdapter(String response) {
+        response = "[]";
         return new InvestmentAdapter(getActivity(), InvestmentMarshaller.unmarshallList(response));
     }
 }

@@ -100,13 +100,15 @@ public class PortfolioAdapter extends RecyclerView.Adapter<PortfolioAdapter.Port
 
         for(PortfolioItem portfolioItem: portfolio.getPortfolioItemList()){
 
-            View view = View.inflate(context, R.layout.portfolio_item_list_item, holder.linearLayout);
+            View view = View.inflate(context, R.layout.portfolio_item_list_item, null);
 
             TextView textView_base = view.findViewById(R.id.textView_base);
             textView_base.setText(portfolioItem.getBaseEquipment());
 
             TextView textView_target = view.findViewById(R.id.textView_target);
             textView_target.setText(portfolioItem.getTargetEquipment());
+
+            holder.linearLayout.addView(view);
 
         }
 

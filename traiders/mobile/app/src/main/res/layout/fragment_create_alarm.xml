@@ -59,7 +59,7 @@
         android:id="@+id/button_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="INCREASING"
+        android:text="SET UPPER BOUND"
         android:background="@color/primaryColor"
         android:textColor="@color/white" />
 
@@ -69,7 +69,7 @@
         android:id="@+id/button_down"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Decreasing"
+        android:text="SET LOWER BOUND"
         android:background="@color/primaryColor"
         android:textColor="@color/white"
         android:layout_marginBottom="16dp"/>
