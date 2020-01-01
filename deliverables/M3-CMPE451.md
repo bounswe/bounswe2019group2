@@ -37,6 +37,7 @@
 - [System Manual](#system-manual)
 - [User Manual](#user-manual)
 - [API Documentation](#api-documentation)
+- [Annotation API Documentation](#annotation-api-documentation)
 
 <!-- tocstop -->
 
@@ -931,4 +932,12 @@ docker exec traiders_annotation_db_1 psql -U postgres -d postgres < db-dumps/tra
 ![ReDoc-125](https://user-images.githubusercontent.com/29541534/71646706-2ad1e180-2cfc-11ea-9153-7d4e7a8aeeec.jpg)
 ![ReDoc-126](https://user-images.githubusercontent.com/29541534/71646707-2b6a7800-2cfc-11ea-906c-7458598a3a5b.jpg)
 
+# Annotation API Documentation
+
+![ReDoc-Annotation-1](https://user-images.githubusercontent.com/29541534/71646738-9d42c180-2cfc-11ea-8a4f-07944c1bcea8.jpg)
+![ReDoc-Annotation-2](https://user-images.githubusercontent.com/29541534/71646739-9d42c180-2cfc-11ea-871e-721bcc60261b.jpg)
+![ReDoc-Annotation-3](https://user-images.githubusercontent.com/29541534/71646740-9d42c180-2cfc-11ea-9624-17e1cf9a0c42.jpg)
+![ReDoc-Annotation-4](https://user-images.githubusercontent.com/29541534/71646741-9ddb5800-2cfc-11ea-875b-8b4fa1245610.jpg)
+![ReDoc-Annotation-5](https://user-images.githubusercontent.com/29541534/71646742-9ddb5800-2cfc-11ea-86f2-2b01982080c1.jpg)
+![ReDoc-Annotation-6](https://user-images.githubusercontent.com/29541534/71646743-9ddb5800-2cfc-11ea-88fa-c28e124edbb2.jpg)
 
