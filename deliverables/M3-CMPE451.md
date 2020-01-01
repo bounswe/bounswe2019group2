@@ -709,6 +709,9 @@ The system shall support following equipments and possible conversions between t
 <br><br>**7-After she gets notified, she goes to the investment tab to see her new investment.**<br>
 ![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/7.png)
 
+## Annotation Mock-ups for Mobile
+
+![Mobile Annotation Mockup](https://user-images.githubusercontent.com/29541534/67635820-acac2580-f8db-11e9-8462-7d3a5d862670.png)
 
 # Diagrams
 
