@@ -37,35 +37,35 @@
 
 # Project Assesment
 ## Teamwork
-This one year long journey was a particularly teaching and enjoyable experience to us. <br>
+This one year long journey was particularly a teaching and enjoyable experience for us. <br>
 Starting in CMPE352, most of the group members did not know each other, yet the group got to know each other very quickly and adapted to working as a team. <br>
-Throughout the project, everyone had busy periods in their schedules, but the team managed to fill in for that person, and that person also compensated for that period in the later time. <br>
+Throughout the project, everyone had busy periods in their schedules, but the team managed to fill in for that person, and that person also compensated for that period at a later time.  <br>
 Moreover, at the beginning of CMPE451, there were people leaving and joining, but the team handled the transition very smoothly. <br>
 To sum up, Group 2 as a team managed to start from zero and became an actual embodiment of teamwork.
 <br> 
 ## Technical Skills
 At the beginning of CMPE352, few of us had web development experience, let alone specialization in a topic. <br>
-There were a few of us who had the knowledge of backend, mobile and frontend, and from time to time we had tutorial sessions in the team. <br>
+There were a few of us who had the knowledge of backend, mobile, and frontend, and from time to time we had tutorial sessions in the team. <br>
 At the end of CMPE451, all of the group contributed to the application, some of us learning the frameworks from knowing nothing and being able to come up with the desired product. <br>
 The least of all, every group member became better at some aspect of web development. <br>
 ## Customer Interaction
 One of the things the Group 2 did the best is probably interacting with the customer. <br>
-We, as a team know that we could enhance different aspects of the final product further, but knowing that we have a limited budget in terms of time and workforce, <br>
+We, as a team, know that we could enhance different aspects of the final product further, but knowing that we have a limited budget in terms of time and workforce, <br>
 we managed the customer expectation and delivered almost all of the requirements just in time. <br>
 We were careful enough to look out for the borders that were drawn by the customers, in terms of time, product, deliverables and further. <br>
 One of the things the process thought us is: It is very important to deliver what is being asked for: Nothing more is required, nothing less is acceptable. <br>
 
 ## Final Product
 At the end of the day, the experience we had and learnings along the journey led to our investment platform, **TrAiders**. <br>
-In terms of specialty, we learnt new things in the economics and the investment world. The final product has all the functionalities being asked for in the requirements. <br>
+In terms of specialty, we have learned new things in economics and the investment world. The final product has all the functionalities being asked for in the requirements. <br>
 Users can make investments, track their investments, track the economic state in the parities, can read comments and articles, can follow events and interact with other users through different media. <br>
-The system also has <text, image> to <text,image> annotations, which is using the W3C protocol, and that system running on a different servers as well. <br>
+The system also has <text, image> to <text,image> annotations, which is using the W3C protocol, and that system running on a different server as well. <br>
 
 ## Final Comments
 One of the very important lessons that the process thought us is attention to detail. <br>
 Simply just by paying attention to customer's words or what is written on the paper can lead to great satisfaction. <br>
-One can find these details in any part of the TrAiders product: The avatars, the ease of use for the users, the annotation system being run exactly by the customer's description.. <br>
-We, as Group 2 are very happy with the final product that we have, but most importantly the teamwork and friendship we have built throught the journey, and everyone having value added to their lives. <br>
+One can find these details in any part of the TrAiders product: The avatars, the ease of use for the users, the annotation system being run exactly by the customer's description. <br>
+We, as Group 2 are very happy with the final product that we have, but most importantly the teamwork and friendship we have built throughout the journey, and everyone having value added to their lives. <br>
 
 # Deliverables
 
@@ -74,25 +74,25 @@ We, as Group 2 are very happy with the final product that we have, but most impo
 | 1- GitHub Wiki                   | Complete    | Weekly                | Accessible github wiki pages, up-to-date information related to project can be found. |
 | 2- GitHub Issues & Pull Requests | Complete    | As improvement needed | Issue labels, templates, workflow.                                                    |
 | 3- Meeting Notes                 | In Progress | Weekly                | Publishing meeting notes in GitHub Wiki.                                              |
-| 4- Requirements                  | Complete    | As improvement needed | Sharing the requirements analysis related to the project. Updating as neeeded.        |
-| 5- Mockups                       | Complete    | As improvement needed | To stay in the same page with the customer.                                           |
+| 4- Requirements                  | Complete    | As improvement needed | Sharing the requirements analysis related to the project. Updating as needed.        |
+| 5- Mockups                       | Complete    | As improvement needed | To stay on the same page with the customer.                                           |
 | 6- Design Diagrams               | Complete    | Per feedback for now  | Posting design diagrams to wiki page                                                  |
 | 7- Project Plan                  | In progress | -                     | Preparing the project plan                                                            |
 | 8- API                           | In progress | Weekly                | Backend of the project. Related endpoints, management of DB etc.                      |
 | 9- API Documentation             | In progress | As improvement needed | API Documentation for the users of endpoints.                                         |
-| 10- Deployment and Security      | In progress | As improvement needed | Deployment of the project and accesibility                                            |
-| 11- Web Project, Frontend        | In progress | Weekly                | Frontend project and accesibility                                                     |
-| 12- Mobile App                   | In progress | Weekly                | Mobile application and accesibility                                                   |
-| 13- Weekly Milestones                   | In progress | Weekly                | To increase efficiency and troughput in delivery                                                  |
+| 10- Deployment and Security      | In progress | As improvement needed | Deployment of the project and accessibility                                            |
+| 11- Web Project, Frontend        | In progress | Weekly                | Frontend project and accessibility                                                     |
+| 12- Mobile App                   | In progress | Weekly                | Mobile application and accessibility                                                   |
+| 13- Weekly Milestones                   | In progress | Weekly                | To increase efficiency and throughput in delivery                                                  |
 
 **1- GitHub Wiki:**
 We are updating our wiki page as needed, pushing meeting notes and keeping everything from requirements to group members updated on there.
 
 **2- GitHub Issues & PRs:**
-We still use our previous convention. All can be traced in the repo. Everyone creates their own issue, people should not be closing their issue without the review of at least 2 other people, preferably from the same team. Issue Templates and PR templates are used during the creation. As a new thing, we left using Travis as our countinuous integration tool and we started to use GitHub Actions.
+We still use our previous convention. All can be traced in the repo. Everyone creates their own issue, people should not be closing their issue without the review of at least 2 other people, preferably from the same team. Issue Templates and PR templates are used during the creation. As a new thing, we left using Travis as our continuous integration tool and we started to use GitHub Actions.
 
 **3- Meeting Notes:**
-Meeting notes are still accesible through wiki page.
+Meeting notes are still accessible through the wiki page.
 We are always utilizing those to refer to action items, remember our agenda and goals.
 
 **4- Requirements:**
@@ -106,16 +106,16 @@ We finalized the implementation, but there will still be updates as needed. Fina
 
 **7- Project Plan:**
 Project plan can also be found below. As mentioned previously, we have decided to take a requirement oriented approach.
-Thus in the project plan, the tabs refer to our requirements. Each week we plan to implement couple of those.
+Thus in the project plan, the tabs refer to our requirements. Each week we plan to implement a couple of those.
 
 **8- API:**
-Traiders API can be accessible at [api.traiders.tk](//api.traiders.tk). 
+Traiders API can be accessed at [api.traiders.tk](//api.traiders.tk). 
 
 **9- API Documentation:**
-Traiders API documentations can be accessible at [api.traiders.tk/docs](//api.traiders.tk/docs) [api.traiders.tk/redocs](//api.traiders.tk/redocs)
+Traiders API documentations can be accessed at [api.traiders.tk/docs](//api.traiders.tk/docs) [api.traiders.tk/redocs](//api.traiders.tk/redocs)
 
 **10- Deployment and Security:**
-We frequently deployed our application's latest version throughout the development process so that it would always be up to date. In addition to that we deployed an annotation server to bring annotation support to our application. Annotation server is independent from Traiders servers and can be accessible at [https://annotation.traiders.tk/](//annotation.traiders.tk/).
+We frequently deployed our application's latest version throughout the development process so that it would always be up to date. In addition to that we deployed an annotation server to bring annotation support to our application. Annotation server is independent from Traiders servers and can be accessed at [https://annotation.traiders.tk/](//annotation.traiders.tk/).
 
 **11- Web Project, Frontend:**
 Our web application is up and running at [traiders.tk](//traiders.tk). Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & tracks events, list & follow users, list & view & comment (on) equipment, list & see details with charts for several parities in different category, add assets, make investments, create & follow portfolios, making text or image annotations for articles, sign-up or sign-in with Google, make semantic search. get recommendations, see notifications, 
@@ -145,7 +145,7 @@ We continued to utilize milestone concept. As stated previously we tried to set 
 
 Team | Member | Work done    |
 | -------- | ------- | ----------- |
-| *Backend* | **Yunus Emre Inci** | • Implemented functionality for fetching live and historic parity data from AlphaVantage. <br> • Added OpenIBAN support for IBAN validation. <br> • Implemented tests for user prediction success feature. <br> • Fixed various errors and reported bugs. <br>  • Configured Github actions for CI. <br> • Reviewed other team members' work. |
+| *Backend* | **Yunus Emre Inci** | • Implemented user related API endpoints. (register, update, delete, retrieve) <br> • Implemented authentication and permission mechanisms. (token creation) <br> • Added location information for users. <br> • Handled DevOps related stuff. Deployment, server and database configurations etc. <br> • Updated class diagram due to changes in design. <br> • Implemented functionality for fetching live and historic parity data from AlphaVantage. <br> • Added OpenIBAN support for IBAN validation. <br> • Configured Github actions for CI. <br> • Implemented API endpoints for login and register by Google. <br> • Implemented the annotation server which complies to W3C standards. <br> • Fixed various errors and reported bugs. <br> • Added unit tests for implemented API endpoints.   <br> • Reviewed other team members' work. |
 | *Backend* | **Harun Eren**  | • Implemented Equipment pairs for Portfolio API <br> • Implemented Portfolio API and necessary tests <br> • Requirements update for Portfolio <br> • Reviewed other team members' work. |
 | *Backend* | **Mert Yuksekgonul** | •  Implemented Prediction endpoint. <br> • Implemented Events Endpoint. <br> • Implemented success rate endpoints. <br> • Implemented evaluation of the prediction results after the closure of the day. <br> • Implemented manual investments endpoints. <br> • Implemented online investments. <br> • Implemented assets of a user. <br> • Implemented signals for asset updates after an online investment. <br> • Implemented orders(buy order, stop/loss order). <br> • Implemented realization of orders after the related parity updated. <br> • Implemented profit/loss endpoints. <br> • Implemented comment likes and event following. <br> • Implemented tests for orders and investments, comment likes, parity/latest endpoint. <br> Code review and maintenance(bugfixes, updates for endpoint) for backend. <br>|
 | *Frontend* | **Dilruba Köse** |  • Implement UserHeader component <br> • Implement OtherUser component for controlling following functionality <br>   • Update profile page, for both current and other users and configure routing  <br>  • Implement UserSuccess component for prediction success table <br>  •Implement ParityChart Component <br>  • Implement Parity Page and configure routing <br>  • Implement Equipment Page and configure routing <br>  • Made reviews for web-front-end team commits. <br> • Attended front-end team code sessions. <br> |
