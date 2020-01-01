@@ -501,6 +501,8 @@ The system shall support following equipments and possible conversions between t
 
 # Design Documents
 
+# Mockups
+
 ## Scenario 1: Searching in articles and Looking for a parity 
 ***
 * **User:** Emre Tur <br>
@@ -592,3 +594,38 @@ The system shall support following equipments and possible conversions between t
 
 <br><br>**7-After she gets notified, she goes to the investment tab to see her new investment.**<br>
 ![](https://github.com/bounswe/bounswe2019group2/blob/master/design/mockups/mockup3/7.png)
+
+
+# Diagrams
+
+## Use Case Diagrams
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/use-case-diagram.png)
+
+## Class Diagram
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/class-diagram.png)
+
+## Sequence Diagrams
+### Sign In
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/signIn.png)
+### Follow a User
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/followUser.png)
+
+### Sharing an Article
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/shareArticle.png)
+### Post Comment to Article
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/postComment.png)
+### Make Manual Investment
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/manualInvestment.png)
+### Creating a Portfolio
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/createPortfolio.png)
+
+### Buy Order
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/buyOrder.png)
+
+### Sign Up
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/signUp.png)
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/searchEquipment.png)
+### Track Event
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/trackEvent.png)
+### Predict Equipment 
+![](https://github.com/bounswe/bounswe2019group2/blob/master/design/sequence-diagrams/images/predictEquipment.png)
