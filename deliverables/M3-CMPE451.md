@@ -346,9 +346,10 @@ The system shall support following equipments and possible conversions between t
 
 
 # User Scenarios
+## Scenario 1 (Mobile)
 ### John  Wick
+![John Wick](https://github.com/bounswe/bounswe2019group2/blob/documentation/final-report/deliverables/images/johnwick.png?raw=true)
 
-![John Wick](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Alperen%20Duymaz.png?raw=true)
 **Persona**
 * 58 years old
 * Closer to retirement.
@@ -384,7 +385,7 @@ The system shall support following equipments and possible conversions between t
 7. 2.4.1
 ## Scenario 2 (Web)
 ### Can Özcan 
-![Aron Dacemoğlu](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Aron%20Dacemoglu.png?raw=true)
+![Can Özcan](https://github.com/bounswe/bounswe2019group2/blob/documentation/final-report/deliverables/images/canözcan.png?raw=true)
 
 **Persona**
 * 33 years old. 
@@ -428,7 +429,7 @@ The system shall support following equipments and possible conversions between t
 
 ## Scenario 3 (Web)
 ### Enes Yılmaz
-![Enes Yılmaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/milestone2/deliverables/images/Sarp%20Er.png?raw=true)
+![Enes Yılmaz](https://github.com/bounswe/bounswe2019group2/blob/documentation/final-report/deliverables/images/enesyılmaz.png?raw=true)
 
 **Persona**
 * 29 years old
