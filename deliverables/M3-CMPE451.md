@@ -385,7 +385,7 @@ The system shall support following equipments and possible conversions between t
 7. 2.4.1
 ## Scenario 2 (Web)
 ### Can Özcan 
-![Can Özcan](https://github.com/bounswe/bounswe2019group2/blob/documentation/final-report/deliverables/images/canözcan.png?raw=true)
+![Can Özcan](https://github.com/bounswe/bounswe2019group2/blob/documentation/final-report/deliverables/images/cano%CC%88zcan.png?raw=true)
 
 **Persona**
 * 33 years old. 
