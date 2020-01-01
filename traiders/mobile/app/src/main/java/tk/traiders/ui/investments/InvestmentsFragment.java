@@ -28,6 +28,7 @@ public class InvestmentsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ViewPager viewPager = view.findViewById(R.id.viewPager_investments);
         viewPager.setAdapter(new InvestmentsViewPager(getChildFragmentManager()));
+        viewPager.setCurrentItem(2);
         TabLayout tabLayout = view.findViewById(R.id.tabLayout_investments);
         tabLayout.setupWithViewPager(viewPager);
     }

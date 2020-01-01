@@ -247,8 +247,8 @@ public class CreateAlarmFragment extends DialogFragment {
 
                 spinner_base.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, equipmentNames));
                 spinner_target.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, equipmentNames));
-                spinner_base.setSelection(0);
-                spinner_target.setSelection(0);
+                spinner_base.setSelection(equipmentSymbols.indexOf("BTC"));
+                spinner_target.setSelection(equipmentSymbols.indexOf("USD"));
 
             }
 

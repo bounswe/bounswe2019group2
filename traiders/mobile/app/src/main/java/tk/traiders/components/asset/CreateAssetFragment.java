@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,6 +159,8 @@ public class CreateAssetFragment extends DialogFragment {
                     equipmentSymbols.add(equipment.getSymbol());
                     equipmentNames.add(equipment.getName());
                 }
+                Collections.reverse(equipmentNames);
+                Collections.reverse(equipmentSymbols);
 
                 spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, equipmentNames));
                 spinner.setSelection(0);
