@@ -35,6 +35,8 @@
   * [Mobile](#mobile)
 - [Design Documents](#design-documents)
 - [System Manual](#system-manual)
+- [User Manual](#user-manual)
+- [API Documentation](#api-documentation)
 
 <!-- tocstop -->
 
@@ -796,4 +798,8 @@ docker-compose up -d --build
 docker exec traiders_db_1 psql -U postgres -d postgres < db-dumps/traiders_db.sql
 docker exec traiders_annotation_db_1 psql -U postgres -d postgres < db-dumps/traiders_annotation_db.sql
 ```
+
+# User Manual
+
+# API Documentation
 
