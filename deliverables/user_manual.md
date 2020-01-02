@@ -58,9 +58,33 @@ In Portfolio tab, "My Portfolios" and "Followed Portfolios" are presented.
 One can also simply use Profile page to edit his or her own portfolios.
 
 ## Social Interactions with Other Users
+Our Traders application is convenient for users to interact with each other, 
+share their ideas and economic strategies. 
 
+One can share an Article which is a text with or without picture. He or she can also edit or delete it.
+The Articles written by users are listed in homepage and in Articles section of Social tab. 
+A User can like or make comment with or without photo on an Article and other people see 
+and like these comments. 
+
+One can see the author of an Article and can follow the author directly without going to his/her Profile page. 
+One might not simply follow someone if the other user's profile is private, 
+then application creates a Following Request and the current user should wait 
+until the other user accepts this request.
+
+One can annotate a part of the text or part of the image in Article with a text or image. 
+To annotate an image, one should click and drag, then he or she can submit an image or text.
+To annotate a text, one should select the text desired to be annotated, then he/she can submit an image or text.
+Annotations are colourfully shown and one can simply read annotation, learn who annotated and view even nested annotations.
+
+An example use of text annotation can be "The previous value is %1.2" 
+annotated to a part of text telling "FED will make announcement on inflation rate."
 
 ## Economic Events
+An Event can be simplified to an announcement of a value by authorities in a country. 
+Economic events can be seen by a User in Events section of Social tab. An event table is presented to
+a User. Events have properties such as name, actual value, previous value, country etc. When an event occurs,
+it means the actual value has just been announced. A User can follow an Event to be notified when this Event
+occurs.
 
 ## Financial Investments
 
