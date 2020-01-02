@@ -89,11 +89,10 @@ We, as Group 2 are very happy with the final product that we have, but most impo
 | 10- Deployment and Security      | Complete | As improvement needed | Deployment of the project and accessibility                                            |
 | 11- Web Project, Frontend        | Complete | Weekly                | Frontend project and accessibility                                                     |
 | 12- Mobile App                   | Complete | Weekly                | Mobile application and accessibility                                                   |
-| 13- Weekly Milestones                   | Complete | Weekly                | To increase efficiency and throughput in delivery 
-
-| 14- System Manual                   | Complete | As needed                | Describes system requirements and deployment process                                                   |
-| 15- User Manaul                   | Complete | As needed                | Instructs how users can start using & utilize the system 
-  
+| 13- Weekly Milestones                   | Complete | Weekly                | To increase efficiency and throughput in delivery |
+| 14- System Manual                   | Complete | As needed                | Describes system requirements and deployment process|
+| 15- User Manaul                   | Complete | As needed                | Instructs how users can start using & utilize the system |
+| 16- Annotation Model                   | Complete | As update needed                | Demonstrate the implemented data annotation Model |
 
 **1- GitHub Wiki:**
 We are updating our wiki page as needed, pushing meeting notes and keeping everything from requirements to group members updated on there.
@@ -130,6 +129,7 @@ We frequently deployed our application's latest version throughout the developme
 **11- Web Project, Frontend:**
 Our web application is up and running at [traiders.tk](//traiders.tk). Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & tracks events, list & follow users, list & view & comment (on) equipment, list & see details with charts for several parities in different category, add assets, make investments, create & follow portfolios, making text or image annotations for articles, sign-up or sign-in with Google, make semantic search. get recommendations, see notifications, 
 
+
 **12- Mobile App:**
 The latest version of our mobile application will always be downloadable at [traiders.tk/mobile](//traiders.tk/mobile).
 Users can register, sign in, choose an avatar, list & view & like & comment (on) articles, list & track events, list & follow users, list & view & comment (on) equipment, list & see details for several parities in different category, sign-up or sign-in with Google,  create & delete alarms, create & list portfolios, make semantic search, get recommendations, see notifications, make text to text annotations for articles.
@@ -142,6 +142,9 @@ A system manual has been prepared to show how to deploy the application as both 
 
 **15- User Manual:**
 A user manual has been prepared to instruct users how they can start using the application. It explains the important functionalities of the application and tells how a user can use these functionalities in a step by step manner.
+
+**16- Annotation Model:**
+An document has been prepared to demonstrate how we foollowed the Web Annotation Data Model during the implmentation of annotation functionality.
 
 
 # Work Done by Each Member
