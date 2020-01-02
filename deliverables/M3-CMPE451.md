@@ -90,6 +90,9 @@ We, as Group 2 are very happy with the final product that we have, but most impo
 | 11- Web Project, Frontend        | Complete | Weekly                | Frontend project and accessibility                                                     |
 | 12- Mobile App                   | Complete | Weekly                | Mobile application and accessibility                                                   |
 | 13- Weekly Milestones                   | Complete | Weekly                | To increase efficiency and throughput in delivery 
+
+| 14- System Manual                   | Complete | As needed                | Describes system requirements and deployment process                                                   |
+| 15- User Manaul                   | Complete | As needed                | Instructs how users can start using & utilize the system 
   
 
 **1- GitHub Wiki:**
@@ -133,6 +136,13 @@ Users can register, sign in, choose an avatar, list & view & like & comment (on)
 
 **13- Weekly Milestones:**
 We continued to utilize milestone concept. As stated previously we tried to set weekly or biweekly custom milestones to increase efficiency in delivery and ease the management of the project per domain like backend, frontend, etc.
+
+**14- System Manual:**
+A system manual has been prepared to show how to deploy the application as both backend and frontend and it lists the requirements needed to be satisfied.
+
+**15- User Manual:**
+A user manual has been prepared to instruct users how they can start using the application. It explains the important functionalities of the application and tells how a user can use these functionalities in a step by step manner.
+
 
 # Work Done by Each Member
 
