@@ -2,7 +2,7 @@ Django==2.2.18
 requests==2.21.0
 django-cron==0.5.1
 django-cors-headers==2.5.3
-djangorestframework==3.9.3
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 PyJWT==1.7.1
 pytz==2019.1
